@@ -1,0 +1,19 @@
+{# % extends "AdminBundle:Layout:user-admin.html.twig" % este template tiene el menu de usuario   #}
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} 
+{{ parent() }}
+ <script src="{{ asset('bundles/common/js/functions-forms.js') }}"></script>
+ {% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+{{ include('AdminBundle:Default:content-header.html.twig') }}  
+{{ include('AdminBundle:DealerForm:feedsForm-content.html.twig') }}
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 

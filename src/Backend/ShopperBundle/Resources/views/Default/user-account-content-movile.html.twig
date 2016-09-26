@@ -1,0 +1,575 @@
+<style>
+    #header {
+        z-index: 0;
+    }
+
+    .dismiss_button {
+        margin-left: 6px;
+    }
+
+    #savedCars .form-group {
+        padding: 4px 0;
+    }
+
+    #savedCars .form-group input {
+        position: absolute;
+        bottom: 2px;
+    }
+
+    #myTabContent {
+        background-color: #ffffff;
+        border: 1px solid #CCCCCC;
+    }
+
+    ul.nav-tabs {
+        margin-bottom: 0px;
+    }
+
+    .nav-tabs > li {
+        margin-bottom: -2px;
+    }
+
+    ul.nav-tabs li a {
+        background-color: #ffffff;
+        border: 1px solid #CCCCCC;
+        border-radius: 0px;
+        padding: 4px 15px;
+    }
+
+    ul.nav-tabs li.active a {
+        border: 1px solid #CCCCCC;
+        border-bottom-color: transparent;
+    }
+
+    .glyphicon {
+        top: 0px;
+    }
+
+    .movil_car_display {
+        background-color: #ffffff;
+        padding: 7px 0px;
+        font-size: 15px;
+        border-bottom: 1px solid rgba(218, 218, 218, 0.91);
+        border-top: 1px solid rgba(218, 218, 218, 0.91);
+    }
+
+    .modal-content {
+        border-radius: 0px;
+    }
+
+</style>
+<link href="{{ asset('bundles/common/css/movil-search-result-style.css') }}" rel="stylesheet"/>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12" style="background-color: white">
+
+        <div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow track-url auto-scroll"
+             style="margin-bottom: 30px;padding-top: 20px;">
+            <div id="myTabContent1" class="tab-content" style=" border: 0px">
+
+                <div class="tab-pane active in" id="myaccount" style="color: #888888;">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <h3 style="margin-bottom: 0px;">Profile</h3>
+                            <span>Any information you provide is kept confidential.</span><br/>
+                        </div>
+                        <div class="col-xs-12 col-sm-12" style="margin-top: 20px;margin-bottom: 25px;">
+
+                            <form id="form-description2"
+                                  action="{{ path('shopper_page') }}" {{ form_enctype(form2) }}
+                                  method="POST" class="form-horizontal">
+
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <div class="col-sm-6 col-xs-6">
+                                        {{ form_label(form2.name) }} <span class="asterik">*</span>
+                                        {{ form_widget(form2.name) }}
+                                    </div>
+                                    <div class="col-sm-6 col-xs-6">
+                                        {{ form_label(form2.lastName) }} <span class="asterik">*</span>
+                                        {{ form_widget(form2.lastName) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom: 15px">
+                                    <div class="col-sm-12 col-xs-12">
+                                        {{ form_label(form2.zipCode) }} <span class="asterik">*</span>
+                                        {{ form_widget(form2.zipCode) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom: 15px">
+                                    <div class="col-sm-12 col-xs-12">
+                                        {{ form_label(form2.phone) }}
+                                        {{ form_widget(form2.phone) }}
+                                    </div>
+                                </div>
+                                <input type="hidden" id="edit_shopper1" name="edit_shopper1" value="yes">
+                                <input type="hidden" id="edit_profile1" name="edit_profile1" value="yes">
+
+                                <div class="form-group" style="margin-bottom: 15px">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="alert hide" id="succes_usser1"
+                                             style="background-color: #A6CFC9">
+                                            <button type="button" class="close"
+                                                    data-dismiss="alert">&times;</button>
+                                            <strong>Succes!</strong> Your Account has been updated.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-left"
+                                     style="padding-left: 0px; !important;">
+                                    <button id="btnsavecontinue" type="submit" class="btn btn-primary"
+                                            style="background-color: #cb2020;border-color:transparent;color: white;border-radius: 0px;padding: 6px 50px;">
+                                        SAVE CHANGES
+                                    </button>
+                                </div>
+                                {{ form_rest(form2) }}
+                            </form>
+                        </div>
+                        <div class="col-xs-12 col-sm-12">
+                            <input type="hidden" id="open_modal1" value="{{ open_modal }}">
+                            <input type="hidden" id="pass_change1" value="{{ pass_change }}">
+                            <input type="hidden" id="edit_profile_succes1" value="{{ edit_profile_succes }}">
+                            <input type="hidden" id="exist_email1" value="{{ exist_email }}">
+                            <input type="hidden" id="edit_user_succes1" value="{{ edit_user_succes }}">
+
+                            <ul class="list-unstyled" style="margin-left: 0px;">
+                                <li><span style="font-size: 14px;font-weight: 700">Email</span></li>
+                                <li><a href="#">{{ email }}</a></li>
+                                <li><a href="javascript:void(0)" id="change_email1" style="color: #758ebe;"
+                                       data-toggle="modal"
+                                       data-target="#myEmailM">
+                                        Change
+                                        Email
+                                    </a>
+                            </ul>
+
+                            <div class="form-group" style="margin-top: 10px;margin-left: 0px;margin-right: 25px">
+                                <div class="alert hide" id="profile_succes1"
+                                     style="background-color: #A6CFC9">
+                                    <button type="button" class="close"
+                                            data-dismiss="alert">&times;</button>
+                                    <strong>Succes!</strong> Your Email has been changed.
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 10px;margin-left: 0px;margin-right: 25px">
+                                <div class="alert hide" id="exist_email_alert1"
+                                     style="background-color: #cb2020">
+                                    <button type="button" class="close"
+                                            data-dismiss="alert">&times;</button>
+                                    <strong>Error!</strong> This Email exist.
+                                </div>
+                            </div>
+
+                            <ul class="list-unstyled" style="margin-left: 0px;margin-top: 20px">
+                                <li><span style="font-size: 14px;font-weight: 700">Password</span></li>
+                                <li>
+                                    <a href="javascript:void(0)" id="change_pass1" style="color: #758ebe;"
+                                       data-toggle="modal"
+                                       data-target="#myPasswordM">
+                                        Change your password
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="form-group" style="margin-top: 10px;margin-left: 0px;margin-right: 25px">
+                                <div class="alert hide" id="succes_password1"
+                                     style="background-color: #A6CFC9">
+                                    <button type="button" class="close"
+                                            data-dismiss="alert">&times;</button>
+                                    <strong>Succes!</strong> Your Password has been changed.
+                                </div>
+                            </div>
+                            <form id="form-cancelAcc"
+                                  action="{{ path('shopper_page') }}" {{ form_enctype(form1) }}
+                                  method="POST" class="form-horizontal" style="margin-top: 20px">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('cancelAcc') }}">
+                                <input type="hidden" name="cancelAccVal" id="cancelAccVal" value="yes">
+                            </form>
+
+                            <ul class="list-unstyled" style="margin-left: 0px;margin-top: 20px">
+                                <li><span style="font-size: 14px;font-weight: 700">Cancel Membership</span></li>
+                                <li><a id="cancelAcc1" name="cancelAcc1" style="color: #758ebe;" href="#"
+                                       class="cancelAcc">Cancel
+                                        your account at FreeAutolisting</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE MODALS -->
+<div class="modal fade" id="myEmailM" tabindex="-1" role="dialog"
+     aria-labelledby="myEmailMLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myPasswordLabel">Change Email</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <fieldset>
+                        <div class="row">
+                            <form id="form-change-email"
+                                  action="{{ path('shopper_page') }}" method="POST" class="form-horizontal">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('change_email') }}">
+                                <input type="hidden" id="edit_shopper" name="edit_shopper" value="yes">
+                                <input type="hidden" id="edit_profile" name="edit_profile" value="yes">
+
+                                <div class="form-group">
+
+                                    <div class="col-sm-12">
+                                        <label for="user_phone">Email</label>
+                                        <span class="asterik">*</span>
+                                        <input id="email" class="form-control" required="required" type="email"
+                                               value="{{ email }}"
+                                               name="email">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 10px">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Change Email</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myPasswordM" tabindex="-1" role="dialog"
+     aria-labelledby="myPasswordMLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myPasswordMLabel">Change password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <fieldset>
+                        <div class="row">
+                            <form id="form-change-passwordM"
+                                  action="{{ path('shopper_page') }}" {{ form_enctype(form3) }}
+                                  method="POST" class="form-horizontal">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('change_password') }}">
+
+                                <div class="form-group">
+
+                                    <div class="col-sm-12">
+                                        {{ form_errors(form3.current_password) }}
+                                        {{ form_errors(form3.plainPassword) }}
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form3.current_password) }}
+
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 20px">
+
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form3.plainPassword) }}
+                                    </div>
+                                </div>
+                                <input type="hidden" id="edit_shopper" name="edit_shopper" value="yes">
+
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                    </div>
+                                </div>
+                                {{ form_rest(form3) }}
+                            </form>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<img src="{{ asset('bundles/common/images/banner-contact.jpg') }}"
+     style="margin-left: 0px;margin-bottom: 0px"/>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"
+     style="margin-left: 1px;margin-right: 1px">
+    <div class="panel panel-default" style="border-right: none;border-left: none;">
+        <div class="panel-heading" role="tab" id="headingOne" style="background-color:#e4e4e4 ">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+                <span class="badge pull-right"><span class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                My Saved Cars
+            </li>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="headingOne">
+            {% for vehiclesave in vehiclessaved %}
+                {% set vehicle =  vehiclesave.vehicle %}
+                {% if(vehicle.profile) %}
+                    {% set pf = vehicle.gallery.profileimages[0] %}
+                    {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                    {% set photoid = vehicle.profile %}
+                    {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                {% elseif vehicle.user %}
+                    {% set photoid = vehicle.user.id %}
+                    {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                        {% set pf = vehicle.gallery.vehicleimages[0] %}
+                        {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                        {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                    {% else %}
+                        {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                        {% set profileimageslength = 0 %}
+                    {% endif %}
+                {% endif %}
+                <div class="row movil_car_display">
+                    <div class="col-xs-4 col-sm-3" style="padding-right: 7px;">
+                        <div class="thumbnail" style="margin-bottom: 0px;">
+                            <a href="{{ path('private_car_details_dashboard', {'serie': vehicle.serie}) }}"
+                               class="thumbnail" style="margin-bottom: 0px ">
+                                <img src="{{ asset(vehicle_image) }}"
+                                     alt=""
+                                     class="img-responsive"/></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-8 col-sm-9 no_padding">
+                        <div class=" caption " style="padding-right: 0px;padding-left: 0px">
+                            <a href="#" class="pull-left"
+                               style="text-decoration: no-underline;color: #838081;font-weight: bold">{{ vehicle.vehiclesinformation.condition.name }} {{ vehicle.vehiclesinformation.getYear() }} {{ vehicle.vehiclesinformation.getMake() }} {{ vehicle.vehiclesinformation.getModel().modelDisplay }}</a>
+                            <br>
+                                <span class="pull-left"
+                                      style="font-weight: bold; color: black">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                            <br/>
+                                <span class="pull-left">
+                                {{ vehicle.vehiclesinformation.mileage|number_format() }} <b>Miles</b>
+                                </span>
+                            <br/>
+                                <span class="pull-left">
+                                    {{ vehicle.vehiclesdetails.exteriorcolor.colorname }}
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function () {
+
+    function createPopover(elem, text) {
+        elem.attr('data-toggle', 'popover');
+        elem.attr('data-placement', 'right');
+        // elem.attr('data-placement', 'bottom');
+        elem.attr('data-content', text);
+        elem.attr('data-container', 'body');
+        elem.popover();
+        elem.trigger('click');
+        elem.focus();
+    }
+
+    function checkSelected(o) {
+        if (o.val() == 0) {
+            createPopover(o, 'Please fill out this field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkLength(o, min, max) {
+        if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkRegexp(o, regexp) {
+        if (!( regexp.test(o.val()) )) {
+            createPopover(o, 'Invalid field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    jQuery("input:checked").each(function () {
+        this.checked = false;
+    });
+
+    jQuery(".compare_check").change(function () {
+        var check = this;
+        if (jQuery("#compare_panel").css("display") == "none")
+            jQuery("#compare_panel").slideDown("slow");
+        if (check.checked == true) {
+            var car_serie = jQuery(check).attr("currentcar");
+            var imagen = jQuery("#" + car_serie).find("img")[0];
+            var currentsrcimage = imagen.src;
+            var inserted = false;
+            jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+                if (!jQuery(this).hasClass("hasphoto") && !inserted) {
+                    //jQuery(this).css("background-image","url('"+ currentsrcimage +"')")
+                    jQuery(this).find("img").attr("src", currentsrcimage);
+                    jQuery(this).addClass("hasphoto");
+                    jQuery(this).find(".reset").show();
+                    inserted = true;
+                    jQuery(check).attr("image_compare", i);
+                    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) + 1);
+                    jQuery("#image-" + i).val(car_serie);
+                    jQuery("#image-" + i + "_imagesrc").val(currentsrcimage);
+
+                    if (parseInt(jQuery("#compare_counter").text()) > 1) {
+                        jQuery("#btncompare").removeClass("disabled");
+                        jQuery("#cartext").text("cars");
+                    }
+                }
+            });
+            if (!inserted)
+                check.checked = false;
+        } else {
+            var asociated = jQuery(check).attr("image_compare");
+            jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+                if (i == asociated) {
+                    jQuery(this).find("img").attr("src", "");
+                    jQuery(this).removeClass("hasphoto");
+                    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) - 1);
+                    jQuery(this).find(".reset").hide();
+                    jQuery("#image-" + i).val("");
+                    jQuery("#image-" + i + "_imagesrc").val("");
+                    if (parseInt(jQuery("#compare_counter").text()) < 2) {
+                        jQuery("#btncompare").addClass("disabled");
+                        jQuery("#cartext").text("car");
+                    }
+                    if (parseInt(jQuery("#compare_counter").text()) == 0)
+                        jQuery("#compare_panel").slideUp("slow");
+
+                }
+            });
+        }
+    });
+
+    jQuery("#clearAllCompare").click(function () {
+        jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+            if (jQuery(this).hasClass("hasphoto")) {
+                jQuery(this).find("img").attr("src", "");
+                jQuery(this).removeClass("hasphoto");
+                jQuery("#compare_counter").text(0);
+                jQuery("#btncompare").addClass("disabled");
+                jQuery("#compare_panel").slideUp("slow");
+            }
+        });
+        for (var i = 0; i < 3; i++) {
+            jQuery("#image-" + i).val("");
+            jQuery("#image-" + i + "_imagesrc").val("");
+        }
+        jQuery("input:checked").each(function () {
+            this.checked = false;
+        });
+        jQuery(".reset").hide();
+    });
+
+    jQuery(".btn-primary").click(function (e) {
+        if (jQuery(this).hasClass("disabled"))
+            e.preventDefault();
+    });
+
+    if (jQuery('#exist_email1').val() == 1) {
+
+        jQuery('#exist_email_alert1').removeClass('hide');
+    } else {
+        jQuery('#exist_email_alert1').addClass('hide');
+    }
+    if (jQuery('#edit_user_succes1').val() == 1) {
+
+        jQuery('#succes_usser1').removeClass('hide');
+    } else {
+        jQuery('#succes_usser1').addClass('hide');
+    }
+    if (jQuery('#open_modal1').val() == 1) {
+        jQuery('#change_pass1').trigger('click');
+    }
+    if (jQuery('#pass_change1').val() == 1) {
+        jQuery('#succes_password1').removeClass('hide');
+    } else {
+        jQuery('#succes_password1').addClass('hide');
+    }
+    if (jQuery('#edit_profile_succes1').val() == 1) {
+        jQuery('#profile_succes1').removeClass('hide');
+    } else {
+        jQuery('#profile_succes1').addClass('hide');
+    }
+
+    jQuery('.cancelAcc1').confirmation({
+        placement: 'bottom',
+        btnOkLabel: 'Yes',
+        btnCancelLabel: 'Nevermind',
+        btnCancelIcon: '',
+        onConfirm: function () {
+            jQuery('#form-cancelAcc').submit();
+        },
+        onCancel: function () {
+
+        }
+    })
+
+});
+
+function ResetCompareImage(elem, pos) {
+    var compareBox = jQuery(elem).parent();
+    jQuery(compareBox).find("img").attr("src", "");
+    jQuery(compareBox).removeClass("hasphoto");
+    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) - 1);
+    jQuery(compareBox).find(".reset").hide();
+    jQuery("#image-" + pos).val("");
+    jQuery("input[image_compare='" + pos + "']")[0].checked = false;
+    if (parseInt(jQuery("#compare_counter").text()) < 2)
+        jQuery("#btncompare").addClass("disabled");
+    if (parseInt(jQuery("#compare_counter").text()) == 0)
+        jQuery("#compare_panel").slideUp("slow");
+}
+
+jQuery(".delete_button").on("click", function () {
+    var savecarelement = jQuery(this);
+
+    var vehicle_serie = savecarelement.attr("car-serie");
+    jQuery.post('{{ path('remove_carsaved_in_user')}}',
+            {
+                serie: vehicle_serie
+            },
+            function (data) {
+                if (data.response) {
+                    jQuery("#row_" + vehicle_serie).fadeOut().remove();
+                    var count = jQuery("#savedcars_counter").text();
+                    jQuery("#savedcars_counter").text(parseInt(count) - 1);
+                }
+                else {
+                    alert(data.error);
+                }
+            });
+});
+
+function PrintDiv() {
+    var div = jQuery("#savedCars").html();
+    jQuery.post('{{ path('printsavedcars')}}',
+            {
+                div: div
+            });
+}
+
+</script>

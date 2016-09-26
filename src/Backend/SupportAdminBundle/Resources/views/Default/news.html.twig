@@ -1,0 +1,16 @@
+{% extends "SupportAdminBundle:Layout:user-admin.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }}
+
+ {% endblock %}
+ {% block header %}{{ include('CommonBundle:Default:header-support.html.twig') }} {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+  {% block filters %} {{ include('SupportAdminBundle:Default:breadcrums-news.html.twig') }}{% endblock %}
+ {% block body %}
+
+{{ include('SupportAdminBundle:Default:news-content.html.twig') }}  
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

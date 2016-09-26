@@ -1,0 +1,1855 @@
+<style>
+    #header {
+        z-index: 0;
+    }
+</style>
+<div class="row" style="background-color: #ffffff;margin: 0px">
+    <div class="container"
+         style="padding-top: 27px;padding-bottom: 78px;">
+        <div id="dealer_carrusel_container" class="col-md-3 no_padding">
+            <div id="dealer_carrusel" class="carousel slide" data-interval="10000" data-ride="carousel">
+
+                <!-- Bloque para las imágenes -->
+                <div class="carousel-inner">
+                    {% for profileimage in profile.gallery.profileImages %}
+                        <div class="carrusel_tumb old item  {% if loop.first %} active {% endif %}"
+                             style="height: 163px;background-image:url('{{ asset(profileimage.getWebPathThumbnail(profile)) }}');"></div>
+                    {% endfor %}
+                </div>
+
+                <!-- Controles -->
+                <a class="left carousel-control" href="#dealer_carrusel" data-slide="prev">
+                    <span class="glyphicon glyphicon-triangle-left"></span>
+                </a>
+                <a class="right carousel-control" href="#dealer_carrusel" data-slide="next">
+                    <span class="glyphicon glyphicon-triangle-right"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-9" style="padding-right: 0px">
+
+            <div class="col-md-2" style="padding-left: 0px">
+                <div class="thumbnail">
+                    <div class="logo img-responsive"
+                         style="background-image:url('{{ asset( profile.logo) }}');height: 74px;width:100%">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10 no_padding" style="line-height: 0.5em;">
+                <div class="col-md-6 no_padding pull-left">
+                    <h3 style="margin-top: 0px;margin-bottom: 0px; font-weight: 500;color: black">{{ profile.description.name }}</h3>
+                    <br>
+                    <a class="blue_link" href="">Inventory <span>{{ profile.getInventory() }}</span> cars</a>
+                </div>
+                <div class="col-md-3 pull-right" style="padding-right: 0px">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#myModal"
+                       class="btn btn_edit btn-block" style="width: 100%">Email this Dealer</a>
+                    <a href="{{ profile.description.webPage }}"
+                       class="btn btn_edit btn-block" style="width: 100%">Visit our website</a>
+
+                    <div class="col-md-12 no_padding text-center" style="margin-top: 10px">
+                        <!-- Your like button code -->
+                       {# <a class="btn btn-social-icon btn-facebook"
+                           onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                           href="http://www.facebook.com/plugins/like.php?href={{ profile.feeds.facebook }}">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter"
+                           onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                           href="https://twitter.com/share?url=https://www.freeautolisting.com{{ path("dealer-info", {'profile': profile.serie }) }}">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-google"
+                           onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                           href="//plus.google.com/share?url=https://www.freeautolisting.com{{ path("dealer-info", {'profile': profile.serie }) }}">
+                            <span class="fa fa-google-plus"></span>
+                        </a>#}
+                        <a class="media-buttons facebook_button icon icon_twitter tip-top tooltipstered pull-left"
+                           target="_blank"
+                           rel="nofollow"
+                           onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                           href="http://www.facebook.com/plugins/like.php?href={{ profile.feeds.facebook }}">
+                            </i>
+                        </a>
+                        <a class="media-buttons twitter_button icon icon_twitter tip-top tooltipstered" target="_blank"
+                           rel="nofollow"
+                           onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                           href="https://twitter.com/share?url=https://www.freeautolisting.com{{ path("dealer-info", {'profile': profile.serie }) }}">
+                            </i>
+                        </a>
+                        <a class="media-buttons googleplus_button icon icon_googleplus tip-top tooltipstered  pull-right pull-right"
+                           target="_blank" rel="nofollow"
+                           onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                           href="//plus.google.com/share?url=https://www.freeautolisting.com{{ path("dealer-info", {'profile': profile.serie }) }}">
+                            </i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" style="padding-left: 0px">
+                <span style="font-size: 15px;font-weight: bold">{{ profile.description.phone }}</span><br/>
+                <span id="address">{{ profile.description.address }}</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: -44px">
+<div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow track-url auto-scroll"
+     style="margin-bottom: 50px;">
+<ul class="nav nav-tabs" style="background-color: #ffffff">
+    <li id="overview_tab" class="{% if currenttab == 1 %} active {% endif %}">
+        <a aria-expanded="false" href="#inventory" data-toggle="tab" style="padding: 10px 55px;">INVENTORY</a>
+    </li>
+    <li id="modelsdetails_tab" class="text-uppercase">
+        <a aria-expanded="true" href="#about" data-toggle="tab" style="padding: 10px 55px;">
+            About the Dealer</a></li>
+    <li id="reviewsdetails_tab" class="text-uppercase {% if currenttab == 3 %} active {% endif %}">
+        <a aria-expanded="true" href="#reviews" data-toggle="tab" style="padding: 10px 55px;">
+            Reviews</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+
+<div class="tab-pane {% if currenttab == 1 %} active in {% endif %}" id="inventory">
+<div class="row">
+<div class="col-xs-12 col-md-12 col-sm-12">
+<div id="sidebar-left" class="col-md-2 col-sm-3" style="background-color: white">
+<div class="row">
+<div class="container-fluid no_padding">
+<div class="col-md-12 ">
+<h6 class="text-uppercase  bold_text">Your Search</h6>
+
+<div id="filters_panel">
+    {% for filterbox in filterlist %}
+        {% if filterbox|length > 0 %}
+            <div class="panel panel-default sidebar_panel">
+                <div class="panel-body" id="{{ filterbox['name']|lower }}_filter_box">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no_padding">
+                        <span class="pull-left">{{ filterbox['name'] }}</span>
+                                            <span class="badge pull-right close_filter_box"
+                                                  onclick="javascript:DestroyFilterBox(this)">x</span>
+                    </div>
+                    <ul class="col-md-12 list-unstyled">
+                        <li>
+                            <a href="#" id="{{ filterbox['values'][0] }}">{{ filterbox['values'][1] }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 no_padding">
+    <div class="col-md-7 col-sm-7 col-xs-7 no_padding">
+        <a id="btn-search" href="javascript:void(0)"
+           class="btn btn-danger btn-group-justified text-uppercase">Search</a>
+    </div>
+    <div class="col-md-4 col-sd-4 col-xd-4 col-md-offset-1 col-sm-offset-1 no_padding">
+        <a href="javascript:removeAllFilterBox();" class="btn btn-sm">Clear all</a>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+
+<div class="list-group" style="margin-top: 30px">
+<div id="year_filter" class="list-group-item" data-toggle="tooltip" data-placement="left">
+
+
+    <div class="panel-body" style="padding: 5px 0px ">
+        <li class="dropdown list-group-item-text" style="margin-top: 0px;">
+            <a id="min_year" href="#" class="dropdown-toggle text-right"
+               data-toggle="dropdown"><span class="pull-left minimum_text"
+                                            style="font-size: 13px">Minimum Year</span>
+                <b class="caret" style="color: #000000"></b>
+            </a>
+            <ul class="dropdown-menu pre-scrollable minimum_list">
+                <li style="text-align: left">
+                    {% for year in obj_year %}
+                        <a href="javascript:void(0)" class="min" id="{{ year.id }}"
+                           style="padding: 3px 10px;font-size: 11px">{{ year.year }}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown list-group-item-text">
+            <a href="#" id="max_year" class="dropdown-toggle text-right"
+               data-toggle="dropdown"><span class="pull-left maximum_text"
+                                            style="font-size: 13px">Maximum Year</span>
+                <b class="caret" style="color: #000000"></b>
+            </a>
+            <ul class="dropdown-menu pre-scrollable maximum_list">
+                <li style="text-align: left">
+                    {% for year in obj_year %}
+                        <a href="javascript:void(0)" class="max" id="{{ year.id }}"
+                           style="padding: 3px 10px;font-size: 11px">{{ year.year }}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+        </li>
+    </div>
+
+</div>
+<div id="price_filter" class="list-group-item">
+    <div class="panel-body" style="padding: 5px 0px ">
+
+        <li class="dropdown list-group-item-text" style="margin-top: 0px;">
+            <a href="#" class="dropdown-toggle text-right"
+               data-toggle="dropdown"><span class="pull-left minimum_text"
+                                            style="font-size: 13px">Minimum Price</span>
+                <b class="caret" style="color: #000000"></b>
+            </a>
+            <ul class="dropdown-menu minimum_list">
+                <li style="text-align: left">
+                    {% for price in prices %}
+                        <a href="javascript:void(0)"
+                           style="padding: 3px 10px;font-size: 11px">${{ price|number_format(0, '.') }}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown list-group-item-text">
+            <a href="#" class="dropdown-toggle text-right"
+               data-toggle="dropdown"><span class="pull-left maximum_text"
+                                            style="font-size: 13px">Maximum Price</span>
+                <b class="caret" style="color: #000000"></b>
+            </a>
+            <ul class="dropdown-menu maximum_list">
+                <li style="text-align: left">
+                    {% for price in prices %}
+                        <a href="javascript:void(0)"
+                           style="padding: 3px 10px;font-size: 11px">${{ price|number_format(0, '.') }}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+        </li>
+
+    </div>
+</div>
+<div class="list-group-item" id="condition">
+
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+        style="list-style: none;">Condition
+    </li>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group" id="condition_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="javascript:void(0)" id="all" class="">All</a>
+            </div>
+            {% for condition in conditions %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="{{ condition.id }}" class="">{{ condition.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div id="make" class="list-group-item">
+
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapsedmake" aria-expanded="false" aria-controls="collapsedmake"
+        style="list-style: none;">Make
+    </li>
+    <div id="collapsedmake" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group make_filter_extended" id="make_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" id="all" class="">All</a>
+            </div>
+            {% for i in range(0,8) %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="{#}{ make.id }#}" class="">{{ obj_make[i].makeId }}</a>
+                </div>
+            {% endfor %}
+            <!--<button class="btn-group-justified btn-default" data-toggle="popover" id="moreMake">Choose More >></button>-->
+            <a href="#" class="btn show-pop-large btn-group-justified btn-default" data-placement="right">Choose More
+                >></a>
+        </div>
+    </div>
+</div>
+<div id="model_filter" class="list-group-item">
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapsedmodel" aria-expanded="false" aria-controls="collapsedmodel"
+        style="list-style: none;">Model
+    </li>
+    <div id="collapsedmodel" class="collapse" aria-labelledby="headingOne">
+        <!--<div class="list-item active All">
+            <span class="glyphicon glyphicon-ok"></span>
+            <a href="javascript:ChangeDropDownValueModel(this)"  id="all" class="">All</a>
+        </div>-->
+    </div>
+</div>
+
+<div id="bodystyle" class="list-group-item">
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapsedbodystyle" aria-expanded="false" aria-controls="collapsedbodystyle"
+        style="list-style: none;">Body Style
+    </li>
+    <div id="collapsedbodystyle" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group" id="bodystyle_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" id="all" class="">All</a>
+            </div>
+            {% for i in range(0,5) %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="{{ bodystyles[i].id }}" class="">{{ bodystyles[i].name }}</a>
+                </div>
+            {% endfor %}
+            <a href="#" class="btn show-pop-large_bodystyle btn-group-justified btn-default" data-placement="right">Choose
+                More
+                >></a>
+        </div>
+    </div>
+</div>
+<div id="interiorcolor" class="list-group-item">
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapsedinteriorcolor" aria-expanded="false" aria-controls="collapsedinteriorcolor"
+        style="list-style: none;">Interior Color
+    </li>
+    <div id="collapsedinteriorcolor" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group pre-scrollable" id="interiorcolor_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" id="all" class="">All</a>
+            </div>
+            {% for color in colors %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="{{ color.id }}" class="">{{ color.colorname }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div id="exteriorcolor" class="list-group-item">
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapsedexteriorcolor" aria-expanded="false" aria-controls="collapsedexteriorcolor"
+        style="list-style: none;">Exterior Color
+    </li>
+    <div id="collapsedexteriorcolor" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group pre-scrollable" id="exteriorcolor_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" id="all" class="">All</a>
+            </div>
+            {% for color in colors %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="{{ color.id }}" class="">{{ color.colorname }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div id="transmission" class="list-group-item">
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapsedtransmission" aria-expanded="false" aria-controls="collapsedtransmission"
+        style="list-style: none;">Transmission
+    </li>
+    <div id="collapsedtransmission" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group" id="transmission_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" id="all" class="">All</a>
+            </div>
+            {% for transmission in transmissions %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="{{ transmission.id }}" class="">{{ transmission.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div id="mileage" class="list-group-item">
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapsedmileage" aria-expanded="false" aria-controls="collapsedtransmission"
+        style="list-style: none;">Mileage
+    </li>
+    <div id="collapsedmileage" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group" id="mileage_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" id="all" class="">All</a>
+            </div>
+            <div class="list-item">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" class="under">Under 30,000</a>
+            </div>
+            <div class="list-item">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" class="under">Under 60,000</a>
+            </div>
+            <!--{##}% for m in mileages %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    {##}% if loop.last %}
+                    <a href="#item" class="over">Over {##}{ m }}</a>
+                    {##}% else %}
+                        <a href="#item" class="under">Under {##}{ m }}</a>
+                    {##}% endif %}
+                </div>
+            {##}% endfor %}-->
+        </div>
+    </div>
+</div>
+<div id="fuel" class="list-group-item">
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapsedfuel" aria-expanded="false" aria-controls="collapsedfuel"
+        style="list-style: none;">Fuel
+    </li>
+    <div id="collapsedfuel" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group" id="fuel_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" id="all" class="">All</a>
+            </div>
+            {% for fuel in fuels %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="{{ fuel.id }}" class="">{{ fuel.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div id="doors" class="list-group-item">
+
+    <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+    <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+        href="#collapseddoors" aria-expanded="false" aria-controls="collapseddoors"
+        style="list-style: none;">Doors
+    </li>
+    <div id="collapseddoors" class="collapse" aria-labelledby="headingOne">
+
+        <div class="list-group" id="doors_filter">
+            <div class="list-item active All">
+                <span class="glyphicon glyphicon-ok"></span>
+                <a href="#item" id="all" class="">All</a>
+            </div>
+            {% for doors in doorss %}
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="{{ doors.id }}" class="">{{ doors.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-10 col-sm-7" style="padding-right: 0px;">
+    <div class="col-md-12 " style="background-color: #ffffff;">
+
+        <nav class="navbar" role="navigation"
+             style="background-color: white;border-radius: 0px;padding:0px;margin-bottom: 0px;min-height: 40px;">
+            <div class="collapse navbar-collapse navbar-ex1-collapse"
+                 style="padding-left: 0px;padding-right: 0px;padding-top: 3px;">
+                <div class="col-md-10 no_padding pull-left">
+                    {{ include('CommonBundle:Default:filtersCarsResult.html.twig') }}
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col-md-12" id="compare_panel" hidden="">
+        <div id="compare_image_container" class="col-md-6 text-left no_padding">
+            <!--<div class="compare_cars_photo img-responsive" hasfoto="no" style="background-image:url({{ asset('bundles/common/images/for-sale.jpg') }})">
+             <div class="reset">X</div>
+            </div>-->
+            <div class="compare_cars_photo thumbnail">
+                <div class="reset" hidden="" onclick="ResetCompareImage(this,0)">X</div>
+                <img class="img-responsive" style="height: 100%; border: 1px solid white;"/>
+            </div>
+            <div class="compare_cars_photo thumbnail">
+                <div class="reset" hidden="" onclick="ResetCompareImage(this,1)">X</div>
+                <img class="img-responsive" style="height: 100%; border: 1px solid white;"/>
+            </div>
+            <div class="compare_cars_photo thumbnail">
+                <div class="reset" hidden="" onclick="ResetCompareImage(this,2)">X</div>
+                <img class="img-responsive" style="height: 100%;border: 1px solid white;"/>
+            </div>
+        </div>
+        <div class="col-md-3" style="padding: 26px 0px;">
+            <label style="color: #ffffff"><span id="compare_counter">0</span> <span id="cartext">car</span> selected to
+                compare</label>
+        </div>
+        <form action="{{ path("compare_cars") }}" method="POST">
+            <input type="hidden" id="image-0" name="image-0" value=""/>
+            <input type="hidden" id="image-1" name="image-1" value=""/>
+            <input type="hidden" id="image-2" name="image-2" value=""/>
+            <input type="hidden" id="image-0_imagesrc" name="image-0_imagesrc" value=""/>
+            <input type="hidden" id="image-1_imagesrc" name="image-1_imagesrc" value=""/>
+            <input type="hidden" id="image-2_imagesrc" name="image-2_imagesrc" value=""/>
+
+            <div class="col-md-3" style="padding: 21px 15px;">
+                <button id="btncompare" type="submit" class="btn btn-primary disabled">Compare</button>
+                <label id="clearAllCompare" style="padding-left: 10px;color: white">Clear All</label>
+            </div>
+        </form>
+
+    </div>
+    <div id="all_vehicles_content">
+
+        {{ include('AppBundle:FAL:all-results-cars.html.twig') }}
+
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="tab-pane" id="about">
+    <div class="container-fluid" style="background-color: #ffffff;padding-bottom: 40px">
+        <div class="container-fluid" style="margin-top: 30px">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center no_padding" id="map-canvas"
+                 style="height: 200px;">
+            </div>
+            <div class="row" style="margin-top: 25px">
+                <div class="col-md-4 ">
+                    <h2>Hours of Operation</h2>
+
+                    <p style="font-size: medium; font-size: 14px ">From <span
+                                style="color: #006dcc">{{ profile.description.getHoursOpen() }}</span>
+                        to <span
+                                style="color: #006dcc">{{ profile.description.getHoursClose() }}</span></p>
+
+                    <h2 style="margin-top: 35px">Services and Amenities</h2>
+
+                    <ul class="list_styled">
+
+                        {% for profileservice in profile.profileservices %}
+
+                            <li style="font-size: medium; font-size: 14px;"><span
+                                        style="color:#006dcc;font-weight: bold; font-size: 15px"></span>{{ profileservice.services.name }}</span>
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                    <h2 style="margin-top: 35px">Languages Spoken</h2>
+
+
+                    {% for language in profile.usefulinformation.languages %}
+
+                        <p style="font-size: medium; font-size: 14px;"><span
+                                    style="color: black">{{ language.name }}</span></p>
+
+
+                    {% endfor %}
+                </div>
+                <div class="col-md-8 ">
+                    <h2>Why You Should Buy a Car From Us</h2>
+
+                    <p style="font-size: medium; font-size: 14px;">{{ profile.usefulinformation.whyBuyaCar }}</p>
+
+                    <h2>Dealer Disclaimer</h2>
+
+                    <p style="font-size: medium; font-size: 14px;">{{ profile.usefulinformation.Disclaimer }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tab-pane {% if currenttab == 3 %} active in {% endif %}" id="reviews">
+    <div class="container-fluid" style="background-color: #ffffff;padding-bottom: 40px">
+        <div class="text-center row" style="margin-top: 25px">
+            <h3 class="text-uppercase">Don't just take our word for it, read our customers reviews</h3>
+            <a href="javascript:void(0)"
+               data-toggle="modal"
+               data-target="#reviewmodal"
+               class="btn btn_edit" style="padding: 7px 14px;margin-top: 5px">Leave a Review </a>
+        </div>
+        <div class="row" style="margin-top: 15px">
+            {% for review in reviews %}
+                <div class="col-sm-6 col-md-6" style="margin-top: 30px">
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/common/images/private-profile.jpg') }}"
+                                     alt=""
+                                     class="img-responsive"/>
+
+                                <div class="caption" style="padding-left: 0px;padding-top: 4px;padding-right: 0px;font-size: 12px">
+                                    {{ review.name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-10 col-md-10" style="padding-left: 5px;padding-right: 25px;">
+                            <h4 style="margin-top: 0px">{{ review.title }}</h4>
+
+                            <p>{{ review.description }}</p>
+
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12 text-left">
+                                    <label for="customerrating">Customer service</label>
+                                </div>
+                                <div class="col-sm-8 col-xs-12">
+                                    <div class="ratingoption" data-average="{{ review.customerservice }}"
+                                         data-id="1"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12 text-left">
+                                    <label for="pricerating">Price</label>
+                                </div>
+                                <div class="col-sm-8 col-xs-12">
+                                    <div class="ratingoption" data-average="{{ review.price }}" data-id="1"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12 text-left">
+                                    <label for="facilitiesrating">Facilities</label>
+                                </div>
+                                <div class="col-sm-8 col-xs-12">
+                                    <div class="ratingoption" data-average="{{ review.facilities }}" data-id="1"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12 text-left">
+                                    <label for="overallrating">Overall</label>
+                                </div>
+                                <div class="col-sm-8 col-xs-12">
+                                    <div class="ratingoption" data-average="{{ review.overall }}" data-id="1"></div>
+                                </div>
+                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="pagination pull-right" style="margin-top: 15px">
+                        {{ knp_pagination_render(reviews) }}
+                    </div>
+                </div>
+            </div>
+
+</div>
+</div>
+
+<div id="makepopover_content" class="col-md-12 col-xs-12" style="margin-top:5px;font-size: 12px;display: none">
+    <div class="form-group">
+        <div class="form-inline">
+            <div class="list-group" id="make_filter_extended">
+                {% set totalOptions = (-obj_make|length // 4) %}
+                {% set aux = 0 %}
+
+                <div class="col-md-12">
+                    {% for make in obj_make %}
+                        <div class="col-sm-3 make_filter_extended" style="padding-left: 7px;padding-right: 7px">
+                            <div class="list-item" onclick="javascript:MakeListItemCLick(this)">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <a href="#item" id="{#}{ make.id }#}" class="">{{ make.makeId }}</a>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <hr style="border: 2px solid darkgrey;width: 100%;margin-top: 0px"/>
+                <a href="javascript:ShowResult_Makes_Extended_List()" class="btn btn-default" data-placement="right">Show
+                    Results</a>
+                <a href="javascript:ClearSelecions_Make()" class="btn btn-default" data-placement="right">Clear
+                    Selections</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bodystylepopover_content" class="col-md-12 col-xs-12" style="margin-top:5px;font-size: 12px;display: none">
+    <div class="form-group">
+        <div class="form-inline">
+            {% for bodystyle in bodystyles %}
+                <div class="col-md-3" style="margin-bottom: 20px">
+                    <div class="thumbnail bdstyle_img" onclick="javascript:SelectBodyStyle(this)"
+                         bdstyle_id="{{ bodystyle.id }}" bdstyle="{{ bodystyle.name }}">
+                        <img class="img-responsive"
+                             src="{{ asset( 'bundles/common/images/bodystyle/' ~ bodystyle.id  ~'.jpg' ) }}"/>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-12">
+            <hr style="border: 2px solid darkgrey;width: 100%;margin-top: 0px"/>
+            <a href="javascript:ShowResult_BodyStyle_Extended_List()" class="btn btn-default" data-placement="right">Show
+                Results</a>
+            <a href="javascript:ClearSelecions_BodyStyle()" class="btn btn-default" data-placement="right">Clear
+                Selections</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Email this Dealer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form id="emailDealer"
+                          action="{{ path('car_details',{'serie': 'no_serie'}) }}"
+                          method="POST"
+                          class="form-horizontal">
+
+                        <fieldset>
+                            <div class="col-md-12" style="padding: 0px 33px;">
+
+                                <div class="">
+                                    <div class="form-group">
+                                        <span style="font-style: inherit;font-weight: bold">Name<span
+                                                    style="color: red">*</span></span>
+                                        {{ form_widget(form.remitent_name) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="font-style: inherit;font-weight: bold">Email<span
+                                                    style="color: red">*</span></span>
+                                        {{ form_widget(form.remitent_mail) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <span style="font-style: inherit;font-weight: bold">Phone</span>
+                                        {{ form_widget(form.remitent_phone) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12 no_padding">
+                                            <span style="font-style: inherit;font-weight: bold">Message<span
+                                                        style="color: red">*</span></span>
+                                            {{ form_widget(form.body_mail) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row hide" id="loadingOff"
+                                             style="margin-left: 2px">
+                                            <img id="loading"
+                                                 src="{{ asset('bundles/common/images/loading.gif') }}"
+                                                 style="font-size:12px;  border: 0 none;" class="">
+                                            &nbsp; Sending
+                                            Message...
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 10px">
+                                        <div class="alert hide" id="succes_mess"
+                                             style="background-color: #0cffdd">
+                                            <button type="button" class="close"
+                                                    data-dismiss="alert">&times;</button>
+
+                                            <strong>Succes!</strong> Your Email has been submited
+                                            succesfully....
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <br>
+                                        <br>
+
+                                        <div class="col-md-9 col-sm-9 col-xs-9"
+                                             style="padding-left: 0px">
+                                            <a href="javascript:void(0)" id="submit_mail"
+                                               class="btn btn-default btn-block text-uppercase btn-danger col-md-7">
+                                                send email
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2"
+                                             style="padding-left: 0px">
+                                            <button type="button"
+                                                    class="btn btn-toolbar close-btn text-uppercase"
+                                                    data-dismiss="modal"
+                                                    style="background-color: white;color: blue;">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="profile_serie" id="profile_serie" value="{{ profile.serie }}">
+                            {{ form_rest(form) }}
+                            <br>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="reviewmodal" tabindex="-1" role="dialog"
+     aria-labelledby="reviewmodalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border-radius: 0px;">
+            <div class="modal-body">
+                <div class="row">
+                    <form id="review_form"
+                          action="{{ path('dealer-info',{'profile': profile.serie }) }}"
+                          method="POST"
+                          class="form-horizontal">
+
+                        <fieldset>
+                            <div class="col-md-12 col-xs-12">
+
+                                <div class="form-group">
+                                    <div class="col-md-12 col-xs-12">
+                                        <h3 style="margin-top: 3px">Tell us about your experience!</h3>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12 text-left">
+                                        {{ form_label(reviewform.purchase) }}
+
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        {{ form_widget(reviewform.purchase) }}
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 text-danger pull-right">
+                                        {{ form_errors(reviewform.purchase) }}
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12 text-left">
+                                        {{ form_label(reviewform.title) }}
+
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        {{ form_widget(reviewform.title) }}
+
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 text-danger pull-right">
+                                        {{ form_errors(reviewform.title) }}
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px">
+                                    <div class="col-sm-4 col-xs-12 text-left">
+                                        {{ form_label(reviewform.description) }}
+
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        {{ form_widget(reviewform.description) }}
+
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 text-danger pull-right">
+                                        {{ form_errors(reviewform.description) }}
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="form-group">
+                                            <div class="col-sm-4 col-xs-12 text-left">
+                                                <label for="customerrating">Customer service</label>
+                                            </div>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <div id="customerrating" data-average="0" data-id="1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="form-group" style="margin-top: 10px">
+                                            <div class="col-sm-4 col-xs-12 text-left">
+                                                <label for="pricerating">Price</label>
+                                            </div>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <div id="pricerating" data-average="0" data-id="1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="form-group" style="margin-top: 10px">
+                                            <div class="col-sm-4 col-xs-12 text-left">
+                                                <label for="facilitiesrating">Facilities</label>
+                                            </div>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <div id="facilitiesrating" data-average="0" data-id="1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="form-group" style="margin-top: 10px">
+                                            <div class="col-sm-4 col-xs-12 text-left">
+                                                <label for="overallrating">Overall</label>
+                                            </div>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <div id="overallrating" data-average="0" data-id="1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12 text-left">
+                                        {{ form_label(reviewform.name) }}
+
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        {{ form_widget(reviewform.name) }}
+
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 text-danger pull-right">
+                                        {{ form_errors(reviewform.name) }}
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px">
+                                    <div class="col-sm-4 col-xs-12 text-left">
+                                        {{ form_label(reviewform.city) }}
+
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        {{ form_widget(reviewform.city) }}
+
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 text-danger pull-right">
+                                        {{ form_errors(reviewform.city) }}
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px">
+                                    <div class="col-sm-4 col-xs-12 text-left">
+                                        {{ form_label(reviewform.email) }}
+
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        {{ form_widget(reviewform.email) }}
+
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 text-danger pull-right">
+                                        {{ form_errors(reviewform.email) }}
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px">
+                                    <div class="col-sm-4 col-xs-12 text-left">
+                                        {{ form_label(reviewform.phone) }}
+
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        {{ form_widget(reviewform.phone) }}
+
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 text-danger pull-right">
+                                        {{ form_errors(reviewform.phone) }}
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px">
+
+                                    <div class="col-md-6 col-md-offset-4 col-sm-offset-4 col-sm-6 col-xs-9">
+                                        <button type="submit"
+                                                class="btn btn_edit" style="padding: 7px 14px;">Submit
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <input type="hidden" name="profile_serie" id="profile_serie" value="{{ profile.serie }}">
+                            {{ form_rest(reviewform) }}
+                            <br>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+var waitTofind = false;
+var start = 1;
+function ChangeDropDownValueModel(element) {
+
+    jQuery(element).parents(".dropdown").find(".dropdown-toggle").find("span").text(jQuery(element).text());
+
+    var fill = 'model';
+    var name = 'Model';
+
+    var fill_filter = '#' + fill + '_filter';
+    var fill_filter_box = '#' + fill + '_filter_box';
+
+    var text = jQuery(element).text();
+    if (text != 'All') {
+        if (jQuery(fill_filter_box).size() == 0) {
+            var content = '<ul class="col-md-12 list-unstyled">' +
+                    '<li>' +
+                    '<a href="javascript:void(0)" class="values">' + text + '</a>' +
+                    '</li>' +
+                    '</ul>';
+            jQuery("#filters_panel").prepend(CreateFilterBox(fill, content, name));
+            jQuery("#btn-search").trigger("click");
+        } else {
+            FindValueToFilterBox(fill_filter_box, text);
+        }
+    }
+}
+
+function ClearSelecions_Make() {
+    jQuery("#make_filter_extended .active").each(function () {
+        jQuery(this).removeClass("active");
+    });
+}
+
+
+function ShowResult_Makes_Extended_List() {
+    waitTofind = true;
+    var counter = jQuery("#make_filter_extended .active").size();
+
+    var values = jQuery("#make_filter_box").find(".values");
+
+    if (counter > 1) {
+        var all_list = jQuery("#make_filter .list-item")[0];
+        jQuery(all_list).removeClass("active");
+    }
+    jQuery("#make_filter_extended .active").each(function (i) {
+        var text = jQuery(this).find("a").text();
+        if (!findValue(text)) {
+            if (i == counter - 1) {
+                waitTofind = false;
+                FilterBoxAction('make', 'Makes', this, "show-pop-large");
+            }
+            else
+                FilterBoxAction('make', 'Makes', this);
+        }
+    });
+
+    function findValue(text) {
+        var exist = false;
+        values.each(function () {
+            if (this.textContent == text) {
+                exist = true;
+                return;
+            }
+        });
+        return exist;
+    }
+}
+
+function ClearSelecions_BodyStyle() {
+    jQuery(".bdstyle_img .active").each(function () {
+        jQuery(this).removeClass("active");
+    });
+}
+
+function ShowResult_BodyStyle_Extended_List() {
+    var counter = jQuery(".bdstyle_img.active").size();
+
+    var values = jQuery("#bodystyle_filter_box").find(".values");
+
+    var fill = "bodystyle";
+    var name = "Body Style";
+
+    /* if (counter > 1) {
+     var all_list = jQuery("#make_filter .list-item")[0];
+     jQuery(all_list).removeClass("active");
+     }*/
+
+    var fill_filter_box = '#bodystyle_filter_box';
+
+    jQuery(".bdstyle_img.active").each(function (i) {
+        var text = jQuery(this).attr("bdstyle");
+        var idattr = jQuery(this).attr("bdstyle_id");
+        if (jQuery(fill_filter_box).size() == 0) {
+            var content = '<ul class="col-md-12 list-unstyled">' +
+                    '<li>' +
+                    '<a href="javascript:void(0)" id="' + idattr + '" class="values">' + text + '</a>' +
+                    '</li>' +
+                    '</ul>';
+            // var filterBox+fill = CreateFilterBox(fill, content, name);
+            jQuery("#filters_panel").prepend(CreateFilterBox(fill, content, name));
+            //jQuery("#btn-search").trigger("click");
+
+        } else {
+            var filterboxdeleted = FindValueToFilterBox(fill_filter_box, text, this);
+            if (filterboxdeleted)
+                var tagany = jQuery(elem).siblings()[0];
+            jQuery(tagany).addClass("active");
+        }
+        jQuery(this).removeClass("active");
+        jQuery(this).find("img").removeClass("active");
+
+    });
+
+    /* function findValue(text) {
+     var exist = false;
+     values.each(function () {
+     if (this.textContent == text) {
+     exist = true;
+     return;
+     }
+     });
+     return exist;
+     }*/
+}
+
+function RemoveBoxFilter(currentfilter) {
+    var box = document.getElementById(currentfilter + "_box");
+    jQuery(box).fadeOut().remove();
+}
+
+function CreateModelSelect() {
+    var tag_a = jQuery(this).find("a")[0];
+    var id_make = tag_a.id;
+    var make = tag_a.text;
+    var a = null;
+    var makedisplay, makeid;
+    if (tag_a.id == "all") {
+        jQuery("#collapsedmodel").collapse('toggle');
+        jQuery("#collapsedmodel").children().remove();
+    } else if (jQuery(tag_a).parent().hasClass("active")) {
+        a = '<a onClick="javascript:ChangeDropDownValueModel(tag_a)" href="javascript:void(0)" id="all" style="padding: 3px 10px;font-size: 11px">All</a>';
+
+        jQuery.post('{{ path('find_models_by_make_front')}}',
+                {
+                    make_id: make
+                },
+                function (data) {
+                    if (data.error != undefined && data.error != "")
+                        alert(data.error);
+                    else
+                        jQuery.each(data, function () {
+                            a += '<a onClick="javascript:ChangeDropDownValueModel(this)" href="javascript:void(0)" id="' + this.value + '"style="padding: 3px 10px;font-size: 11px">' + this.text + '</a>';
+                        });
+                    var dropdown = CreateDropdownInModel(make, make, a);
+                    jQuery('#collapsedmodel').append(dropdown);
+                    jQuery("#collapsedmodel").collapse('show');
+                }, "json");
+
+    } else {
+        jQuery("#make_" + id_make).remove();
+    }
+}
+
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        zoom: 8,
+        center: {lat: -34.397, lng: 150.644}
+    });
+    var geocoder = new google.maps.Geocoder();
+
+
+    geocodeAddress(geocoder, map);
+
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+    var address = document.getElementById('address').textContent;
+    geocoder.geocode({'address': address}, function (results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+
+jQuery(document).ready(function () {
+
+    function createPopover(elem, text) {
+        elem.attr('data-toggle', 'popover');
+        elem.attr('data-placement', 'right');
+        // elem.attr('data-placement', 'bottom');
+        elem.attr('data-content', text);
+        elem.attr('data-container', 'body');
+        elem.popover();
+        elem.trigger('click');
+        elem.focus();
+    }
+
+    function disableForm(formulario) {
+        if (formulario == 'mail') {
+            jQuery('#emailDealer').find('input ,button, textarea').attr('disabled', 'disabled')
+            jQuery("#emailDealer").css("opacity", 0.37);
+            jQuery("#loadingOff").removeClass("hide");
+            jQuery("#succes_mess").addClass("hide");
+        }
+    }
+
+    function resetForm(formulario) {
+        if (formulario == 'mail') {
+            jQuery('#emailDealer').find('input, textarea').val('');
+        }
+    }
+
+    function enableForm(formulario) {
+        if (formulario == 'mail') {
+            jQuery('#emailDealer').find('input , button, textarea').removeAttr('disabled')
+            jQuery("#emailDealer").css("opacity", 1);
+        }
+    }
+
+    function checkSelected(o) {
+        if (o.val() == 0) {
+            createPopover(o, 'Please fill out this field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkLength(o, min, max) {
+        if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkRegexp(o, regexp) {
+        if (!( regexp.test(o.val()) )) {
+            createPopover(o, 'Invalid field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function validateForm(formulario) {
+        var bValid = true;
+
+        if (formulario == 'mail') {
+            bValid = bValid && checkSelected(jQuery('#email_remitent_name'));
+            bValid = bValid && checkLength(jQuery('#email_remitent_name'), 4, 100);
+
+            bValid = bValid && checkSelected(jQuery('#email_remitent_mail'));
+            bValid = bValid && checkSelected(jQuery('#email_body_mail'));
+            bValid = bValid && checkLength(jQuery('#email_body_mail'), 2, 240);
+            bValid = bValid && checkLength(jQuery('#email_remitent_mail'), 4, 100);
+            bValid = bValid && checkRegexp(jQuery('#email_remitent_mail'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+
+        }
+        if (bValid) {
+            disableForm(formulario);
+            submitForm(formulario);
+        }
+
+    }
+
+    function submitForm(formulario) {
+        var remitent_mail;
+        var remitent_phone;
+        var remitent_name;
+        var body_mail;
+
+        if (formulario == 'mail') {
+            remitent_name = jQuery('#email_remitent_name').val();
+            remitent_mail = jQuery('#email_remitent_mail').val();
+            remitent_phone = jQuery('#email_remitent_phone').val();
+            body_mail = jQuery('#email_body_mail').val();
+        }
+        jQuery.ajax({
+            url: jQuery('#emailDealer').attr('action'),
+            type: "POST",
+            data: {
+                formulario: formulario,
+                remitent_name: remitent_name,
+                remitent_mail: remitent_mail,
+                remitent_phone: remitent_phone,
+                body_mail: body_mail,
+                profile: jQuery('#profile_serie').val(),
+                compare_car: true
+            },
+            async: false,
+            success: function (response) {
+                resetForm(formulario);
+                enableForm(formulario);
+                if (formulario == 'mail') {
+                    jQuery("#loadingOff").addClass("hide");
+                    jQuery("#succes_mess").removeClass("hide");
+                }
+                jQuery("#myModal").modal('destroy');
+            }
+        });
+
+    }
+
+    jQuery('#submit_mail').click(function () {
+        validateForm('mail');
+    });
+
+    jQuery(".dropdown").find(".dropdown-menu li a").click(function () {
+        ChangeDropDownValue(this);
+    });
+
+    jQuery('.collapse').on('show.bs.collapse', function () {
+        var arrow = jQuery(this).parent().find(".glyphicon-chevron-right");
+        arrow.removeClass("glyphicon-chevron-right");
+        arrow.addClass("glyphicon-chevron-down");
+    });
+
+    jQuery('.collapse').on('hidden.bs.collapse', function () {
+        var arrow = jQuery(this).parent().find(".glyphicon-chevron-down");
+        arrow.removeClass("glyphicon-chevron-down");
+        arrow.addClass("glyphicon-chevron-right");
+    });
+
+    jQuery("#make_filter_extended").find(".list-item a").click(function () {
+        // jQuery(this).parent().trigger('click');
+        MakeListItemCLick(jQuery(this).parent());
+    });
+
+    function CreateLinkToDropdown(element, dropdown, clickFunction, haveId) {
+        var tag_a = document.createElement('a');
+        if (haveId)
+            tag_a.id = element.value;
+        tag_a.text = element.text;
+        var li = document.createElement('li');
+        jQuery(tag_a).appendTo(li);
+        dropdown.append(li);
+        jQuery(tag_a).bind("click", clickFunction);
+    }
+
+
+    /**
+     *  request the controller with all the filters values when one sort option has been selected
+     * */
+    jQuery('.sort_link').click(function () {
+        var text = jQuery(this).text();
+        var sort_id = jQuery(this).attr("sort_id");
+        jQuery("#sort_list").find(".selected").attr("sort_id", sort_id);
+        jQuery("#sort_list").find(".selected").text(text);
+    });
+    /**
+     *  request the controller with all the filters values when one sort option has been selected
+     * */
+    jQuery('.view_link').click(function () {
+        var text = jQuery(this).text();
+        var view_id = jQuery(this).attr("view_id");
+        jQuery("#view_list").find(".selected").attr("view_id", view_id);
+        jQuery("#view_list").find(".selected").text(text);
+    });
+
+    /** Price
+     *  click event of the element of the filter inquieries for create the filterbox info
+     *  this functions are in functions_frontend_utils.js file this function create de filterBox or add a value if already exits
+     */
+    jQuery("#price_filter").find(".dropdown-menu li a").click(function () {
+        if (jQuery("#price_filter").find(".minimum_text").text() != "Minimum Price" && jQuery("#price_filter").find(".maximum_text").text() != "Maximum Price") {
+
+            var minprice = jQuery("#price_filter").find(".minimum_text").text();
+            var maxprice = jQuery("#price_filter").find(".maximum_text").text();
+            var text = minprice + " - " + maxprice;
+
+            minprice = parseFloat(minprice.split("$")[1]);
+            maxprice = parseFloat(maxprice.split("$")[1]);
+            if (minprice < maxprice) {
+                if (jQuery("#price_filter_box").size() == 0) {
+                    var content = '<ul class="col-md-12 list-unstyled">' +
+                            '<li>' +
+                            '<a href="javascript:void(0)" class="values">' + text + '</a>' +
+                            '</li>' +
+                            '</ul>';
+                    var pricefilterBox = CreateFilterBox("price", content, "Price");
+                    jQuery("#filters_panel").prepend(pricefilterBox);
+                    jQuery("#btn-search").trigger("click");
+
+                } else {
+                    jQuery("#price_filter_box").find(".list-unstyled li a").text(text);
+                }
+            } else {
+                jQuery("#price_filter").find(".minimum_text").text("Minimum Price");
+                jQuery("#price_filter").find(".maximum_text").text("Maximum Price");
+                //alert("el precio minimo debe ser menor que el maximo")
+            }
+        }
+    });
+
+    /** year
+     *  click event of the element of the filter inquieries for create the filterbox info
+     *  this functions are in functions_frontend_utils.js file this function create de filterBox or add a value if already exits
+     */
+    jQuery("#year_filter").find(".dropdown-menu li a").click(function () {
+        if (jQuery("#year_filter").find(".minimum_text").text() != "Minimum Year" && jQuery("#year_filter").find(".maximum_text").text() != "Maximum Year") {
+
+            var minyear = jQuery("#year_filter").find(".minimum_text").text();
+            var maxyear = jQuery("#year_filter").find(".maximum_text").text();
+            var text = minyear + " - " + maxyear;
+
+            if (minyear < maxyear) {
+                if (jQuery("#year_filter_box").size() == 0) {
+                    var content = '<ul class="col-md-12 list-unstyled">' +
+                            '<li>' +
+                            '<a href="javascript:void(0)" class="values">' + text + '</a>' +
+                            '</li>' +
+                            '</ul>';
+                    var yearfilterBox = CreateFilterBox("year", content, "Year");
+                    jQuery("#filters_panel").prepend(yearfilterBox);
+                    jQuery("#btn-search").trigger("click");
+
+                } else {
+                    jQuery("#year_filter_box").find(".list-unstyled li a").text(text);
+                }
+            } else {
+                jQuery("#year_filter").find(".minimum_text").text("Minimum Year");
+                jQuery("#year_filter").find(".maximum_text").text("Maximum Year");
+            }
+        }
+    });
+
+    FilterBox('condition', 'Condition');
+    FilterBox('transmission', 'Transmission');
+    FilterBox('bodystyle', 'Body Style');
+    FilterBox('fuel', 'Fuel');
+    FilterBox('doors', 'Doors');
+    FilterBox('year', 'Years');
+    FilterBox('make', 'Makes');
+    FilterBox('model', 'Model');
+    FilterBox('mileage', 'Mileage');
+    FilterBox('interiorcolor', 'Interior Color');
+    FilterBox('exteriorcolor', 'Exterior Color');
+
+    jQuery("#btn-search").click(GetSearchValues);
+
+
+    /**
+     *   Compare checkbox event on images boxes
+     * */
+
+    jQuery("input:checked").each(function () {
+        this.checked = false;
+    });
+
+    jQuery(".compare_check").change(function () {
+        var check = this;
+        if (jQuery("#compare_panel").css("display") == "none")
+            jQuery("#compare_panel").slideDown("slow");
+        if (check.checked == true) {
+            var imagebox = jQuery(check).parents(".borderBoxShadows");
+            var car_serie = imagebox.attr("car-serie");
+            var imagen = imagebox.find("img")[0];
+            var currentsrcimage = imagen.src;
+            var inserted = false;
+            jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+                if (!jQuery(this).hasClass("hasphoto") && !inserted) {
+                    //jQuery(this).css("background-image","url('"+ currentsrcimage +"')")
+                    jQuery(this).find("img").attr("src", currentsrcimage);
+                    jQuery(this).addClass("hasphoto");
+                    jQuery(this).find(".reset").show();
+                    inserted = true;
+                    jQuery(check).attr("image_compare", i);
+                    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) + 1);
+                    jQuery("#image-" + i).val(car_serie);
+                    jQuery("#image-" + i + "_imagesrc").val(currentsrcimage);
+
+                    if (parseInt(jQuery("#compare_counter").text()) > 1) {
+                        jQuery("#btncompare").removeClass("disabled");
+                        jQuery("#cartext").text("cars");
+                    }
+                }
+            });
+            if (!inserted)
+                check.checked = false;
+        } else {
+            var asociated = jQuery(check).attr("image_compare");
+            jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+                if (i == asociated) {
+                    jQuery(this).find("img").attr("src", "");
+                    jQuery(this).removeClass("hasphoto");
+                    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) - 1);
+                    jQuery(this).find(".reset").hide();
+                    jQuery("#image-" + i).val("");
+                    jQuery("#image-" + i + "_imagesrc").val("");
+                    if (parseInt(jQuery("#compare_counter").text()) < 2) {
+                        jQuery("#btncompare").addClass("disabled");
+                        jQuery("#cartext").text("car");
+                    }
+                    if (parseInt(jQuery("#compare_counter").text()) == 0)
+                        jQuery("#compare_panel").slideUp("slow");
+
+                }
+            });
+        }
+    });
+
+    jQuery("#clearAllCompare").click(function () {
+        jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+            if (jQuery(this).hasClass("hasphoto")) {
+                jQuery(this).find("img").attr("src", "");
+                jQuery(this).removeClass("hasphoto");
+                jQuery("#compare_counter").text(0);
+                jQuery("#btncompare").addClass("disabled");
+                jQuery("#compare_panel").slideUp("slow");
+            }
+        });
+        for (var i = 0; i < 3; i++) {
+            jQuery("#image-" + i).val("");
+            jQuery("#image-" + i + "_imagesrc").val("");
+        }
+        jQuery("input:checked").each(function () {
+            this.checked = false;
+        });
+        jQuery(".reset").hide();
+    });
+
+    jQuery(".btn-primary").click(function (e) {
+        if (jQuery(this).hasClass("disabled"))
+            e.preventDefault();
+    });
+
+    jQuery(".ratingoption").jRating({
+        isDisabled: true
+    });
+
+    jQuery('#customerrating,#pricerating,#overallrating,#facilitiesrating').jRating({
+        length: 5,
+        decimalLength: 1, // number of decimal in the rate
+        showRateInfo: false,
+        canRateAgain: true,
+        nbRates: 3,
+        sendRequest: false,
+        onClick: function (element, rate) {
+            var currentrating = "";
+            switch (element.id) {
+                case "customerrating":
+                    currentrating = "#review_customerservice";
+                    break;
+                case "pricerating":
+                    currentrating = "#review_price";
+                    break;
+                case "overallrating":
+                    currentrating = "#review_overall";
+                    break;
+                case "facilitiesrating":
+                    currentrating = "#review_facilities";
+                    break;
+            }
+            jQuery(currentrating).val(rate);
+        }
+    });
+
+});
+
+function ResetCompareImage(elem, pos) {
+    var compareBox = jQuery(elem).parent();
+    jQuery(compareBox).find("img").attr("src", "");
+    jQuery(compareBox).removeClass("hasphoto");
+    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) - 1);
+    jQuery(compareBox).find(".reset").hide();
+    jQuery("#image-" + pos).val("");
+    jQuery("input[image_compare='" + pos + "']")[0].checked = false;
+    if (parseInt(jQuery("#compare_counter").text()) < 2)
+        jQuery("#btncompare").addClass("disabled");
+    if (parseInt(jQuery("#compare_counter").text()) == 0)
+        jQuery("#compare_panel").slideUp("slow");
+}
+
+function MakeListItemCLick(elem) {
+    jQuery(elem).toggleClass("active");
+}
+;
+
+jQuery("#all_vehicles_content").on("click", ".pagination span a", function () {
+    var url = jQuery(this).attr("href");
+    var currentvalue = url.split("page=")[1];
+    start = currentvalue;
+    GetSearchValues();
+    return false;
+});
+
+function DestroyFilterBox(element) {
+    jQuery(element).parents(".sidebar_panel").fadeOut(300, function () {
+        var currentboxId = jQuery(this).find(".panel-body").attr("id");
+        if (currentboxId == "make_filter_box") {
+            jQuery("#collapsedmodel").collapse('toggle');
+            jQuery("#collapsedmodel").children().remove();
+            if (jQuery("#model_filter_box").size() > 0) {
+                jQuery("#model_filter_box").remove();
+            }
+            jQuery("#make_filter_extended .list-item.active").each(function () {
+                jQuery(this).removeClass("active");
+            });
+        }
+        if (currentboxId == "model_filter_box") {
+            jQuery("#collapsedmodel").children().each(function () {
+                var name = jQuery(this).attr("makedisplay");
+                jQuery(this).find("span").text(name + " Model");
+            });
+        }
+
+        if (currentboxId == "bodystyle_filter_box") {
+            jQuery(".bdstyle_img").removeClass("active");
+            jQuery(".bdstyle_img img").removeClass("active");
+        }
+
+        var idfilterbox = "#" + currentboxId.split("_")[0] + "_filter";
+        jQuery(idfilterbox).find(".list-item ").removeClass("active");
+        jQuery(jQuery(idfilterbox).find(".list-item ")[0]).addClass("active");
+        if (idfilterbox = "#year_filter") {
+            jQuery(idfilterbox).find(".dropdown:first a span").text("Minimum Year");
+            jQuery(idfilterbox).find(".dropdown:last a span").text("Maximum Year");
+        }
+
+        if (idfilterbox = "#price_filter") {
+            jQuery(idfilterbox).find(".dropdown:first a span").text("Minimum Price");
+            jQuery(idfilterbox).find(".dropdown:last a span").text("Maximum Price");
+        }
+        jQuery(this).remove();
+        jQuery("#btn-search").trigger("click");
+    });
+}
+
+function removeAllFilterBox() {
+    //jQuery(".close_filter_box").trigger("click");
+    var counter = jQuery(".close_filter_box").size();
+    if (counter > 1)
+        waitTofind = true;
+    jQuery(".close_filter_box").each(function (i) {
+        if (i == counter - 1)
+            waitTofind = false;
+        jQuery(this).trigger("click");
+    });
+}
+
+function ChangeDropDownValue(element) {
+
+    jQuery(element).parents(".dropdown").find(".dropdown-toggle").find("span").text(jQuery(element).text());
+}
+
+function GetSearchValues() {
+
+    var zipcode = GetValuesinArray("zipcode_filter_box");
+    var model = GetValuesinArray("model_filter_box");
+    var make = GetValuesinArray("make_filter_box");
+    var year = GetValuesinArray("year_filter_box");
+    var condition = GetValuesinArray("condition_filter_box");
+    var bodystyle = GetValuesinArray("bodystyle_filter_box");
+    var transmission = GetValuesinArray("transmission_filter_box");
+    var fuel = GetValuesinArray("fuel_filter_box");
+    var doors = GetValuesinArray("doors_filter_box");
+    var mileage = GetValuesinArray("mileage_filter_box");
+    var interiorcolor = GetValuesinArray("interiorcolor_filter_box");
+    var exteriorcolor = GetValuesinArray("exteriorcolor_filter_box");
+    var prices = GetPricesSearchValues();
+    var sort_id = jQuery("#sort_list").find(".selected").attr("sort_id");
+    var limit = jQuery("#view_list").find(".selected").attr("view_id");
+
+    jQuery("#loading").removeClass("hide");
+    jQuery.ajax({
+        url: '{{path('search_all_vehicles_content')}}',
+        type: "POST",
+        data: {
+            zipcode: zipcode,
+            model: model,
+            make: make,
+            year: year,
+            condition: condition,
+            bodystyle: bodystyle,
+            transmission: transmission,
+            fuel: fuel,
+            doors: doors,
+            prices: prices,
+            mileage: mileage,
+            interiorcolor: interiorcolor,
+            exteriorcolor: exteriorcolor,
+            sort: sort_id,
+            start: start,
+            limit: limit,
+            profile: "{{ profile.serie }}"
+        },
+        success: function (response) {
+            jQuery('#all_vehicles_content').empty();
+            jQuery("#loading").addClass("hide");
+            jQuery('#all_vehicles_content').html(response);
+        },
+        error: function (response) {
+            jQuery("#loading").addClass("hide");
+            alert(response);
+        }
+    });
+}
+/**
+ *  Find values literal en the list
+ * */
+function GetValuesinArray(elementid) {
+    var valuesArray = Array();
+    if (jQuery("#" + elementid).size() > 0) {
+        var values = jQuery("#" + elementid + " ul").find(".values");
+        values.each(function () {
+            valuesArray.push(jQuery(this).text());
+        });
+    }
+    return valuesArray;
+}
+
+/**
+ *  Get mileage values
+ * **/
+function GetPricesSearchValues() {
+    var valuesArray = Array();
+    if (jQuery("#" + elementid).size() > 0) {
+        var values = jQuery("#" + elementid + " ul").find("li");
+        values.each(function () {
+            valuesArray.push(jQuery(this).find('a').text());
+        });
+    }
+    return valuesArray;
+}
+
+/**
+ *  Get price values
+ * **/
+function GetPricesSearchValues() {
+    var result = Array();
+    if (jQuery("#price_filter_box").size() > 0) {
+        var prices = jQuery("#price_filter_box").find("ul li a").text();
+        var minprice = prices.split(" - ")[0];
+        var maxprice = prices.split(" - ")[1];
+        minprice = parseFloat(minprice.split("$")[1]) * 1000;
+        maxprice = parseFloat(maxprice.split("$")[1]) * 1000;
+        result.push(minprice);
+        result.push(maxprice);
+        return result;
+    }
+}
+
+/**
+ *  Create dropdown model
+ * */
+function CreateDropdownInModel(makeid, name, a) {
+    var dropdown = jQuery('<li id="make_' + makeid + '" makedisplay="' + name + '" class="dropdown list-group-item-text ">' +
+    '<a href="#" class="dropdown-toggle text-right" data-toggle="dropdown">' +
+    '<span class="pull-left" style="font-size: 11px">' + name + ' Model</span>' +
+    '<b class="caret" style="color: #000000"></b>' +
+    '</a>' +
+    '<ul class="dropdown-menu pre-scrollable">' +
+    '<li style="text-align: left" id="model_list"> ' + a + ' </li></ul></li>');
+    return dropdown;
+}
+
+
+</script>
+<script>
+    (function () {
+
+        var settings = {
+            trigger: 'click',
+            title: 'Pop Title',
+            content: '<p>This is webui popover demo.</p><p>just enjoy it and have fun !</p>',
+            width: 300,
+            multi: true,
+            closeable: false,
+            style: '',
+            delay: 300,
+            padding: true
+        };
+
+        function initPopover() {
+
+            var largeContent = jQuery('#makepopover_content').html(),
+                    largeSettings = {
+                        content: largeContent,
+                        width: 670,
+                        height: 595,
+                        title: 'Make',
+                        delay: {show: 300, hide: 1000},
+                        closeable: true
+                    };
+            var popLarge = jQuery('a.show-pop-large').webuiPopover('destroy').webuiPopover(jQuery.extend({}, settings, largeSettings));
+
+            var largeContent = jQuery('#bodystylepopover_content').html(),
+                    largeSettings = {
+                        content: largeContent,
+                        width: 660,
+                        height: 365,
+                        title: 'Body Style',
+                        delay: {show: 300, hide: 1000},
+                        closeable: true
+                    };
+            var popLarge = jQuery('a.show-pop-large_bodystyle').webuiPopover('destroy').webuiPopover(jQuery.extend({}, settings, largeSettings));
+
+
+            jQuery('body').on('click', '.pop-click', function (e) {
+                e.preventDefault();
+                console.log('clicked');
+            });
+
+        }
+
+        initPopover();
+    })();
+
+    function SelectBodyStyle(elem) {
+        jQuery(elem).toggleClass("active");
+        jQuery(elem).find("img").toggleClass("active");
+
+        /* var fill_filter_box = '#bodystyle_filter_box';
+         var fill = "bodystyle";
+         var name = "Body Style"
+
+         var text = jQuery(elem).attr("bdstyle");
+         var idattr = jQuery(elem).attr("bdstyle_id");
+         if (jQuery(fill_filter_box).size() == 0) {
+         var content = '<ul class="col-md-12 list-unstyled">' +
+         '<li>' +
+         '<a href="javascript:void(0)" id="' + idattr + '" class="values">' + text + '</a>' +
+         '</li>' +
+         '</ul>';
+         // var filterBox+fill = CreateFilterBox(fill, content, name);
+         jQuery("#filters_panel").prepend(CreateFilterBox(fill, content, name));
+         jQuery("#btn-search").trigger("click");
+
+         } else {
+         var filterboxdeleted = FindValueToFilterBox(fill_filter_box, text);
+         if (filterboxdeleted)
+         var tagany = jQuery(elem).siblings()[0];
+         jQuery(tagany).addClass("active");
+         }*/
+    }
+
+</script>
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap" async defer></script>

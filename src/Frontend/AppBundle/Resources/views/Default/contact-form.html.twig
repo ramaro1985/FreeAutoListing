@@ -1,0 +1,148 @@
+<div class="modal fade" id="myModalContact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Contact the Owner</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal inquiry-form" style="padding: 0px 10px" action="">
+                    <div class="form-group text-left" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.guest, { 'attr': {'placeholder': 'First Name *'} }) }}
+                        </div>
+
+                    </div>
+
+                    <div class="form-group text-left" style="margin-bottom: 10px">
+
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.lastName, { 'attr': {'placeholder': 'Last Name *'} }) }}
+                        </div>
+
+                    </div>
+
+                    <div class="form-group text-left" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.email, { 'attr': {'placeholder': 'Email *'} }) }}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group text-left" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.phone, { 'attr': {'placeholder': 'Phone'} }) }}
+                        </div>
+                    </div>
+
+
+
+                    <div class="pcalendar form-group text-left" style="margin-bottom: 10px">
+                        <div class="input-group col-md-6 col-sm-6 col-xs-12 pull-left" style="margin-bottom: 5px">
+                            {{ form_widget(form1.startDate, { 'attr': {'placeholder': 'Arrival' , 'readonly': 'true'} }) }}
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true" style="color: #B5B5B5"></span></span>
+                        </div>
+                        <div class="input-group col-md-6 col-sm-6 col-xs-12 pull-left">
+                            {{ form_widget(form1.endDate, { 'attr': {'placeholder': 'Departure','class':'form-control dateout', 'readonly': 'true'} }) }}
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true" style="color: #B5B5B5"></span></span>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                    <div class="form-group" style="margin-bottom: 10px">
+
+                        <div class="col-sm-6 col-xs-12" style="margin-bottom: 5px">
+                            {{ form_widget(form1.adults) }}
+                        </div>
+
+                        <div class="col-sm-6 col-xs-12">
+                            {{ form_widget(form1.children) }}
+                        </div>
+                    </div> 
+
+
+
+
+
+                    <div class="form-group text-left" style="margin-bottom: 10px">
+
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.text, { 'attr': {'placeholder': 'Message to owner *'} }) }}
+                        </div>
+                    </div>
+                    <div class="form-group right" style="margin-bottom: 10px">
+
+                        <div id="recaptcha1" class="col-sm-12 col-xs-12 right">
+
+                        </div>
+                    </div>
+                    <div class="form-group text-right" style="margin-bottom: 20px">
+                        <div class="col-sm-12 col-xs-12">
+                            <span style="font-size: 12px;line-height: 1">By clicking "Send Email" you are agreeing to our <a href="{{ path('terms') }}" target="_blank">Terms and Conditions </a></span>
+                        </div>
+
+                    </div>  
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-md-7 col-sm-7 col-xs-12"><div id="errorContact"></div></div>
+                        <div class="col-md-5 col-sm-5 col-xs-12 text-right">
+                            <img id="loading" src="{{ asset('bundles/common/images/loading.gif') }}" style="margin-left: 5px; border: 0 none;" class="hide loading" >
+                            <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                            <button id="btninquirysave" type="button" class="btn btn-primary">Send Email</button>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group text-left" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12">
+                            {% if (property.contact.displayPhone1)  or (property.contact.displayPhone2) or (property.contact.displayPhone3) %}
+                                <span style="font-size: 12px;line-height: 1"><em>Telephone:</em><br>
+                                    {% if property.contact.displayPhone1  %}
+                                        {% if property.contact.phone1 is not null  %}
+                                            <b>{{property.contact.phone1}}</b>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if property.contact.displayPhone2  %}
+                                        {% if property.contact.phone2 is not null  %}
+                                            <b>{{property.contact.phone2}}</b>
+                                        {% endif %}
+                                    {% endif %} 
+                                    {% if property.contact.displayPhone3  %}
+                                        {% if property.contact.phone3 is not null  %}
+                                            <b>{{property.contact.phone3}}</b>
+                                        {% endif %}
+                                    {% endif %}
+                                </span>
+                            {% endif %}    
+                        </div>
+
+                    </div>  
+                            <input type="hidden" name="sourcecode" value="1" id="sourcecode"/>
+                            <input type='hidden' name='formID' value='15039' id="formID"/> 
+                            <input type='hidden' name='weburl' value='1' id="weburl"/>
+                            <input type='hidden' name='isDedicatedClient' value='0' id="isDedicatedClient"/>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("#inquiry_startDate").datepicker({minDate: new Date()
+
+        });
+        jQuery("#inquiry_endDate").datepicker({minDate: new Date()});
+
+    });
+
+</script>

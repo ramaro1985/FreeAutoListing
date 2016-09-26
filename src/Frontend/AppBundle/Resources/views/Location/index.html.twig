@@ -1,0 +1,98 @@
+{% extends "CommonBundle:Layout:base.html.twig" %}
+{% block title %} Locations {% endblock %}
+
+{% block header %}
+    {{ include('CommonBundle:Default:footer.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid no_padding">
+        <div id="panel_Locations" class="panel panel-default">
+            <div class="panel-heading col-md-12">
+                <div class="col-md-6">
+                    <h3 style="color:black;font-weight: bold;">Locations</h3>
+                </div>
+                <h3>
+                    <div class="col-md-6">
+                        <div class="col-md-2 pull-right">
+                            <a class="show-edit-links" href="javascript:void(0)" mipanel="panel_Locations"
+                               title="Edit Location"><span
+                                        class="panel-title glyphicon glyphicon-edit"></span></a>
+                            <a class="show-add-modal pull-right" href="{{ path('location_new') }}"
+                               title="Add New Location"><span
+                                        class="panel-title glyphicon glyphicon-plus"></span></a>
+                        </div>
+                    </div>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive table-striped table-hover ">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Address</th>
+                        <th>Route</th>
+                        <th>Property_number</th>
+                        <th>Country</th>
+                        <th>Stateprovince</th>
+                        <th>Locality</th>
+                        <th>Sublocality</th>
+                        <th>Postal_town</th>
+                        <th>Neighborhood</th>
+                        <th>Postal_code</th>
+                        <th>Postal_code_prefix</th>
+                        <th>Public</th>
+                        <th class="element_hidden" hidden="hidden">Edit</th>
+                        <th class="element_hidden" hidden="hidden">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if entities is defined %}
+                        {% for entity in entities %}
+                            <tr>
+                                <td><a href="{{ path('location_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                <td>{{ entity.address }}</td>
+                                <td>{{ entity.route }}</td>
+                                <td>{{ entity.propertynumber }}</td>
+                                <td>{{ entity.country }}</td>
+                                <td>{{ entity.stateProvince }}</td>
+                                <td>{{ entity.locality }}</td>
+                                <td>{{ entity.sublocality }}</td>
+                                <td>{{ entity.postaltown }}</td>
+                                <td>{{ entity.neighborhood }}</td>
+                                <td>{{ entity.postalcode }}</td>
+                                <td>{{ entity.postalcodeprefix }}</td>
+                                <td>{{ entity.public }}</td>
+                                <td class="edit element_hidden" data-toggle="modal" hidden>
+                                    <a href="{{ path('location_edit', { 'id': entity.id }) }}">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                </td>
+                                <td class="remove element_hidden" hidden>
+                                    <a href="javascript:void(0)">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+
+                <ul class="pagination pagination-sm" style="margin: 0px;">
+                    <li class="disabled"><a href="#">«</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ include('CommonBundle:Default:footer.html.twig') }}
+{% endblock %}

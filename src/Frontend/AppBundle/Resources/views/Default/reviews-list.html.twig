@@ -1,0 +1,267 @@
+<div id="reviews" class="anchor-profile"></div>    
+ <div  class="row">
+<div class="col-md-2 col-xs-12" style="margin-bottom: 10px">
+        <span  class="property-title">Reviews</span>
+    </div>  
+     
+     <div class="col-md-8 col-xs-12" style="margin-bottom: 10px">
+        <a id="b4" href="#" data-toggle="modal" data-target="#myModalReview" class="btn btn-default b4b">
+         Create a Review <span class="glyphicon glyphicon-plus"  aria-hidden="true" style="margin-left: 10px;"></span>
+        </a>
+    </div>
+</div>   
+
+
+    {% if reviews |length > 0 %}
+        <div class="list-group">
+   {% for review in reviews %}
+    
+       <div class="list-group-item">
+        <div  class="row">
+            
+            
+        <div class="col-md-2 col-xs-12">
+                <div  class="row" >
+                <div class="col-md-12 col-xs-12">
+                <img src="{{ asset('bundles/common/images/Reviews icon.png') }}"  style="padding-bottom: 5px" class="" data-src="{{ asset('bundles/common/images/Property1.jpg') }}">
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <div class="blue-title">{{review.guest}}</div>
+                    
+                </div>        
+                </div>
+            </div>
+        <div class="col-md-10 col-xs-12">
+          
+            <div class="row">
+                <div class="col-md-12 col-xs-12"><span class="property-title">{{review.title}}</span></div>
+            </div>
+                <div class="row" style="margin-bottom: 5px; margin-top: 5px">
+                <div class="col-md-6 col-xs-12 text-muted">Review Submitted: {{review.dateCreated| date("F jS \\,\\ Y")}}</div>
+                <div class="col-md-6 col-xs-12 text-muted">Date of Stay: {{review.stayDate| date("F jS \\,\\ Y")}}</div>
+            </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12"><p>{{review.description}}</p></div>
+            </div>
+                
+                {% if review.replys | length > 0 %}
+                <div class="row">
+                     {% for reply in  review.replys  %}
+                    <div class="col-md-12 col-xs-12">
+                        <p><span style="color: #1F1F1F">Owner's Response:</span> {{reply.text}}</p>
+                    </div>
+                     {% endfor  %}
+            </div>
+                  {% endif  %}
+                
+                <div class="row" style="margin-top: 5px">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">Rating</div>
+                        </div>
+                         <div class="row">
+                <div class="col-md-12 col-xs-12">
+               <div class="basic2" data-average="12" data-id="1"></div>
+                    <div class="basictemp2"></div>
+                  
+                    <input class="valoration2" type="hidden" value="{{review.valoration | default(0)}}" >
+                   </div>
+            </div>
+                    </div>
+                
+                        
+                </div>
+                   
+                </div>     
+        </div>
+            
+         </div>
+    
+    
+    {% endfor %}
+    
+         </div>
+    
+
+
+ {% else %} 
+
+           
+        <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                       <span style="color: #428BCA;font-family: Calibri;font-size: 18px;font-weight: lighter;">
+                              There are no Reviews
+                          </span>
+                    </div>
+                </div>
+       
+       
+        
+ {% endif %}
+        
+       
+       
+       <script type="text/javascript">
+              jQuery(document).ready(function() {
+                  
+             jQuery('.basic2').jRating({
+                                isDisabled:true,
+                                nbRates : 0,
+                                sendRequest: false,
+                                rateMax : 5,
+                                
+                            });
+                        
+                jQuery('.basictemp2').each(function(){
+                    jQuery(this).attr("data-average",jQuery(this).parent().find('.valoration2').val()).attr("data-id",1);
+           
+             });
+            //jQuery('.basictemp').attr("data-average",1).attr("data-id",1);
+            
+            jQuery('.basic2').remove();
+            jQuery('.basictemp2').jRating({
+                                isDisabled:true,
+                                nbRates : 0,
+                                sendRequest: false,
+                                rateMax : 5,
+                                showRateInfo: true,
+                                bigStarsPath: '../../bundles/common/css/icons/stars.png'
+                                
+                            });
+                            
+                            
+                         
+                            
+  
+    
+      jQuery("#review_stayDate").datepicker({ maxDate: new Date() }); 
+      
+       jQuery('#btnsavereview').click(function(e){
+            validateForm();
+            }); 
+                            
+               
+ function checkLength( o, min, max ) {
+			if ( o.val().length < min ) {
+                            createPopover(o, 'Please fill out this field');
+                            
+                            return false;
+			} else {
+				return true;
+			}
+		}
+         
+         
+         function checkRegexp( o, regexp) {
+			if ( !( regexp.test( o.val() ) ) ) {
+				createPopover(o, 'Invalid field');
+				return false;
+			} else {
+				return true;
+			}
+		}
+         
+         
+         function checkSelected( o ) {
+			if ( o.val() == 0 ) {
+				createPopover(o, 'Please fill out this field');
+				return false;
+			} else {
+				return true;
+			}
+		}
+                
+           function checkDate( o, u ) {
+			if ( u.val() < o.val() ) {
+				createPopover(u, 'Invalid Date');
+				return false;
+                         
+			} else {
+				return true;
+			}
+		}
+         
+         function validateForm(){
+                    var bValid = true;
+                    bValid = bValid && checkLength(jQuery('#review_title'), 2, 100 );
+                    bValid = bValid && checkLength(jQuery('#review_description'), 2, 250 );
+                    bValid = bValid && checkLength(jQuery('#review_stayDate'), 1, 10 );
+                    bValid = bValid && checkLength(jQuery('#review_guest'), 2, 100 );
+                    bValid = bValid && checkLength(jQuery('#review_email'), 4, 100 );
+                    bValid = bValid && checkRegexp(jQuery('#review_email'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+                   
+                    if (bValid){
+                    disableForm();    
+                    submitForm();
+        }
+         
+        }
+        
+        
+        
+        
+    
+        
+        function disableForm(){
+        jQuery('.review-form').find('input , select, button, textarea').attr('disabled','disabled')        
+            jQuery(".review-form").css("opacity",0.37);
+            
+        }
+        
+         function resetForm(){
+        jQuery('.review-form').find('input, textarea').val('');
+        jQuery('.basictemp1 .jRatingAverage').css('width','0');
+        }
+        
+         function enableForm(){
+        jQuery('.review-form').find('input , select, button, textarea').removeAttr('disabled')
+         jQuery(".review-form").css("opacity",1);
+        }
+          
+                
+      function submitForm(){
+            jQuery.ajax({ 
+       url: '{{ path('create_review') }}',
+       type: "POST",
+       data: {  id : {{property.id}} ,
+                firstName: jQuery('#review_guest').val(), 
+                title: jQuery('#review_title').val(), 
+                text: jQuery('#review_description').val(),
+                date: jQuery('#review_stayDate').val(),
+                email: jQuery('#review_email').val(),
+                valoration: jQuery('#review_valoration').val(),
+              
+               
+        }, 
+       async: false, 
+       success: function(response){ 
+    jQuery('.mensaje').removeClass('hide');       
+    jQuery('.mensaje').fadeIn();
+    resetForm();
+    enableForm(); 
+       } 
+   });  
+
+}
+
+      function createPopover(elem , text){
+                    elem.attr('data-toggle','popover');
+                    elem.attr('data-placement','right');
+                    elem.attr('data-content',text);
+                    elem.attr('data-container','body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+        }
+        
+        jQuery('.review-form').find('input , select, textarea').each(function(){
+        jQuery(this).focusout(function(){
+        jQuery(this).popover('destroy');
+        });
+        });
+             
+                            
+
+             });
+            
+            </script>

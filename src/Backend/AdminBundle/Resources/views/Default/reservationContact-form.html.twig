@@ -1,0 +1,148 @@
+<div class="modal fade" id="myModalContact{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Contact Guest</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formReservationContact" action="{{ path('contact_reservation_guest') }}" method="POST" class="form-horizontal">
+                    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12"><h4>Guest Information</h4></div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <p>{{res.firstName}} {{res.lastName}}</p>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                            {% if (res.phone != "" and res.phone != null)%}
+                                <div><span class="path glyphicon glyphicon-phone" style="margin-right: 3px; color:#555555 "></span>{{res.phone}}</div>
+                                {%endif%}
+                        </div>
+                    </div>
+                    <hr>
+
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+                            <label>Message</label>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <textarea class="form-control" id="mensaje" name="mensaje"></textarea>
+                        </div>
+
+                    </div>
+
+
+
+                    <input type="hidden" id="resId" name="resId" value="{{id}}" >
+              
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12"><div id="error"></div></div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary confirm-send">Email</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+
+
+        function disableFormContactReservation() {
+            jQuery('#myModalContact{{id}} #formReservationContact').find('textarea').attr('disabled', 'disabled')
+            jQuery("#myModalContact{{id}} #formReservationContact").css("opacity", 0.37);
+        }
+
+
+
+        function enableFormContactReservation() {
+            jQuery('#myModalContact{{id}} #formReservationContact').find('textarea').val('');
+            jQuery('#myModalContact{{id}} #formReservationContact').find('textarea').removeAttr('disabled');
+            jQuery("#myModalContact{{id}} #formReservationContact").css("opacity", 1);
+        }
+
+        function submitFormContactReservation() {
+
+            jQuery.ajax({
+                statusCode: {
+                    500: function () {
+                        //enableFormConfirmReservation();
+                        jQuery('#myModalContact{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                    }
+                },
+                url: jQuery('#myModalContact{{id}} #formReservationContact').attr('action'),
+                type: "POST",
+                data: {resId: '{{id}}', resGuest: '{{res.firstName}} {{res.lastName}}', resEmail: '{{res.email}}', mensaje: jQuery('#mensaje').val()},
+                async: false,
+                success: function (response) {
+                    enableFormContactReservation();
+                    jQuery('#myModalContact{{id}}').modal('hide');
+                }
+            });
+        }
+
+
+        jQuery('#myModalContact{{id}} .confirm-send').click(function (e) {
+            validateFormContact();
+
+        });
+
+  jQuery('#myModalContact{{id}}').find('textarea').each(function(){
+    jQuery(this).focusout(function(){
+    jQuery(this).popover('destroy');
+    });
+    });
+
+
+        function validateFormContact() {
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#myModalContact{{id}} #mensaje'), 5, 500);
+            if (bValid) {
+                disableFormContactReservation();
+                submitFormContactReservation();
+            }
+
+        }
+        
+          function checkLength(o, min, max) {
+            if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+                    return false;
+            } else {
+            return true;
+            }
+            }
+            
+                function createPopover(elem, text){
+                elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+            }
+
+    });
+
+
+
+
+
+
+</script>

@@ -1,0 +1,27 @@
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+{% extends "CommonBundle:Layout:base.html.twig" %}
+{% block title %}{{ parent() }}{% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }}  {% endblock %}
+{% block header %}
+
+    {{ include('CommonBundle:Default:header-admin.html.twig') }}
+
+{% endblock %}
+{% block body %}
+
+
+    <div class="container">
+        <div class="row" style="margin-top: 40px">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                <p>
+                    {{ 'resetting.check_email'|trans({'%email%': email}) }}
+                </p>
+            </div>
+        </div>    
+    </div>
+{% endblock body %}
+{% block footer %}{{ include('CommonBundle:Default:footer-login.html.twig') }}  {% endblock %}

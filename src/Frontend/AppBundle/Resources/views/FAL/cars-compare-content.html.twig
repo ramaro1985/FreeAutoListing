@@ -1,0 +1,776 @@
+<div style="width: 100%;background-color:#f4f4f4 ">
+
+<div class="container">
+<div id="main" class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="secondNav">
+                <h1 style="font-size: 18px;">Compare these vehicles</h1>
+            </div>
+        </div>
+        <div class="col-md-6 text-right" style="margin-top: 20px;">
+            <a href="#" style="text-decoration: none;"><i
+                        class="glyphicon glyphicon-print"></i> Printeable version</a>
+        </div>
+    </div>
+</div>
+{% set counter = 0 %}
+{% if vehicle1 is defined and vehicle1 is not null %}
+    {% set counter = counter + 1 %}
+    {% set vehicleoptions = form_vehicle1_options.vehiclesoptions %}
+{% endif %}
+{% if vehicle2 is defined and vehicle2 is not null %}
+    {% set counter = counter + 1 %}
+    {% set vehicleoptions = form_vehicle2_options.vehiclesoptions %}
+{% endif %}
+{% if vehicle3 is defined and vehicle3 is not null %}
+    {% set counter = counter + 1 %}
+    {% set vehicleoptions = form_vehicle3_options.vehiclesoptions %}
+{% endif %}
+{% set columnwidth = 80 / counter %}<!-- 80 couse the first column have width 20 -->
+<form action="{{ path("compare_cars") }}" method="POST">
+<div class="container-fluid">
+<div class="table-responsive">
+<table class="table table-bordered table-hover" style="background-color: white">
+<th valign="top"
+    style="border-left-color: transparent;border-top-color:transparent;width: 20%;background-color: #ffffff ">
+                        <span>Back to <a style="text-decoration: underline;" href="javascript:history.back(-1);">search
+                                result</a></span>
+</th>
+{% if vehicle1 is defined and vehicle1 is not null %}
+    <input type="hidden" id="image-0" name="image-0" value="{{ vehicle1.serie }}"/>
+    <input type="hidden" id="image-0_imagesrc" name="image-0_imagesrc"
+           value="{{ vehicle1image }}"/>
+    <th id="1" style="border-top-color:transparent; background-color: white;width: {{ columnwidth }}%">
+        <button id="remove1"
+                onclick="document.getElementById('image-0').setAttribute('value','')"
+                type="submit" class="btn btn-primary"
+                style="margin-left: 5px; background-color: lightgrey;border-color:transparent;color: #1F1F1F;border-radius: 0px">
+            Remove
+        </button>
+        <br/>
+
+        <div class="thumbnail" style="margin-bottom: 5px !important;">
+            <img src="{{ vehicle1image }}"/>
+        </div>
+        <div style="margin-bottom: 5px !important;">
+            <a href="javascript:void(0)" id="email1" class="btn btn-primary"
+               data-toggle="modal"
+               data-target="#myModalCar"
+               style="margin-left: 5px; background-color: #cb2020;border-color:transparent;color: white;border-radius: 0px;padding: 6px 25px;">
+                Email Owner
+            </a>
+        </div>
+        <div style="margin-bottom: 5px !important;">
+            <button id="save1" class="btn btn-primary"
+                    style="margin-left: 5px; background-color: transparent;border-color:#f4f4f4;color: #1F1F1F;border-radius: 4px">
+                Save this car
+            </button>
+        </div>
+    </th>
+{% endif %}
+{% if vehicle2 is defined and vehicle2 is not null %}
+    <input type="hidden" id="image-1" name="image-1" value="{{ vehicle2.serie }}"/>
+    <input type="hidden" id="image-1_imagesrc" name="image-1_imagesrc"
+           value="{{ vehicle2image }}"/>
+    <th style="border-top-color:transparent; background-color: white;width: {{ columnwidth }}%">
+        <button onclick="document.getElementById('image-1').setAttribute('value','')"
+                type="submit" class="btn btn-primary"
+                style="margin-left: 5px; background-color: lightgrey;border-color:transparent;color: #1F1F1F;border-radius: 0px">
+            Remove
+        </button>
+        <br/>
+
+        <div class="thumbnail" style="margin-bottom: 5px !important;">
+            <img src="{{ vehicle2image }}"/>
+        </div>
+        <div style="margin-bottom: 5px !important;">
+            <a href="javascript:void(0)" id="email2" class="btn btn-primary"
+               data-toggle="modal"
+               data-target="#myModalCar"
+               style="margin-left: 5px; background-color: #cb2020;border-color:transparent;color: white;border-radius: 0px;padding: 6px 25px;">
+                Email Owner
+            </a>
+        </div>
+        <div style="margin-bottom: 5px !important;">
+            <button id="save2" class="btn btn-primary"
+                    style="margin-left: 5px; background-color: transparent;border-color:#f4f4f4;color: #1F1F1F;border-radius: 4px">
+                Save this car
+            </button>
+        </div>
+    </th>
+{% endif %}
+{% if vehicle3 is defined  and vehicle3 is not null %}
+    <input type="hidden" id="image-2" name="image-2" value="{{ vehicle3.serie }}"/>
+    <input type="hidden" id="image-2_imagesrc" name="image-2_imagesrc"
+           value="{{ vehicle3image }}"/>
+    <th style="border-top-color:transparent; background-color: white">
+        <button id="remvove3"
+                onclick="document.getElementById('image-2').setAttribute('value','')"
+                type="submit" class="btn btn-primary"
+                style="margin-left: 5px; background-color: lightgrey;border-color:transparent;color: #1F1F1F;border-radius: 0px">
+            Remove
+        </button>
+        <br/>
+
+        <div class="thumbnail" style="margin-bottom: 5px !important;">
+            <img src="{{ vehicle3image }}"/>
+        </div>
+        <a href="javascript:void(0)" id="email3" class="btn btn-primary"
+           data-toggle="modal"
+           data-target="#myModalCar"
+           style="margin-bottom: 5px;margin-left: 5px; background-color: #cb2020;border-color:transparent;color: white;border-radius: 0px;padding: 6px 25px;">
+            Email Owner
+        </a>
+
+        <div style="margin-bottom: 5px !important;">
+            <button id="save3" class="btn btn-primary"
+                    style="margin-left: 5px; background-color: transparent;border-color:#f4f4f4;color: #1F1F1F;border-radius: 4px">
+                Save this car
+            </button>
+        </div>
+
+    </th>
+{% endif %}
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Description
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td style="text-decoration: underline;color:#337ab7; ">
+            {{ vehicle1.vehiclesinformation.year.year }}
+            {{ vehicle1.vehiclesinformation.make.makeDisplay }}
+            {{ vehicle1.vehiclesinformation.model.modelDisplay }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td style="text-decoration: underline;color:#337ab7; ">
+            {{ vehicle2.vehiclesinformation.year.year }}
+            {{ vehicle2.vehiclesinformation.make.makeDisplay }}
+            {{ vehicle2.vehiclesinformation.model.modelDisplay }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td style="text-decoration: underline;color:#337ab7; ">
+            {{ vehicle3.vehiclesinformation.year.year }}
+            {{ vehicle3.vehiclesinformation.make.makeDisplay }}
+            {{ vehicle3.vehiclesinformation.model.modelDisplay }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Stock
+        #
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesinformation.getStockNumber() }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesinformation.getStockNumber() }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesinformation.getStockNumber() }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Exterior
+        Color
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesdetails.exteriorcolor }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesdetails.exteriorcolor }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesdetails.exteriorcolor }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Interior
+        Color
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesdetails.interiorcolor }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesdetails.interiorcolor }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesdetails.interiorcolor }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Mileage
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesinformation.mileage }}M
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesinformation.mileage }}M
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesinformation.mileage }}M
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="padding: 15px; font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Price
+        *
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td style="padding: 15px;font-weight: 700;">
+            ${{ vehicle1.vehiclesinformation.price|number_format() }} *
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td style="padding: 15px;font-weight: 700;">
+            ${{ vehicle2.vehiclesinformation.price|number_format() }} *
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td style="padding: 15px;font-weight: 700;">
+            ${{ vehicle3.vehiclesinformation.price|number_format() }} *
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">MSRP
+        (new)
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+
+        {% if vehicle1.vehiclesinformation.msrp is null %}
+            <td>
+                N/A
+            </td>
+        {% else %}
+            <td>
+                ${{ vehicle1.vehiclesinformation.msrp|number_format() }}
+            </td>
+        {% endif %}
+
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+
+        {% if vehicle2.vehiclesinformation.msrp is null %}
+            <td>
+                N/A
+            </td>
+        {% else %}
+            <td>
+                ${{ vehicle2.vehiclesinformation.msrp|number_format() }}
+            </td>
+        {% endif %}
+
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+
+        {% if vehicle3.vehiclesinformation.msrp is null %}
+            <td>
+                N/A
+            </td>
+        {% else %}
+            <td>
+                ${{ vehicle3.vehiclesinformation.msrp|number_format() }}
+            </td>
+        {% endif %}
+
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Vehicle's Location
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {% if vehicle1.profile is not null %}
+                {{ vehicle1.profile.description.address }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {% if vehicle2.profile is not null %}
+                {{ vehicle2.profile.description.address }}
+            {% else %}
+                -
+            {% endif %}
+
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {% if vehicle3.profile is not null %}
+                {{ vehicle3.profile.description.address }}
+            {% else %}
+                -
+            {% endif %}
+
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td class="title" style="background-color: #585858">
+        <h3 style="margin-top: 10px; font-size: 18px">Specifications</h3>
+    </td>
+    <td style="background-color: #585858" colspan="{{ counter }}" class="title"></td>
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Engine
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesdetails.enginetype }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesdetails.enginetype }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesdetails.enginetype }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Doors/Body
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesdetails.doors }}
+            {{ vehicle1.vehiclesinformation.bodyStyle.name }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesdetails.doors }}
+            {{ vehicle2.vehiclesinformation.bodyStyle.name }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesdetails.doors }}
+            {{ vehicle3.vehiclesinformation.bodyStyle.name }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Drive
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesdetails.drive.name }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesdetails.drive.name }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesdetails.drive.name }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">
+        Transmission
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesdetails.transmission.name }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesdetails.transmission.name }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesdetails.transmission.name }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td style="font-weight: 700; background-color: #f4f4f4; border-left-color: transparent">Fuel
+        type
+    </td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.vehiclesdetails.fueltype.name }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.vehiclesdetails.fueltype.name }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.vehiclesdetails.fueltype.name }}
+        </td>
+    {% endif %}
+</tr>
+<tr>
+    <td class="title" style="background-color: #585858">
+        <h3 style="margin-top: 10px; font-size: 18px">Equipment</h3>
+    </td>
+    <td style="background-color: #585858" colspan="{{ counter }}" class="title"></td>
+</tr>
+{% for vo in vehicleoptions %}
+    <tr>
+        <td style="background-color: #f4f4f4; border-left-color: transparent">
+            {{ form_label(vo) }}
+        </td>
+        {% if vehicle1 is defined and vehicle1 is not null %}
+            <td>
+                <span hidden="">{{ form_widget(form_vehicle1_options.vehiclesoptions[loop.index]) }}</span>
+                <span class="glyphicon glyphicon-ok arrow hide"></span>
+            </td>
+        {% endif %}
+        {% if vehicle2 is defined and vehicle2 is not null %}
+            <td>
+                <span hidden="">{{ form_widget(form_vehicle2_options.vehiclesoptions[loop.index]) }}</span>
+                <span class="glyphicon glyphicon-ok arrow hide"></span>
+            </td>
+        {% endif %}
+        {% if vehicle3 is defined and vehicle3 is not null %}
+            <td>
+                <span hidden="">{{ form_widget(form_vehicle3_options.vehiclesoptions[loop.index]) }}</span>
+                <span class="glyphicon glyphicon-ok arrow hide"></span>
+            </td>
+        {% endif %}
+    </tr>
+{% endfor %}
+<tr>
+    <td class="title" style="background-color: #585858">
+        <h3 style="margin-top: 10px; font-size: 18px">Seller Comments</h3>
+    </td>
+    <td style="background-color: #585858" colspan="{{ counter }}" class="title"></td>
+</tr>
+<tr>
+    <td style="border-left-color: transparent;border-bottom-color: transparent;background-color: #f4f4f4;"></td>
+    {% if vehicle1 is defined and vehicle1 is not null %}
+        <td>
+            {{ vehicle1.sellerComments }}
+        </td>
+    {% endif %}
+    {% if vehicle2 is defined and vehicle2 is not null %}
+        <td>
+            {{ vehicle2.SellerComments }}
+        </td>
+    {% endif %}
+    {% if vehicle3 is defined and vehicle3 is not null %}
+        <td>
+            {{ vehicle3.SellerComments }}
+        </td>
+    {% endif %}
+</tr>
+</table>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div class="modal fade" id="myModalCar" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Send Email</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form id="form-description"
+
+                          method="POST"
+                          class="form-horizontal">
+                        <fieldset>
+                            <div class="col-md-12" style="padding: 0px 33px;">
+                                <div class="">
+                                    <br>
+                                    <br>
+
+                                    <div class="form-group no_padding">
+                                        <ul class="no_padding list-unstyled">
+                                            <li>
+                                                <span id="price_veh"
+                                                      style="font-size: 16px;font-weight: bold; font-style: inherit;"></span>
+                                            </li>
+                                            <li>
+                                                <span id="description_veh" style="font-size: 14px;"></span>
+                                            </li>
+                                            <li>
+                                                <span id="mileage_veh" style="font-size: 14px;"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_email.remitent_name) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_email.remitent_mail) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_email.remitent_phone) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_email.body_mail) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row hide" id="loadingOff"
+                                             style="margin-left: 2px">
+                                            <img id="loading"
+                                                 src="{{ asset('bundles/common/images/loading.gif') }}"
+                                                 style="font-size:12px;  border: 0 none;"
+                                                 class="">
+                                            &nbsp; Sending
+                                            Message...
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <br>
+                                        <br>
+                                        <input type="hidden" id="vehicle_serie" name="vehicle_serie" value="">
+
+                                        <div class="col-md-9 col-sm-9 col-xs-9"
+                                             style="padding-left: 0px">
+                                            <a href="javascript:void(0)" id="submit_email"
+                                               class="btn btn-default btn-block text-uppercase btn-danger col-md-7">
+                                                SEND EMAIL
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2"
+                                             style="padding-left: 0px">
+                                            <button type="button"
+                                                    class="btn btn-toolbar close-btn text-uppercase"
+                                                    data-dismiss="modal"
+                                                    style="background-color: white;color: blue;">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_rest(form_email) }}
+                            <br>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+        jQuery("input:checked").each(function () {
+            jQuery(this).parent().next().removeClass("hide");
+        });
+        function createPopover(elem, text) {
+            elem.attr('data-toggle', 'popover');
+            elem.attr('data-placement', 'right');
+            elem.attr('data-content', text);
+            elem.attr('data-container', 'body');
+            elem.popover();
+            elem.trigger('click');
+            elem.focus();
+        }
+
+        function disableForm() {
+            jQuery('#form-description').find('input ,button, textarea').attr('disabled', 'disabled')
+            jQuery("#form-description").css("opacity", 0.37);
+            jQuery("#loadingOff").removeClass("hide");
+            jQuery("#succes_mess").addClass("hide");
+        }
+
+        function resetForm() {
+            jQuery('#form-description').find('input, textarea').val('');
+        }
+
+        function enableForm() {
+            jQuery('#form-description').find('input , button, textarea').removeAttr('disabled')
+            jQuery("#form-description").css("opacity", 1);
+        }
+
+        function checkSelected(o) {
+            if (o.val() == 0) {
+                createPopover(o, 'Please fill out this field');
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkLength(o, min, max) {
+            if (o.val().length < min) {
+                createPopover(o, 'Please fill out this field');
+
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkRegexp(o, regexp) {
+            if (!( regexp.test(o.val()) )) {
+                createPopover(o, 'Invalid field');
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function validateForm() {
+            var bValid = true;
+            bValid = bValid && checkSelected(jQuery('#email_remitent_name'));
+            bValid = bValid && checkLength(jQuery('#email_remitent_name'), 4, 100);
+            bValid = bValid && checkSelected(jQuery('#email_remitent_mail'));
+            bValid = bValid && checkSelected(jQuery('#email_body_mail'));
+            bValid = bValid && checkLength(jQuery('#email_body_mail'), 2, 240);
+            bValid = bValid && checkLength(jQuery('#email_remitent_mail'), 4, 100);
+            bValid = bValid && checkRegexp(jQuery('#email_remitent_mail'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+
+            if (bValid) {
+                disableForm();
+                submitForm();
+            }
+        }
+
+        var price = 'Listed Price: $';
+        var milage = 'Milage: ';
+        var name = null;
+        var yearr = null;
+        var makee = null;
+        var modell = null;
+        {% set serie =  '' %}
+
+        {% if vehicle1 is defined and vehicle1 is not null %}
+        jQuery('#email1').click(function () {
+            name = "{{ vehicle1.vehiclesinformation.condition.name|upper }} ";
+            yearr = "{{vehicle1.vehiclesinformation.year.year|upper }} ";
+            makee = "{{ vehicle1.vehiclesinformation.make.makeDisplay|upper }} ";
+            modell = "{{ vehicle1.vehiclesinformation.model.modelDisplay|upper }}";
+            jQuery('#price_veh').text(price +{{ vehicle1.vehiclesinformation.price }});
+            jQuery('#description_veh').text(name + yearr + makee + modell);
+            jQuery('#mileage_veh').text("Milage: " + "{{ vehicle1.vehiclesinformation.mileage }}");
+
+            //jQuery('#vehicle_serie').val({{ vehicle1.serie }});
+
+            {% set serie =  vehicle1.serie %}
+        });
+        {% endif %}
+
+        {% if vehicle2 is defined and vehicle2 is not null %}
+        jQuery('#email2').click(function () {
+            name = "{{ vehicle2.vehiclesinformation.condition.name|upper }} ";
+            yearr = "{{vehicle2.vehiclesinformation.year.year|upper }} ";
+            makee = "{{ vehicle2.vehiclesinformation.make.makeDisplay|upper }} ";
+            modell = "{{ vehicle2.vehiclesinformation.model.modelDisplay|upper }}";
+            jQuery('#price_veh').text(price +{{ vehicle2.vehiclesinformation.price }});
+            jQuery('#description_veh').text(name + yearr + makee + modell);
+            jQuery('#mileage_veh').text("Milage: " + "{{ vehicle2.vehiclesinformation.mileage }}");
+
+            //jQuery('#vehicle_serie').val({{ vehicle2.serie }});
+            {% set serie =  vehicle2.serie %}
+        });
+        {% endif %}
+
+        {% if vehicle3 is defined and vehicle3 is not null %}
+        jQuery('#email3').click(function () {
+            name = "{{ vehicle3.vehiclesinformation.condition.name|upper }} ";
+            yearr = "{{vehicle3.vehiclesinformation.year.year|upper }} ";
+            makee = "{{ vehicle3.vehiclesinformation.make.makeDisplay|upper }} ";
+            modell = "{{ vehicle3.vehiclesinformation.model.modelDisplay|upper }}";
+            jQuery('#price_veh').text(price +{{ vehicle3.vehiclesinformation.price}});
+            jQuery('#description_veh').text(name + yearr + makee + modell);
+            jQuery('#mileage_veh').text("Milage: " + "{{ vehicle3.vehiclesinformation.mileage }}");
+
+            //jQuery('#vehicle_serie').val({{ vehicle3.serie }});
+            {% set serie =  vehicle3.serie %}
+        });
+        {% endif %}
+
+        function submitForm() {
+
+            var remitent_mail;
+            var remitent_phone;
+            var remitent_name;
+            var body_mail;
+            var offer_text;
+
+            remitent_name = jQuery('#email_remitent_name').val();
+            remitent_mail = jQuery('#email_remitent_mail').val();
+            remitent_phone = jQuery('#email_remitent_phone').val();
+            body_mail = jQuery('#email_body_mail').val();
+
+            jQuery.ajax({
+                url: "{{ path('car_details',{'serie': serie}) }}",
+                type: "POST",
+                data: {
+                    formulario: 'mail',
+                    remitent_name: remitent_name,
+                    remitent_mail: remitent_mail,
+                    remitent_phone: remitent_phone,
+                    body_mail: body_mail,
+                    compare_car: true
+                },
+                async: false,
+                success: function () {
+                    resetForm();
+                    enableForm();
+
+                    jQuery("#loadingOff").addClass("hide");
+                    jQuery("#myModalCar").modal('destroy');
+                }
+            });
+        }
+
+        jQuery('#submit_email').click(function () {
+            validateForm();
+        })
+
+    });
+
+</script>

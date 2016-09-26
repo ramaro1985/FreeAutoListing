@@ -1,0 +1,220 @@
+<div class="panel-heading" style="background-color: #b8b8b8;border-color: #b8b8b8;color:#ffffff">
+    <div class="container-fluid">
+        <h2 class="panel-title" style="font-size: 23px;">Create a Dealership</h2>
+    </div>
+</div>
+<div class="panel-body" style="padding: 0px">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"
+         style="margin-left: 1px;margin-right: 1px">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne"
+                 style="background-color:#e4e4e4;border-color: #b8b8b8; ">
+                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                         <span class="pull-right"><span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                        aria-hidden="true" style="margin-left: 10px;"></span></span>Dealer
+                    Information
+                </li>
+            </div>
+            <div class="panel-heading" role="tab" id="headingOne"
+                 style="background-color:#e4e4e4;border-color: #b8b8b8; ">
+                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                         <span class="pull-right"><span class="fal_icon servicetoolsicon"
+                                                        aria-hidden="true" style="margin-left: 10px;"></span></span>Services
+                    & Amenities
+                </li>
+            </div>
+            <div style="font-size: 14px;;margin-left: 15px;margin-right: 12px;margin-top: 15px;"
+                 id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+                 aria-labelledby="headingOne">
+                <p> Let's get started! Name your property and tells us some of the basics, including size,
+                    number
+                    of
+                    bedrooms, and how you would like to be contacted. You can edit or update page as often
+                    as
+                    required. Make
+                    sure to click "Save" when you're finished!
+                </p>
+
+                <form id="form-descriptionM"
+                      action="{{ path('set_description' , {'type': 'save', 'prop_pk' : prop_pk }) }}" {{ form_enctype(form1) }}
+                      method="POST" class="form-horizontal formulario" style="margin-top: 20px">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+                            <span style="color: red">*</span>{{ form_label(form1.description.name) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.description.name) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12 text-danger">
+                            {{ form_errors(form1.description.name) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+                            <span style="color: red">*</span>{{ form_label(form1.description.phone) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.description.phone) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12 text-danger">
+                            {{ form_errors(form1.description.phone) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+                            <span style="color: red">*</span>{{ form_label(form1.description.address) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.description.address) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12 text-danger">
+                            {{ form_errors(form1.description.address) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-letf">
+                            <span style="color: red">*</span>{{ form_label(form1.description.email) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.description.email) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12 text-danger">
+                            {{ form_errors(form1.description.email) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-xs-6 text-left">
+                            <div class="col-sm-12 col-xs-12 text-left">
+                                {{ form_label(form1.description.hoursopen) }}
+                            </div>
+                            <div class="col-sm-12 col-xs-12" style="padding-left:0px; padding-right: 5px">
+                                {{ form_widget(form1.description.hoursopen) }}
+                            </div>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <div class="col-sm-12 col-xs-12 text-right">
+                            </div>
+                            <div class="col-sm-12 col-xs-12"
+                                 style="padding-right: 0px; margin-top:22px; padding-left: 5px">
+                                {{ form_widget(form1.description.hoursclose) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 text-danger">
+                        {{ form_errors(form1.description.hoursopen) }}
+                        {{ form_errors(form1.description.hoursclose) }}
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+                            {{ form_label(form1.description.webPage) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form1.description.webPage) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12 text-danger">
+                            {{ form_errors(form1.description.webPage) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-xs-6 text-left no_padding" style="padding-left: 0px !important; ">
+                            <div class="col-sm-6 col-xs-12 text-left">
+                                {{ form_label(form1.photo) }}
+                            </div>
+                            <div class="col-sm-6 col-xs-12 text-left hide">
+                                <input type="file" accept="image/*" name="profile_photoM" id="profile_photoM">
+                                {{ form_widget(form1.photo) }}
+                            </div>
+                        </div>
+                        <div class="col-xs-6 text-center no_padding" style="padding-right: 55px !important;">
+                            <div id="logobrowseM" class="well logo"
+                                 style="width: 100%;height: 100px;margin-left: 0px !important;">
+                                {% if logo is not defined or logo == "" %}
+                                    <p id="logotextM" class="text-uppercase bold_text" style="margin-top: 15px">
+                                        Click Here<br>
+                                        To Browse<br>
+                                        For Logo
+                                    </p>
+                                {% endif %}
+                                <div id="logoimageM"
+                                     class="col-md-5 logo img-responsive {% if logo is not defined %} hide {% endif %}"
+                                     style="width:  100%;
+                                     {% if logo is defined %} background-image: url({{ asset(logo) }}) {% endif %}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12 text-danger">
+                            {{ form_errors(form1.photo) }}
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-xs-12 text-center">
+                            <button id="btnsave1" type="submit" class="btn btn-primary">Save</button>
+                            <button id="btnsavecontinue1" type="submit" class="btn btn-primary"
+                                    style="margin-left: 10px">
+                                Save &
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_rest(form1) }}
+                </form>
+
+            </div>
+            <div style="font-size: 14px;;margin-left: 15px;margin-right: 12px;margin-top: 15px;"
+                 id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                 aria-labelledby="headingOne">
+                <p>This is the basic information needed to create your ad. It will appear on your listing
+                    and detailed ad.This is the basic information needed to create your ad. It will appear
+                    on your listing
+                    and detailed ad.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var arch1 = null;
+    function cargar1(ev) {
+        //alert(ev.target.files[0])
+        arch1 = new FileReader();
+        arch1.addEventListener('load', leer1, false);
+        arch1.readAsDataURL(ev.target.files[0]);
+    }
+
+    function leer1(ev) {
+        try {
+            jQuery("#logoimageM").css("background-image", "url(" + arch1.result + ")");
+            jQuery("#logotextM").hide();
+            jQuery("#logoimageM").removeClass("hide");
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    jQuery("#logobrowseM").click(function (e) {
+        jQuery("#profile_photoM").trigger("click");
+    });
+
+    jQuery("#profile_photoM").change(cargar1);
+
+    jQuery('#btnsavecontinue1').click(function (e) {
+        jQuery('#form-description').attr('action', "{{path('set_description', {'type':'continue' , 'prop_pk':prop_pk})}}");
+    });
+
+    jQuery('#btnsave1').click(function (e) {
+        jQuery('#form-description').attr('action', "{{path('set_description', {'type':'save' , 'prop_pk':prop_pk})}}");
+    });
+</script>

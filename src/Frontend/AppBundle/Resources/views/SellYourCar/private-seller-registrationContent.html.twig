@@ -1,0 +1,259 @@
+<div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+    <div class="row">
+        <div class="col-md-12  text-center">
+            {% if form_errors(form.email) %}
+                <div class="col-sm-12 col-xs-12 text-center text-danger alert alert-danger"
+                     role="alert">{{ form_errors(form.email) }}
+                </div>
+            {% endif %}
+            {% if form_errors(form.plainPassword) %}
+                <div class="col-sm-12 col-xs-12 text-center text-danger alert alert-danger"
+                     role="alert">{{ form_errors(form.plainPassword) }}</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-vehicle-info"
+                  action="{{ path('step3_privateseller_register',{'vehicle_id':vehicle_id}) }}" {{ form_enctype(form) }}
+                  method="POST" class="form-horizontal" style="margin-top: 20px">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-12 col-xs-12 text-left">
+                        <p class="bold_text_black">Contact Information/Registration</p>
+
+                        <p>
+                            Enter the phone number and email address want to use for you ad.Your phone number will be
+                            available to
+                            prospective buyers.
+                            We'll email your notifications and information, but we'll never display your email address.
+                            By providing us with your phone number, you acknowledge and agree that we (and/or our
+                            service providers) may
+                            contact you at
+                            the mobile or other telephone number you list, in order to provide you with additional
+                            information or offers
+                            regarding or services,
+                            and that in doing so we may utilize automatic dialing services.
+                            We respect your privacy.Read our <a href="{{ path('terms') }}">Privacy Statement</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 10px;margin-top: 50px">
+                    <div class="col-sm-3 col-xs-12 text-left">
+                        <span style="color: red">*</span>
+                        <label class="required">Name</label>
+                    </div>
+                    <div class="col-sm-5 col-xs-12">
+                        {{ form_widget(form.name) }}
+
+                    </div>
+                    <div class="col-sm-3 col-xs-12 text-danger">
+                        {{ form_errors(form.name) }}
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <div class="col-sm-3 col-xs-12 text-left">
+                        <span style="color: red">*</span>
+                        <label class="required">Last Name</label>
+                    </div>
+                    <div class="col-sm-5 col-xs-12">
+                        {{ form_widget(form.lastname) }}
+
+                    </div>
+                    <div class="col-sm-3 col-xs-12 text-danger">
+                        {{ form_errors(form.lastname) }}
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-left">
+                        <span style="color: red">*</span>
+                        <label class="required">Phone Number</label>
+                    </div>
+                    <div class="col-sm-5 col-xs-12">
+                        {{ form_widget(form.phone) }}
+
+                    </div>
+                    <div class="col-sm-3 col-xs-12 text-danger">
+                        {{ form_errors(form.phone) }}
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-left">
+                        <span style="color: red">*</span>
+                        {{ form_label(form.email) }}
+                    </div>
+                    <div class="col-sm-5 col-xs-12">
+                        {{ form_widget(form.email) }}
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-left" style="margin-top: 20px">
+                        <span style="color: red">*</span>
+                        Password
+                    </div>
+                    <div class="col-sm-5 col-xs-12">
+                        {{ form_widget(form.plainPassword) }}
+                    </div>
+                    <div class="col-sm-3 col-xs-12 text-danger">
+                        {{ form_errors(form.plainPassword) }}
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 5px; margin-top: 20px">
+                    <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1 text-center">
+                        <label style="margin-top: 10px; margin-bottom: 10px">
+
+                            <span style="display: inline; font-weight: 400"> {{ form_widget(form.t_and_c) }} I accept the <a
+                                        href="{{ path('terms') }}">Terms and Conditions</a> and <a
+                                        href="{{ path('privacy_policy') }}">Privacy Policy</a></span>
+                        </label>
+                    </div>
+                </div>
+                <div id="type_container" class="form-group hidden" style="margin-bottom: 10px">
+                    {{ form_widget(form.type) }}
+                </div>
+                <div class="col-md-12 text-left" style="margin-top: 15px">
+                    <div class="form-group" style="margin-bottom: 30px;">
+
+                        <div class="col-sm-12 col-xs-12 col-md-offset-3 no_padding">
+                            <input type="hidden" value="0" id="invalid"/>
+                            <button id="btn-submit" type="" class="btn btn-primary"
+                                    style="margin-left: 5px">
+                                SAVE AND
+                                CONTINUE
+                            </button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="sourcecode" value="1" id="sourcecode"/>
+                    <input type='hidden' name='formID' value='13231' id="formID"/>
+                    <input type='hidden' name='weburl' value='1' id="weburl"/>
+                    <input type='hidden' name='isDedicatedClient' value='0' id="isDedicatedClient"/>
+                </div>
+
+                {{ form_rest(form) }}
+
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+        jQuery("#type_container select").val("1");
+
+
+        jQuery(function () {
+            jQuery(".glyphicon-info-sign").tooltip();
+        });
+
+
+        jQuery('#fos_user_registration_form_plainPassword_second').focusout(function () {
+            if (jQuery(this).val() !== '' && jQuery('#fos_user_registration_form_plainPassword_first').val()) {
+                if (jQuery(this).val() !== jQuery('#fos_user_registration_form_plainPassword_first').val()) {
+                    createPopover(jQuery(this), 'Passwords does not match');
+                    jQuery(this).css('box-shadow', '0 0 0 rgba(0, 0, 0, 1) inset, 0 0 8px rgba(255, 0, 0, 1)');
+                    jQuery('#invalid').val('1');
+
+                } else {
+                    jQuery(this).css('box-shadow', 'none');
+                    jQuery(this).popover('destroy');
+                    jQuery('#invalid').val('0');
+                }
+            }
+        });
+
+
+        jQuery('#fos_user_registration_form_plainPassword_second').click(function () {
+            jQuery(this).popover('destroy');
+        });
+        jQuery('#fos_user_registration_form_plainPassword_first, #fos_user_registration_form_name, #fos_user_registration_form_lastname, #fos_user_registration_form_email').click(function () {
+            jQuery('#fos_user_registration_form_plainPassword_second').popover('destroy');
+        });
+
+        function validateForm() {
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#fos_user_registration_form_name'), 1, 100);
+            bValid = bValid && checkLength(jQuery('#fos_user_registration_form_lastname'), 1, 100);
+            bValid = bValid && checkLength(jQuery('#fos_user_registration_form_plainPassword_first'), 6, 100);
+            bValid = bValid && checkLength(jQuery('#fos_user_registration_form_plainPassword_second'), 6, 100);
+            bValid = bValid && checkLength(jQuery('#fos_user_registration_form_phone'), 10, 10);
+            bValid = bValid && checkChecked(jQuery('#fos_user_registration_form_t_and_c'));
+
+            return bValid;
+        }
+
+
+        function checkLength(o, min, max) {
+            if (o.val().length < min || o.val().length > max) {
+                //createPopover(o, 'Please fill out this field');
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+
+        function checkChecked(o) {
+            if (!o.prop('checked')) {
+                //createPopover(o, 'Please fill out this field');
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        jQuery('#fos_user_registration_form_t_and_c').prop('checked')
+        /*
+         function validateRecaptcha() {
+         var data_2;
+         jQuery.ajax({
+         type: "POST",
+         url: '
+        {##}{ path('validate_captcha') }}',
+         data: jQuery('#form-register').serialize(),
+         async: false,
+         success: function (data) {
+         var response = JSON.parse(data);
+         if (response.nocaptcha === "true") {
+         data_2 = 1;
+         } else if (response.spam === "true") {
+         data_2 = 1;
+         }
+         else {
+         data_2 = 0;
+         }
+         }
+         });
+
+         if (data_2 != 0) {
+         //e.preventDefault();
+         if (data_2 == 1) {
+         alert("Please check the captcha");
+         return false;
+         } else {
+         alert("Please Don't spam");
+         return false;
+         }
+         } else {
+         return true;
+         }
+         }*/
+
+
+        function createPopover(elem, text) {
+            elem.attr('data-toggle', 'popover');
+            elem.attr('data-placement', 'right');
+            elem.attr('data-content', text);
+            elem.attr('data-container', 'body');
+            elem.popover();
+            elem.trigger('click');
+
+        }
+
+    });
+</script>

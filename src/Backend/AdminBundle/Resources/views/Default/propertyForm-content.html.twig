@@ -1,0 +1,783 @@
+<div id="container" class="container-fluid properties-container">
+
+        
+    <div class="row" style="margin-left: 5px; margin-top: 30px">
+         <div class="col-md-12 col-sm-12">
+             
+             <ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+                        <div id="photos" class="anchor-profile-photo"></div> 
+                         <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-1" href="#description" class="btn btn-primary b2b active" > 
+                                    Listing Details <span class="glyphicon glyphicon-info-sign glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-2" href="#location" class="btn btn-default" > 
+                                    Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        
+                       
+                        <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-4" href="#photos" class="btn btn-default b1b">
+                                    Photos  <span class="glyphicon glyphicon-picture glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-6" href="#rates"  class="btn btn-default b6b" >
+                                    Rates <span class="glyphicon glyphicon-usd glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-5" href="#booking-calendar"  class="btn btn-default b5b">
+                                    Calendar <span class="glyphicon glyphicon-calendar glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                         
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-3" href="#amenities" class="btn btn-default b3b">
+                                    Amenities <span class="glyphicon glyphicon-list glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-7" href="#payments"  class="btn btn-default b7b" >
+                                    Policies & Payments <span class="glyphicon glyphicon-credit-card glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        
+                       
+                        
+                    </ul>
+
+</div>
+        </div>
+     
+    
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-description" action="{{ path('create_property' , {'type': 'description', 'prop_pk': prop_pk }) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal formulario" style="margin-top: 20px">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+   
+    <div class="col-md-12 col-xs-12">
+       <div class="form-group" >
+           <div class="col-md-12 col-xs-12 text-left form-title">
+       Add Listing
+        </div>
+               
+      <div class="col-md-11 col-xs-12 text-left">
+          <p>Let's get started! Name your property and tells us some of the basics, including size, number of bedrooms, and how you would like to be contacted. You can edit or update page as often as required. Make sure to click "Save" when you're finished!</p>
+        </div>        
+       </div>
+         
+    </div>
+    
+   <div class="col-md-12 col-xs-12">
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+           Property Information
+        </div>
+       </div>
+         
+    </div>
+   
+    <div class="col-md-12  text-center">
+ 
+         
+    
+    
+    
+    <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.description.name) }}<span style="color: red">*</span>
+     
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.description.name) }}
+     
+    </div>
+            <div class="col-sm-3 col-md-3 col-xs-12 text-left">
+                <span><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="The Property Name will be visible only to the home owner"></span>
+                           </span>
+             
+    </div>
+           
+  </div> 
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.description.tagline) }}<span style="color: red">*</span>
+     
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.description.tagline) }}
+     
+    </div>
+            <div class="col-sm-3 col-xs-12 text-left">
+   <span><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="The Property Tagline will be visible to the traveler on Search Results"></span>
+                           </span>
+     
+    </div>
+  </div> 
+        
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.description.description) }}<span style="color: red">*</span>
+     
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.description.description) }}
+     
+    </div>
+            
+            <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.description.description) }}
+     
+    </div>
+  </div> 
+    
+        
+    </div>
+    
+    
+     <div class="col-md-12 col-xs-12">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Contact Information
+        </div>
+       </div>
+           
+    </div>
+    <div class="col-md-12 col-xs-12" style="margin-bottom: 20px">
+        
+       <div class="form-group" >
+       <div class="col-md-5 col-xs-12 text-left">
+           <div class="col-md-2 col-xs-2 text-left"  style="margin-left: 30px"><input class="radio" type="radio" id="contact-info" name="contact-info" value="1" checked="true"></div>
+           <div class="col-md-8 col-xs-8 text-left" style="padding-left: 0"><label style="margin-top:2px">Use primary contact information</label></div> 
+        </div>
+        <div class="col-md-6 col-xs-12 text-left">
+            <div class="col-md-1 col-xs-1 text-left" style="padding-right: 0"><input class="radio" type="radio" id="contact-info" name="contact-info" value="2"></div>
+            <div class="col-md-8 col-xs-8 text-left" style="padding-left: 0"><label style="margin-top:2px">Use other contact information</label></div>
+        </div>
+          
+       </div>
+          
+    </div>
+    
+     <div class="col-md-12 col-xs-12 contact">
+        
+       
+           
+    </div>
+    {% if user.phone == ''%}
+       <div class="col-md-12 col-xs-12">
+      <div class="form-group phone-mandatory" style="margin-top: 10px; margin-bottom: 10px">
+       <div class="col-sm-2 col-xs-12 text-right">
+     <label for="contact_phoneM" class="required">Phone</label><span style="color: red">*</span>
+     
+    </div>
+              <div class="col-sm-5 col-xs-12">
+     <input type="text" id="contact_phoneM" name="contact[phoneM]" required="required" maxlength="10" pattern="[0-9]{10}.*" class="form-control" value="">
+     
+    </div>
+       </div>
+            </div>
+      {% endif  %}
+       
+    
+    <div class="col-md-12 col-xs-12">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Home Information
+        </div>
+       </div>
+           
+    </div>
+  
+    
+    <div class="col-md-12 col-xs-12 text-center">
+    
+    <div class="form-group" style="margin-bottom: 10px;margin-top: 10px">
+    <div class="col-sm-2 col-xs-12 text-right">
+    {{ form_label(form.propertyDetails.size) }}<span style="color: red">*</span>
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.propertyDetails.size) }}
+     
+    </div>
+        <div class="col-sm-1 col-xs-12 text-right">
+    {{ form_label(form.propertyDetails.sizeUnit) }}
+    </div>
+         <div class="col-sm-1 col-xs-12">
+    {{ form_widget(form.propertyDetails.sizeUnit) }}
+     
+    </div>
+        <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.size) }}
+     
+    </div>
+  </div> 
+    
+        
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+    {{ form_label(form.propertyDetails.type) }}<span style="color: red">*</span>
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.propertyDetails.type) }}
+     
+    </div>
+        
+        <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.type) }}
+     
+    </div>
+  </div> 
+    
+        <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+    {{ form_label(form.propertyDetails.locationType) }}<span style="color: red">*</span>
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.propertyDetails.locationType) }}
+    </div>
+            <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.locationType) }}
+     
+    </div>
+  </div>  
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+    {{ form_label(form.propertyDetails.bedrooms) }}<span style="color: red">*</span>
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.propertyDetails.bedrooms) }}
+    </div>
+                <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.bedrooms) }}
+     
+    </div>
+  </div>  
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+    {{ form_label(form.propertyDetails.bathrooms) }}<span style="color: red">*</span>
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.propertyDetails.bathrooms) }}
+    </div>
+                <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.bathrooms) }}
+     
+    </div>
+  </div>  
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+    {{ form_label(form.propertyDetails.half_bath) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.propertyDetails.half_bath) }}
+    </div>
+                <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.half_bath) }}
+     
+    </div>
+  </div>  
+            
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+    {{ form_label(form.propertyDetails.sleeps) }}<span style="color: red">*</span>
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.propertyDetails.sleeps) }}
+    </div>
+                <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.sleeps) }}
+     
+    </div>
+  </div>
+    
+    <div class="form-group" style="margin-bottom: 10px">
+                <div class="col-sm-2 col-xs-12 text-right" style="padding-right: 11px">
+    {{ form_label(form.propertyDetails.currency) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.propertyDetails.currency) }}
+    </div>
+                <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.currency) }}
+     
+    </div>
+  </div>  
+            
+            <div class="form-group" style="margin-bottom: 10px">
+                <div class="col-sm-2 col-xs-12 text-right" style="padding-right: 11px; padding-left: 0">
+    {{ form_label(form.propertyDetails.arrangement) }}<span style="color: red">*</span>
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.propertyDetails.arrangement) }}
+    </div>
+    <div class="col-sm-2 col-xs-12 text-left">
+   <span><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Bedding Accomodations refer to areas where people can comfortably sleep, i.e. a king sized bed, twin bed, and/or pull-out sofa."></span>
+                           </span>
+     
+    </div>
+                <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.propertyDetails.arrangement) }}
+     
+    </div>
+  </div>  
+            
+    </div>
+    
+    
+    <div class="col-md-12 col-xs-12">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Area Information
+        </div>
+       </div>
+           
+    </div>
+    
+    <div class="col-md-12  col-xs-12 text-center">
+    
+    <div class="form-group" style="margin-bottom:10px">
+ 
+        <div class="col-sm-2 col-xs-12 text-right" style="margin: 6px 0 0 0">
+     {{ form_label(form.placesActivities.car) }}
+    </div> 
+        <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.car) }}
+    </div>
+  </div>
+    
+     <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestAirport) }}
+    </div> 
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestAirport) }}
+    </div>
+         <div class="col-md-1 col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestAirportDistance) }}
+    </div>
+         <div class="col-md-1 col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestAirportDistanceUnit) }}
+    </div>
+          <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestAirportDistance) }}
+     
+    </div>   
+  </div>
+    
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestBeach) }}
+    </div> 
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestBeach) }}
+    </div>
+        <div class="col-md-1 col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestBeachDistance) }}
+    </div>
+         <div class="col-md-1 col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestBeachDistanceUnit) }}
+    </div>
+            <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestBeachDistance) }}
+     
+    </div>  
+  </div>
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestFerry) }}
+    </div> 
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestFerry) }}
+    </div>
+        <div class="col-md-1 col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestFerryDistance) }}
+    </div>
+         <div class="col-md-1 col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestFerryDistanceUnit) }}
+    </div>
+            <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestFerryDistance) }}
+     
+    </div>  
+  </div>
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestTrain) }}
+    </div> 
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestTrain) }}
+    </div>
+        <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestTrainDistance) }}
+    </div>
+         <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestTrainDistanceUnit) }}
+    </div>
+            <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestTrainDistance) }}
+     
+    </div> 
+  </div>
+    <div class="form-group" style="margin-bottom: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestHighway) }}
+    </div> 
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestHighway) }}
+    </div>
+        <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestHighwayDistance) }}
+    </div>
+         <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestHighwayDistanceUnit) }}
+    </div>
+             <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestHighwayDistance) }}
+     
+    </div>
+  </div>
+    <div class="form-group" style="margin-bottom: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestBar) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestBar) }}
+    </div>
+        <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestBarDistance) }}
+    </div>
+         <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestBarDistanceUnit) }}
+    </div>
+             <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestBarDistance) }}
+     
+    </div>
+  </div>
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestSki) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestSki) }}
+    </div>
+        <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestSkiDistance) }}
+    </div>
+         <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestSkiDistanceUnit) }}
+    </div>
+            <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestSkiDistance) }}
+     
+    </div>
+  </div>
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestGolf) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestGolf) }}
+    </div>
+        <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestGolfDistance) }}
+    </div>
+         <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestGolfDistanceUnit) }}
+    </div>
+            <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestGolfDistance) }}
+     
+    </div>
+  </div>
+    <div class="form-group" style="margin-bottom: 20px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.placesActivities.nearestRestaurant) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestRestaurant) }}
+    </div>
+        <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestRestaurantDistance) }}
+    </div>
+         <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.placesActivities.nearestRestaurantDistanceUnit) }}
+    </div>
+           <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.placesActivities.nearestRestaurantDistance) }}
+     
+    </div> 
+  </div>
+        </div>
+    
+    <div class="col-md-10 col-md-offset-2 text-center">
+   <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-12 col-xs-12 text-left">
+        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+        <button id="btnsavecontinue" type="submit" class="btn btn-primary" style="margin-left: 10px">Save & Continue</button>
+    </div>
+    </div>        
+    
+  </div>
+    {{ form_rest(form) }}
+</form>
+                </div>
+            </div>
+    
+    
+    
+    
+    
+    
+    
+    </div>
+
+<script type="text/javascript">
+    
+      var componentForm = {
+      street_number: 'short_name',
+      route: 'long_name',
+      postal_code: 'short_name'
+   
+    };
+    
+    function initialize() {
+  var mapOptions = {
+    center: new google.maps.LatLng(-33.8688, 151.2195),
+    zoom: 13
+  };
+  
+  var input = /** @type {HTMLInputElement} */(
+      document.getElementById('property_location_address'));
+      
+  var input1 = /** @type {HTMLInputElement} */(
+      document.getElementById('property_location_address2'));    
+      
+  var options = {
+        types: ['geocode']
+    };  
+
+  var autocomplete = new google.maps.places.Autocomplete(input,options);
+  var autocomplete1 = new google.maps.places.Autocomplete(input1,options);
+
+  var infowindow = new google.maps.InfoWindow();
+  
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    fillInAddress(autocomplete);
+    infowindow.close();
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      return;
+    }
+    
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+    
+      
+
+  });
+  
+  
+   google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+    infowindow.close();
+    var place1 = autocomplete1.getPlace();
+    if (!place1.geometry) {
+      return;
+    }
+    
+
+    var address1 = '';
+    if (place1.address_components) {
+      address1 = [
+        (place1.address_components[0] && place1.address_components[0].short_name || ''),
+        (place1.address_components[1] && place1.address_components[1].short_name || ''),
+        (place1.address_components[2] && place1.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+  });
+  
+
+}
+
+
+function fillInAddress(autocomplete) {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+    document.getElementById('property_location_address').value = '';
+   
+  // Get each component of the address from the place details
+  // and fill the corresponding field on the form.
+
+    var zipCode = "";
+
+  for (var i = 0; i < place.address_components.length; i++) {
+       var addressType = place.address_components[i].types[0];
+        if (addressType == 'postal_code') {
+        zipCode = place.address_components[i][componentForm[addressType]];
+        }
+      }
+      var street_number = place.address_components[0][componentForm['street_number']];
+      var route = place.address_components[1][componentForm['route']];
+      document.getElementById('property_location_address').value = street_number+ ' ' +route;
+      document.getElementById('property_location_zipCode').value = zipCode;
+ 
+   
+   
+}
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    
+    
+            jQuery(document).ready(function() {
+           
+            var tab = 2;    
+                
+            jQuery('#btnsavecontinue').click(function(e){
+             if(tab == 2){ 
+            jQuery('#form-description').attr('action', "{{path('create_property', {'type':'location' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 3){ 
+            jQuery('#form-description').attr('action', "{{path('create_property', {'type':'amenities' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 4){ 
+            jQuery('#form-description').attr('action', "{{path('create_property', {'type':'gallery' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 5){ 
+            jQuery('#form-description').attr('action', "{{path('create_property', {'type':'calendar' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 6){ 
+            jQuery('#form-description').attr('action', "{{path('create_property', {'type':'rates' , 'prop_pk':prop_pk})}}");
+            }
+            else if(tab == 7){ 
+            jQuery('#form-description').attr('action', "{{path('create_property', {'type':'policiesPayments' , 'prop_pk':prop_pk})}}");
+            }
+            }); 
+          
+            jQuery('#link-tab-index-2').click(function(e){
+            tab = 2;
+   
+            jQuery('#btnsavecontinue').trigger('click');  
+            e.preventDefault();
+           }); 
+            jQuery('#link-tab-index-3').click(function(e){
+            tab = 3;
+            jQuery('#btnsavecontinue').trigger('click');  
+            e.preventDefault();
+              
+           }); 
+           
+           jQuery('#link-tab-index-4').click(function(e){
+            tab = 4;
+            jQuery('#btnsavecontinue').trigger('click');
+            e.preventDefault();
+             
+           }); 
+           
+            jQuery('#link-tab-index-5').click(function(e){
+            tab = 5;
+            //jQuery('#btnsavecontinue').trigger('click');   
+            jQuery('#btnsavecontinue').trigger('click');  
+            e.preventDefault();
+           }); 
+           
+           jQuery('#link-tab-index-6').click(function(e){
+            tab = 6;
+            //jQuery('#btnsavecontinue').trigger('click');   
+            jQuery('#btnsavecontinue').trigger('click');  
+            e.preventDefault();
+           }); 
+           
+            jQuery('#link-tab-index-7').click(function(e){
+            tab = 7;
+            //jQuery('#btnsavecontinue').trigger('click');   
+            jQuery('#btnsavecontinue').trigger('click');  
+            e.preventDefault();
+           }); 
+           
+           
+            jQuery('#btnsave').click(function(e){
+            jQuery('#form-description').attr('action', "{{path('create_property', {'type':'description' , 'prop_pk':prop_pk})}}");
+            }); 
+            
+            
+             jQuery('#property_location_country').change(function(e){
+             jQuery.ajax({ 
+                url: '{{path('find_regions')}}',
+                type: "POST",
+                data: { country : jQuery(this).val()}, 
+                async: false, 
+                success: function(response){ 
+                  jQuery('.state-region').html(response);
+                } 
+                }); 
+            e.preventDefault();    
+            });
+            
+            
+            jQuery(function () {
+                jQuery(".glyphicon-info-sign").tooltip();
+                });
+           
+  
+                    jQuery('.radio').change(function(){
+                       if(jQuery(this).val()== '2'){
+                           
+                             if ( jQuery( ".phone-mandatory" ).length ) {
+                           jQuery('.phone-mandatory').hide();
+                           jQuery('#contact_phoneM').removeAttr('required');
+                           }
+                             jQuery.ajax({ 
+                url: '{{path('contact_form')}}',
+                type: "POST",
+                data: {}, 
+                async: false, 
+                success: function(response){
+                   
+                  jQuery('.contact').html(response);
+                } 
+                });
+                        //  jQuery('.contact').load('{{path('contact_form')}}');
+                       }else {
+                            if ( jQuery( ".phone-mandatory" ).length ) {
+                           jQuery('.phone-mandatory').show();
+                            jQuery('#contact_phoneM').attr('required', 'required');
+                           }
+                         jQuery('.contact').html('');  
+                       } 
+                    });
+  
+            });
+            
+            
+            </script>

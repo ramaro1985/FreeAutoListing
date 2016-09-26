@@ -1,0 +1,97 @@
+<div id="form" class="container-fluid">
+    <div class="container text-center">
+        <form class="" role="form" style="padding: 11px 0" action="{{ path('properties') }}">
+  
+   <div class="row">
+       
+  <div class="col-xs-12 col-md-4">
+      <input name="searchtext" id="searchtext" type="text" value="{{app.session.get('searchtext')}}" class="form-control" placeholder="Enter destination, property ID or Keywords">
+  </div>
+       
+  <div class="calendar input-group col-xs-6 col-md-2 pull-left calendario">
+      <input id="datepicker1" name="checkin" type="text" class="form-control" placeholder="Check-in" value="{{app.session.get('checkin')}}">
+  <span class="input-group-addon"><img src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+</div>   
+       
+  <div  class="calendar input-group col-xs-6 col-md-2 pull-left calendario">
+      <input id="datepicker2" name="checkout" type="text" class="form-control" placeholder="Check-out" value="{{app.session.get('checkout')}}">
+  <span class="input-group-addon"><img src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+</div>  
+  
+       <div  class="sleeps input-group hidden-xs col-md-1 pull-left">
+    
+           <select name="sleeps" class="form-control" >
+        <option disabled="disabled" selected="selected" value=""> Sleeps</option>
+        <option value="1" {% if (app.session.get('minSleeps') == '1')%} selected="selected" {%endif%} >1+</option>
+        <option value="2" {% if (app.session.get('minSleeps') == '2')%} selected="selected" {%endif%} >2+</option>
+        <option value="3" {% if (app.session.get('minSleeps') == '3')%} selected="selected" {%endif%} >3+</option>
+        <option value="4" {% if (app.session.get('minSleeps') == '4')%} selected="selected" {%endif%} >4+</option>
+        <option value="5" {% if (app.session.get('minSleeps') == '5')%} selected="selected" {%endif%} >5+</option>
+        <option value="6" {% if (app.session.get('minSleeps') == '6')%} selected="selected" {%endif%} >6+</option>
+        <option value="7" {% if (app.session.get('minSleeps') == '7')%} selected="selected" {%endif%} >7+</option>
+        <option value="8" {% if (app.session.get('minSleeps') == '8')%} selected="selected" {%endif%} >8+</option>
+        <option value="9" {% if (app.session.get('minSleeps') == '9')%} selected="selected" {%endif%} >9+</option>
+        <option value="10" {% if (app.session.get('minSleeps') == '10')%} selected="selected" {%endif%} >10+</option>
+        <option value="11" {% if (app.session.get('minSleeps') == '11')%} selected="selected" {%endif%} >11+</option>
+        <option value="12" {% if (app.session.get('minSleeps') == '12')%} selected="selected" {%endif%} >12+</option>
+        <option value="13" {% if (app.session.get('minSleeps') == '13')%} selected="selected" {%endif%} >13 or more</option>
+        
+    </select>
+     <span class="input-group-addon"><img src="{{ asset('bundles/common/images/icon Sleeps.png') }}" /></span>
+       
+  
+        </div>
+     <div class="col-xs-12 col-md-2">
+         <button id="btnsave" type="submit" class="hide">Save</button>
+         <a id="btnsearch" href="#" class=""><img src="{{ asset('bundles/common/images/Search but.png') }}" /></a>
+  </div>
+</div>
+            
+            
+
+            </form>
+</div>
+      
+        
+    
+</div>
+<script type="text/javascript">
+              jQuery(document).ready(function() {
+//--------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+             jQuery('#btnsearch').click(function(e){
+                 
+              if(checkDate(jQuery('#datepicker1'),jQuery('#datepicker2') )){
+               jQuery('#btnsave').trigger('click');      
+              }
+              e.preventDefault();
+                });
+                
+                
+          function createPopover(elem , text){
+                    elem.attr('data-toggle','popover');
+                    elem.attr('data-placement','top');
+                    elem.attr('data-content',text);
+                    elem.attr('data-container','body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+        }
+           
+                 function checkDate( o, u ) {
+			if ( u.val() < o.val() ) {
+				createPopover(u, 'Invalid Date');
+				return false;
+                         
+			} else {
+				return true;
+			}
+		}
+
+             });
+             
+             
+             
+            
+            </script>

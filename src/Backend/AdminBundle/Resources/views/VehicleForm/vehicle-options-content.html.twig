@@ -1,0 +1,168 @@
+<div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+
+    <div class="row" style="margin-top: 15px">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-12">
+                <ul class="nav nav-pills nav-profile text-center" style="margin-top: 10px; margin-bottom: 20px">
+                    <!--div id="photos" class="anchor-profile-photo"></div>-->
+                    <li class="">
+                        <div class="btn-group">
+
+                            <a id="link-tab-index-1"
+                               href="{{ path('create_vehicle_basic_info',{'type':'open' , 'prop_pk':prop_pk , 'vehicle_id': vehicle_id }) }}"
+                               class="btn btn-default b2b ">
+                                Vehicle Information <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                          aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-3" href="{{path('vehicle_options', {'type':'save' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id})}}" class="btn btn-default b3b active">
+                                Vehicle Options<span class="fal_icon icon-inventary "
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-3" href="{{path('vehicle_gallery', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id})}}" class="btn btn-default b3b">
+                                Photos<span class="fal_icon icon-photo"
+                                            aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-5" href="javascript:VerifyTab(5)" class="btn btn-default b7b">
+                                Warranty <span class="glyphicon waranty_icon"
+                                                      aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-4" href="javascript:VerifyTab(4)" class="btn btn-default b7b">
+                                Seller Comments <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                      aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-11 col-sm-12 col-xs-12  text-center">
+            <form id="form-vehicle-options"
+                  action="{{ path('vehicle_options' , {'type':'save' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id}) }}" {{ form_enctype(form) }}
+                  method="POST" class="form-horizontal" style="margin-top: 20px">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-12 text-left form-title">
+                            Vehicles Options
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-left">
+                            <p>Be as specific as possible.The more information you provide, the more activity the listing will receive</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 col-xs-12" style="margin-top: 20px;font-size: 12px">
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="form-inline">
+                                {% set totalOptions = (-form.vehiclesoptions|length // 5) %}
+                                {% set aux = 0 %}
+                                {% for i in range(0,totalOptions) %}
+                                    <div class="row no_padding" style="padding-top: 15px">
+                                        <div class="col-md-12">
+                                            {% for option in form.vehiclesoptions|slice( aux, 5 ) %}
+                                                <label class="col-sm-2 checkbox-inline text-left" style="width: 18.667%">
+
+                                                    {{ form_widget(option) }} {{ form_label(option) }}
+
+                                                </label>
+                                            {% endfor %}
+                                            {% set aux = aux + 5 %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10 text-center" style="margin-top: 25px">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+
+                            <button id="btnsavecontinue" type="submit" class="btn btn-primary">Save &
+                            Continue
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+        jQuery('#btnsavecontinue').click(function (e) {
+            if (!tabclick)
+                jQuery('#form-vehicle-options').attr('action', "{{path('vehicle_options', {'type':'continue' , 'prop_pk':prop_pk , 'vehicle_id': vehicle_id})}}");
+
+        });
+
+
+
+    });
+
+    var tabclick = false;
+    function VerifyTab(tab) {
+        tabclick = true;
+        if (tab == 2) {
+            if ({{app.session.get('vehicle_saved')}} == 1
+        )
+            jQuery('#form-vehicle-options').attr('action', "{{path('vehicle_options', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id})}}");
+        } else if (tab == 3) {
+            if ({{app.session.get('vehicle_saved')}} == 1
+        )
+            jQuery('#form-vehicle-options').attr('action', "{{path('vehicle_gallery', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id})}}");
+        } else if (tab == 4) {
+            if ({{app.session.get('vehicle_saved')}} == 1
+        )
+            jQuery('#form-vehicle-options').attr('action', "{{path('vehicle_seller_comments', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id})}}");
+        }
+        else if (tab == 5) {
+            if ({{app.session.get('vehicle_saved')}} == 1
+        )
+            jQuery('#form-vehicle-options').attr('action', "{{path('vehicle_warranty', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id})}}");
+        }
+
+
+        jQuery('#btnsavecontinue').trigger('click');
+
+    }
+    </script>

@@ -1,0 +1,297 @@
+<style>
+    .panel-group {
+        margin-bottom: 0px;
+        font-size: 20px;
+    }
+
+    #accordion .panel {
+        border-color: #b4b4b4;
+        border-radius: 0px;
+        margin-top: 0px !important;
+    }
+
+    .panel .panel-default {
+        border: none;
+        border-top: 1px solid #c6c6c6;
+    }
+
+    .list-group {
+        margin-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .list-item.active {
+        background-color: #f5f5f5;
+        color: #f83838;
+    }
+
+    .list-item {
+        padding: 10px 30px;
+        margin-left: 0px;
+        margin-right: 0px;
+        font-size: 14px;
+        border: 0px;
+        border-radius: 0px;
+        background-color: #f4f4f4;
+    }
+
+    .list-item a {
+        text-decoration: none;
+        color: #000000;
+        padding-left: 3px;
+    }
+
+    #accordion .panel .panel-heading {
+        background-color: #e5e5e5;
+    }
+
+    .panel-heading {
+        padding: 10px 15px;
+        font-size: 80%;
+        border-radius: 0px;
+        background-color: #e5e5e5;
+    }
+
+    .panel-heading .badge {
+        display: inline-block;
+        min-width: 17px;
+        padding: 4px 4px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #777 !important;
+        border-radius: 12px;
+    }
+
+    .panel-heading .badge span {
+        font-size: 11px;
+        top: 0px !important;
+    }
+
+    .movil_car_display {
+        background-color: #ffffff;
+        padding: 7px 0px;
+        font-size: 13px;
+        border-bottom: 1px solid rgba(218, 218, 218, 0.91);
+        border-top: 1px solid rgba(218, 218, 218, 0.91);
+    }
+
+    .nav-dash {
+        border-left: 1px solid transparent !important;
+        border-right: 1px solid transparent !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 0px;
+    }
+
+    .bottom_border {
+        border-bottom: 1px solid rgba(218, 218, 218, 0.91);
+    }
+
+    .glyphicon-info-sign {
+        font-size: 14px;
+    }
+
+    .col-sm-2 {
+        width: 18.667%;
+    }
+
+    .mobile label {
+        font-weight: normal;
+    }
+
+    .checkbox label, .radio label{
+        padding-left: 0px;
+    }
+
+    .mobile .panel-heading {
+        border-bottom: 1px solid transparent;
+        border-top-left-radius: 0px !important;
+        border-top-right-radius: 0px !important;;
+        padding: 10px 15px;
+        background-color:#e4e4e4;
+        border-color: #b8b8b8;
+    }
+
+    .panel-heading li {
+        list-style: none;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+        font-size: 18px;
+    }
+
+    .glyphicon {
+        top: 0px;
+    }
+
+    #logobrowseM {
+        background-color: #A1A1A1;
+        border-radius: 0;
+    }
+
+    .panel-default .panel-collapse {
+        font-size: 14px;
+        /* margin-left: 15px;
+         margin-right: 12px;*/
+        /*margin-top: 15px;*/
+    }
+
+    .panel-collapse {
+        padding: 15px;
+        background-color: #ffffff;
+    }
+
+    .tumb-large {
+        height: 198px;
+    }
+
+    .tumb {
+        height: 63px;
+    }
+
+    .form-control {
+        width: 99%;
+        height: 35px;
+        padding: 5px 12px;
+    }
+</style>
+
+<nav class="nav nav-dash">
+    <header style="margin-bottom: 0px"><i class="glyphicon glyphicon-cog" style="margin-right: 8px"></i><span
+                class="bold_text_white">Tool Box</span></header>
+</nav>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 15px">
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="inquiries_manager">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapse_inquiries_manager" aria-expanded="false" aria-controls="collapse_inquiries_manager"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                Inquieries Manager
+            </li>
+        </div>
+        <div id="collapse_inquiries_manager" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="inquiries_manager" style="padding: 0px">
+
+            <div class="container list-group">
+                <div class="list-item bottom_border">
+                    <a href="{{ path('dealer_imbox',{'type': 'emails'} ) }}" id="" class="">Inbox
+                        ( {{ app.session.get('email_news') }} )</a>
+                </div>
+                <div class="list-item bottom_border">
+                    <a href="{{ path('dealer_imbox',{'type': 'offers'}) }}" id="" class="">Offers
+                        ( {{ app.session.get('email_offers') }} )</a>
+                </div>
+                {% if prop_pk is defined %}
+                    <div class="list-item">
+                        <a href="{{ path('dealer_reviews',{'prop_pk':prop_pk}) }}" id="" class="">Reviews
+                            ( {{ app.session.get('dealer_reviews') }} )</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="dealer_manager">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapsedealer_manager" aria-expanded="false" aria-controls="collapsedealer_manager"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                Dealer Manager
+            </li>
+        </div>
+        <div id="collapsedealer_manager" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="dealer_manager" style="padding: 0px">
+            <div class="container list-group" id="condition_filter_box">
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a class="" href="{{ path('admin_user_homepage') }}" target="" data-attr="sideLinkProperties">
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a href="{{ path('admin_user_dashboard') }}"
+                       id="" class="">Dealer Book ( {{ app.session.get('propertiesCount') }} )</a>
+                </div>
+                <div class="list-item">
+                    <a id="addnewdealerlink" href="{{ path('set_description', {'type':'open' , 'prop_pk':'new'}) }}">Add
+                        New Dealer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="inventory_manager">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseinventory_manager" aria-expanded="false" aria-controls="collapseinventory_manager"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                Inventory Manager
+            </li>
+        </div>
+        <div id="collapseinventory_manager" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="inventory_manager" style="padding: 0px">
+            <div class="container list-group" id="condition_filter_box">
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a href="{{ path('create_vehicle_basic_info',{'type':'open' , 'prop_pk':'no' , 'vehicle_id': 'new' }) }}"
+                            >Add New Car</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="tools">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseTools" aria-expanded="false" aria-controls="collapseTools"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                Tools & Resources
+            </li>
+        </div>
+        <div id="collapseTools" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="tools" style="padding: 0px">
+            <div class="container list-group" id="tools_box" style="border: none">
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a href="{{ path('my_account') }}">My Account</a>
+                </div>
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a class="" href="#">
+                        <span>What's new?</span><span class="badge"
+                                                      style="margin-left: 10px">{#{app.session.get('news')}#}</span>
+                        <span class="badge badge-important"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="javascript">
+
+    jQuery(document).ready(function () {
+        jQuery("#addnewdealerlink").click(function () {
+            {{ app.session.set("ismobile",true) }}
+        });
+
+
+    });
+
+
+</script>

@@ -1,0 +1,180 @@
+<div class="modal fade" id="myModalPeriodDelete{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Delete Period</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formPeriodDelete" action="" method="POST" class="form-horizontal">
+                    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>You are about to delete the following Period. Please make sure the information is correct.</p>
+                            <p>Press Confirm if you really want to Delete this period.</p>
+                        </div>
+                    
+                         
+                </div>
+                        <hr>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12"><h4>Period Details</h4></div>
+                               
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <p>{{period.seasonName}}</p>
+                        </div>
+                    
+                         <div class="col-md-5 col-sm-5 col-xs-12 text-right">
+                            from: {{period.startDate | date("m/d/Y")}} - to:  {{period.endDate | date("m/d/Y")}}
+                        </div>
+                </div>
+                        
+                        <div class="row">
+                             
+                        
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                          <p>
+                   Nightly
+                    </p>  
+                        </div>
+                     <div class="col-md-3 col-sm-3 col-xs-12">
+                          <p>
+                   Weekly
+                    </p>  
+                        </div>
+                              <div class="col-md-3 col-sm-3 col-xs-12">
+                          <p>
+                 Monthly
+                    </p>  
+                        </div>
+                
+                </div>
+                         <div class="row">
+                             
+                        
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                          <p>
+                   ${{period.nightly}}
+                    </p>  
+                        </div>
+                     <div class="col-md-3 col-sm-3 col-xs-12">
+                          <p>
+                   ${{period.weekly}}
+                    </p>  
+                        </div>
+                              <div class="col-md-3 col-sm-3 col-xs-12">
+                          <p>
+                   ${{period.monthly}}
+                    </p>  
+                        </div>
+                    
+                </div>
+                    
+                     <div class="row">
+                             
+                        
+                    
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                          <p>
+                  Minimun Stay
+                    </p>  
+                        </div>
+                     <div class="col-md-12 col-sm-12 col-xs-12">
+                          <p>
+                   {{period.minStay}}
+                    </p>  
+                        </div>
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                          <p>
+                   {{period.notes}}
+                    </p>  
+                        </div>
+                    
+                </div>
+                         
+
+                      
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12"><div id="error"></div></div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary confirm-cancel">Delete</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+
+ 
+    function enableForm(){
+    jQuery('#myModalPeriodDelete{{id}} #formPeriodDelete').find('input').removeAttr('disabled');
+            jQuery("#myModalPeriodDelete{{id}} #formPeriodDelete").css("opacity", 1);
+    }
+  
+
+
+   function disableFormDeletePeriod() {
+        jQuery('#myModalPeriodDelete{{id}} #formPeriodDelete').find('input').attr('disabled', 'disabled')
+        jQuery("#myModalPeriodDelete{{id}} #formPeriodDelete").css("opacity", 0.37);
+    }
+
+
+    function submitFormDeletePeriod() {
+
+        jQuery.ajax({
+            statusCode: {
+                500: function () {
+                    enableForm();
+                    jQuery('#myModalPeriodDelete{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                },
+                200: function (){
+                    jQuery('#myModalPeriodDelete{{id}}').modal('hide');
+                    jQuery('.periodrow{{id}}').hide();
+                    //jQuery('.periodrow{{id}}').remove();
+                  
+                }        
+            },
+            url: '{{ path('delete_period') }}',
+            type: "POST",
+            data: { periodId: '{{id}}' },
+            async: false,
+            success: function (response) {
+               
+               
+            }
+        });
+    }
+
+    
+          jQuery('#myModalPeriodDelete{{id}} .confirm-cancel').click(function(e){
+        //alert(jQuery('#myModalCancel{{id}} #formReservationCancel').serialize());    
+     disableFormDeletePeriod();
+     submitFormDeletePeriod();
+    });
+
+        
+
+    });
+
+
+    
+
+
+
+</script>

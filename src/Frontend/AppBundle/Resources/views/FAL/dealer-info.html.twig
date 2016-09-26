@@ -1,0 +1,100 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Free Auto Listing  {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/dealer-info-style.css') }}" rel="stylesheet"/>
+    {#<link href="{{ asset('bundles/common/css/preview.css') }}" rel="stylesheet"/>#}
+    <link href="{{ asset('bundles/common/css/dashboard_style.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/common/css/search-result-style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/common/css/jquery.webui-popover.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('bundles/common/css/jRating.jquery.css') }}" type="text/css" />
+    <link href="{{ asset('bundles/common/css/bootstrap-social.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/common/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/common/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+    <style>
+        .nav-tabs li:hover {
+            background-color: #ffffff;
+        }
+
+        .nav-tabs li a:hover {
+            background-color: #ffffff;
+        }
+
+        #myTabContent {
+            background-color: #ffffff;
+            border: 1px solid #CCCCCC;
+            border-top-color: transparent;
+        }
+
+        ul.nav-tabs {
+            margin-bottom: 0px;
+        }
+        ul.nav-tabs li a {
+            background-color: #ffffff;
+            border: 1px solid #CCCCCC;
+            border-radius: 0px ;
+            padding: 4px 15px;
+        }
+
+        ul.nav-tabs li.active a {
+            border: 1px solid #CCCCCC;
+            border-bottom-color: transparent;
+        }
+
+        #reviewmodal .required  {
+            color: #555555;
+        }
+
+        #reviewmodal label {
+            font-weight: normal;
+        }
+
+        label {
+            font-weight: normal;
+        }
+
+        #reviewmodal h3 {
+            font-weight: bold;
+        }
+
+        #reviewmodal input[type="radio"] {
+            margin-left: 0px;
+        }
+
+        #reviewmodal label {
+            margin-right: 13px;
+        }
+
+        hr {
+            margin-bottom: 15px;
+            margin-top: 15px;
+        }
+
+        h4 {
+            font-weight: 700;
+        }
+
+        .media-buttons {
+            margin-top: 0px;
+        }
+
+    </style>
+{% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('bundles/common/js/carousel.js') }}"></script>
+     <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&language=en"></script>-->
+     <script src="{{ asset('bundles/common/js/jquery.webui-popover.min.js') }}"></script>
+     <script src="{{ asset('bundles/common/js/functions_frontend_utils.js') }}"></script>
+     <script src="{{ asset('bundles/common/js/jRating.jquery.js') }}"></script>
+
+ {% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+     {{ include('AppBundle:FAL:dealer-info-content.html.twig') }}
+     {{ include('AppBundle:FAL:search-results-content-popovers.html.twig') }}
+ {% endblock %}

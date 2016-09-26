@@ -1,0 +1,12 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+{% block title %}Free Auto Listing | Why Free{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+ {% block javascripts %}{{ parent() }}{% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+ {% block body %}
+     {{ include('AppBundle:Front:why-free-content.html.twig') }}
+ {% endblock %}

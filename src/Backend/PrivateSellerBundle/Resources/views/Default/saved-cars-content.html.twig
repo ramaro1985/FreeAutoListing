@@ -1,0 +1,467 @@
+<style>
+    #header {
+        z-index: 0;
+    }
+
+    #nav header {
+        color: #ffffff;
+        font-family: Calibri, Helvetica Neue, Myriad Pro;
+        font-size: 17px;
+        font-weight: lighter;
+    }
+
+    .bold_text {
+        color: white;
+        font-weight: 700;
+    }
+
+    .badge {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        color: #555558;
+    }
+
+    #compare_panel {
+        background-color: #a1a1a1;
+        color: #ffffff !important;
+        padding: 20px;
+        width: 99%;
+    }
+
+    #savedCars .form-group {
+        padding: 4px 0;
+    }
+
+    #savedCars .form-group input {
+        position: absolute;
+        bottom: 2px;
+    }
+
+</style>
+<div class="container">
+<div class="row">
+<div class="col-md-10" style="padding-left: 5px">
+    <div class="col-md-12 no_padding" id="compare_panel" hidden="" style="margin-right: 10px !important;">
+        <div id="compare_image_container" class="col-md-6 text-left">
+            <div class="compare_cars_photo thumbnail">
+                <div class="reset" hidden="" onclick="ResetCompareImage(this,0)">X</div>
+                <img class="img-responsive" style="height: 100%; border: 1px solid white;"/>
+            </div>
+            <div class="compare_cars_photo thumbnail">
+                <div class="reset" hidden="" onclick="ResetCompareImage(this,1)">X</div>
+                <img class="img-responsive" style="height: 100%; border: 1px solid white;"/>
+            </div>
+            <div class="compare_cars_photo thumbnail">
+                <div class="reset" hidden="" onclick="ResetCompareImage(this,2)">X</div>
+                <img class="img-responsive" style="height: 100%;border: 1px solid white;"/>
+            </div>
+        </div>
+        <div class="col-md-3" style="padding: 26px 0px;">
+            <label><span id="compare_counter">0</span> <span id="cartext">car</span> selected to compare</label>
+        </div>
+        <form action="{{ path("compare_cars_private") }}" method="POST" target="_blank">
+            <input type="hidden" id="image-0" name="image-0" value=""/>
+            <input type="hidden" id="image-1" name="image-1" value=""/>
+            <input type="hidden" id="image-2" name="image-2" value=""/>
+            <input type="hidden" id="image-0_imagesrc" name="image-0_imagesrc" value=""/>
+            <input type="hidden" id="image-1_imagesrc" name="image-1_imagesrc" value=""/>
+            <input type="hidden" id="image-2_imagesrc" name="image-2_imagesrc" value=""/>
+
+            <div class="col-md-3" style="padding: 21px 15px;">
+                <button id="btncompare" type="submit" class="btn btn-primary disabled">Compare</button>
+                <label id="clearAllCompare" style="padding-left: 10px;">Clear All</label>
+            </div>
+        </form>
+    </div>
+    <div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow track-url auto-scroll"
+         style="margin-bottom: 50px;padding-top: 20px">
+        <div id="myTabContent" class="tab-content" style="padding: 10px 0 15px 0;margin-right: 10px">
+
+            <div class="tab-pane active" id="savedCars">
+                <div class="container-fluid" style="margin-bottom: 40px">
+                    <div class="col-md-12 no_padding">
+                        <h3 style="margin-bottom: 0px;">My Cars</h3>
+                        <span>You have <span
+                                    id="savedcars_counter">{{ vehiclessaved|length }}</span> saved cars</span><br/>
+
+                        <div class="row" style="">
+                            <div class="col-md-12 text-right">
+                                <a href="#" style="text-decoration: none"><i class="email_icon"></i> Email a
+                                    friend</a>
+                                <a href="javascript:PrintDiv()" style="text-decoration: none;margin-left: 15px"><i
+                                            class="glyphicon glyphicon-print"></i> Printeable version</a>
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% for vehiclesave in vehiclessaved %}
+                        {% set vehicle =  vehiclesave.vehicle %}
+                        {% if(vehicle.profile) %}
+                            {% set pf = vehicle.gallery.profileimages[0] %}
+                            {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                            {% set photoid = vehicle.profile %}
+                            {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                        {% elseif vehicle.user %}
+                            {% set photoid = vehicle.user.id %}
+                            {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                                {% set pf = vehicle.gallery.vehicleimages[0] %}
+                                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                                {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                            {% else %}
+                                {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                                {% set profileimageslength = 0 %}
+                            {% endif %}
+                        {% endif %}
+                        <div class="row" id="row_{{ vehicle.serie }}">
+                            <div class="container-fluid">
+                                <div class="form-group">
+                                    <label class="checkbox-inline" style="font-size: 12px">
+                                        <input type="checkbox" class="compare_check"
+                                               currentcar="{{ vehicle.serie }}">
+                                        COMPARE
+                                    </label>
+                                </div>
+                                <div class="col-md-12 no_padding">
+                                    <div class="row" style="margin-bottom: 8px;">
+                                        <div class="col-md-4">
+                                            <a id="{{ vehicle.serie }}"
+                                               href="{{ path('car_details', {'serie': vehicle.serie}) }}">
+                                                <div class="thumbnail col-md-4 no_padding">
+
+                                                    <img src="{{ asset(vehicle_image) }}"
+                                                         alt="" {% if vehicle.gallery is null %} style="width: 100%; {% if vehicle_image == 'bundles/common/images/image-bg.jpg' %} height: 177px {% endif %} "{% endif %}/>
+
+                                                </div>
+                                            </a>
+
+                                            <div class="col-md-8 no_padding">
+                                                <p class="text-left nomarginbottom"
+                                                   style="font-size: 13px;padding-left: 5px;margin-bottom: 0px;min-height: 42px">
+                                                    {{ vehicle.vehiclesinformation.condition.name }}
+                                                    {{ vehicle.vehiclesinformation.year.year }}
+                                                    {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                                    {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                                                </p>
+
+                                                <p class="text-left nomarginbottom"
+                                                   style="font-size: 13px;padding-left: 5px">
+                                                <span class="price_text"
+                                                      style="font-size: 12px">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p style="font-size: 12px;margin-bottom: 0px;line-height: 1.2;">
+                                                <span style="font-weight: bold">Notes:</span><br>
+                                                {{ vehiclesave.notes }}
+                                            </p>
+                                        </div>
+                                        <div class="col-md-2 text-right" style="padding: 8px 15px">
+                                            <button type="submit"
+                                                    class="btn btn-default delete_button text-uppercase"
+                                                    car-serie="{{ vehicle.serie }}">Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="container-fluid" class="" style="height: 10px;background-color: #f1f1f1">
+                </div>
+                <div class="container-fluid" style="margin-top: 10px">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Others cars you might be interested in</h3>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                {% for vehicle in vehiclesall %}
+                                    {% if(vehicle.profile) %}
+                                        {% set pf = vehicle.gallery.profileimages[0] %}
+                                        {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                                        {% set photoid = vehicle.profile %}
+                                        {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                                    {% elseif vehicle.user %}
+                                        {% set photoid = vehicle.user.id %}
+                                        {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                                            {% set pf = vehicle.gallery.vehicleimages[0] %}
+                                            {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                                            {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                                        {% else %}
+                                            {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                                            {% set profileimageslength = 0 %}
+                                        {% endif %}
+                                    {% endif %}
+
+                                    <div class="col-md-3" style="margin-top: 15px;width: 20%">
+                                        <a id="{{ vehicle.serie }}"
+                                           href="{{ path('car_details', {'serie': vehicle.serie}) }}">
+                                            <div class="thumbnail no_padding">
+
+                                                <img src="{{ asset(vehicle_image) }}"
+                                                     alt="" {% if vehicle.gallery is null %} style="width: 100%; {% if vehicle_image == 'bundles/common/images/image-bg.jpg' %} height: 177px {% endif %} "{% endif %}/>
+
+                                            </div>
+                                        </a>
+
+                                        <p class="car_info">
+                                            <a href="{{ path('car_details', {'serie': vehicle.serie}) }}"
+                                               class="text-left nomarginbottom">
+                                                {{ vehicle.vehiclesinformation.condition.name }}
+                                                {{ vehicle.vehiclesinformation.year.year }}
+                                                {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                                {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                                            </a></p>
+                                        <span style="font-size: 14px;font-weight: bold">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 no_padding" style="margin-top: 10px;margin-bottom: 20px;">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <!-- FreeAutoListing Car Profile -->
+
+        <ins class="adsbygoogle"
+
+             style="display:block"
+
+             data-ad-client="ca-pub-7661672510407172"
+
+             data-ad-slot="3129379241"
+
+             data-ad-format="auto"></ins>
+
+        <script>
+
+            (adsbygoogle = window.adsbygoogle || []).push({});
+
+        </script>
+    </div>
+
+</div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function () {
+
+    function createPopover(elem, text) {
+        elem.attr('data-toggle', 'popover');
+        elem.attr('data-placement', 'right');
+        // elem.attr('data-placement', 'bottom');
+        elem.attr('data-content', text);
+        elem.attr('data-container', 'body');
+        elem.popover();
+        elem.trigger('click');
+        elem.focus();
+    }
+
+        function checkSelected(o) {
+        if (o.val() == 0) {
+            createPopover(o, 'Please fill out this field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkLength(o, min, max) {
+        if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkRegexp(o, regexp) {
+        if (!( regexp.test(o.val()) )) {
+            createPopover(o, 'Invalid field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+   /**
+     *   Compare checkbox event on images boxes
+     * */
+
+    jQuery("input:checked").each(function () {
+        this.checked = false;
+    });
+
+    jQuery(".compare_check").change(function () {
+        var check = this;
+        if (jQuery("#compare_panel").css("display") == "none")
+            jQuery("#compare_panel").slideDown("slow");
+        if (check.checked == true) {
+            var car_serie = jQuery(check).attr("currentcar");
+            var imagen = jQuery("#" + car_serie).find("img")[0];
+            var currentsrcimage = imagen.src;
+            var inserted = false;
+            jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+                if (!jQuery(this).hasClass("hasphoto") && !inserted) {
+                    //jQuery(this).css("background-image","url('"+ currentsrcimage +"')")
+                    jQuery(this).find("img").attr("src", currentsrcimage);
+                    jQuery(this).addClass("hasphoto");
+                    jQuery(this).find(".reset").show();
+                    inserted = true;
+                    jQuery(check).attr("image_compare", i);
+                    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) + 1);
+                    jQuery("#image-" + i).val(car_serie);
+                    jQuery("#image-" + i + "_imagesrc").val(currentsrcimage);
+
+                    if (parseInt(jQuery("#compare_counter").text()) > 1) {
+                        jQuery("#btncompare").removeClass("disabled");
+                        jQuery("#cartext").text("cars");
+                    }
+                }
+            });
+            if (!inserted)
+                check.checked = false;
+        } else {
+            var asociated = jQuery(check).attr("image_compare");
+            jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+                if (i == asociated) {
+                    jQuery(this).find("img").attr("src", "");
+                    jQuery(this).removeClass("hasphoto");
+                    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) - 1);
+                    jQuery(this).find(".reset").hide();
+                    jQuery("#image-" + i).val("");
+                    jQuery("#image-" + i + "_imagesrc").val("");
+                    if (parseInt(jQuery("#compare_counter").text()) < 2) {
+                        jQuery("#btncompare").addClass("disabled");
+                        jQuery("#cartext").text("car");
+                    }
+                    if (parseInt(jQuery("#compare_counter").text()) == 0)
+                        jQuery("#compare_panel").slideUp("slow");
+
+                }
+            });
+        }
+    });
+
+    jQuery("#clearAllCompare").click(function () {
+        jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+            if (jQuery(this).hasClass("hasphoto")) {
+                jQuery(this).find("img").attr("src", "");
+                jQuery(this).removeClass("hasphoto");
+                jQuery("#compare_counter").text(0);
+                jQuery("#btncompare").addClass("disabled");
+                jQuery("#compare_panel").slideUp("slow");
+            }
+        });
+        for (var i = 0; i < 3; i++) {
+            jQuery("#image-" + i).val("");
+            jQuery("#image-" + i + "_imagesrc").val("");
+        }
+        jQuery("input:checked").each(function () {
+            this.checked = false;
+        });
+        jQuery(".reset").hide();
+    });
+
+    jQuery(".btn-primary").click(function (e) {
+        if (jQuery(this).hasClass("disabled"))
+            e.preventDefault();
+    });
+
+    if (jQuery('#exist_email').val() == 1) {
+
+        jQuery('#exist_email_alert').removeClass('hide');
+    } else {
+        jQuery('#exist_email_alert').addClass('hide');
+    }
+    if (jQuery('#edit_user_succes').val() == 1) {
+
+        jQuery('#succes_usser').removeClass('hide');
+    } else {
+        jQuery('#succes_usser').addClass('hide');
+    }
+    if (jQuery('#open_modal').val() == 1) {
+        jQuery('#change_pass').trigger('click');
+    }
+    if (jQuery('#pass_change').val() == 1) {
+        jQuery('#succes_password').removeClass('hide');
+    } else {
+        jQuery('#succes_password').addClass('hide');
+    }
+    if (jQuery('#edit_profile_succes').val() == 1) {
+        jQuery('#profile_succes').removeClass('hide');
+    } else {
+        jQuery('#profile_succes').addClass('hide');
+    }
+
+    jQuery('.cancelAcc').confirmation({
+        placement: 'bottom',
+        onConfirm: function () {
+            jQuery('#form-cancelAcc').submit();
+        },
+        onCancel: function () {
+
+        }
+    })
+
+});
+
+function ResetCompareImage(elem, pos) {
+    var compareBox = jQuery(elem).parent();
+    jQuery(compareBox).find("img").attr("src", "");
+    jQuery(compareBox).removeClass("hasphoto");
+    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) - 1);
+    jQuery(compareBox).find(".reset").hide();
+    jQuery("#image-" + pos).val("");
+    jQuery("input[image_compare='" + pos + "']")[0].checked = false;
+    if (parseInt(jQuery("#compare_counter").text()) < 2)
+        jQuery("#btncompare").addClass("disabled");
+    if (parseInt(jQuery("#compare_counter").text()) == 0)
+        jQuery("#compare_panel").slideUp("slow");
+}
+
+jQuery(".delete_button").on("click", function () {
+    var savecarelement = jQuery(this);
+
+    var vehicle_serie = savecarelement.attr("car-serie");
+    jQuery.post('{{ path('remove_carsaved_in_user')}}',
+            {
+                serie: vehicle_serie
+            },
+            function (data) {
+                if (data.response) {
+                    jQuery("#row_" + vehicle_serie).fadeOut().remove();
+                    var count = jQuery("#savedcars_counter").text();
+                    jQuery("#savedcars_counter").text(parseInt(count) - 1);
+                }
+                else {
+                    alert(data.error);
+                }
+            });
+});
+
+function PrintDiv() {
+    var div = jQuery("#savedCars").html();
+    jQuery.post('{{ path('printsavedcars')}}',
+            {
+                div: div
+            });
+}
+
+</script>

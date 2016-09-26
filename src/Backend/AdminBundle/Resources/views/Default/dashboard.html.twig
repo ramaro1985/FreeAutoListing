@@ -1,0 +1,28 @@
+{% extends "AdminBundle:Layout:user-admin.html.twig" %}
+ {% if property.gallery is not null %}
+                    {% if property.gallery.getPropertyImages |length > 0 %}
+                    {% set image = property.gallery.getPropertyImages[0].getWebPath | imagine_filter('my_thumb_large') %}  
+                    {% else %} 
+                    {% set image = asset('bundles/common/images/000.jpg') %}
+                    {% endif %}
+              {% else %} 
+                {% set image = asset('bundles/common/images/000.jpg') %}
+              {% endif %}
+ {% block metadescriptions %}
+         
+ {% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} 
+{{ parent() }} 
+<script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+ {{ include('AdminBundle:Default:content-header.html.twig') }}  
+{{ include('AdminBundle:Default:dashboard-content.html.twig') }}  
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

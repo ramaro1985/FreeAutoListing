@@ -1,0 +1,15 @@
+private_seller_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: PrivateSellerBundle:Default:index }
+
+compare_cars_private:
+    pattern: /compare-cars/
+    defaults: { _controller: AppBundle:FrontendFAL:compareCars }
+
+find_car:
+    pattern:  /find-car-info
+    defaults: { _controller: PrivateSellerBundle:Default:findCar }
+
+viewallvehicles:
+    pattern:  /view-all-vehiclesuserVehiclescontent
+    defaults: { _controller: PrivateSellerBundle:Default:viewall }

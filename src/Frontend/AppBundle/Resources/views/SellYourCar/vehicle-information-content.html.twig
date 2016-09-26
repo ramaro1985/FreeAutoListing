@@ -1,0 +1,687 @@
+<div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+<div class="row">
+<div class="col-md-12  text-center">
+<form id="form-vehicle-info"
+      action="{{ path('step1_vehicle_register' ) }}" {{ form_enctype(form) }}
+      method="POST" class="form-horizontal formulario" style="margin-top: 10px">
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+<div class="col-md-12  text-center" style="margin-bottom: 25px">
+</div>
+
+<div class="col-md-12 col-xs-12">
+    <div class="form-group">
+
+        <div class="col-md-11 col-xs-12 text-left">
+            <p class="bold_text_black">Vehicle Information</p>
+
+            <p>This is the basic information needed to create your ad. It will appear in your listing
+                and detailed
+                ad</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12  text-center" style="margin-top: 10px">
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            <span style="color: red;position: absolute">*</span>
+            {#{{ form_label(form.vehiclesinformation.zipcode) }}#}
+            <label for="vehicle_vehiclesinformation_zipcode" style="margin-left: 10px" class="required">Zip
+                Code where vehicle will <br> be sold</label>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesinformation.zipcode) }}
+
+        </div>
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesinformation.zipcode) }}
+        </div>
+
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            <span style="color: red">*</span>
+            {{ form_label(form.vehiclesinformation.vin) }}
+
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesinformation.vin) }}
+
+        </div>
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesinformation.vin) }}
+        </div>
+
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            <span style="color: red">*</span>
+            {{ form_label(form.vehiclesinformation.condition) }}
+        </div>
+        <div class="col-sm-6 col-xs-12 ">
+            {{ form_widget(form.vehiclesinformation.condition) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesinformation.condition) }}
+        </div>
+    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-4 col-xs-12 text-left">
+                            <span style="color: red">*</span>
+                            <label class="required" for="vehicle_vehiclesinformation_make">Year</label>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <select id="vehicle_vehiclesinformation_year" class="form-control" required="required"
+                                    name="year">
+                                {% if(obj_year) %}
+                                    <option selected="selected" value="{{ obj_year.id }}">{{ obj_year.year }}</option>
+                                {% else %}
+                                    <option selected="selected" value="0">Select a Year</option>
+                                {% endif %}
+                                {% for year in years %}
+                                    <option value="{{ year.id }}">{{ year.year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-1 col-xs-1" style="padding-left: 0px; text-align: left">
+                            <img id="vehicle_vehiclesinformation_year_loading" class="hide"
+                                 src="{{ asset('bundles/common/images/loading.gif') }}" alt=""/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-4 col-xs-12 text-left">
+                            <span style="color: red">*</span>
+                            <label class="required" for="vehicle_vehiclesinformation_make">Make</label>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <select id="vehicle_vehiclesinformation_make" class="form-control" required="required"
+                                    name="make">
+                                {% if(make) %}
+                                    <option selected="selected" value="{{ make.id }}">{{ make.makeId }}</option>
+                                {% else %}
+                                    <option selected="selected" value="0">Select a Make</option>
+                                {% endif %}
+                                {% for make in makes %}
+                                    <option value="{{ make.id }}">{{ make.makeId }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-1 col-xs-1" style="padding-left: 0px; text-align: left">
+                            <img id="vehicle_vehiclesinformation_make_loading" class="hide"
+                                 src="{{ asset('bundles/common/images/loading.gif') }}" alt=""/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-4 col-xs-12 text-left">
+                            <span style="color: red">*</span>
+                            <label class="required" for="vehicle_vehiclesinformation_model">Model</label>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <select id="vehicle_vehiclesinformation_model" class="form-control" required="required"
+                                    name="model">
+                                {% if(model) %}
+                                    <option selected="selected" value="{{ model.id }}">{{ model.modelId }}</option>
+                                {% else %}
+                                    <option selected="selected" value="0">Select a Model</option>
+                                {% endif %}
+                                {% for model in models %}
+                                    <option value="{{ model.id }}">{{ model.modelId }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-1 col-xs-1" style="padding-left: 0px; text-align: left">
+                            <img id="vehicle_vehiclesinformation_model_loading" class="hide"
+                                 src="{{ asset('bundles/common/images/loading.gif') }}" alt=""/>
+                        </div>
+                    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            <span style="color: red">*</span>
+            <label class="required" for="vehicle_vehiclesdetails_trim">Trim</label>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <select id="vehicle_vehiclesdetails_trim" class="form-control" required="required"
+                    name="trim">
+                <option selected="selected" value="0">Select a Trim</option>
+                {% for trim in trims %}
+                    <option value="{{ trim.id }}">{{ trim.trimId }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-sm-1 col-xs-1" style="padding-left: 0px; text-align: left">
+            <img id="vehicle_vehiclesdetails_trim_loading" class="hide"
+                 src="{{ asset('bundles/common/images/loading.gif') }}" alt=""/>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            <span style="color: red">*</span>
+            {{ form_label(form.vehiclesinformation.bodystyle) }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesinformation.bodystyle) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesinformation.bodystyle) }}
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            <span style="color: red">*</span>
+            {{ form_label(form.vehiclesinformation.mileage) }}
+
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesinformation.mileage) }}
+
+        </div>
+        <div class="col-sm-1 col-xs-12 no_padding" style="padding-top: 6px;">
+            <span class="pull-left">miles</span>
+        </div>
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesinformation.mileage) }}
+        </div>
+
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-3 col-xs-12 text-left">
+            <span style="color: red">*</span>
+            {{ form_label(form.vehiclesinformation.price) }}
+
+        </div>
+        <div class="col-sm-1 col-xs-12 text-right no_padding" style="padding-top: 6px;">
+            <span>$</span>
+
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesinformation.price) }}
+
+        </div>
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesinformation.price) }}
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="col-md-12 col-xs-12" style="margin-top: 10px;">
+    <div class="form-group">
+        <div class="col-md-12 col-xs-12 text-left">
+            <p class="bold_text_black"
+               style="padding-bottom: 0px;margin-bottom: 0px;">
+                More Details
+            </p>
+            <p class="">The more details you provice, the more activity your liting will receive</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-md-12  text-center" style="margin-top: 10px">
+
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            {{ form_label(form.vehiclesdetails.doors) }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesdetails.doors) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesdetails.doors) }}
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            {{ form_label(form.vehiclesdetails.enginetype) }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesdetails.enginetype) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesdetails.enginetype) }}
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            {{ form_label(form.vehiclesdetails.transmission) }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesdetails.transmission) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesdetails.transmission) }}
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            {{ form_label(form.vehiclesdetails.fueltype) }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesdetails.fueltype) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesdetails.fueltype) }}
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            {{ form_label(form.vehiclesdetails.drive) }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesdetails.drive) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesdetails.drive) }}
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            {{ form_label(form.vehiclesdetails.exteriorcolor) }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesdetails.exteriorcolor) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesdetails.exteriorcolor) }}
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-4 col-xs-12 text-left">
+            {{ form_label(form.vehiclesdetails.interiorcolor) }}
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            {{ form_widget(form.vehiclesdetails.interiorcolor) }}
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.vehiclesdetails.interiorcolor) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-12 col-xs-12 text-left">
+            <p class="bold_text_black alignleft"
+               style="padding-bottom: 0px;margin-bottom: 0px;">
+                Vehicles Options
+            </p>
+            <br/>
+
+                            <p class="alignleft">Be as specific as possible.The more information you provide, the more
+                                activity the
+                                listing will
+                                receive</p>
+                        </div>
+
+
+    </div>
+
+    <div class="form-group">
+        <div class="container-fluid">
+            <div class="form-inline">
+                {% set totalOptions = (-form.vehiclesoptions|length // 5) %}
+                {% set aux = 0 %}
+                {% for i in range(0,totalOptions) %}
+                    <div class="row no_padding" style="{% if i > 0 %}padding-top: 15px {% endif %}">
+                        <div class="col-md-12">
+                            {% for option in form.vehiclesoptions|slice( aux, 5 ) %}
+                                <label class="col-sm-2 checkbox-inline text-left"
+                                       style="width: 18.667%">
+
+                                    {{ form_widget(option) }} {{ form_label(option) }}
+
+                                </label>
+                            {% endfor %}
+                            {% set aux = aux + 5 %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {# <div class="form-group" style="margin-bottom: 10px;margin-left: 5px;margin-right: 5px">
+
+     </div>#}
+    <div class="form-group" style="margin-bottom: 10px;">
+        <div class="col-md-12 col-xs-12 text-left">
+            <p class="bold_text_black alignleft"
+               style="padding-bottom: 0px;margin-bottom: 5px">
+                Warranty
+            </p>
+            {{ form_widget(form.warranty) }}
+            <div class="pull-right form-inline">
+                <label for="count_backW" style="font-size: 12px">Characters remaining</label>
+                <input class="counter_input" type="text" id="count_backW" name="count_backW"
+                       value="800" size="4px">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px;">
+        <div class="col-md-12 col-xs-12 text-left">
+            <p class="bold_text_black alignleft"
+               style="padding-bottom: 0px;margin-bottom: 0px;">Seller's
+                Comments</p>
+
+            <p class="text-left alignleft">
+                This your chance to tell shoppers your vehicle in yor own words.We've already captured
+                the year, make and model, so
+                focus more on unique selling points.Explain to shoppers why you're selling and disclose
+                any prior maintenance.Give warranty
+                information and detail anu modification made to you car.Above all, be honest with
+                shoppers.After your ad is placed, you can come
+                back anytime to edit your ad details.Please note:We don't recommend entering your phone
+                number or email address in this space.
+                We'll give shoppers access to your contact information on your ad.
+            </p>
+        </div>
+    </div>
+    <div class="form-group" style="margin-bottom: 10px;">
+        <div class="col-md-12 col-xs-12 text-left">
+            {{ form_widget(form.seller_comments) }}
+            <div class="pull-right form-inline">
+                <label for="count_back" style="font-size: 12px">Characters remaining</label>
+                <input class="counter_input" type="text" id="count_back" name="count_back"
+                       value="800" size="4px">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<input type="hidden" id="year" value="0">
+<input type="hidden" id="make" value="0">
+<input type="hidden" id="model" value="0">
+<input type="hidden" id="trim" value="0">
+
+<div class="col-md-12 text-left" style="margin-top: 20px">
+    <div class="form-group" style="margin-bottom: 50px">
+        <div class="col-sm-12 col-xs-12 text-left">
+            <!-- <button id="btnsave" type="submit" class="btn btn-primary">Save</button>-->
+            <a id="btnsavecontinue" class="btn btn-primary text-uppercase"
+               style="margin-left: 5px">
+                SAVE AND
+                CONTINUE
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+{{ form_rest(form) }}
+
+</form>
+
+</div>
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+
+/* function contador_regresivo(myfield, e, field_to_count)   //nombre de la funcion.....
+ {
+ //alert(field_to_count)
+ var key;
+ var keychar;
+ if (window.event) {
+ key = window.event.keyCode;
+ }
+ else if (e) {
+ key = e.which;
+ }
+ else {
+ return true;
+ }
+ //esto es para cuando borre aumente el contador
+ if ((key == 8)) {
+
+ var contador = document.getElementById('count_back').value;
+ if (contador > 2000) {
+ return false;
+ } else {
+ var text = document.getElementById(field_to_count).value;
+ //alert();
+ document.getElementById('count_back').setAttribute('value', 2000 - text.length);
+ return true;
+ }
+ }
+ //esto es para permitir las teclas de control
+ if ((key == null) || (key == 0) || (key == 9) || (key == 13) || (key == 27)) {
+ return true;
+ }
+ //donde estan los numeros pueden colocar todos los caracteres
+ // que quieres aceptar por ejemplo: abcd...xyzABCD...XYZ
+ else if ((("0123456789").indexOf(keychar) > -1) || (("xyzABCD").indexOf(keychar))) {
+
+ var contador = document.getElementById('count_back').value;
+ document.getElementById('count_back').setAttribute('value', contador - 1);
+ return true;
+ }
+ else if (dec && (keychar == "."))// decimalt jump poin
+ {
+ myfield.form.elements[dec].focus();
+ return false;
+ }
+ else {
+ return false;
+ }
+ }*/
+
+
+function createPopover(elem, text) {
+    elem.attr('data-toggle', 'popover');
+    elem.attr('data-placement', 'right');
+    // elem.attr('data-placement', 'bottom');
+    elem.attr('data-content', text);
+    elem.attr('data-container', 'body');
+    elem.popover();
+    elem.trigger('click');
+    elem.focus();
+}
+
+function checkSelected(o) {
+    if (o.val() == 0) {
+        createPopover(o, 'Please fill out this field');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function checkRegexp(o, regexp) {
+    if (!( regexp.test(o.val()) )) {
+        createPopover(o, 'Invalid field');
+        return false;
+    } else {
+        return true;
+    }
+}
+jQuery(document).ready(function () {
+
+    jQuery("#vehicle_vehiclesinformation_year").change(function () {
+        year = jQuery(this).val();
+        if (year != "") {
+            jQuery('year').val(year);
+            jQuery("#vehicle_vehiclesinformation_make_loading").removeClass('hide');
+            jQuery("#vehicle_vehiclesinformation_make").addClass('disable');
+
+            jQuery("#vehicle_vehiclesinformation_make").children().not(":lt(1)").remove();
+            jQuery("#vehicle_vehiclesinformation_model").children().not(":lt(1)").remove();
+            jQuery("#vehicle_vehiclesdetails_trim").children().not(":lt(1)").remove();
+
+            jQuery("#vehicle_vehiclesinformation_make").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a Make"));
+            jQuery("#vehicle_vehiclesinformation_model").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a Model"));
+            jQuery("#vehicle_vehiclesdetails_trim").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a trim"));
+
+            jQuery.post('{{ path('find_makes_by_year_front')}}',
+                    {
+                        year_id: year
+                    },
+                    function (data) {
+                        if (data.error != undefined && data.error != "")
+                            alert(data.error);
+                        jQuery("#vehicle_vehiclesinformation_make").children().remove();
+                        jQuery("#vehicle_vehiclesinformation_make").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a Make"));
+
+                        jQuery.each(data, function (i) {
+
+                            var make_li;
+                            make_li = '<option value="' + this.value + '">' + this.text + '</option>';
+                            jQuery('#vehicle_vehiclesinformation_make').append(jQuery(make_li));
+
+                        });
+                        jQuery("#vehicle_vehiclesinformation_make_loading").addClass('hide');
+                        jQuery("#vehicle_vehiclesinformation_make").removeClass('disable');
+                    }, "json");
+
+        }
+    });
+
+    jQuery("#vehicle_vehiclesinformation_make").change(function () {
+        make = jQuery(this).val();
+        if (make != "") {
+            jQuery('make').val(make);
+            jQuery("#vehicle_vehiclesinformation_model_loading").removeClass('hide');
+            jQuery("#vehicle_vehiclesinformation_model").addClass('disable');
+
+            jQuery("#vehicle_vehiclesinformation_model").children().not(":lt(1)").remove();
+            jQuery("#vehicle_vehiclesdetails_trim").children().not(":lt(1)").remove();
+
+            jQuery("#vehicle_vehiclesinformation_model").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a Model"));
+            jQuery("#vehicle_vehiclesdetails_trim").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a trim"));
+
+            jQuery.post('{{ path('find_models_by_make_front')}}',
+
+                    {
+                        make_id: make
+                    },
+                    function (data) {
+                        if (data.error != undefined && data.error != "")
+                            alert(data.error);
+                        jQuery("#vehicle_vehiclesinformation_model").children().remove();
+                        jQuery("#vehicle_vehiclesinformation_model").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a Model"));
+
+                        jQuery.each(data, function (i) {
+
+                            var model_li;
+                            model_li = '<option value="' + this.value + '">' + this.text + '</option>';
+                            jQuery('#vehicle_vehiclesinformation_model').append(jQuery(model_li));
+                        });
+                        jQuery("#vehicle_vehiclesinformation_model_loading").addClass('hide');
+                        jQuery("#vehicle_vehiclesinformation_model").removeClass('disable');
+                    }, "json");
+
+        }
+    });
+
+    jQuery("#vehicle_vehiclesinformation_model").change(function () {
+        model = jQuery(this).val();
+        if (model != "") {
+            jQuery('model').val(model);
+            jQuery("#vehicle_vehiclesdetails_trim_loading").removeClass('hide');
+            jQuery("#vehicle_vehiclesdetails_trim").addClass('disable');
+
+            jQuery("#vehicle_vehiclesdetails_trim").children().not(":lt(1)").remove();
+            jQuery("#vehicle_vehiclesdetails_trim").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a trim"));
+            jQuery.post('{{ path('find_trims_by_model_front')}}',
+                    {
+                        model_id: model
+                    },
+                    function (data) {
+                        if (data.error != undefined && data.error != "")
+                            alert(data.error);
+                        jQuery("#vehicle_vehiclesdetails_trim").children().remove();
+                        jQuery("#vehicle_vehiclesdetails_trim").append(jQuery("<option></option>").attr("value", "").attr("selected", "selected").text("Select a Trim"));
+
+                        jQuery.each(data, function (i) {
+
+                            var trim_li;
+                            trim_li = '<option value="' + this.value + '">' + this.text + '</option>';
+                            jQuery('#vehicle_vehiclesdetails_trim').append(jQuery(trim_li));
+                        });
+                        jQuery("#vehicle_vehiclesdetails_trim_loading").addClass('hide');
+                        jQuery("#vehicle_vehiclesdetails_trim").removeClass('disable');
+                    }, "json");
+
+        }
+    });
+    jQuery("#vehicle_vehiclesdetails_trim").change(function () {
+        trim = jQuery(this).val();
+        if (trim != "") {
+            jQuery('trim').val(trim);
+        }
+    });
+
+    jQuery('#btnsavecontinue').click(function (e) {
+
+        var bValid = true;
+        bValid = bValid && checkSelected(jQuery('#vehicle_vehiclesinformation_make'));
+        bValid = bValid && checkSelected(jQuery('#vehicle_vehiclesinformation_model'));
+        bValid = bValid && checkSelected(jQuery('#vehicle_vehiclesdetails_trim'));
+
+        if (bValid) {
+            jQuery('#form-vehicle-info').submit();
+        }
+    });
+    jQuery('#btnsavecontinue_1').click(function (e) {
+        jQuery('#btnsavecontinue').trigger('click');
+
+    });
+})
+
+var area = document.getElementById("vehicle_seller_comments");
+var message = document.getElementById("count_back");
+var maxLength = 800;
+var checkLength = function () {
+    if (area.value.length < maxLength) {
+        message.value = (maxLength - area.value.length);
+    }
+}
+
+var areaW = document.getElementById("vehicle_warranty");
+var messageW = document.getElementById("count_backW");
+var maxLengthW = 800;
+var checkLengthW = function () {
+    if (areaW.value.length < maxLengthW) {
+        messageW.value = (maxLengthW - areaW.value.length);
+    }
+}
+
+setInterval(checkLength, 300);
+setInterval(checkLengthW, 300);
+
+</script>

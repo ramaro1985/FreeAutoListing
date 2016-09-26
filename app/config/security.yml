@@ -1,0 +1,86 @@
+security:
+    encoders:
+        'FOS\UserBundle\Model\UserInterface': sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPPORT_USER: ROLE_SUPPORT
+        ROLE_MARKETING_USER: ROLE_MARKETING   
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        fos_userbundle:
+             id: fos_user.user_provider.username_email
+
+    firewalls:
+        admin:
+            pattern: ^/protected(.*)
+            form_login:
+                provider:       fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path:     admin_login
+                check_path:     admin_login_check
+                default_target_path: super_admin_router
+            logout:
+                path:           admin_logout
+                target:         admin_login
+            anonymous:    true
+            
+        support:
+            pattern: ^/support(.*)
+            form_login:
+                provider:       fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path:     support_login
+                check_path:     support_login_check
+                default_target_path: support_admin_router
+            logout:
+                path:           support_logout
+                target:         support_login
+            anonymous:    true    
+        
+        main:
+            pattern: ^/
+            form_login:
+                login_path:     /login
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                intention: authenticate
+                default_target_path: admin_router
+            logout:
+                path:           /logout
+                target:         /login
+            anonymous:    true
+            remember_me:
+                key: "%secret%"
+                lifetime: 31536000
+                path: /
+                domain: ~
+            
+            oauth:
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+                login_path:        /login
+                failure_path:      /login
+                default_target_path: /secured
+
+                oauth_user_provider:
+                    service: my_user_provider  
+            
+    
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/protected/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/protected/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/protected/admin, role: ROLE_ADMIN }
+        - { path: ^/support/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/support/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/support/admin, role: [ ROLE_SUPPORT, ROLE_ADMIN ]}
+        - { path: ^/secured/support, role: ROLE_SUPPORT }
+        - { path: ^/secured/marketing, role: ROLE_MARKETING }
+        - { path: ^/secured, role: ROLE_USER }
+    
+    

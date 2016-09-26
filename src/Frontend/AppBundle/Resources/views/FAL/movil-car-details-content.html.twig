@@ -1,0 +1,548 @@
+<div class="modal fade" id="myModalCar" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Make an Offer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form id="offerVehicle"
+                          action="{{ path('car_details',{'serie': vehicle.serie}) }}"
+                          method="POST"
+                          class="form-horizontal">
+
+                        <fieldset>
+                            <div class="col-md-12" style="padding: 0px 33px;">
+
+                                <div class="">
+                                    <br>
+                                    <br>
+
+                                    <div class="form-group no_padding">
+                                        <ul class="no_padding list-unstyled">
+                                            <li>
+                                                <span style="font-size: 16px;font-weight: bold; font-style: inherit;">Listed Price:&nbsp;${{ vehicle.vehiclesinformation.price }}</span>
+                                            </li>
+                                            <li>
+                                                                    <span style="font-size: 14px;">
+                                                                    {{ vehicle.vehiclesinformation.condition.name|upper }}
+                                                                        &nbsp;{{ vehicle.vehiclesinformation.year.year|upper }}
+                                                                        &nbsp;{{ vehicle.vehiclesinformation.make.makeDisplay|upper }}
+                                                                        &nbsp; {{ vehicle.vehiclesinformation.model.modelDisplay|upper }}
+                                                                </span>
+                                            </li>
+                                            <li>
+                                                <span style="font-size: 14px;">Milage:&nbsp;{{ vehicle.vehiclesinformation.mileage }}</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_offer.remitent_name) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_offer.remitent_mail) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_offer.remitent_phone) }}
+                                    </div>
+                                    <div class="form-group bold_text_black hide" id="offer_text">
+                                        <div class="col-md-12 no_padding">
+                                            <span style="position: absolute;top: 25px;left: -13px;">$</span>
+                                            <span style="font-style: inherit;font-weight: bold">Your Offer</span>
+                                            <input type="text" widget="single_text" class="form-control"
+                                                   required="required" name="" id="offert_value" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group bold_text_black hide" id="offer_text_old">
+                                        <div class="col-md-12 no_padding">
+                                            {{ form_widget(form_offer.text) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group hide" id="email_text">
+                                        {{ form_widget(form.body_mail) }}
+                                    </div>
+                                    <div class="form-group">
+                                        <br>
+                                        <br>
+
+                                        <div class="col-md-9 col-sm-9 col-xs-9 hide" id="offer"
+                                             style="padding-left: 0px">
+                                            <a href="javascript:void(0)" id="submit_offer"
+                                               class="btn btn-default btn-block text-uppercase btn-danger col-md-7">
+                                                MAKE A OFFER
+                                            </a>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 col-xs-9 hide" id="mail"
+                                             style="padding-left: 0px">
+                                            <a href="javascript:void(0)" id="submit_email"
+                                               class="btn btn-default btn-block text-uppercase btn-danger col-md-7">
+                                                SEND MESSAGE
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2"
+                                             style="padding-left: 0px">
+                                            <button type="button"
+                                                    class="btn btn-toolbar close-btn text-uppercase"
+                                                    data-dismiss="modal"
+                                                    style="background-color: white;color: blue;">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {{ form_rest(form_offer) }}
+                            <br>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="panel panel-default" style="border-color: #b8b8b8">
+        <div class="panel-heading" style="background-color: #b8b8b8;border-color: #b8b8b8;color:black">
+        <span style="margin-left: 15px;font-size: 14px;font-weight: bold">{{ vehicle.vehiclesinformation.year.year }}
+            {{ vehicle.vehiclesinformation.make.makeDisplay }}
+            {{ vehicle.vehiclesinformation.model.modelDisplay }}</span>
+        <span class="glyphicon glyphicon-heart pull-right active"
+              style="margin-right: 25px"></span>
+        </div>
+        <div class="panel-body" style="padding:0px;margin-left: 15px;">
+            <div class="col-xs-12 no_padding">
+                {% if vehicle.profile %}
+                    {% if(vehicle.gallery is not null ) %}
+                        {% set pf = vehicle.gallery.profileimages[0] %}
+                        <div class="tumb-large"
+                             style="background-image: url({{ asset(pf.getWebPathMediumVehicle(vehicle.profile,vehicle.serie)) }})">
+                        </div>
+                    {% else %}
+                        {% set pf = 0 %}
+                        <div class="tumb-large"
+                             style="background-image: url({{ asset('bundles/common/images/image-bg.jpg') }})">
+                        </div>
+                    {% endif %}
+                {% endif %}
+                {% if vehicle.user %}
+                    {% if(vehicle.gallery is not null ) %}
+                        {% set pf = vehicle.gallery.vehicleimages[0] %}
+                        <div class="tumb-large"
+                             style="background-image: url({{ asset(pf.getWebPathMediumVehicle(vehicle.user.id,vehicle.serie)) }})">
+                        </div>
+                    {% else %}
+                        {% set pf = 0 %}
+                        <div class="tumb-large"
+                             style="background-image: url({{ asset('bundles/common/images/image-bg.jpg') }})">
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col-md-12 no_padding imagegallery" style="margin-top: 15px">
+
+                {% if vehicle.profile %}
+                    {% if(vehicle.gallery is not null) %}
+                        {% for pf in vehicle.gallery.profileimages %}
+                            <div class="image-form col-xs-2">
+                                {% if pf.getWebPath is not null %}
+                                    <div class="tumb old active"
+                                         style="padding-left: 1px;padding-right: 1px;padding-top: 2px;
+                                                 background-image:url('{{ asset(pf.getWebPathThumbnailVehicle(vehicle.profile,vehicle.serie)) }}');"></div>
+                                {% else %}
+                                    <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                         style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        {% if  vehicle.gallery.profileimages|length < 5 %}
+                            {% for i in vehicle.gallery.profileimages|length..5 %}
+                                <div class="image-form">
+                                    <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                         style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% else %}
+                        {% for i in 0..5 %}
+                            <div class="image-form">
+                                <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                     style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+
+
+            </div>
+            <div class="col-xs-12 no_padding">
+                {% set fb = 'bundles/common/images/fb.png' %}
+                {% set tw = 'bundles/common/images/tw.png' %}
+                {% set g = 'bundles/common/images/g+.png' %}
+                <h4 style="padding-top: 5px;padding-bottom: 5px;margin-left: 10px">
+                    <a href="" id="fb" value="fb"><img src="{{ asset(fb) }}"/></a>
+                    <a href="" id="tw" value="tw"><img src="{{ asset(tw) }}"/></a>
+                    <a href="" id="gplus" value="g+"><img src="{{ asset(g) }}"/></a>
+                </h4>
+            </div>
+            <div class="col-xs-12 no_padding" style="background-color:#b8b8b8;padding-bottom: 3px;padding-top: 3px">
+            <span style="margin-left: 10px; font-size: 12px; font-weight: bold">
+                Price
+            </span>
+            </div>
+            <div class="col-xs-12 no_padding">
+                <div class="row" style="margin-left: 10px;margin-top:5px;font-weight: bold;margin-bottom: 5px">
+                    ${{ vehicle.vehiclesinformation.price/1000 }},000
+                </div>
+            </div>
+            <div class="col-xs-12 no_padding" style="background-color:#b8b8b8;padding-bottom: 3px;padding-top: 3px">
+            <span style="margin-left: 10px; font-size: 12px;font-weight: bold">
+                {% if vehicle.profile %}
+                    Dealer
+                {% else %}
+                    Private Seller
+                {% endif %}
+            </span>
+            </div>
+            <div class="col-xs-12 no_padding">
+                <div class="row" style="margin-left: 10px;;margin-top:5px;margin-bottom: 10px">
+                    {% if vehicle.profile %}
+                        {{ vehicle.profile.description.address }}
+                        <br>
+                        <br>
+                        <span id="phone" value="{{ vehicle.profile.description.phone }}"></span>
+                    {% endif %}
+                    {% if vehicle.user %}
+                        <span>{{ vehicle.user.name }}</span>
+                        <br>
+                        <br>
+                        <span id="phone" value="{{ vehicle.user.phone }}"></span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-12 no_padding">
+                <div class="row" style="margin-left: 10px;margin-right: 25px; margin-top:5px;margin-bottom: 3px">
+                    <a style="border:0px; background-color:#b8b8b8;color:#ffffff;font-weight: bold" id="create_email"
+                       href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#myModalCar"
+                       class="btn btn_edit btn-block text-uppercase"> SEND MESSAGE</a>
+                </div>
+            </div>
+            <div class="col-xs-12 no_padding" style="padding-top: 5px;padding-bottom: 25px">
+                <div class="row" style="margin-left: 10px;margin-right: 25px;margin-bottom: 10px">
+                    <a style="width: 100%;font-weight: bold" href="javascript:void(0)" id="create_offer"
+                       data-toggle="modal"
+                       data-target="#myModalCar"
+                       class="btn btn-default text-uppercase btn-danger">
+                        MAKE AN OFFER
+                    </a>
+                </div>
+            </div>
+            <br>
+
+            <div class="col-xs-12 no_padding" style="background-color:#b8b8b8;padding-bottom: 3px;padding-top: 3px">
+            <span style="margin-left: 10px; font-size: 12px; font-weight: bold">
+                  Details
+            </span>
+            </div>
+            <div class="col-xs-12 no_padding" style="padding-bottom: 15px">
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <br>
+                    {{ vehicle.vehiclesinformation.condition.name }}
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    {{ vehicle.vehiclesinformation.mileage }} <span
+                            style="font-size: 12px;font-weight: bold">miles</span>
+                </div>
+
+                <div class="row" style="margin-left: 5px;margin-right: 20px;margin-left: 10px;padding-bottom: 10px">
+                    <hr style="width: 100%;margin-bottom: 10px; align-items: center;color:#b8b8b8 "/>
+                </div>
+
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <div class="col-xs-2 no_padding"
+                         style="height: 38px;width: 30px;border: 2px solid #000000; background-color:{{ vehicle.vehiclesdetails.exteriorcolor }} ">
+                    </div>
+                    <div class="col-xs-8 no_padding">
+                        <ul class="list-unstyled no_padding">
+                            <li>
+                                &nbsp;{{ vehicle.vehiclesdetails.exteriorcolor }}
+                            </li>
+                            <li>
+                                <span style="font-size: 12px;color:#b8b8b8">&nbsp; EXTERIOR COLOR</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 10px">
+                    <div class="col-xs-2 no_padding"
+                         style="height: 38px;width: 30px;border: 2px solid #000000;background-color:{{ vehicle.vehiclesdetails.interiorcolor }} ">
+                    </div>
+                    <div class="col-xs-8 no_padding">
+                        <ul class="list-unstyled no_padding">
+                            <li style="padding-bottom: 0px;margin-bottom: 0px;padding-top: 0px;margin-top: 0px">
+                                &nbsp;{{ vehicle.vehiclesdetails.interiorcolor }}
+                            </li>
+                            <li>
+                                <span style="font-size: 12px;color:#b8b8b8">&nbsp; INTERIOR COLOR</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 5px;margin-right: 20px;margin-left: 10px;padding-bottom: 15px">
+                    <hr style="width: 100%;margin-bottom: 10px; align-items: center;color:#b8b8b8 "/>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <ul class="list-unstyled no_padding">
+                        <li>{{ vehicle.vehiclesdetails.fueltype.name }}</li>
+                        <li><span style="font-size: 12px;color:#D798AB">FUEL TYPE</span></li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <ul class="list-unstyled no_padding">
+                        <li>{{ vehicle.vehiclesdetails.transmission.name }}</li>
+                        <li><span style="font-size: 12px;color:#D798AB">TRANSMISSION</span></li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <ul class="list-unstyled no_padding">
+                        <li>{{ vehicle.vehiclesdetails.doors.name }}</li>
+                        <li><span style="font-size: 12px;color:#D798AB">DOORS</span></li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <ul class="list-unstyled no_padding">
+                        <li>{{ vehicle.vehiclesdetails.enginetype.name }}</li>
+                        <li><span style="font-size: 12px;color:#D798AB">ENGINE</span></li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <ul class="list-unstyled no_padding">
+                        <li>{{ vehicle.vehiclesdetails.drive.name }}</li>
+                        <li><span style="font-size: 12px;color:#D798AB">DRIVE TYPE</span></li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <ul class="list-unstyled no_padding">
+                        <li>{{ vehicle.vehiclesinformation.vin }}</li>
+                        <li><span style="font-size: 12px;color:#D798AB">VIM</span></li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <ul class="list-unstyled no_padding">
+                        <li>{{ vehicle.vehiclesinformation.stocknumber }}</li>
+                        <li><span style="font-size: 12px;color:#D798AB">STOCK NUMBER</span></li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-left: 10px;padding-bottom: 15px">
+                    <ul class="list-unstyled no_padding">
+                        <li>{{ vehicle.serie }}</li>
+                        <li><span style="font-size: 12px;color:#D798AB">AT CARD ID</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <img src="{{ asset('bundles/common/images/search/ads.jpg') }}" alt=""
+                 style="width: 100%"/>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+                function splitPhone(phone) {
+                    var result = phone.substring(0, 3);
+                    result = result + '-' + phone.substring(3, 6) + '-' + phone.substring(6, 10);
+                    jQuery('#phone').html(result);
+                }
+
+                splitPhone(jQuery('#phone').attr('value'));
+
+                function openWind(url) {
+                    window.open(url, "new", "directories=no, location=no, menubar=yes, scrollbars=yes, statusbar=no, tittlebar=no");
+                }
+
+                jQuery('#fb').click(function () {
+                    openWind("https://www.facebook.com/freeautolisting");
+                });
+                jQuery('#tw').click(function () {
+                    openWind("https://twitter.com/FAutoListing");
+                });
+                jQuery('#gplus').click(function () {
+                    openWind("https://plus.google.com/+Freeautolisting");
+                });
+                jQuery('#create_email').click(function () {
+                    jQuery('#myModalLabel').html('Send Message');
+
+                    jQuery('#offer_text').addClass("hide");
+                    jQuery('#offer').addClass("hide");
+
+                    jQuery('#email_text').removeClass("hide");
+                    jQuery('#mail').removeClass("hide");
+
+                });
+                jQuery('#create_offer').click(function () {
+                    jQuery('#myModalLabel').html('Make an Offer');
+
+                    jQuery('#email_text').addClass("hide");
+                    jQuery('#mail').addClass("hide");
+
+                    jQuery('#offer_text').removeClass("hide");
+                    jQuery('#offer').removeClass("hide");
+
+
+                });
+
+                function createPopover(elem, text) {
+                    elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+                }
+
+                function disableForm(formulario) {
+                    jQuery('#offerVehicle').find('input ,button').attr('disabled', 'disabled')
+                    jQuery("#offerVehicle").css("opacity", 0.37);
+
+                    jQuery('#email_body_mail').attr('disabled', 'disabled')
+                    jQuery("#email_body_mail").css("opacity", 0.37);
+                }
+
+                function resetForm(formulario) {
+                    jQuery('#email_body_mail').val('');
+                    jQuery('#offerVehicle').find('input, textarea').val('');
+                }
+
+                function enableForm(formulario) {
+                    jQuery('#email_body_mail').removeAttr('disabled')
+                    jQuery("#email_body_mail").css("opacity", 1);
+
+                    jQuery('#offerVehicle').find('input , button').removeAttr('disabled')
+                    jQuery("#offerVehicle").css("opacity", 1);
+                }
+
+                function checkSelected(o) {
+                    alert(o.val())
+                    if (o.val() == 0) {
+                        createPopover(o, 'Please fill out this field');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+
+                function checkLength(o, min, max) {
+                    if (o.val().length < min) {
+                        createPopover(o, 'Please fill out this field');
+
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+
+
+                function checkRegexp(o, regexp) {
+                    if (!( regexp.test(o.val()) )) {
+                        createPopover(o, 'Invalid field');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+
+                function validateForm(formulario) {
+                    var bValid = true;
+                    bValid = bValid && checkSelected(jQuery('#offer_remitent_name'));
+                    bValid = bValid && checkLength(jQuery('#offer_remitent_name'), 4, 100);
+
+                    bValid = bValid && checkSelected(jQuery('#offer_remitent_mail'));
+                    bValid = bValid && checkLength(jQuery('#offer_remitent_mail'), 4, 100);
+                    bValid = bValid && checkRegexp(jQuery('#offer_remitent_mail'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+
+                    if (formulario == 'mail') {
+                        bValid = bValid && checkSelected(jQuery('#email_body_mail'));
+                        bValid = bValid && checkLength(jQuery('#email_body_mail'), 2, 240);
+                    } else if (formulario == 'offer') {
+                        bValid = bValid && checkSelected(jQuery('#offert_value'));
+                        bValid = bValid && checkLength(jQuery('#offer_text'), 1, 100);
+                    }
+                    if (bValid) {
+                        disableForm(formulario);
+                        submitForm(formulario);
+                    }
+
+                }
+
+                function submitForm(formulario) {
+                    var remitent_mail;
+                    var remitent_phone;
+                    var remitent_name;
+                    var body_mail;
+                    var offer_text;
+
+                    remitent_name = jQuery('#offer_remitent_name').val();
+                    remitent_mail = jQuery('#offer_remitent_mail').val();
+                    remitent_phone = jQuery('#offer_remitent_phone').val();
+
+                    if (formulario == 'mail') {
+                        body_mail = jQuery('#email_body_mail').val();
+                        offer_text = "";
+
+                    } else if (formulario == 'offer') {
+                        body_mail = "";
+                        offer_text = jQuery('#offer_text').val();
+                    }
+                    jQuery.ajax({
+                        url: jQuery('#form-description').attr('action'),
+                        type: "POST",
+                        data: {
+                            formulario: formulario,
+                            remitent_name: remitent_name,
+                            remitent_mail: remitent_mail,
+                            remitent_phone: remitent_phone,
+                            body_mail: body_mail,
+                            offer_text: offer_text
+                        },
+                        async: false,
+                        success: function (response) {
+                            resetForm(formulario);
+                            enableForm(formulario);
+                            jQuery("#myModalCar").modal('destroy');
+                        }
+                    });
+
+                }
+
+                jQuery('#submit_email').click(function () {
+                    validateForm('mail');
+
+
+                });
+                jQuery('#submit_offer').click(function () {
+                    validateForm('offer');
+
+                });
+
+                jQuery(".tumb").click(function () {
+                    if (!jQuery(this).hasClass("no_image")) {
+                        var image = jQuery(this).css("background-image");
+                        jQuery(".tumb-large").css("background-image", image);
+                    }
+                })
+            }
+    )
+</script>

@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <header>
+        <div class="row hidden-xs">
+
+            <ul class="breadcrumb breadcrumb-cap">
+                {% for breadcrumb in breadcrumbs %}
+
+                    <li class="{{ breadcrumb['class'] }}">
+                        {% if( breadcrumb['path'] != '') %}
+                            <a href="{{ path(breadcrumb['path']) }}">{{ breadcrumb['name'] }}</a>
+                        {% else %}
+                            {{ breadcrumb['name'] }}
+                        {% endif %}
+                        {% if( breadcrumb['class'] == '') %}
+                            <img src="{{ asset('bundles/common/images/line1.jpg') }}">
+                        {% endif %}
+
+
+                    </li>
+
+                {% endfor %}
+
+                <li class="col-md-4 pull-right clearfix" style="padding-top: 4px;padding-right: 0px">
+                    <div class="input-group ">
+                        <input type="text" id="select_dealer_input" class="form-control"
+                               placeholder="{% if profile_selected is defined and profile_selected!= "" %}{{ profile_selected }}{% else %}Select Dealer{% endif %}"/>
+                      <span class="input-group-btn">
+                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                 style="background-color: #E6E6E6"><span
+                                     class="caret"></span></button>
+                          <ul class="dropdown-menu pull-right" role="menu">
+                              {% if profiles is defined %}
+                                  {% for profile in profiles %}
+                                      <li><a href="#" class="selected_dealer"
+                                             id_profile=" {{ profile.id }}">{{ profile.name }}</a></li>
+                                  {% endfor %}
+                              {% endif %}
+                          </ul>
+                      </span>
+                    </div>
+                </li>
+
+            </ul>
+
+
+        </div>
+    </header>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        /*
+         *  Al hacer en las listas despleglables seleccionar el elemento marcado
+         *
+         */
+        jQuery(".selected_dealer").click(function () {
+            jQuery("#select_dealer_input").attr("placeholder", jQuery(this).text());
+        });
+
+    });
+
+</script>
+
+
+          

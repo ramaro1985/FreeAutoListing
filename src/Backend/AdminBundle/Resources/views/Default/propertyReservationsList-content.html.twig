@@ -1,0 +1,99 @@
+
+<div id="container" class="container-fluid container-list">
+ {% if reservations|length > 0 %}
+     
+     
+        <div class="list-row">
+         <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 25px 5px 20px 5px">
+             <span class="property-title-1">Last 10 Reservations for all properties:</span>
+         </div>
+     </div>
+        <div class="list-row">
+        <div  class="row" style="margin: 0 10px; padding-bottom: 5px; border-bottom: solid 1px #CCC;">
+            <div class="col-md-4 col-xs-12"><strong>Guest</strong></div>
+            <div class="col-md-5 col-xs-12"><strong>Stay Dates</strong></a></div>
+            <div class="col-md-1 col-xs-12" ><strong>Status</strong></div>
+            <div class="col-md-2 col-xs-12"></div>
+         </div>
+                
+                {% for reservation in reservations %}
+                
+                
+               
+        <div  class="row" style="margin: 0 10px; padding: 10px 0; border-bottom: solid 1px #CCC;">
+            <div class="col-md-4 col-xs-12"> {{reservation.firstName}} {{reservation.lastName}} <p style="font-size: 12px">{%if reservation.phone != "" %}<i class="fa fa-phone-square" style="margin-right: 2px"></i>{{reservation.phone}}{%endif%}</p></div>
+            <div class="col-md-5 col-xs-12">
+       
+                                                
+                                                {%if reservation.checkIn | date("Y") == reservation.checkOut | date("Y") and reservation.checkIn | date("M") == reservation.checkOut | date("M")%}
+                                                {{reservation.checkIn | date("M j")}} - {{reservation.checkOut| date("j \\,\\ Y")}} 
+                                                {% elseif reservation.checkIn | date("Y") == reservation.checkOut | date("Y") and reservation.checkIn | date("M") != reservation.checkOut | date("M")%}
+                                                {{reservation.checkIn | date("M j")}} - {{reservation.checkOut| date("M j \\,\\ Y")}} 
+                                                {% else%}
+                                                {{reservation.checkIn | date("M j \\,\\ Y")}} - {{reservation.checkOut| date("M j \\,\\ Y")}} 
+                                                {% endif%}
+                
+         <p> 
+            {{reservation.property.description.name}}    
+            </p>
+        </div>
+            <div class="col-md-1 col-xs-12"><span id="status{{reservation.id}}" class="text-{{reservation.status.name}}">{{reservation.status.name}}</span></div>
+            <div class="col-md-2 col-xs-12">
+         <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span style="margin-right: 10px">Actions </span><span class="path glyphicon glyphicon-chevron-down"></span>
+        </button>
+        <ul class="dropdown-menu menu{{reservation.id}}" role="menu">
+            {% if (reservation.status.name == 'confirmed')%}
+                <li class="li-cancel{{reservation.id}}"><a  class="link-cancel" href="#"  data-toggle="modal" data-target="#myModalCancel{{reservation.id}}">Cancel Reservation</a></li>  
+             {%elseif (reservation.status.name == 'pending')%}   
+             <li class="li-confirm{{reservation.id}}"><a class="link-confirm" href="#"  data-toggle="modal" data-target="#myModal{{reservation.id}}">Confirm Reservation</a></li>   
+             {%endif %}    
+        <li class="divider"></li>
+        <li><a  href="#"  data-toggle="modal" data-target="#myModalDetails{{reservation.id}}">Reservation Details</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#myModalContact{{reservation.id}}">Contact Guest</a></li>
+       
+        </ul>
+        </div> 
+            </div>
+         </div>
+        
+       
+        <input type="hidden" value="" id="active-res">
+          {{ render(controller('AdminBundle:Default:editReservation',{ 'id': reservation.id })) }} 
+           {{ include('AdminBundle:Default:reservationCancel-form.html.twig',{ 'id': reservation.id, 'res':reservation }) }}
+           {{ include('AdminBundle:Default:reservationDetails-form.html.twig',{ 'id': reservation.id, 'res':reservation }) }}
+            {{ include('AdminBundle:Default:reservationContact-form.html.twig',{ 'id': reservation.id, 'res':reservation }) }}
+                 {% endfor %}
+       
+    </div>
+              
+         
+        
+        <div class="row" style="margin-bottom: 10px; margin-top: 10px">
+                <div class="col-md-12 col-xs-12">
+                    
+                    
+                             
+                </div>
+            </div>
+       {% else %} 
+
+           
+        <div class="row" style="margin: 20px 10px 0 ">
+                    <div class="col-xs-12 col-md-12">
+                       <div class="alert alert-info">There are no Reservations</div>
+                    </div>
+                </div>
+        
+ {% endif %}
+        
+        
+ 
+
+           
+        
+            
+        
+   
+</div>

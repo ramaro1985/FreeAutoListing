@@ -1,0 +1,33 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Free Auto Listing | Search {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/search-result-style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/common/css/jquery.webui-popover.css') }}" rel="stylesheet" />
+    <style>
+        #header #navbar li {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        #header #navbar li a {
+            padding: 15px;
+        }
+    </style>
+{% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('bundles/common/js/jquery.webui-popover.min.js') }}"></script>
+     <script src="{{ asset('bundles/common/js/functions_frontend_utils.js') }}"></script>
+ {% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+     {{ include('AppBundle:FAL:search-results-content.html.twig') }}
+     {{ include('AppBundle:FAL:search-results-content-popovers.html.twig') }}
+
+ {% endblock %}
+

@@ -1,0 +1,110 @@
+<div class="row"> 
+    <form id="admin-form" action="{{ path('super_admin_contacts_search_investor') }}"  method="POST" >
+        <div class="col-md-8 col-sm-8 col-xs-12 text-left" style="padding: 0">
+            <ul class="breadcrumb" style="margin: 0; padding-bottom: 0; background-color: #FFFFFF">
+                {% for breadcrumb in breadcrumbs %}
+
+                    <li class="{{ breadcrumb['class']}}">
+                        {% if( breadcrumb['path'] != '') %}
+                            <a style="font-size: 14px" href="{{ path(breadcrumb['path']) }}"><b>{{ breadcrumb['name']}}</b></a>
+                                {% else  %}  
+                                    {{ breadcrumb['name']}}
+                                {% endif %} 
+                                {% if( breadcrumb['class'] == '') %} 
+                            <span class="glyphicon glyphicon-chevron-right" style="margin-left: 5px; top: 1px" aria-hidden="true"></span>
+                        {% endif %} 
+
+
+                    </li>
+
+
+
+                {% endfor %}
+
+
+
+
+            </ul>
+
+        </div>
+    
+
+            
+     
+        
+     
+
+            <div class="col-md-2 col-sm-2 col-xs-12 text-left">
+                <div class="form-group">
+
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="sasearchtextcontactsinv" name="sasearchtextcontactsinv" value="{{app.session.get('sasearchtextcontactsinv')}}"  placeholder="Find by email or keywords">
+
+                    </div>
+                </div> 
+            </div>
+   
+      
+        <div class="col-md-2 col-sm-2 col-xs-12 text-left">
+            <div class="form-group">
+
+                <div class="col-sm-6 col-md-6 col-xs-6">
+                    <button id="btnsave" type="submit" class="btn btn-primary btn-block">Search</button>
+
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-xs-6">
+                    <a id="btnclear" type="button" class="btn btn-default btn-block">Clear Filters</a>
+
+                </div>
+            </div> 
+        </div>
+     
+        <input type="hidden" value="{{app.session.get('sastatuscontactsinv')}}" id="sastatuscontactsinv" name="sastatuscontactsinv">
+    
+    </form>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('a.return-search').click(function () {
+            parent.history.back();
+            return false;
+        });
+
+        jQuery('.filter-active').click(function (e) {
+            jQuery('#sastatuscontacts').val('1');
+            jQuery('#filter-text').text(jQuery(this).text());
+            e.preventDefault();
+        });
+
+        jQuery('.filter-inactive').click(function (e) {
+            jQuery('#sastatuscontacts').val('2');
+            jQuery('#filter-text').text(jQuery(this).text());
+            e.preventDefault();
+        });
+
+        jQuery('.filter-clear').click(function (e) {
+            jQuery('#sastatuscontacts').val('');
+            jQuery('#filter-text').text('Filter');
+            e.preventDefault();
+        });
+        
+        
+        jQuery('#btnsave').click(function(){
+         jQuery('#admin-form').attr('action', "{{path('super_admin_contacts_search_investor')}}");   
+        });
+        
+        jQuery('#btnclear').click(function(){
+         jQuery('#admin-form').attr('action', "{{path('clear_all_filters_contacts_investor')}}");   
+          jQuery('#admin-form').submit();
+        });
+        
+      
+        
+     
+          
+
+    });
+
+</script>

@@ -1,0 +1,168 @@
+<div id="header" class="container-fluid" style="position: relative">
+     <div class="container">
+         <div class="row hidden-xs">
+        <div id="logo" class="col-xs-12 col-md-6 col-sm-4 hidden-xs">
+	<a href="{{ path('app_homepage') }}">
+            <img src="{{ asset('bundles/common/images/logo.png') }}" alt="Home"/></a>
+	</div>
+        
+         <div id="logo1" class="col-xs-12 col-md-6 col-sm-6 visible-xs">
+	<a href="{{ path('app_homepage') }}">
+            <img src="{{ asset('bundles/common/images/logo.png') }}" alt="Home"/></a>
+	</div>
+               
+		        
+                        <div id="chat" class="col-xs-12 col-md-6  col-sm-8">
+                            
+                            <div class="pull-right">
+                            <nav>
+                        
+                                    
+                            <ul id="mainMenu" class="nav nav-pills nav-main">
+                            
+                            <li>
+                                <a href="{{ path('contact_us') }}">Support</a>
+                            </li>
+                            <li class="hide">
+                                <a href="{{ path('app_homepage') }}">News</a>
+                            </li>
+                            <li>
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <div class="btn-group">
+                                 <a  class="btn dropdown-toggle login" data-toggle="dropdown">
+                                <span style="margin-right: 10px">{{  app.user.name }} </span><span class="path glyphicon glyphicon-chevron-down"></span>
+                                
+                                </a>
+                                <ul class="dropdown-menu" role="menu">                   
+                                 <li><a href="{{ path('admin_admin_users') }}">View Users</a></li>
+                                <li><a href="{{ path('admin_add_user') }}">Add User</a></li>
+                                <li><a href="{{ path('admin_view_properties') }}">View Properties</a></li>
+                                <li><a href="{{ path('fos_user_change_password') }}">Change Password</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('admin_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                                </ul>
+                                </div>
+                                
+                                {% else %}
+                                    
+                                    <div style="display:none;"><span>placeholder</span></div>
+                                
+                                {% endif %} 
+                            </li>
+                        </ul>                       
+                    </nav>
+                 </div>
+                            
+                            
+        </div>
+		
+         
+        </div>
+                            
+        <div class="row visible-xs">
+            <div class="col-md-2 col-sm-2 col-xs-2">
+                <nav class="navbar" role="navigation" >
+                        <div class="container-fluid">
+                            <div class="navbar-header" style="margin-right: -33px">
+                                <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-9" data-toggle="collapse" type="button">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>  
+                                
+                            </div>
+                            <div id="bs-example-navbar-collapse-9" class="navbar-collapse collapse" style="width: 250px;padding-left: 0;margin-left: -25px;">
+                                <ul id="mainMenu" class="nav navbar-nav">
+                                    <li><a href="{{ path('app_homepage') }}">Support</a></li>
+                                    <li><a href="{{ path('how_works') }}">How it works</a></li>
+                                <li><a href="{{ path('help_center') }}">Get help</a></li>
+                                <li><a href="{{ path('about_us') }}">Company</a></li>
+                                <li><a href="{{ path('investor') }}">Investors</a></li>
+                                <li><a href="{{ path('content_guidelines') }}">Content Guidelines</a></li>
+                                    <li>
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <div class="btn-group">
+                                 <a  class="btn dropdown-toggle login" data-toggle="dropdown">
+                                <span style="margin-right: 10px">{{  app.user.name }} </span><span class="path glyphicon glyphicon-chevron-down"></span>
+                                
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ path('admin_admin_users') }}">View Users</a></li>
+                                <li><a href="{{ path('admin_add_user') }}">Add User</a></li>
+                                <li><a href="{{ path('admin_view_properties') }}">View Properties</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                                </ul>
+                                </div>
+                                
+                                {% else %}
+                                <div style="display:none;"><span>placeholder</span></div>
+                                
+                                {% endif %} 
+                            </li>
+                            <li>
+                                
+                            
+                                 </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+        <div id="logo" class="col-xs-4 col-md-6"  style="padding-left: 10px">
+                    <a href="{{ path('app_homepage') }}"><img src="{{ asset('bundles/common/images/logo.svg') }}" alt="HomeEscape Logo"/></a>
+                </div>
+        </div>
+         </div>
+                
+    <div class="hidden-xs" id="raya" style="height:2px; background:#ffffff"></div>
+    <div class="hidden-xs" id="raya" style="height:2px; background:#AE0303;"></div>
+    <div class="visible-xs" id="raya" style="height:2px; background:#ffffff"></div>
+    <div class="visible-xs" id="raya" style="height:2px; background:#AE0303;margin-top:-15px;"></div>
+                            
+
+       
+        </div>
+		
+<script type="text/javascript">
+      jQuery("#searchtext").val('');
+              jQuery(document).ready(function() {
+//--------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+             jQuery('#btnsearch').click(function(e){
+                 
+              if(checkDate(jQuery('#datepicker1'),jQuery('#datepicker2') )){
+               jQuery('#btnsave').trigger('click');      
+              }
+              e.preventDefault();
+                });
+                
+                
+          function createPopover(elem , text){
+                    elem.attr('data-toggle','popover');
+                    elem.attr('data-placement','top');
+                    elem.attr('data-content',text);
+                    elem.attr('data-container','body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+        }
+           
+                 function checkDate( o, u ) {
+			if ( u.val() < o.val() ) {
+				createPopover(u, 'Invalid Date');
+				return false;
+                         
+			} else {
+				return true;
+			}
+		}
+
+             });
+             
+             
+             
+            
+            </script>

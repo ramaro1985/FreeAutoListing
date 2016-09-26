@@ -1,0 +1,114 @@
+<div class="row">
+
+    <div style="margin-left:15px;margin-right: 15px">
+
+        <div class="borderBoxShadows col-md-12 col-xs-12 col-lg-12"
+             style="background-color: white; padding:15px">
+            <div class="col-md-4 col-xs-4 col-lg-4 no_padding">
+
+                <div class="thumbnail" style="margin-bottom: 10px;">
+
+
+                    <a href="javascript:void(0)" class="thumbnail pull-left" style="margin-bottom: 0px ">
+                        {% if email.vehicle and email.vehicle.gallery is not null %}
+                            {% set pf = email.vehicle.gallery.profileimages[0] %}
+                            <img src="{{ asset(pf.getwebpaththumbnailVehicle(email.profile,email.vehicle.serie)) }}"
+                                 alt=""
+                                 class="img-responsive"/>
+                        {% else %}
+                            <img src="{{ asset('bundles/common/images/private-profile.jpg') }}"
+                                 alt=""
+                                 class="img-responsive"/>
+                        {% endif %}
+                    </a>
+
+                    <div class="caption" style="margin-bottom: 10px;padding-left: 0px;">
+
+                        {% if email.vehicle %}
+                            <p style="display: inline-block;margin-top: 10px">
+                                {{ email.vehicle.vehiclesinformation.condition.name }}
+                                &nbsp;{{ email.vehicle.vehiclesinformation.year.year }}
+                                &nbsp;{{ email.vehicle.vehiclesinformation.make.makedisplay }}
+                                <br>
+                                <span class="bold_text_black">Price: ${{ email.vehicle.vehiclesinformation.price|number_format() }}</span>
+                            </p>
+
+                            <p>
+
+                                Milage: {{ email.vehicle.vehiclesinformation.mileage }}
+                                <br/>
+                                Color: {{ email.vehicle.vehiclesdetails.exteriorcolor }}
+                                <br/>
+                                Stock #: {{ email.vehicle.vehiclesinformation.stockNumber }}
+                                <br/>
+                            </p>
+                        {% endif %}
+                        <div class="thumbnail" style="margin-bottom: 0px">
+                            {% if(email.profile.logo is not null) %}
+                                <div class="col-md-8" style="padding-left: 0px !important;">
+                                    <div class="thumbnail">
+                                        <div class="logo img-responsive"
+                                             style="background-image:url('{{ asset(email.profile.logo) }}');height: 120px;width:100%">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="col-md-8" style="padding-left: 0px !important;">
+                                    <div class="thumbnail">
+                                        <div class="logo img-responsive"
+                                             style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');height: 120px;width:100%">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="caption col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px">
+                                <a href="{{ path('profile_view',{'prop_pk':email.profile.serie }) }}"
+                                   class="blue_text">{{ email.profile.description.name }}</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-8 col-xs-8 col-lg-8">
+                <div class="col-md-7 col-sm-8 col-xs-9">
+                    <p>
+                        <span class="date"> {{ email.datecreated | date("M d, Y - h:i a") }}</span><br/>
+                        <span
+                                class="bold_text_black"> {{ email.remitentname }}:</span>
+                    </p>
+
+                    <p style="margin-top: 10px">
+                        <span class="">Email:</span> <span class="blue_link">{{ email.remitentMail }}</span><br/>
+                        <span class="">Phone:</span> <span class="blue_link"> {{ email.remitentphone }}</span>
+                    </p>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-2 text-right pull-right">
+                    <a href="javascript:void(0)" id="reply"
+                       data-toggle="modal"
+                       data-target="#myModalInquiryListReply{{id}}"
+                       class="btn btn_edit btn-block">
+                        Reply
+                    </a>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 text-left" style="max-resolution: 15px;">
+                    {% if email.offer %}
+                        <h3>Offer: ${{ email.offertext }} </h3>
+                    {% else %}
+                        <span class="">{{ email.bodymail }}</span>
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+        </div>
+        <br>
+    </div>
+
+</div>
+{{ include('AdminBundle:Default:inquiryReplyListAdd-form.html.twig') }}

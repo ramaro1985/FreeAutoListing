@@ -1,0 +1,203 @@
+     <style type="text/css">
+    
+    #blog_tags label{
+     margin-right: 15px;   
+    }  
+    
+    #blog_tags input{
+     margin-right: 5px;   
+    }  
+           </style>
+<div id="container" class="container-fluid properties-container">
+
+        
+    
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-location" action="{{ path('edit_blog', {'id': new.id }) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+   
+    
+     <div class="col-md-12 col-xs-12">
+      
+       <div class="form-group" style="margin-bottom: 10px">
+       <div class="col-md-12 col-xs-12 text-left form-title">
+           
+           <div id="title">Edit Blog News</div>
+           
+       </div>
+       </div>
+           
+    </div>
+    
+    
+    
+    
+            
+    <div class="col-md-12 text-center">   
+          
+        
+        <div class="form-group" style="margin-bottom: 10px">
+ 
+         <div class="col-md-12 col-sm-12 col-xs-12 text-danger">
+       {% for flashMessage in app.session.flashbag.get('notice') %}
+           
+           {{ flashMessage }}
+        
+           {% endfor %}
+    </div>
+     
+  </div>
+
+         {% set class = "" %}
+     {% if new.getWebPath != "" %} 
+         {% set class = "hide" %}
+    <div class="form-group image-preview" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-sm-offset-3 col-xs-12 text-left " style="padding-right: 0px">
+     <img src="{{ (new.getWebPath)| imagine_filter('my_thumb') }}"  style="padding-bottom: 5px" class="" alt="{{new.tittle}}" title="{{new.tittle}}">
+ 
+ </div>
+     <div class="col-sm-1 col-xs-12 text-left" style="padding-left: 5px">
+     
+ <a href="#" class="deleteImage"><span class="glyphicon glyphicon-trash" aria-hidden="true" style="font-size: 12px; margin-left: 5px; top:1px"></span></a>   
+ </div>   
+      <img id="loading" src="{{ asset('bundles/common/images/loading.gif') }}" style="margin-left: 5px; border: 0 none;" class="hide" >
+  </div>
+    {%endif%}
+    
+    
+    <div class="form-group uploader {{class}}" style="margin-bottom: 10px">
+ <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.photo) }}
+    </div>
+         <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.photo) }}
+    </div>
+     
+  </div> 
+        
+       
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.tittle) }}
+    </div>
+         <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.tittle) }}
+    </div>
+     
+  </div>
+        
+        <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.text) }}
+    </div>
+         <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.text) }}
+    </div>
+     
+  </div>
+    
+    <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.category) }}
+    </div>
+            <div class="col-sm-3 col-xs-12">
+    {{ form_widget(form.category) }}
+    </div>
+         </div>
+    
+    
+    <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.tags) }}
+    </div>
+            <div class="col-sm-6 col-xs-12 text-left">
+    {{ form_widget(form.tags) }}
+    </div>
+         </div>
+       
+    <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.status) }}
+    </div>
+            <div class="col-sm-3 col-xs-12">
+    {{ form_widget(form.status) }}
+    </div>
+         </div>
+        
+            
+             <div class="form-group" style="margin-bottom: 10px">
+                </div>
+                
+                
+                           
+    
+         
+          </div>   
+         
+    
+    <div id="form-buttons" class="col-md-10 col-md-offset-3 text-center">
+   <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-12 col-xs-12 text-left">
+        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+        
+    </div>
+           
+    </div>        
+    
+  </div>
+    <div style="display: none">{{ form_rest(form) }}</div>
+</form>
+                </div>
+            </div>
+    
+    </div>
+
+<script type="text/javascript">
+            
+           jQuery(document).ready(function() {
+      CKEDITOR.replace( 'blog_text', {
+	allowedContent: 'p ul li'
+        });
+        
+       CKEDITOR.config.toolbar = [
+       ['Undo','Redo','Cut','Copy','Paste','Indent','Font','FontSize','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+       '/',
+      
+       ] ;
+       
+       
+       jQuery('.deleteImage').click(function(e){
+          
+         if(confirm('Are you sure you want to delete this picture?')){
+          jQuery('#loading').removeClass('hide');
+               jQuery.ajax({
+              
+            url: '{{path('admin_delete_image_blog')}}',
+                    type: "POST",
+                    data: {id: "{{new.id}}" },
+                    async: false,
+                    success: function(response){
+                    jQuery('#loading').addClass('hide');
+                    jQuery('.image-preview').remove();
+                    jQuery('.uploader').removeClass('hide');
+                    }
+            });
+            
+         }
+        
+       });
+       
+       
+       });      
+            
+            
+            
+            
+        
+           
+            
+            
+            
+            </script>
+    

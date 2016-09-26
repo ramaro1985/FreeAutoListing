@@ -1,0 +1,58 @@
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+{% block title %}Free Auto Listing | Create your Dealearship{% endblock %}
+ 
+{% block stylesheets %} {{ parent() }}
+    <style>
+        .form-control {
+            text-align: left;
+        }
+
+        input[type=checkbox] {
+            width: auto;
+        }
+
+        label {
+            padding-left: 2px !important;
+        }
+
+        .checkbox {
+            text-align: left;
+            float: left;
+            /*min-width: 150px;*/
+        }
+
+        .glyphicon {
+            top: 0px;
+        }
+
+        .glyphicon-info-sign {
+            font-size: 14px;
+        }
+        #logobrowseM {
+            background-color: #A1A1A1;
+            border-radius: 0;
+        }
+
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-forms.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+     <div class="visible-lg visible-md">
+         {{ include('AdminBundle:Default:content-header.html.twig') }}
+         {{ include('AdminBundle:DealerForm:amenitiesForm-content.html.twig') }}
+     </div>
+
+     <div class="visible-xs visible-sm">
+         {{ include('AdminBundle:DealerForm:amenities-profile-movile.html.twig') }}
+     </div>
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 

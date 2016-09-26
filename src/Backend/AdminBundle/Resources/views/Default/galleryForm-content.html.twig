@@ -1,0 +1,427 @@
+<div id="container" class="container-fluid properties-container">
+
+    <div class="row" style="margin-left: 5px; margin-top: 30px">
+        <div class="col-md-12">
+            <ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+                        <div id="photos" class="anchor-profile-photo"></div> 
+                         <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-1" href="#description" class="btn btn-default b2b ">
+                                    Listing Details <span class="glyphicon glyphicon-info-sign glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-2" href="#location" class="btn btn-default b3b ">
+                                    Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        
+                       
+                        <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-4" href="#photos" class="btn btn-primary b1b active">
+                                    Photos  <span class="glyphicon glyphicon-picture glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-6" href="#rates"  class="btn btn-default b6b" >
+                                    Rates <span class="glyphicon glyphicon-usd glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-5" href="#booking-calendar"  class="btn btn-default b5b">
+                                    Calendar <span class="glyphicon glyphicon-calendar glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                         
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-3" href="#amenities" class="btn btn-default ">
+                                    Amenities <span class="glyphicon glyphicon-list glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-7" href="#payments"  class="btn btn-default b7b" >
+                                    Policies & Payments <span class="glyphicon glyphicon-credit-card glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        
+                       
+                        
+                    </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-location" action="{{ path('create_gallery_property' , {'type':'gallery' , 'prop_pk':prop_pk}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal" style="margin-top: 20px">
+                <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group" >
+                        <div class="col-md-12 col-xs-12 text-left form-title">
+                            Add Photos
+                        </div>
+
+                        <div class="col-md-11 col-xs-12 text-left">
+                            <p>Upload your property pictures and add a title or a brief description. The first image in the gallery will be your Featured Picture. You can change the order of the photos by dragging them to their new location. Make sure to click "Save" when you're finished!</p>
+                        </div>        
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12 col-xs-12">
+                    <hr>
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-md-12 col-xs-12 text-left form-title">
+                            <div  style="margin-right: 20px"><a class="pull-left btn btn-default" href="#">Upload Multiple Images</a></div>
+                            
+                        </div>
+                        <div class="col-md-12 col-xs-12 text-left">
+                            
+                            <div class="title" style="font-size: 16px;color: #2c9ec8">Drag photos to change order</div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="gallery">
+                   
+                   
+                   
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+               
+
+               
+                    
+                 
+               
+                        <div class="col-sm-1 col-xs-12 text-left">
+                         <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                   
+
+               
+                    
+                        <div class="col-sm-1 col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                       <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                        <div class="col-sm-1  col-xs-12 text-left">
+                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}" alt="Home"/>
+                        </div>
+                   
+            
+                    
+                </div>
+
+
+
+
+                
+<div id="gallery2">
+        {% for image in form.propertyImages %}
+                        <div class="col-sm-1 col-xs-12 text-left">
+                        {{ form_widget(image.photo) }}<br>
+                        {{ form_widget(image.orden) }}
+                        </div>
+
+                   {% endfor %}
+
+    </div> 
+
+                    
+
+
+                        <div id="form-buttons" class="col-md-10  text-center" style="display: none; margin-top: 20px">
+                            <div class="form-group" style="margin-bottom: 10px">
+                                <div class="col-sm-12 col-xs-12 text-left">
+                                    <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+                                    <button id="btnsavecontinue" type="submit" class="btn btn-primary" style="margin-left: 10px">Save & Continue</button>
+                                </div>
+
+                            </div>        
+
+                        </div>
+                        <div style="display: none">{{ form_rest(form) }}</div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+       <style type="text/css">
+                        /* show the move cursor as the user moves the mouse over the picture.*/
+                        .thumbnail {
+                            cursor: move;
+                        }
+
+
+                    </style>
+
+            <script type="text/javascript">
+            
+                        jQuery(document).ready(function() {
+                
+           
+                
+                
+                        var tab = 6;    
+                
+                        jQuery('#btnsavecontinue').click(function(e){
+                         if(tab == 1){ 
+                        jQuery('#form-location').attr('action', "{{path('create_gallery_property', {'type':'description' , 'prop_pk':prop_pk})}}");
+                        }else if(tab == 2){ 
+                        jQuery('#form-location').attr('action', "{{path('create_gallery_property', {'type':'location' , 'prop_pk':prop_pk})}}");
+                        }else if(tab == 3){ 
+                        jQuery('#form-location').attr('action', "{{path('create_gallery_property', {'type':'amenities' , 'prop_pk':prop_pk})}}");
+                        }else if(tab == 5){ 
+                        jQuery('#form-location').attr('action', "{{path('create_gallery_property', {'type':'calendar' , 'prop_pk':prop_pk})}}");
+                        }else if(tab == 6){ 
+                        jQuery('#form-location').attr('action', "{{path('create_gallery_property', {'type':'rates' , 'prop_pk':prop_pk})}}");
+                        }
+                        else if(tab == 7){ 
+                        jQuery('#form-location').attr('action', "{{path('create_gallery_property', {'type':'policiesPayments' , 'prop_pk':prop_pk})}}");
+                        }
+                        }); 
+          
+          
+          
+                        jQuery('#link-tab-index-1').click(function(e){
+                        tab = 1;
+                         jQuery('#btnsavecontinue').trigger('click');   
+                        e.preventDefault();
+                       }); 
+           
+                        jQuery('#link-tab-index-2').click(function(e){
+                        tab = 2;
+                          jQuery('#btnsavecontinue').trigger('click');   
+                        e.preventDefault();
+                       }); 
+           
+            
+                        jQuery('#link-tab-index-3').click(function(e){
+                        tab = 3;
+                          jQuery('#btnsavecontinue').trigger('click');   
+                        e.preventDefault();
+                       }); 
+           
+                       jQuery('#link-tab-index-5').click(function(e){
+                        tab = 5;
+                         jQuery('#btnsavecontinue').trigger('click');   
+                        e.preventDefault();
+                       });
+                        jQuery('#link-tab-index-6').click(function(e){
+                        tab = 6;
+                          jQuery('#btnsavecontinue').trigger('click');   
+                        e.preventDefault();
+                       }); 
+                       jQuery('#link-tab-index-7').click(function(e){
+                        tab = 7;
+                          jQuery('#btnsavecontinue').trigger('click');   
+                        e.preventDefault();
+                       }); 
+           
+
+                         jQuery('#btnsave').click(function(e){
+                        jQuery('#form-location').attr('action', "{{path('create_gallery_property', {'type':'gallery' , 'prop_pk':prop_pk})}}");
+                        }); 
+  
+                        var $collectionHolder;
+                        // setup an "add a tag" link
+                        var $addTagLink = jQuery('<a href="#" class="add_tag_link" style="display:none">Add New Photo</a>');
+                        var $newLinkLi = jQuery('<div class="col-sm-2 col-xs-12 text-left" style="padding-left:0px"></div>').append($addTagLink);
+                
+  
+                        // Get the ul that holds the collection of tags
+                        $collectionHolder = jQuery('div.periods');
+                        // add the "add a tag" anchor and li to the tags ul
+                        $collectionHolder.append($newLinkLi);
+            
+                        $collectionHolder.find('.list').each(function() {
+                        addTagFormDeleteLink(jQuery(this));
+                        });
+                        // count the current form inputs we have (e.g. 2), use that as the new
+                        // index when inserting a new item (e.g. 2)
+                        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+                        $addTagLink.on('click', function(e) {
+                        // prevent the link from creating a "#" on the URL
+                        e.preventDefault();
+                        // add a new tag form (see next code block)
+                        addTagForm($collectionHolder, $newLinkLi);
+                        });
+  
+  
+                        function addTagForm($collectionHolder, $newLinkLi) {
+                      // Get the data-prototype explained earlier
+                      var prototype = $collectionHolder.data('prototype');
+                      // get the new index
+                      var index = $collectionHolder.data('index');
+                      // Replace '__name__' in the prototype's HTML to
+                      // instead be a number based on how many items we have
+                      var newForm = prototype.replace(/__name__/g, index);
+                      // increase the index with one for the next item
+                      $collectionHolder.data('index', index + 1);
+                      // Display the form in the page in an li, before the "Add a tag" link li
+                      var $newFormLi = jQuery('<div class="list row" style="margin-top: 20px; margin-bottom: 20px"></div>').append(newForm);
+                      $newLinkLi.before($newFormLi);
+                      addTagFormDeleteLink($newFormLi);
+          
+                      var newIndex = jQuery('div.periods').find('.list').length - 1;
+                                          jQuery(jQuery('div.periods').find('.list').last().find('input')[2]).val(newIndex);
+                      }
+          
+                      function addTagFormDeleteLink($tagFormLi) {
+                        var $removeFormA = jQuery('<a type="button" class="btn btn-default">Delete this photo</a>');
+                        var $newRemove = jQuery('<div class="col-sm-4 col-xs-12  text-left" style="margin-top:12px"></div>').append($removeFormA); 
+                        $tagFormLi.append($newRemove);
+                        $removeFormA.on('click', function(e) {
+                
+                        if ( confirm('Are you sure to remove this photo ?') ){
+                    
+                        if (jQuery('div.periods').find('.list').length == 1){
+                         $addTagLink.css('display','none');
+                        jQuery('#btnadd').css('display','inline-block'); 
+                        jQuery('.title').css('display','none'); 
+                        jQuery('.featured-image').css('display','block'); 
+                        jQuery('#form-buttons').css('display','none')
+                        }    
+                        // prevent the link from creating a "#" on the URL
+                        e.preventDefault();
+                        // remove the li for the tag form
+                        $tagFormLi.remove();
+                        }
+                        });
+                        }
+            
+                      jQuery('#btnadd').click(function(e){
+                        $addTagLink.css('display','block');
+                        jQuery('#btnadd').css('display','none'); 
+                        jQuery('.title').css('display','block'); 
+                        jQuery('.featured-image').css('display','block'); 
+                        jQuery('#form-buttons').css('display','block');
+                        jQuery($addTagLink).trigger('click');   
+                        e.preventDefault();
+                       }); 
+          
+                       jQuery( ".period-calendar" ).datepicker({
+         
+                        });
+            
+              
+                        jQuery(function($) {
+                    var panelList = jQuery('.periods');
+
+                    panelList.sortable({
+                        // Only make the .panel-heading child elements support dragging.
+                        // Omit this to make then entire <li>...</li> draggable.
+                        handle: '.list', 
+                        update: function() {
+                            jQuery('.list', panelList).each(function(index, elem) {
+                                 var $listItem = jQuery(elem),
+                                     newIndex = $listItem.index();
+
+                                 // Persist the new indices.
+                            });
+                        }
+                    });
+                });
+                
+              
+  
+                        });      
+            
+            
+                                     function preview(input){
+               if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        jQuery(jQuery(input).parents()[1]).find("img")
+                            .attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+                                }   
+        
+           
+            
+            
+            
+                </script>

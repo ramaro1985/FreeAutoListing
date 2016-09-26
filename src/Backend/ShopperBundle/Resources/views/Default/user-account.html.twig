@@ -1,0 +1,85 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+{% block title %}Free Auto Listing | User Account{% endblock %}
+ 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/dealer-info-style.css') }}" rel="stylesheet"/>
+   {# <link href="{{ asset('bundles/common/css/preview.css') }}" rel="stylesheet"/>#}
+    <link href="{{ asset('bundles/common/css/dashboard_style.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/common/css/search-result-style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/common/css/jquery.webui-popover.css') }}" rel="stylesheet" />
+    <style>
+        .tabbable nav{
+            background-color: #ffffff;
+        }
+
+        p.nomarginbottom{
+            margin-bottom: 0px;
+        }
+        .delete_button {
+            background-color: #a8adb0;
+            border-color: #969b9e;
+            box-shadow: none;
+            padding: 5px 24px;
+            color: #ffffff;
+        }
+
+        hr{
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .car_info {
+            font-size: 13px;
+            margin-bottom: 0px;
+            margin-top: 10px;
+            line-height: 1.3;
+        }
+
+        .car_div {
+            -o-box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+            -ms-box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+            -moz-box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+            -webkit-box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+            box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+        }
+
+        .car_info a {
+            color: #337ab7;
+        }
+        #header #navbar li {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        #header #navbar li a {
+            padding: 15px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/carousel.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/jquery.webui-popover.min.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/functions_frontend_utils.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/bootstrap-confirmation.min.js') }}"></script>
+{% endblock %}
+
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+     <div class="visible-lg visible-md">
+         {{ include('ShopperBundle:Default:user-account-content.html.twig') }}
+     </div>
+     <div class="visible-xs visible-sm">
+         {{ include('ShopperBundle:Default:user-account-content-movile.html.twig') }}
+     </div>
+
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

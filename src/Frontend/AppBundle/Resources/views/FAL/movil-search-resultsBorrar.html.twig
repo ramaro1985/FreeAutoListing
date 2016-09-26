@@ -1,0 +1,18 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Free Auto Listing  {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/search-result-style.css') }}" rel="stylesheet" />
+{% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('bundles/common/js/functions_frontend_utils.js') }}"></script>
+ {% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+     {{ include('AppBundle:FAL:search-results-content.html.twig') }}
+ {% endblock %}

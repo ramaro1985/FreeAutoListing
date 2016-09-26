@@ -1,0 +1,30 @@
+location:
+    pattern:  /
+    defaults: { _controller: "AppBundle:Location:index" }
+
+location_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "AppBundle:Location:show" }
+
+location_new:
+    pattern:  /new
+    defaults: { _controller: "AppBundle:Location:new" }
+
+location_create:
+    pattern:  /create
+    defaults: { _controller: "AppBundle:Location:create" }
+    requirements: { _method: post }
+
+location_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "AppBundle:Location:edit" }
+
+location_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "AppBundle:Location:update" }
+    requirements: { _method: post|put }
+
+location_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "AppBundle:Location:delete" }
+    requirements: { _method: post|delete }

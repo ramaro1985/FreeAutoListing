@@ -1,0 +1,1172 @@
+<div id="globalnav-nav" class="pull-left">
+    <nav class="nav nav-dash" style="border-radius: 0px;">
+       
+        <ul id="navigation-filters" class="nav nav-list" >
+            <li id="sideLinkProperties" class="">
+                 <div class="row">
+                                <div class="col-md-12" style="margin-top: 30px">
+                                    <div class="pull-left" style="margin-right: 2px">
+                                        <img src="{{ asset('bundles/common/images/List.png') }}">
+                                    </div>
+                                    <div class="pull-left">
+                                        <!--<img src="{{ asset('bundles/common/images/Map.png') }}">-->
+                                    </div>
+                 </div>       
+                           </div>  
+            </li>
+            <li id="resrvationManager" class="nav-header">
+              <div class="row">
+                                <div class="col-md-12" style="margin-top: 20px">
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+                                        <span class="list-title">SEARCH RESULTS</span>
+                                        
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+                                       <hr>
+                                        
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-11">
+                                        <span class="results">{{app.session.get('results') }} Results </span>
+                                        
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+            </li>
+            
+            
+            
+            <li id="sideLinkPrice" class="">
+                <div class="row">
+                                <div class="col-md-12" style="margin-top: 30px">
+                                    <div class="row">
+                                    <div class="pull-left col-md-11">
+                                        <span class="list-title">Price</span>
+									    <div class="pull-right"><a href="#" id="arrow-price" class="arrow-price">»</a> </div>
+                                        <div class="pull-right hide"><a href="#" class="arrow-price-back">«</a> </div> 
+                                    </div>
+                                        <input id="priceOpen" type="hidden" value="" name="priceOpen">
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+                                        <hr id="hr-price">
+                                        
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+									<div class="pull-right"><a href="#" onclick="updatePrice(jQuery('.popover #minPrice'),jQuery('.popover #maxPrice'),event)">{% if (app.session.get('minPrice') is not empty) or (app.session.get('maxPrice') is not empty) %} X {% endif%}</a> </div>
+                                        <a href="#" id="price">
+                                       {% if (app.session.get('minPrice') is empty) and (app.session.get('maxPrice') is empty)  %} Any {% endif%}      
+                                       {% if app.session.get('minPrice') is not empty %} from ${{app.session.get('minPrice')}}<br> {% endif%} 
+                                       {% if app.session.get('maxPrice') is not empty %} to ${{app.session.get('maxPrice')}} {% endif%} 
+                                         </a>
+                                        
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+            </li>
+			
+            <li id="sideLinkSleeps" class="">
+                <div class="row">
+                                <div class="col-md-12" style="margin-top: 30px">
+                                    <div class="row">
+                                    <div class="pull-left col-md-11">
+                                        <a href="#" id="price">
+                                        <span class="list-title">Sleeps</span>
+                                        <div class="pull-right"><a href="#" class="arrow-sleeps">»</a> </div>
+                                        <div class="pull-right hide"><a href="#" class="arrow-sleeps-back">«</a> </div> 
+                                    </div>
+                                        <input id="sleepsOpen" type="hidden" value="" name="sleepsOpen">
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+                                       <hr id="hr-sleeps">
+                                        
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+									<div class="pull-right"><a href="#" onclick="updateSleeps(jQuery('.popover #minSleeps'),jQuery('.popover #maxSleeps'),event)">{% if (app.session.get('minSleeps') is not empty) or (app.session.get('maxSleeps') is not empty) %} X {% endif%}</a> </div>
+                                        <a href="#" id="sleeps">  
+                                       {% if (app.session.get('minSleeps') is empty) and (app.session.get('maxSleeps') is empty)  %} Any {% endif%}      
+                                       {% if app.session.get('minSleeps') is not empty %} min {{app.session.get('minSleeps')}} <br>{% endif%} 
+                                       {% if app.session.get('maxSleeps') is not empty %} max {{app.session.get('maxSleeps')}} {% endif%} 
+                                        
+                                        </a>
+                                        
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+            </li>
+            <li id="sideLinkBedrooms" class="">
+               <div class="row">
+                                <div class="col-md-12" style="margin-top: 30px">
+                                    <div class="row">
+                                    <div class="pull-left col-md-11">
+                                        <span class="list-title">Bedrooms</span>
+                                        <div class="pull-right"><a href="#" class="arrow-bedrooms">»</a> </div>
+                                        <div class="pull-right hide"><a href="#" class="arrow-bedrooms-back">«</a> </div> 
+                                    </div>
+                                        <input id="bedroomsOpen" type="hidden" value="" name="bedroomsOpen">
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+                                       <hr id="hr-bedrooms">
+                                        
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+									<div class="pull-right"><a href="#" onclick="updateBedrooms(jQuery('.popover #minBedrooms'),jQuery('.popover #maxBedrooms'),event)">{% if (app.session.get('minBedrooms') is not empty) or (app.session.get('maxBedrooms') is not empty) %} X {% endif%}</a> </div>
+                                        <a href="#" id="bedrooms">
+                                            
+                                       {% if (app.session.get('minBedrooms') is empty) and (app.session.get('maxBedrooms') is empty)  %} Any {% endif%}      
+                                       {% if app.session.get('minBedrooms') is not empty %} min {{app.session.get('minBedrooms')}} <br>{% endif%} 
+                                       {% if app.session.get('maxBedrooms') is not empty %} max {{app.session.get('maxBedrooms')}} {% endif%} 
+                                        
+                                        </a>
+                                        
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+            </li>
+            
+            
+            <li id="sideLinkBathrooms" class="">
+               <div class="row">
+                                <div class="col-md-12" style="margin-top: 30px">
+                                    <div class="row">
+                                    <div class="pull-left col-md-11">
+                                        <span class="list-title">Bathrooms</span>
+                                        <div class="pull-right"><a href="#" class="arrow-bathrooms">»</a> </div>
+                                        <div class="pull-right hide"><a href="#" class="arrow-bathrooms-back">«</a> </div> 
+                                    </div>
+                                        <input id="bathroomsOpen" type="hidden" value="" name="bathroomsOpen">
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+                                       <hr id="hr-bathrooms">
+                                        
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+									<div class="pull-right"><a href="#" onclick="updateBathrooms(jQuery('.popover #minBathrooms'),jQuery('.popover #maxBathrooms'),event)">{% if (app.session.get('minBathrooms') is not empty) or (app.session.get('maxBathrooms') is not empty) %} X {% endif%}</a> </div>
+                                        <a href="#" id="bathrooms">
+                                            
+                                       {% if (app.session.get('minBathrooms') is empty) and (app.session.get('maxBathrooms') is empty)  %} Any {% endif%}      
+                                       {% if app.session.get('minBathrooms') is not empty %} min {{app.session.get('minBathrooms')}} <br>{% endif%} 
+                                       {% if app.session.get('maxBathrooms') is not empty %} max {{app.session.get('maxBathrooms')}} {% endif%} 
+                                        
+                                        </a>
+                                        
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+            </li>            
+            <li id="sideLinkMore" class="" style="margin-bottom: 20px">
+                <div class="row">
+                                <div class="col-md-12" style="margin-top: 30px;">
+                                    <div class="row">
+                                    <div class="pull-left col-md-11">
+                                        <span class="list-title">More Filters</span>
+                                        <div class="pull-right"><a href="#" class="arrow-more">»</a> </div> 
+                                        <div class="pull-right hide"><a href="#" class="arrow-more-back">«</a> </div> 
+                                    </div>
+                                        <input id="moreOpen" type="hidden" value="" name="moreOpen">
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+                                       <hr id="hr-more">
+                                        
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="pull-left col-md-12">
+									<div class="pull-right"><a href="#" onclick="updateMore(event)">{% for amenities in app.session.get('MoreAmenities') %}{% if amenities %}  {% endif%} {% endfor %}</a> </div>
+									
+                                        <a href="#" id="more">
+							
+										   
+                                          {% if (app.session.get('minMore') is empty) and (app.session.get('maxMore') is empty)  %} {% endif%}      
+                                       {% if app.session.get('minMore') is not empty %} from {{app.session.get('minMore')}} {% endif%} 
+                                       {% if app.session.get('maxMore') is not empty %} to {{app.session.get('maxMore')}} {% endif%} 
+                                        
+                                        </a>
+                                        
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+            </li>
+            
+            
+        </ul>
+    </nav>
+       
+    </div>   
+   
+            <span id="loading" style="left: 717px;position: absolute;top: 264px;z-index: 1;" hidden="true">
+                <img src="{{ asset('bundles/common/images/loading.gif') }}" />
+                  </span>
+            
+    
+
+        <div id="price-form" class="hide" data-trigger="focus">
+            <div class="row">
+            <div class="col-md-12 col-xs-12 text-left" style="margin-top: 10px">  
+                <form class="form-inline filter-form" action="{{path('update_filtro_price')}}" method="POST">
+            
+                    <div class="row">
+          <div class="form-group" style="margin-bottom: 10px">
+               
+            <div class="col-md-6 col-xs-12">
+                <input id="minPrice" value="{{app.session.get('minPrice')}}" type="text" class="form-control" placeholder="$Min" name="minPrice">
+                
+             </div>
+                  <div class="col-md-6 col-xs-12">
+                      <input id="maxPrice" value="{{app.session.get('maxPrice')}}" type="text" class="form-control" placeholder="$Max" name="maxPrice">
+             
+             </div>
+                 </div>       
+         </div>
+                    <div class="row">
+          
+               
+         <div class="col-md-12 col-xs-12 text-right">
+             <a href="#" id="apply-price" onclick="if((jQuery('.popover #minPrice').val()<jQuery('.popover #maxPrice').val()) && (Is_Number(jQuery('.popover #maxPrice').val()) && (Is_Number(jQuery('.popover #minPrice').val())))){ updatePrice(jQuery('.popover #minPrice'),jQuery('.popover #maxPrice'),event)} else {jQuery('.popover #maxPrice').addClass('focusV');jQuery('.popover #minPrice').addClass('focusV');}">Apply Filter</a>  
+             <button id="btnsubmitprice" class="hide" type="submit"></button>
+			 </br>
+			 <button class="close"  onclick="jQuery('.arrow-price').removeClass('hide');jQuery('.arrow-price-back').parent().addClass('hide');jQuery('#hr-price').popover('hide');jQuery('#priceOpen').val(false);return false;">&times;</button>		 
+         </div>
+                      
+         </div>
+                        <input id="sminPrice" type="hidden" value="" name="sminPrice">
+        <input id="smaxPrice" type="hidden" value="" name="smaxPrice">
+       
+                        
+        </form>
+        </div>
+          
+        
+        
+    </div>
+        </div>
+        
+      <div id="sleeps-form" class="hide">
+            <div class="row">
+            <div class="col-md-12 col-xs-12 text-left" style="margin-top: 10px">  
+                <form class="form-inline filter-form" action="{{path('update_filtro_sleeps')}}" method="POST">
+            
+                    <div class="row">
+          <div class="form-group" style="margin-bottom: 10px">
+               
+            <div class="col-md-6 col-xs-12">
+                <input id="minSleeps" value="{{app.session.get('minSleeps')}}" type="text" class="form-control" placeholder="Min" name="minSleeps">
+                
+             </div>
+                  <div class="col-md-6 col-xs-12">
+                      <input id="maxSleeps" value="{{app.session.get('maxSleeps')}}" type="text" class="form-control" placeholder="Max" name="maxSleeps">
+             
+             </div>
+                 </div>       
+         </div>
+                    <div class="row">
+          
+               
+         <div class="col-md-12 col-xs-12 text-right">
+             <a href="#" id="apply-price" onclick="if((jQuery('.popover #minSleeps').val()<jQuery('.popover #maxSleeps').val()) && (Is_Number(jQuery('.popover #maxSleeps').val()) && (Is_Number(jQuery('.popover #minSleeps').val())))){ updateSleeps(jQuery('.popover #minSleeps'),jQuery('.popover #maxSleeps'),event)} else {jQuery('.popover #maxSleeps').addClass('focusV');jQuery('.popover #minSleeps').addClass('focusV');}">Apply Filter</a>
+             <button id="btnsubmitsleeps" class="hide" type="submit"></button>
+			 </br>
+			 <button class="close" onclick="jQuery('.arrow-sleeps').removeClass('hide'); jQuery('.arrow-sleeps-back').parent().addClass('hide'); jQuery('#hr-sleeps').popover('hide');jQuery('#sleepsOpen').val(false);return false;">&times;</button>
+         </div>
+                      
+         </div>
+        <input id="sminSleeps" type="hidden" value="" name="sminSleeps">
+        <input id="smaxSleeps" type="hidden" value="" name="smaxSleeps">
+       
+                        
+        </form>
+        </div>
+          
+        
+        
+    </div>
+        </div>
+
+
+<div id="bedrooms-form" class="hide">
+            <div class="row">
+            <div class="col-md-12 col-xs-12 text-left" style="margin-top: 10px">  
+                <form class="form-inline filter-form" action="{{path('update_filtro_bedrooms')}}" method="POST">
+                    <div class="row">
+          <div class="form-group" style="margin-bottom: 10px">
+               
+            <div class="col-md-6 col-xs-12">
+                <input id="minBedrooms" value="{{app.session.get('minBedrooms')}}" type="text" class="form-control" placeholder="Min" name="minBedrooms">
+                
+             </div>
+                  <div class="col-md-6 col-xs-12">
+                      <input id="maxBedrooms" value="{{app.session.get('maxBedrooms')}}" type="text" class="form-control" placeholder="Max" name="maxBedrooms">
+             </div>
+                 </div>       
+         </div>
+                    <div class="row">
+          
+               
+         <div class="col-md-12 col-xs-12 text-right">
+             <a href="#" id="apply-bedrooms" onclick="if((jQuery('.popover #minBedrooms').val()<jQuery('.popover #maxBedrooms').val()) && (Is_Number(jQuery('.popover #maxBedrooms').val()) && (Is_Number(jQuery('.popover #minBedrooms').val())))){ updateBedrooms(jQuery('.popover #minBedrooms'),jQuery('.popover #maxBedrooms'),event)} else {jQuery('.popover #maxBedrooms').addClass('focusV');jQuery('.popover #minBedrooms').addClass('focusV');}">Apply Filter</a>
+             <button id="btnsubmitbedrooms" class="hide" type="submit"></button>
+			 </br>
+			<button class="close" onclick="jQuery('.arrow-bedrooms').removeClass('hide'); jQuery('.arrow-bedrooms-back').parent().addClass('hide'); jQuery('#hr-bedrooms').popover('hide');jQuery('#bedroomsOpen').val(false);">&times;</button>
+         </div>
+                      
+         </div>
+        <input id="sminBedrooms" type="hidden" value="" name="sminBedrooms">
+        <input id="smaxBedrooms" type="hidden" value="" name="smaxBedrooms">
+       
+                        
+        </form>
+        </div>
+          
+        
+        
+    </div>
+        </div>
+<div id="bathrooms-form" class="hide">
+            <div class="row">
+            <div class="col-md-12 col-xs-12 text-left" style="margin-top: 10px">  
+                <form class="form-inline filter-form" action="{{path('update_filtro_bathrooms')}}" method="POST">
+            
+                    <div class="row">
+          <div class="form-group" style="margin-bottom: 10px">
+               
+            <div class="col-md-6 col-xs-12">
+                <input id="minBathrooms" value="{{app.session.get('minBathrooms')}}" type="text" class="form-control" placeholder="Min" name="minBathrooms">
+                
+             </div>
+                  <div class="col-md-6 col-xs-12">
+                      <input id="maxBathrooms" value="{{app.session.get('maxBathrooms')}}" type="text" class="form-control" placeholder="Max" name="maxBathrooms">
+             
+             </div>
+                 </div>       
+         </div>
+                    <div class="row">
+          
+               
+         <div class="col-md-12 col-xs-12 text-right">
+             <a href="#" id="apply-bathrooms" onclick="if((jQuery('.popover #minBathrooms').val()<jQuery('.popover #maxBathrooms').val()) && (Is_Number(jQuery('.popover #maxBathrooms').val()) && (Is_Number(jQuery('.popover #minBathrooms').val())))){ updateBathrooms(jQuery('.popover #minBathrooms'),jQuery('.popover #maxBathrooms'),event)} else {jQuery('.popover #maxBathrooms').addClass('focusV');jQuery('.popover #minBathrooms').addClass('focusV');}">Apply Filter</a>
+             <button id="btnsubmitbathrooms" class="hide" type="submit"></button>
+			 </br>
+			 <button class="close" onclick="jQuery('.arrow-bathrooms').removeClass('hide'); jQuery('.arrow-bathrooms-back').parent().addClass('hide'); jQuery('#hr-bathrooms').popover('hide'); jQuery('#bathroomsOpen').val(false);return false;">&times;</button>
+         </div>
+                      
+         </div>
+        <input id="sminBathrooms" type="hidden" value="" name="sminBathrooms">
+        <input id="smaxBathrooms" type="hidden" value="" name="smaxBathrooms">
+       
+                        
+        </form>
+        </div>
+          
+        
+        
+    </div>
+        </div>
+<div id="more-form" class="hide">
+            <div class="row">
+            <div class="col-md-12 col-xs-12 text-left" style="margin-top: 10px">  
+                <form class="form-inline filter-form" action="{{path('update_filtro_more')}}" method="POST">
+            
+                    <div class="row">
+          <div class="form-group" style="margin-bottom: 10px">
+             
+             <div class="col-md-6 col-xs-12">
+                 <div class="row amenities">
+                <div class="col-md-12 col-xs-12">     
+                <label> Amenities</label>   
+                 </div>
+                   <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                      Air Conditioned
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="airConditioned"  {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'airConditioned' %}
+                                      checked="true"
+                                     {% endif %}
+                           
+                                   {% endfor %}
+                                  >
+                </div>
+             </div>
+               
+            </div> 
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                       Balcony
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                   <input  type="checkbox" class="checkbox" name="balcony"
+                          {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'balcony' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %}
+                                  
+                           >
+                </div>
+             </div>
+               
+            </div> 
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                    Ceiling Fans
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="ceilingFans"
+                             {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'ceilingFans' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %}
+                              >
+                </div>
+             </div>
+               
+            </div> 
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                      Pets Allowed
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="petsAllowed"
+                              {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'petsAllowed' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %}
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                    Community Exercise Room
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="communityExerciseRoom"
+                              {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'communityExerciseRoom' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                    Full Kitchen
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="fullkitchen"
+                              {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'fullkitchen' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Garage
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="garage"
+                               {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'garage' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Long Term Renters
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="longTermRenters"
+                               {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'longTermRenters' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                    Heater
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="heater"
+                               {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'heater' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Non Smoking Only
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="nonSmokingOnly"
+                               {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'nonSmokingOnly' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Pool
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="pool"
+                               {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'pool' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                    Children Welcome
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="childrenWelcome"
+                               {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'childrenWelcome' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Telephone
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="telephone"
+                                 {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'telephone' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Fire Place
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="fireplace"
+                               {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'fireplace' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                    Hot Tub
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="hotTub"
+                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'hotTub' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %} 
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Washing Machine
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="washingMachine"
+                             
+                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'washingMachine' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %}       
+                                     
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Parking
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="parking"
+                              {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'parking' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %}  
+                                     
+                              >
+                </div>
+             </div>
+               
+            </div>
+                     <div class="col-md-12 col-xs-12">
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                     Wheelchair Accessible
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" name="wheelchairAccessible"
+                             {% for  amenities in app.session.get('MoreAmenities') %}
+                                  {% if amenities == 'wheelchairAccessible' %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %}  
+                              >
+                </div>
+             </div>
+               
+            </div>
+               </div>
+            <hr>
+             </div>
+             <div class="col-md-6 col-xs-12">
+                 <div class="row location">
+                <div class="col-md-12 col-xs-12">     
+                <label> Location Type</label>   
+                 </div>
+                   <div class="col-md-12 col-xs-12">
+              {% for key , locationType in locationTypes %}
+                 
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                    {{locationType.name }}
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" value="{{locationType.name }}" name="{{locationType.name }}"
+                              
+                                   {% for  location in app.session.get('MoreLocation') %}
+                                  {% if location == locationType.name %}
+                                      checked="true"
+                                       {% endif %}
+                                   {% endfor %}    
+                                  
+                                 
+                             
+                              >
+                </div>
+             </div>
+                 
+                    
+                {% endfor %}
+            </div>  
+               </div>
+            <hr>
+             </div>
+                
+            
+            <div class="col-md-6 col-xs-12">
+                 <div class="row property">
+                <div class="col-md-12 col-xs-12">     
+                <label> Property Type</label>   
+                 </div>
+                   <div class="col-md-12 col-xs-12">
+              {% for propertyType in propertyTypes %}
+                 
+                      <div class="row">
+                  <div class="col-md-9 col-xs-12">
+                    {{propertyType.name }}
+                
+             </div>
+                  <div class="col-md-3 col-xs-12">
+                      <input  type="checkbox" class="checkbox" value="{{propertyType.name }}" name="{{propertyType.name }}"
+                               {% for  property in app.session.get('MoreProperty') %}
+                                  {% if property == propertyType.name %}
+                                      checked="true"
+                                      
+                                       {% endif %}
+                                   {% endfor %}    
+                              
+                              >
+                </div>
+             </div>
+                 
+                    
+                {% endfor %}
+            </div>  
+               </div>
+            <hr>
+             </div>
+            
+          
+            
+                 </div>       
+         </div>
+                    <div class="row">
+          
+               
+         <div class="col-md-12 col-xs-12 text-right">
+             <a href="#" id="apply-more" onclick="updateMore(event);">Apply Filter</a>
+             <button id="btnsubmitmore" class="hide" type="submit"></button>
+			 </br>
+			 <button class="close" onclick="jQuery('.arrow-more').removeClass('hide'); jQuery('.arrow-more-back').parent().addClass('hide'); jQuery('#hr-more').popover('hide');jQuery('#moreOpen').val(false);return false;">&times;</button>
+         </div>
+                      
+         </div>
+                     
+        <input id="sMoreProperty" type="hidden" value="" name="sMoreProperty">
+        <input id="sMoreLocation" type="hidden" value="" name="sMoreLocation">
+        <input id="sMoreAmenities" type="hidden" value="" name="sMoreAmenities">
+       
+       
+                        
+        </form>
+        </div>
+          
+        
+        
+    </div>
+        </div>
+
+
+
+
+  <script type="text/javascript">
+  
+      
+        function updatePrice(elem1, elem2,e){
+       
+        
+        jQuery('#sminPrice').val(elem1.val());
+        jQuery('#smaxPrice').val(elem2.val());
+      
+            e.preventDefault();
+        
+ 
+           jQuery('#btnsubmitprice').trigger('click');
+            }
+            
+            
+            function updateSleeps(elem1, elem2,e){
+      
+        
+        jQuery('#sminSleeps').val(elem1.val());
+        jQuery('#smaxSleeps').val(elem2.val());
+      
+            e.preventDefault();
+        
+ 
+           jQuery('#btnsubmitsleeps').trigger('click');
+            }
+            //-------------------------------------------
+					function Is_Number(cad)
+                     {
+                      var numeros = "0123456789";
+                      var is=true;
+                      for(var i=0;i<cad.length-1;i++)
+                      {
+                      if (numeros.indexOf(cad.charAt(i)) == -1)
+                      is=false;
+                      }
+                     return is;
+                     }
+           //-------------------------------------------   
+            function updateBedrooms(elem1, elem2,e){
+      
+        
+        jQuery('#sminBedrooms').val(elem1.val());
+        jQuery('#smaxBedrooms').val(elem2.val());
+      
+        
+            e.preventDefault();
+        
+ 
+           jQuery('#btnsubmitbedrooms').trigger('click');
+            }
+            
+            
+              function updateBathrooms(elem1, elem2,e){
+     
+        jQuery('#sminBathrooms').val(elem1.val());
+        jQuery('#smaxBathrooms').val(elem2.val());
+      
+           e.preventDefault();
+        
+ 
+           jQuery('#btnsubmitbathrooms').trigger('click');
+            }
+            
+            
+
+            
+            
+             function updateMore(e){
+      
+        var listProperty = [];
+        var listLocation = [];
+        var listAmenities = [];
+        jQuery('.popover .property input:checked').each(function() {
+            listProperty.push(this.name);
+        });
+        
+         jQuery('.popover .location input:checked').each(function() {
+            listLocation.push(this.name);
+        });
+        
+         jQuery('.popover .amenities input:checked').each(function() {
+            listAmenities.push(this.name);
+        });
+        
+        jQuery('#sMoreProperty').val(listProperty);
+        jQuery('#sMoreLocation').val(listLocation);
+        jQuery('#sMoreAmenities').val(listAmenities);
+        
+      
+            e.preventDefault();
+        
+ 
+           jQuery('#btnsubmitmore').trigger('click');
+            }
+            
+            
+       
+            
+         jQuery(document).ready(function() { 
+//----------------------------------------------
+/*jQuery('body').on('click', function (e) {
+    //did not click a popover toggle or popover
+           console.log("vlade0");
+   if (jQuery(e.target).data('toggle') !== 'popover' &&  jQuery(e.target).data('toggle')!=='#arrow-price' &&  jQuery('.popover #maxPrice')) { 
+       jQuery('[data-toggle="popover"]').popover('hide');
+       console.log("vlade");
+    }
+    
+});*/
+//----------------------------------------------
+    	 
+        
+            
+                                       
+            function showPrice(){
+             jQuery('.arrow-price-back').parent().removeClass('hide');
+             jQuery('.arrow-price').addClass('hide');
+             createPopover(jQuery('#hr-price'), jQuery('#price-form').html(), 'Price per Night');
+             jQuery('#priceOpen').val(true);
+             }    
+
+            function hidePrice(){
+            jQuery('.arrow-price').removeClass('hide');
+            jQuery('.arrow-price-back').parent().addClass('hide');
+            jQuery('#hr-price').popover('hide');
+            jQuery('#priceOpen').val(false); 
+            }   
+            
+            
+                              
+            function showSleeps(){
+            jQuery('.arrow-sleeps-back').parent().removeClass('hide');
+            jQuery('.arrow-sleeps').addClass('hide');
+            createPopover(jQuery('#hr-sleeps'), jQuery('#sleeps-form').html(), 'Sleeps');
+            jQuery('#sleepsOpen').val(true);
+            }    
+
+            function hideSleeps(){
+            jQuery('.arrow-sleeps').removeClass('hide');
+            jQuery('.arrow-sleeps-back').parent().addClass('hide');
+            jQuery('#hr-sleeps').popover('hide');
+            jQuery('#sleepsOpen').val(false);
+             
+            }   
+			      
+            
+             function showBedrooms(){
+            jQuery('.arrow-bedrooms-back').parent().removeClass('hide');
+            jQuery('.arrow-bedrooms').addClass('hide');
+            createPopover(jQuery('#hr-bedrooms'), jQuery('#bedrooms-form').html(), 'Bedrooms');
+            jQuery('#bedroomsOpen').val(true);
+            }    
+
+            function hideBedrooms(){
+            jQuery('.arrow-bedrooms').removeClass('hide');
+            jQuery('.arrow-bedrooms-back').parent().addClass('hide');
+            jQuery('#hr-bedrooms').popover('hide');
+             jQuery('#bedroomsOpen').val(false);
+            }   
+            
+            
+              function showBathrooms(){
+            jQuery('.arrow-bathrooms-back').parent().removeClass('hide');
+            jQuery('.arrow-bathrooms').addClass('hide');
+            createPopover(jQuery('#hr-bathrooms'), jQuery('#bathrooms-form').html(), 'Bathrooms');
+            jQuery('#bathroomsOpen').val(true);
+            }    
+
+            function hideBathrooms(){
+            jQuery('.arrow-bathrooms').removeClass('hide');
+            jQuery('.arrow-bathrooms-back').parent().addClass('hide');
+            jQuery('#hr-bathrooms').popover('hide');
+            jQuery('#bathroomsOpen').val(false); 
+            }   
+                   
+            
+            
+              function showMore(){
+            jQuery('.arrow-more-back').parent().removeClass('hide');
+            jQuery('.arrow-more').addClass('hide');
+            createPopover(jQuery('#hr-more'), jQuery('#more-form').html(), 'More Filters');
+            jQuery('#moreOpen').val(true);
+            }    
+
+            function hideMore(){
+            jQuery('.arrow-more').removeClass('hide');
+            jQuery('.arrow-more-back').parent().addClass('hide');
+            jQuery('#hr-more').popover('hide');
+             jQuery('#moreOpen').val(false);
+            }   
+            
+            
+               
+            jQuery('.arrow-price, #price').click(function(e){
+              showPrice();
+              
+             
+             if(jQuery('#sleepsOpen').val() === 'true'){hideSleeps();} 
+             if(jQuery('#bedroomsOpen').val() === 'true'){hideBedrooms();} 
+             if(jQuery('#bathroomsOpen').val() === 'true'){hideBathrooms();} 
+             if(jQuery('#moreOpen').val() === 'true'){hideMore();} 
+             
+             
+              //hideSleeps();    
+             e.preventDefault();
+            })
+            
+            jQuery('.arrow-price-back').click(function(e){
+            hidePrice();
+            e.preventDefault();
+            })        
+            
+                             
+             jQuery('.arrow-sleeps, #sleeps').click(function(e){
+             showSleeps();
+            
+             
+             if(jQuery('#priceOpen').val() === 'true'){hidePrice();} 
+             if(jQuery('#bedroomsOpen').val() === 'true'){hideBedrooms();} 
+             if(jQuery('#bathroomsOpen').val() === 'true'){hideBathrooms();} 
+             if(jQuery('#moreOpen').val() === 'true'){hideMore();} 
+            
+             e.preventDefault();
+             })
+            
+            jQuery('.arrow-sleeps-back').click(function(e){
+            hideSleeps();    
+            e.preventDefault();
+            })      
+            
+             jQuery('.arrow-bedrooms, #bedrooms').click(function(e){
+            showBedrooms();
+             
+              if(jQuery('#priceOpen').val() === 'true'){hidePrice();} 
+              if(jQuery('#sleepsOpen').val() === 'true'){hideSleeps();} 
+             if(jQuery('#bathroomsOpen').val() === 'true'){hideBathrooms();} 
+             if(jQuery('#moreOpen').val() === 'true'){hideMore();} 
+            //hidePrice();
+            e.preventDefault();
+            })
+            
+            jQuery('.arrow-bedrooms-back').click(function(e){
+            hideBedrooms();    
+            e.preventDefault();
+            })   
+            
+            jQuery('.arrow-bathrooms, #bathrooms').click(function(e){
+            showBathrooms();
+            
+             if(jQuery('#priceOpen').val() === 'true'){hidePrice();} 
+              if(jQuery('#sleepsOpen').val() === 'true'){hideSleeps();} 
+             if(jQuery('#bedroomsOpen').val() === 'true'){hideBedrooms();} 
+             if(jQuery('#moreOpen').val() === 'true'){hideMore();} 
+            //hidePrice();
+            e.preventDefault();
+            })
+            
+            jQuery('.arrow-bathrooms-back').click(function(e){
+            hideBathrooms();    
+            e.preventDefault();
+            })      
+            
+   
+             jQuery('.arrow-more, #more').click(function(e){
+             showMore();
+             
+             if(jQuery('#priceOpen').val() === 'true'){hidePrice();} 
+             if(jQuery('#sleepsOpen').val() === 'true'){hideSleeps();} 
+             if(jQuery('#bedroomsOpen').val() === 'true'){hideBedrooms();} 
+             if(jQuery('#bathroomsOpen').val() === 'true'){hideBathrooms();} 
+                        
+            //hidePrice();
+            e.preventDefault();
+            })
+            
+            jQuery('.arrow-more-back').click(function(e){
+            hideMore();    
+            e.preventDefault();
+            })      
+            
+            
+              
+                      function createPopoverValid(elem , text){
+                    elem.attr('data-toggle','popover');
+                    elem.attr('data-placement','top');
+                    elem.attr('data-content',text);
+                    elem.attr('data-container','body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+        }
+            
+                    //---------------------------------------------------------------------------------------------
+
+					//---------------------------------------------------------------------------------------------
+        
+                    function createPopover(elem , text, title){
+                    elem.attr('data-toggle','popover');
+                    elem.attr('data-placement','right');
+                    elem.attr('data-content',text);
+                    elem.attr('data-container','body');
+                    elem.attr('title',title);
+                    elem.popover({
+                    html: true, 
+                    content: function() {
+                      return jQuery(text);
+                    }
+                    });
+                    elem.trigger('click');
+                    elem.focus();
+                    }
+                     
+             });                  
+                            
+                            </script>

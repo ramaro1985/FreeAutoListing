@@ -1,0 +1,122 @@
+<div class="list">
+<div class="form-group" >
+    <div class="col-md-10 col-md-offset-2 col-xs-12 text-left form-title" style="margin-bottom: 15px">
+       New Period
+        </div>
+             
+       </div>
+
+<div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.seasonName) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.seasonName) }}
+    </div>
+     
+  </div>
+            
+        <div class="pcalendar form-group" style="margin-bottom: 10px">
+            <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.startDate) }}
+    </div>
+            <div class="input-group col-sm-5 col-xs-12 pull-left">
+        {{ form_widget(form.startDate) }}
+           <span class="input-group-addon"><img id="start-date" src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+           </div>
+           </div>
+            
+            <div class="pcalendar form-group" style="margin-bottom: 10px">
+                <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.endDate) }}
+    </div>
+            <div class="input-group col-sm-5 col-xs-12 pull-left">
+        {{ form_widget(form.endDate) }}
+           <span class="input-group-addon"><img id="start-date" src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+           </div>
+           </div>
+         
+          <div class="form-group" style="margin-bottom: 10px">
+         <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.minStay) }}
+    </div>
+              <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.minStay) }}
+    </div>
+         </div>  
+            
+            <div class="form-group" style="margin-bottom: 10px">
+         <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.nightly) }}
+    </div>
+                <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.nightly) }}
+    </div>
+         </div> 
+            
+            <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.weekly) }}
+    </div>
+                <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.weekly) }}
+    </div>
+         </div> 
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.monthly) }}
+    </div>
+                <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.monthly) }}
+    </div>
+         </div> 
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.currency) }}
+    </div>
+                <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.currency) }}
+    </div>
+         </div>
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.notes) }}
+    </div>
+                <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.notes) }}
+    </div>
+         </div>
+            
+             <div class="form-group" style="margin-bottom: 10px">
+                </div>
+                
+                
+
+        </div>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+                
+                
+           
+            
+     jQuery( ".period-calendar" ).datepicker({
+         dateFormat: 'yy-mm-dd'
+            });    
+    });      
+            
+            
+            
+            
+            
+            
+            
+        
+           
+            
+            
+            
+            </script>
+      

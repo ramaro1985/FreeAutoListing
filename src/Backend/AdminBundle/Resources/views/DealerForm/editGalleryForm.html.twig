@@ -1,0 +1,35 @@
+{# % extends "AdminBundle:Layout:user-admin.html.twig" % este template tiene el menu de usuario   #}
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('bundles/common/js/upload/vendor/jquery.ui.widget.js') }}"></script>
+                
+     <script src="{{ asset('bundles/common/js/upload/load-image.all.min.js') }}"></script>
+                
+     <script src="{{ asset('bundles/common/js/upload/canvas-to-blob.min.js') }}"></script>
+                
+     <script src="{{ asset('bundles/common/js/upload/jquery.iframe-transport.js') }}"></script>
+                
+     <script src="{{ asset('bundles/common/js/upload/jquery.fileupload.js') }}"></script>
+                
+     <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-process.js') }}"></script>
+                
+     <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-image.js') }}"></script>
+                
+     <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-validate.js') }}"></script>
+                
+     <script src="{{ asset('bundles/common/js/jquery.bxslider.min.js') }}"></script>
+ {% endblock %}
+
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+     {{ include('AdminBundle:Default:content-header.html.twig') }}
+     {{ include('AdminBundle:DealerForm:editGalleryForm-content.html.twig') }}
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

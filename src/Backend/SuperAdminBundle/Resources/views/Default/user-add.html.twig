@@ -1,0 +1,231 @@
+{% extends "SuperAdminBundle:Layout:user-admin.html.twig" %}
+ {% block title %}
+Add user
+{% endblock %}
+
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+ {{ include('CommonBundle:Default:header-admin.html.twig') }}
+
+
+ {% endblock %}
+ {% block menu %}
+ {{ include('SuperAdminBundle:Default:admin-tools.html.twig') }}
+{% endblock %}
+ {% block body %}
+
+     {% if error is defined %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center text-danger alert alert-danger" role="alert">{{ error }}</div>
+        </div>    
+    </div>
+{% endif %}
+
+{% if form_errors(form.plainPassword) %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center text-danger alert alert-danger" role="alert">{{ form_errors(form.plainPassword) }}</div>
+        </div>    
+    </div>
+{% endif %}
+<div class="container">
+    <div class="row" style="margin-top: 40px">
+        <div class="col-md-6 col-md-offset-3 text-center" >
+        <h1>Create New User</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center login-form-container">
+            <form id="form-register" action="{{ path('admin_add_user') }}" method="POST" class="form-horizontal" style="margin-top: 20px">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+    
+   <div class="form-group" >
+ 
+     <div class="col-sm-12 text-danger">
+     {{ form_errors(form.name) }}
+     {{ form_errors(form.lastname) }}
+     {{ form_errors(form.plainPassword) }}
+     {{ form_errors(form.phone) }}
+    </div>
+  </div> 
+        <div class="form-group" style="margin-bottom: 10px">
+ 
+            <div class="col-sm-5 col-md-5 col-md-offset-1 col-sm-offset-1" style="margin-bottom: 10px">
+    <input type="text" id="new_user_name" name="new_user[name]" required="required" maxlength="255" class="form-control" placeholder="First name *" value="">
+    </div>
+                <div class="col-sm-5 col-md-5">
+     <input type="text" id="new_user_lastname" name="new_user[lastname]" required="required"  maxlength="255" class="form-control" placeholder="Last name *" value="">
+    </div>
+  </div>  
+    
+    
+    
+    <div class="form-group" style="margin-bottom: 10px">
+ 
+         <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1">
+     <input type="email" id="new_user_email" name="new_user[email]" required="required" class="form-control" placeholder="Email*" value="">
+     
+    </div>
+  </div> 
+    
+        <div class="form-group" style="margin-bottom: 10px">
+ 
+         <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1">
+     <input type="password" id="new_user_plainPassword_first" name="new_user[plainPassword][first]" required="required" class="form-control" placeholder="Password">
+    </div>
+            
+            
+            
+    <div class="col-sm-1 col-md-1 hidden-xs" style="margin-top: 20px;padding-left: 0">
+    <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Must have at least 6 characters, 1 number, 1 upper case (example: Passw5)"></span>
+    </div>
+    
+  </div> 
+    
+    <div class="form-group" style="margin-bottom: 10px">
+ 
+         
+                <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1">
+     <input type="password" id="new_user_plainPassword_second" name="new_user[plainPassword][second]" required="required" class="form-control" placeholder="Confirm Password">
+    </div> 
+  </div>  
+    
+    
+    
+   <div class="form-group" style="margin-bottom: 10px">
+ 
+         
+                <div class="col-sm-5 col-md-5 col-md-offset-1 col-sm-offset-1">
+     <input type="text" id="new_user_phone" name="new_user[phone]" maxlength="10" pattern="[0-9]{10}.*" class="form-control" placeholder="Phone *" value="">
+    </div>
+  </div>   
+    
+    
+    <div class="form-group" style="margin-bottom: 5px; margin-top: 20px">
+ 
+    
+    
+    
+    
+    
+         <div class="col-sm-3 col-md-3 col-sm-offset-1 col-md-offset-1 text-left">
+             <input type="hidden" value="0" id="invalid" /> 
+             <button id="btn-submit" type="submit" class="btn btn-primary btn-block">Register</button>
+    </div>
+  </div> 
+    
+    
+
+</form>
+                </div>
+            </div>
+</div>
+
+
+<script type="text/javascript">
+       
+    
+    
+       jQuery(document).ready(function() {
+                jQuery(function () {
+                jQuery(".glyphicon-info-sign").tooltip();
+                });
+                
+                
+                jQuery('#new_user_plainPassword_second').focusout(function (){
+                    if(jQuery(this).val() !== '' && jQuery('#new_user_plainPassword_first').val()  ){
+                    if(jQuery(this).val() !== jQuery('#new_user_plainPassword_first').val()){
+                      createPopover(jQuery(this), 'Passwords does not match');
+                      jQuery(this).css('box-shadow','0 0 0 rgba(0, 0, 0, 1) inset, 0 0 8px rgba(255, 0, 0, 1)');
+                    jQuery('#invalid').val('1');
+                     
+                    }else {
+                     jQuery(this).css('box-shadow','none') ;  
+                      jQuery(this).popover('destroy');
+                      jQuery('#invalid').val('0');
+                    }
+                }
+                });
+                
+               
+                  jQuery('#new_user_plainPassword_second').click(function(){
+                      jQuery(this).popover('destroy');
+                  });
+                  jQuery('#new_user_plainPassword_first, #new_user_name, #new_user_lastname, #new_user_email').click(function(){
+                      jQuery('#new_user_plainPassword_second').popover('destroy');
+                  });
+                  
+                  jQuery('#btn-submit').click(function (e){
+                      if(jQuery('#invalid').val() === '1' ){
+                         jQuery('#new_user_plainPassword_second').focus(); 
+                         e.preventDefault(); 
+                      }else {
+                         if (validateForm()){
+                           if(!validateRecaptcha()){
+                             e.preventDefault();    
+                           }  
+                         } 
+                      }
+        
+                  });
+                  
+                  
+                  
+            function validateForm(){
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#new_user_name'), 1, 100);
+            bValid = bValid && checkLength(jQuery('#new_user_lastname'), 1, 100);
+            bValid = bValid && checkLength(jQuery('#fos_user_registration_form_phone'), 10, 10);
+            bValid = bValid && checkLength(jQuery('#new_user_plainPassword_first'), 6, 100);
+            bValid = bValid && checkLength(jQuery('#new_user_plainPassword_second'), 6, 100);
+            
+           
+            
+            return bValid;
+            }
+            
+            
+              function checkLength(o, min, max) {
+            if (o.val().length < min  ||  o.val().length > max) {
+            //createPopover(o, 'Please fill out this field');
+            return false;
+            } else {
+            return true;
+            }
+            }
+                
+        
+            function checkChecked(o) {
+            if (!o.prop('checked')) {
+            //createPopover(o, 'Please fill out this field');
+            return false;
+            } else {
+            return true;
+            }
+            }
+            
+           
+                  
+             
+                 
+                 
+                       function createPopover(elem, text){
+                elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'right');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                   
+            }
+                
+                 });
+                 
+             </script>
+    {% endblock %}
+ {% block footer %}
+ {{ include('CommonBundle:Default:footer.html.twig') }}   
+ {% endblock %}

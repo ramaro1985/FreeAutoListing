@@ -1,0 +1,117 @@
+<div id="header-admin" class="container-fluid">
+    <div class="container">
+
+        <div class="row hidden-xs">
+
+            <div id="logo" class="col-xs-12 col-md-6  col-sm-4 hidden-xs">
+                <a href="{{ path('app_homepage') }}"><img src="{{ asset('bundles/common/images/logo.png') }}"></a>
+            </div>
+            <!-- end of #logo -->
+
+
+            <div id="chat" class="col-xs-12 col-md-6 col-sm-8">
+
+                <div class="pull-right">
+                    <nav>
+
+
+                        <ul id="mainMenu" class="nav nav-pills nav-main">
+
+                            <li>
+                                <div class="btn-group">
+                                    <a class="btn " href="{{ path('contact_us') }}">Support</a>
+                                </div>
+                            </li>
+                            <li class="hide">
+
+                                <a href="{{ path('app_homepage') }}">News</a>
+
+                            </li>
+
+                            <li>
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <div class="btn-group">Welcome,</div>
+                                    <div class="btn-group">
+                                        <a class="btn dropdown-toggle login" data-toggle="dropdown">
+                                            <span style="margin-right: 10px">{{ app.user.name }} </span><span
+                                                    class="path glyphicon glyphicon-chevron-down"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{ path('my_account') }}">My Account</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#myModalSupport">Contact
+                                                    Support</a></li>
+                                            <li><a href="{{ path('fos_user_change_password') }}">Change Password</a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                {% else %}
+
+                                    <a class="login" href="{{ path('fos_user_security_login') }}">Login »</a>
+
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row visible-xs">
+            <nav class="navbar header_nav" style="margin-bottom: 10px;">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="navbar-header" style="margin-right: -33px">
+                            <div class="row">
+                                <div class="col-xs-8 col-sm-6">
+                                    <div id="logo">
+                                        <a href="{{ path('app_homepage') }}"><img
+                                                    src="{{ asset('bundles/common/images/search/logo.png') }}" alt="Home"/></a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 text-center">
+                                    <button class="navbar-toggle collapsed" data-target="#navbar"
+                                            data-toggle="collapse" type="button" style="float: none">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <img src="{{ asset('bundles/common/images/home/menu-icon.png') }}" alt=" "/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="navbar" class="navbar-right navbar-collapse collapse col-md-9 col-sm-6 col-xs-10">
+                            <ul class="nav navbar-nav navbar-right text-uppercase" style="margin-top: 15px">
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li><a href="{{ path('admin_user_account') }}">My Account</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#myModalSupport">Contact
+                                            Support</a></li>
+                                    <li><a href="{{ path('fos_user_change_password') }}">Change Password</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                                    </li>
+                                {% else %}
+                                    <li><a class="login" href="{{ path('fos_user_security_login') }}">Login</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+{{ include('AdminBundle:Default:owner-support-form.html.twig') }}
+</div>
+<div class="hidden-xs" id="raya" style="height:2px; background:#ffffff"></div>
+<div class="hidden-xs" id="raya" style="height:2px; background:#AE0303;"></div>
+<div class="visible-xs" id="raya" style="height:2px; background:#ffffff"></div>
+<div class="visible-xs" id="raya" style="height:2px; background:#AE0303;margin-top:-15px;"></div>

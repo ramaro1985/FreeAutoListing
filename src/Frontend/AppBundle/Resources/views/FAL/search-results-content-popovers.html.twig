@@ -1,0 +1,203 @@
+<div id="makepopover_content" class="col-md-12 col-xs-12" style="margin-top:5px;font-size: 12px;display: none">
+    <div class="form-group">
+        <div class="form-inline">
+            <div class="list-group" id="make_filter_extended">
+                {% set totalOptions = (-obj_make|length // 4) %}
+                {% set aux = 0 %}
+
+                <div class="col-md-12">
+                    {% for make in obj_make %}
+                        <div class="col-sm-3 make_filter_extended" style="padding-left: 7px;padding-right: 7px">
+                            <div class="list-item" onclick="javascript:MakeListItemCLick(this)">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <a href="#item" id="{#}{ make.id }#}" class="">{{ make.makeId }}</a>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <hr style="border: 2px solid darkgrey;width: 100%;margin-top: 0px"/>
+                <a href="javascript:ShowResult_Makes_Extended_List()" class="btn btn-default" data-placement="right">Show
+                    Results</a>
+                <a href="javascript:ClearSelecions_Make()" class="btn btn-default" data-placement="right">Clear
+                    Selections</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bodystylepopover_content" class="col-md-12 col-xs-12" style="margin-top:5px;font-size: 12px;display: none">
+    <div class="form-group">
+        <div class="form-inline">
+            {% for bodystyle in bodystyles %}
+                <div class="col-md-3" style="margin-bottom: 20px">
+                    <div class="thumbnail bdstyle_img" onclick="javascript:SelectBodyStyle(this)"
+                         bdstyle_id="{{ bodystyle.id }}" bdstyle="{{ bodystyle.name }}">
+                        <img class="img-responsive"
+                             src="{{ asset( 'bundles/common/images/bodystyle/' ~ bodystyle.id  ~'.jpg' ) }}"/>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-12">
+            <hr style="border: 2px solid darkgrey;width: 100%;margin-top: 0px"/>
+            <a href="javascript:ShowResult_BodyStyle_Extended_List()" class="btn btn-default" data-placement="right">Show
+                Results</a>
+            <a href="javascript:ClearSelecions_BodyStyle()" class="btn btn-default" data-placement="right">Clear
+                Selections</a>
+        </div>
+    </div>
+</div>
+
+<div id="registerlogpopover_content" class="col-md-12 col-xs-12" style="margin-top:5px;font-size: 12px;display: none">
+    <div class="form-group">
+        <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary btn-block text-uppercase">Sign up
+            to save your favorites</a>
+    </div>
+    <div class="form-group">
+        <p class="text-center">
+            By signing up, I agree to FreeAutoListing's <a
+                    href="{{ path('terms') }}">Terms and Conditions</a> and <a
+                    href="{{ path('privacy_policy') }}">Privacy Policy</a>
+        </p>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12 no_padding" style="height: 19px">
+            <hr style="width: 100%;margin-bottom: 0px;"/>
+            <span class="hr_text">or</span>
+        </div>
+    </div>
+    <div class="form-group" style="margin-bottom: 0px">
+        <p class="text-center" style="padding-top: 30px;">
+            Have an account already?
+            <a id="login" href="{{ path('owner_login') }}" style="text-decoration: none;"> Log In</a>
+        </p>
+    </div>
+
+</div>
+
+<div class="modal fade" id="confirm_added" tabindex="-1" role="dialog"
+     aria-labelledby="myConfirmAdded" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="loading_div" class="col-md-3 pull-left form-inline text-left" style="margin: 15px 10px 0 0;">
+                    <span>Saving...</span>
+                    <img id="vehicle_vehiclesinformation_make_loading"
+                         src="{{ asset('bundles/common/images/loading.gif') }}" alt=""/>
+                </div>
+
+                <a href="javascript:void(0)" class="close" data-dismiss="modal" aria-label="Close" style="padding: 15px 15px 0 ">
+                    <span aria-hidden="true">Close&nbsp;x</span></a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 modal-body-info">
+                        <p>
+                            &nbsp;Your car has been saved. You can add notes.
+                        </p
+
+                    </div>
+                    <div class="col-md-12 modal-body-car-info no_padding" style="margin-top: 15px;">
+                        <div class="thumbnail col-md-2 no_padding">
+                            <img id="car_image" src="bundles/common/images/image-bg.jpg" alt=""/>
+                        </div>
+                        <div class="col-md-10" style="padding: 15px 0px 15px 15px;">
+
+                            <p id="car_details">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 modal-body-notes no_padding">
+                        <textarea id="savecar_notes" name="" id="" cols="30" rows="3" style="padding: 5px"
+                                  placeholder="Notes (Optional)"></textarea>
+                    </div>
+                    <div class="col-md-12 no_padding" style="margin-top: 15px">
+                        <button id="btnupdate" class="btn btn-primary disabled text-uppercase">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    jQuery("#login").click(function (e) {
+        e.preventDefault();
+        alert("aaa");
+    });
+    (function () {
+
+        var settings = {
+            trigger: 'click',
+            title: 'Pop Title',
+            content: '<p>This is webui popover demo.</p><p>just enjoy it and have fun !</p>',
+            width: 300,
+            multi: true,
+            closeable: false,
+            style: '',
+            delay: 300,
+            padding: true
+        };
+
+        function initPopover() {
+
+            var largeContent = jQuery('#makepopover_content').html(),
+                    largeSettings = {
+                        content: largeContent,
+                        width: 670,
+                        height: 595,
+                        title: 'Make',
+                        delay: {show: 300, hide: 1000},
+                        closeable: true
+                    };
+            var popLarge = jQuery('a.show-pop-large').webuiPopover('destroy').webuiPopover(jQuery.extend({}, settings, largeSettings));
+
+            var largeContent = jQuery('#bodystylepopover_content').html(),
+                    largeSettings = {
+                        content: largeContent,
+                        width: 660,
+                        height: 365,
+                        title: 'Body Style',
+                        delay: {show: 300, hide: 1000},
+                        closeable: true
+                    };
+            var popLarge = jQuery('a.show-pop-large_bodystyle').webuiPopover('destroy').webuiPopover(jQuery.extend({}, settings, largeSettings));
+
+            //registerlogpopover_content show-pop-large_logregister
+            var register = jQuery('#registerlogpopover_content').html(),
+                    registerSettings = {
+                        content: register,
+                        width: 400,
+                        height: 181,
+                        title: ' ',
+                        delay: {show: 300, hide: 1000},
+                        closeable: false
+                    };
+
+            jQuery('label.show-pop-large_logregister').webuiPopover('destroy').webuiPopover(jQuery.extend({}, settings, registerSettings));
+            /*jQuery('label.show-pop-large_logregister').on("click",function(){
+             jQuery(this).webuiPopover('destroy').webuiPopover(jQuery.extend({}, settings, registerSettings));
+             });*/
+
+
+            jQuery('body').on('click', '.pop-click', function (e) {
+                e.preventDefault();
+                console.log('clicked');
+            });
+
+        }
+
+        initPopover();
+    })();
+
+    function SetCarSerieInSession(elem) {
+        cartosaveinsession = jQuery(elem).attr("car-serie");
+        jQuery.post("{{ path("savecarinsession") }}", {serie: cartosaveinsession});
+    }
+</script>

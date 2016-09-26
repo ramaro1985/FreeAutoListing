@@ -1,0 +1,15 @@
+{% extends "AppBundle:Layout:sell-your-car.html.twig" %}
+{% block stylesheets %} {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+ {% block menu %}
+     {{ include('AppBundle:SellYourCar:step1-left.html.twig') }}
+ {% endblock %}
+ {% block body %}
+     {{ include('AppBundle:SellYourCar:vehicle-information-content.html.twig') }}
+ {% endblock %}
+ {% block footer %}{{ parent() }}  {% endblock %}

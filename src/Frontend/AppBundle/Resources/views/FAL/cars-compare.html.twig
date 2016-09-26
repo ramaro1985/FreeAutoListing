@@ -1,0 +1,19 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Free Auto Listing | Compare Cars {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!--<link href="{##}{ asset('bundles/common/css/search-result-style.css') }}" rel="stylesheet" />-->
+    <link href="{{ asset('bundles/common/css/car-compare-styles.css') }}" rel="stylesheet" />
+{% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+ {% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+     {{ include('AppBundle:FAL:cars-compare-content.html.twig') }}
+ {% endblock %}
+

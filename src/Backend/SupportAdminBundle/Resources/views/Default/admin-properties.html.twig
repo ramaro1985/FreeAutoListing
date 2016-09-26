@@ -1,0 +1,137 @@
+{% extends "SupportAdminBundle:Layout:user-admin.html.twig" %}
+{% block title %}Administration{% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+{% block header %}
+    {{ include('CommonBundle:Default:header-support.html.twig') }}
+
+{% endblock %}
+{% block menu %} {{ parent() }} {% endblock %}
+{% block filters %} {{ include('SupportAdminBundle:Default:breadcrums-properties.html.twig') }}{% endblock %}
+{% block body %}
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row" style="border-bottom: solid 1px #ccc">
+                    <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Serial
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Date Created
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Address
+                    </div>
+                   <div class="col-md-2 col-sm-2 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Owner
+                    </div>
+                     <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Active
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 " style="padding:0; font-weight: 600;  ">
+                        Featured
+                    </div>
+                </div>
+                   {% for property in properties %}
+                       <div class="row" style="padding: 5px 0px; border-bottom: solid 1px #ccc">
+                    <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       <a href="{{path('support_preview_property',{'id': property.serie, 'page': page })}}">{{ property.serie }}</a>  
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       {{ property.dateCreated | date("m/d/Y")}}  
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12" style="padding:0 ">
+                        {%if property.location is not null%}
+                        {{ property.location.address }}
+                        {%else%}
+                            <span class="text-danger">Pending</span>   
+                         {%endif%}   
+                        </div>
+                     <div class="col-md-2 col-sm-2 col-xs-12" style="padding:0 ">
+                         <a href="#" data-toggle="modal" data-target="#myModalOwnerDetails{{ property.id}}">{{ property.user.email }}</a>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-12 status-{{property.status.name}}" style="padding:0 ">
+                      {% if (property.status.name == 'inactive')%} <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {%elseif (property.status.name == 'active')%}   <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {%endif%}
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12" style="padding:0 ">
+                       {% if property.featured != '1'%} <span class="glyphicon glyphicon-remove status-inactive" aria-hidden="true"></span> {%else%}   <span class="glyphicon glyphicon-ok status-active" aria-hidden="true"></span> {%endif%} 
+                    </div>
+                     <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span style="margin-right: 10px">Actions </span><span class="path glyphicon glyphicon-chevron-down"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            {% if (property.status.name == 'active')%}
+              <li><a href="{{path('support_deactivate_property',{'id': property.id, 'page': page })}}">Deactivate Listing</a></li>  
+             {%elseif (property.status.name == 'inactive')%}   
+              <li><a href="{{path('support_activate_property',{'id': property.id, 'page': page })}}">Activate Listing</a></li>   
+             {%endif %}    
+            
+                {% if property.status.name == 'active' and  property.featured != '1' %}
+          <li><a href="{{path('support_activate_property_featured',{'id': property.id, 'page': page })}}">Featured Listing</a></li>  
+          {%elseif  property.status.name == 'active' and  property.featured == '1'  %}    
+             <li><a href="{{path('support_deactivate_property_featured',{'id': property.id, 'page': page })}}">Remove from Featured</a></li>  
+            {%endif %}   
+        
+        </ul>
+        </div> 
+                    </div>
+                </div>
+        
+         {{ include('SupportAdminBundle:Default:ownerDetails-form.html.twig',{ 'id':  property.id , 'user':  property.user, 'contact':  property.contact }) }}
+                 {% endfor %}
+            </div>
+        </div>   
+    </div>    
+
+
+
+
+    
+{% if properties is not empty %}
+    <div class="row" style="margin-bottom: 10px; margin-top: 5px">
+        <div class="col-md-12 col-xs-12" style="padding:0 ">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="pull-right">
+                        {% set count =  properties.getTotalItemCount %}
+                        <div class="text-right pull-right" style="margin: 8px 15px 0px 0px"><span style="padding: 7px;font-size: 14px;" class="label label-primary">{{ count }} 
+                                {% transchoice  count %}
+                                {0} There are no Properties|{1} Property Found|]1,Inf] Properties Found
+                                {% endtranschoice %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="pagination pull-right">
+                        {{ knp_pagination_render(properties) }}
+                       
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% else %}
+    <div class="row" style="margin: 20px 10px 0 ">
+        <div class="col-xs-12 col-md-12">
+            <div class="alert alert-info">No Properties Found</div>
+        </div>
+    </div>
+
+{% endif %}
+
+
+{% endblock %}
+{% block footer %}
+    {{ include('CommonBundle:Default:footer.html.twig') }}   
+{% endblock %}

@@ -1,0 +1,134 @@
+
+<div class="row">
+        <div class="col-md-12 text-center">   
+            {% set period = form.vars.value  %}
+       <input type="hidden" id="periodId" name="periodId" value="{{period.id}}">
+       
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.seasonName) }}
+    </div>
+         <div class="col-sm-4 col-xs-12">
+     {{ form_widget(form.seasonName) }}
+    </div>
+     <div class="col-sm-3 col-xs-12 text-danger">
+     {{ form_errors(form.seasonName) }}
+    </div>
+  </div>
+            
+        <div class="pcalendar form-group" style="margin-bottom: 10px">
+            <div class="col-sm-2 col-xs-12 text-right">
+                {{ form_label(form.startDate) }} <span style="color: #888888"> / </span> {{ form_label(form.endDate) }}
+    </div>
+            <div class="col-sm-2 col-xs-12 pull-left">
+        {{ form_widget(form.startDate) }}
+           
+           </div>
+        
+        <div class="col-sm-2 col-xs-12 pull-left">
+        {{ form_widget(form.endDate) }}
+           
+           </div>
+                <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.startDate) }}  {{ form_errors(form.endDate) }}
+           </div>
+           </div>
+            
+            
+         
+          <div class="form-group" style="margin-bottom: 10px">
+         <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.minStay) }}
+    </div>
+              <div class="col-sm-4 col-xs-12">
+     {{ form_widget(form.minStay) }}
+    </div>
+                  <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.minStay) }}
+           </div>
+         </div>  
+            
+            <div class="form-group" style="margin-bottom: 10px">
+         <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.nightly) }}
+    </div>
+                <div class="col-sm-4 col-xs-12">
+     
+                    <input id="period_nightly" class="form-control" type="text" value="{{form.vars.data.nightly}}"  pattern="[0-9]{1,7}" maxlength="7" required="required" name="period[nightly]">
+    </div>
+           <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.nightly) }}
+           </div>
+         </div> 
+            
+        <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.weekly) }}
+    </div>
+                <div class="col-sm-4 col-xs-12">
+                    <input id="period_weekly" class="form-control" type="text" value="{{form.vars.data.weekly}}"  pattern="[0-9]{1,7}" maxlength="7"  name="period[weekly]">
+    </div>
+                    <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.weekly) }}
+           </div>
+         </div> 
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.monthly) }}
+    </div>
+                <div class="col-sm-4 col-xs-12">
+    <input id="period_monthly" class="form-control" type="text" value="{{form.vars.data.monthly}}"  pattern="[0-9]{1,7}" maxlength="7"  name="period[monthly]">
+    </div>
+                    <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.monthly) }}
+           </div>
+         </div> 
+            
+            
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.notes) }}
+    </div>
+                <div class="col-sm-4 col-xs-12">
+     {{ form_widget(form.notes) }}
+    </div>
+                    <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.notes) }}
+           </div>
+         </div>
+            
+             <div class="form-group" style="margin-bottom: 10px">
+                 <div class="col-sm-4 col-sm-offset-2 col-xs-12 text-right"><a id="cancelP" href="#">Cancel</a></div>
+                </div>
+                
+                
+                 
+             
+    
+         
+          </div> 
+        
+           
+    
+      
+  
+</div>
+  
+           
+           <script type="text/javascript" >
+               
+                jQuery(document).ready(function() {
+                    
+              jQuery('#cancelP').click(function(){
+                  jQuery('.period').html('');
+                  jQuery('#form-buttons').addClass('hide');
+              }) ;     
+               
+     jQuery( ".period-calendar" ).datepicker({
+         dateFormat: 'mm/dd/yy'
+            });    
+          });    
+          
+          </script>

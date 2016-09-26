@@ -1,0 +1,54 @@
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions_frontend_utils.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+
+ {% block body %}
+     <div id="container" class="container-fluid properties-container visible-md visible-lg"
+          style="background-color: #ffffff">
+
+         <div class="row">
+             <div class="col-md-12">
+                 <img class="img-responsive" src="{{ asset('bundles/common/images/start-image.jpg') }}"
+                      alt="" style="width: 100%"/>
+             </div>
+             <div class="col-md-12 text-center" style="margin-top: 15px">
+                 <a href="{{ path('set_description', {'type':'open' , 'prop_pk':'new'}) }}"
+                    class="btn btn-primary text-uppercase">Add a dealer</a>
+             </div>
+             <div class="col-md-12 text-center" style="margin-top: 15px;margin-bottom: 20px">
+                 <span>Not familiar with the process? visit the <a href="javascript:void(0)" class="blue_text"
+                                                                   style="text-decoration: none">Help center</a></span>
+             </div>
+         </div>
+     </div>
+
+     <!------------------------------------ MOBILE Nav ---------------------------------->
+
+     <div class="row visible-xs visible-sm">
+         <div class="col-xs-12 col-sm-12 no_padding">
+             <img class="img-responsive" src="{{ asset('bundles/common/images/banner-cars.jpg') }}"
+                  alt="" style="width: 100%"/>
+         </div>
+
+         <div class="col-xs-12 col-sm-6 col-sm-offset-3 no_padding" style="margin-top: 15px;padding: 0px 0px">
+             <a href="{{ path('set_description', {'type':'open' , 'prop_pk':'new'}) }}"
+                class="btn btn-primary text-uppercase btn-group-justified">Add a dealer</a>
+         </div>
+         <div class="col-xs-12 col-sm-6 col-sm-offset-3 no_padding" style="margin-top: 15px;padding: 0px 0px">
+             {{ include('AdminBundle:Default:user-menu-movil.html.twig') }}
+         </div>
+
+     </div>
+
+     <!------------------------------------ END MOBILE Nav ---------------------------------->
+
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

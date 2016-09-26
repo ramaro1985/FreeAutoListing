@@ -1,0 +1,114 @@
+<div class="row"> 
+    <form id="admin-form" action="{{ path('super_admin_inquiries_search') }}"  method="POST" >
+        <div class="col-md-7 col-xs-12 text-left" style="padding: 0">
+            <ul class="breadcrumb" style="margin: 0; padding-bottom: 0; background-color: #FFFFFF">
+                {% for breadcrumb in breadcrumbs %}
+
+                    <li class="{{ breadcrumb['class']}}">
+                        {% if( breadcrumb['path'] != '') %}
+                            <a style="font-size: 14px" href="{{ path(breadcrumb['path']) }}"><b>{{ breadcrumb['name']}}</b></a>
+                                {% else  %}  
+                                    {{ breadcrumb['name']}}
+                                {% endif %} 
+                                {% if( breadcrumb['class'] == '') %} 
+                            <span class="glyphicon glyphicon-chevron-right" style="margin-left: 5px; top: 1px" aria-hidden="true"></span>
+                        {% endif %} 
+
+
+                    </li>
+
+
+
+                {% endfor %}
+
+
+
+
+            </ul>
+
+        </div>
+        
+        
+        
+        
+           {%if searchInq == true%}
+
+            <div class="col-md-2 col-sm-2 col-xs-12 text-left">
+                <div class="form-group">
+
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="sasearchtextinq" name="sasearchtextinq" value="{{app.session.get('sasearchtextinq')}}"  placeholder="Find by Email or Property ID">
+
+                    </div>
+                </div> 
+            </div>
+        {%endif%}
+         {%if buttons == true%}
+        <div class="col-md-2 col-sm-2 col-xs-12 text-left">
+            <div class="form-group">
+
+                <div class="col-sm-6 col-md-6 col-xs-6">
+                    <button id="btnsave" type="submit" class="btn btn-primary btn-block">Search</button>
+
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-xs-6">
+                    <a id="btnclear" type="button" class="btn btn-default btn-block">Clear Filters</a>
+
+                </div>
+            </div> 
+        </div>
+        {%endif%}
+     
+        <input type="hidden" value="{{app.session.get('sastatusinq')}}" id="sastatusinq" name="sastatusinq">
+    </form>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('a.return-search').click(function () {
+            parent.history.back();
+            return false;
+        });
+
+       
+        
+        jQuery('#btnsave').click(function(){
+         jQuery('#admin-form').attr('action', "{{path('super_admin_inquiries_search')}}");   
+        });
+        
+        jQuery('#btnclear').click(function(){
+         jQuery('#admin-form').attr('action', "{{path('clear_all_filters_inquiries')}}");   
+          jQuery('#admin-form').submit();
+        });
+        
+        
+          jQuery('.filter-news-clear').click(function(e){
+         jQuery('#admin-form').attr('action', "{{path('clear_filter_inquiries')}}");  
+          e.preventDefault();
+          jQuery('#admin-form').submit();
+         
+        });
+        
+         jQuery('.filter-posted').click(function (e) {
+            jQuery('#sastatusinq').val('7');
+            jQuery('#filter-text-news').text(jQuery(this).text());
+            e.preventDefault();
+        });
+
+        jQuery('.filter-pending').click(function (e) {
+            jQuery('#sastatusinq').val('5');
+            jQuery('#filter-text-news').text(jQuery(this).text());
+            e.preventDefault();
+        });
+
+        jQuery('.filter-news-clear').click(function (e) {
+            jQuery('#sastatusinq').val('');
+            jQuery('#filter-text-news').text('Filter');
+            e.preventDefault();
+        });
+          
+
+    });
+
+</script>

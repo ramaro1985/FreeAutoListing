@@ -1,0 +1,13 @@
+<select id="location_city" class="form-control" name="location[city]">
+    <option value="" selected="selected" disabled="disabled">Select</option>
+    {% for city in cities %}
+     <option value="{{ city.id }}" >
+    {{ city.cityName }}
+    </option>
+    {% endfor %}
+</select>
+
+
+    
+    
+    

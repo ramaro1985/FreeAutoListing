@@ -1,0 +1,217 @@
+<div id="globalnav-nav" class="pull-left visible-lg visible-md" style="min-height: 770px;">
+    <nav class="nav nav-dash">
+        <header class="hidden-phone"><i class="glyphicon glyphicon-cog" style="margin-right: 8px"></i><span
+                    class="bold_text_white">Tool Box</span></header>
+        <div class="container-fluid">
+            <ul id="navigation" class="nav nav-list">
+                <li id="sideLinkProperties" class="">
+                    <a class="" href="{{ path('admin_user_homepage') }}" target="" data-attr="sideLinkProperties">
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li id="resrvationManager" class="nav-header" style="margin-top: 15px">
+                    <span style="font-size: 14px;font-weight: 600">Inquiries Manager</span>
+                    <hr style="text-decoration: solid #000000">
+                </li>
+
+                <li id="sideLinkInquiries" class="">
+                    <a class="selected" href="{{ path('dealer_imbox',{'type': 'emails'} ) }}" target=""
+                       data-attr="sideLinkInquiries">
+                        <span>Inbox </span>
+                        <span class="badge badge-important"> {{ app.session.get('email_news') }}</span>
+                    </a>
+                </li>
+
+                <li id="sideLinkReservations" class="">
+                    <a class="" href="{{ path('dealer_imbox',{'type': 'offers'}) }}" target=""
+                       data-attr="sideLinkReservations">
+                        <span>Offers</span>
+                        <span class="badge badge-important"> {{ app.session.get('email_offers') }}</span>
+                    </a>
+                </li>
+                {% if prop_pk is defined %}
+                    <li id="sideLinkCalendar" class="">
+                        <a class="" href="{{ path('dealer_reviews',{'prop_pk':prop_pk}) }}" target=""
+                           data-attr="sideLinkReservations">
+                            <span>Reviews</span>
+                            <span class="badge badge-important"> {{ app.session.get('dealer_reviews') }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <li id="listingManager" class="nav-header" style="margin-top: 15px">
+                    <span style="font-size: 14px;font-weight: 600">Dealer Manager</span>
+                    <hr>
+                </li>
+                <li id="sideLinkEditListing" class="">
+                    <a class="" href="{{ path('admin_user_dashboard') }}" target="" data-attr="sideLinkEditListing">
+                        <span>Dealer Book </span>
+                        <span class="badge badge-important"> {{ app.session.get('propertiesCount') }}</span>
+                    </a>
+                </li>
+                <li id="sideLinkEditListing" class="">
+                    <a class="" href="{{ path('set_description', {'type':'open' , 'prop_pk':'new'}) }}" target=""
+                       data-attr="sideLinkEditListing">
+                        <span>Add New Dealer</span>
+                        <span class="badge badge-important"></span>
+                    </a>
+                </li>
+
+                <li id="toolsAndResource" class="nav-header" style="margin-top: 15px">
+                    <span style="font-size: 14px;font-weight: 600">Inventory Manager</span>
+                    <hr>
+                </li>
+                <li id="sideLinkToolkit" class="">
+                    <a class=""
+                       href="{{ path('create_vehicle_basic_info',{'type':'open' , 'prop_pk':'no' , 'vehicle_id': 'new' }) }}"
+                       target="" data-attr="sideLinkToolkit">
+                        <span>Add New Car</span>
+                        <span class="badge badge-important"></span>
+                    </a>
+                </li>
+                <li id="toolsAndResource" class="nav-header" style="margin-top: 15px">
+                    <span style="font-size: 14px;font-weight: 600">Tools & Resources</span>
+                    <hr>
+                </li>
+                <li id="sideLinkToolkit" class="">
+                    <a class="" href="{{ path('admin_user_account') }}" target="" data-attr="sideLinkToolkit">
+                        <a href="{{ path('my_account') }}">My Account</a>
+                        <span class="badge badge-important"></span>
+                    </a>
+                </li>
+                <li id="sideLinkCommunity" class="">
+                    <a class="" href="{{ path('admin_user_personal', {'filtro':'new'}) }}" target=""
+                       data-attr="sideLinkCommunity">
+
+                        <span>What's new?</span><span class="badge"
+                                                      style="margin-left: 10px">{{ app.session.get('news') }}</span>
+                        <span class="badge badge-important"></span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+</div>
+
+<!------------------------------------ MOBILE Nav ---------------------------------->
+<!--
+<div id="mobile-nav" class="pull-left visible-xs">
+    <nav class="nav nav-dash">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+
+                        <a class="collapsed" style="" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Tool Box
+                            <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <ul id="navigation" class="nav nav-list">
+                            <li id="sideLinkProperties" class="">
+                                <a class="" href="{{ path('admin_user_homepage') }}" target=""
+                                   data-attr="sideLinkProperties">
+                                    <span>My Listings</span>
+                                    <span class="badge badge-important"></span>
+                                </a>
+                            </li>
+                            <li id="resrvationManager" class="nav-header">
+                                <span>Reservation Manager</span>
+                                <hr>
+                            </li>
+
+                            <li id="sideLinkInquiries" class="">
+                                <a class="selected" href="{{ path('property_inquiries_list') }}" target=""
+                                   data-attr="sideLinkInquiries">
+                                    <span>Inquiries</span>
+                                    <span class="badge badge-important"></span>
+                                </a>
+                            </li>
+
+                            <li id="sideLinkReservations" class="">
+                                <a class="" href="{{ path('property_reservations_list') }}" target=""
+                                   data-attr="sideLinkReservations">
+                                    <span>Reservations</span>
+                                    <span class="badge badge-important"></span>
+                                </a>
+                            </li>
+                            <li id="sideLinkCalendar" class="">
+                                <a class="" href="{{ path('property_calendar_list') }}" target=""
+                                   data-attr="sideLinkCalendar">
+                                    <span>Calendar</span>
+                                    <span class="badge badge-important"></span>
+                                </a>
+                            </li>
+                            <li id="sideLinkReviews" class="">
+                                <a class="" href="{{ path('property_reviews_list') }}" target=""
+                                   data-attr="sideLinkReviews">
+                                    <span>Reviews</span>
+                                    <span class="badge badge-important"></span>
+                                </a>
+                            </li>
+
+                            <div class='hidden-xs'>
+
+                                <li id="listingManager" class="nav-header">
+                                    <span>Listing Manager</span>
+                                    <hr>
+                                </li>
+                                <li id="sideLinkEditListing" class="">
+                                    <a class="" href="{{ path('property_edit_list') }}" target=""
+                                       data-attr="sideLinkEditListing">
+                                        <span>Edit Listing</span>
+                                        <span class="badge badge-important"></span>
+                                    </a>
+                                </li>
+                                <li id="sideLinkEditListing" class="">
+                                    <a class="" href="{{ path('addProperty') }}" target=""
+                                       data-attr="sideLinkEditListing">
+                                        <span>Add Listing</span>
+                                        <span class="badge badge-important"></span>
+                                    </a>
+                                </li>
+
+                                <li id="sideLinkEditListing" class="">
+                                    <a class="" href="{{ path('property_deactivate_list') }}" target=""
+                                       data-attr="sideLinkEditListing">
+                                        <span>Deactivate Listing</span>
+                                        <span class="badge badge-important"></span>
+                                    </a>
+                                </li>
+
+                            </div>
+
+                            <li id="toolsAndResource" class="nav-header">
+                                <span>Tools & Resources</span>
+                                <hr>
+                            </li>
+                            <li id="sideLinkToolkit" class="">
+                                <a class="" href="{{ path('admin_user_account') }}" target=""
+                                   data-attr="sideLinkToolkit">
+                                    <span>My Account</span>
+                                    <span class="badge badge-important"></span>
+                                </a>
+                            </li>
+                            <li id="sideLinkCommunity" class="">
+                                <a class="" href="{{ path('admin_user_personal', {'filtro':'new'}) }}" target=""
+                                   data-attr="sideLinkCommunity">
+
+                                    <span>What's new?</span><span class="badge"
+                                                                  style="margin-left: 10px">{{ app.session.get('news') }}</span>
+                                    <span class="badge badge-important"></span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+ <!------------------------------------ END MOBILE Nav ---------------------------------->

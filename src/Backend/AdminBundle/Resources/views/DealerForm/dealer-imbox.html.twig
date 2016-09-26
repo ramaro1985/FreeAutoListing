@@ -1,0 +1,27 @@
+{# % extends "AdminBundle:Layout:user-admin.html.twig" % este template tiene el menu de usuario   #}
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-forms.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/carousel.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&language=en"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+     {{ include('AdminBundle:Default:content-header.html.twig') }}
+     <div id="loading_dealer" class="hide">
+         <img src="{{ asset('bundles/common/images/loading.gif') }}"/><span class="text-info">Loading...</span>
+     </div>
+
+     {{ include('AdminBundle:DealerForm:dealer-imbox-content.html.twig') }}
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 

@@ -1,0 +1,42 @@
+<div class="container-fluid">
+
+    {% set totalvehicles = vehicles_list|length %}
+    {% set aux = 0 %}
+    {% for i in range(0,totalvehicles // 3) %}
+        <div class="row row_cars">
+            {% for vehicle in vehicles_list|slice( aux, 3 ) %}
+                {% if vehicle.gallery.profileimages is defined %}
+                    {% set pf = vehicle.gallery.profileimages[0] %}
+                    <div class="col-md-4 {% if loop.first %} first {% elseif loop.last %} last {% else %} middle {% endif %}" style="margin-top: 15px">
+                        <div class="col-md-12 previewbox borderBoxShadows"
+                             style="padding-bottom: 10px;padding-top: 10px;background-color: #ffffff">
+                            <div class="thumbnail" style="margin-bottom: 0px;">
+                                <a href="{{ path('car_details_dashboard', {'serie': vehicle.serie}) }}" class="thumbnail" style="margin-bottom: 0px ">
+                                    <img src="{{ asset(pf.getwebpaththumbnailVehicle(profile,vehicle.serie)) }}"
+                                         alt=""
+                                         class="img-responsive"/></a>
+
+                                <div class=" caption " style="padding-right: 0px;padding-left: 0px">
+                                    <a href="#" class="pull-left"
+                                       style="text-decoration: no-underline;color: #3763ff">{{ vehicle.vehiclesinformation.condition.name }} {{ vehicle.vehiclesinformation.getYear() }} {{ vehicle.vehiclesinformation.getMake() }} {{ vehicle.vehiclesinformation.model.modelDisplay }}</a>
+                                    <br>
+                                <span class="pull-left"
+                                      style=" ">stock# {{ vehicle.vehiclesinformation.getStockNumber() }}</span>
+                                    <br>
+                                <span class="pull-left"
+                                      style="font-weight: bold; color: black;font-size: 16px">${{ vehicle.vehiclesinformation.getPrice()|number_format()  }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% set aux = aux + 3 %}
+        </div>
+    {% endfor %}
+
+</div>
+<div class="pagination pull-right" style="margin-top: 15px">
+    {{ knp_pagination_render(vehicles_list) }}
+</div>

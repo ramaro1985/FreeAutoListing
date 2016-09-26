@@ -1,0 +1,276 @@
+support_admin_homepage:
+ pattern:  /support/admin
+ defaults: { _controller: SupportAdminBundle:Default:admin }
+
+     
+support_view_properties:
+ pattern:  /support/admin/properties/
+ defaults: { _controller: SupportAdminBundle:Default:adminProperties }
+ 
+support_edit_user:
+    pattern: /support/admin/users/{id}
+    defaults: { _controller: SupportAdminBundle:Default:user_edit }
+    
+support_edit_property:
+    pattern: /support/admin/property/{id}
+    defaults: { _controller: SupportAdminBundle:Default:property_edit }
+    
+support_add_user:
+    pattern: /support/admin/users/add/
+    defaults: { _controller: SupportAdminBundle:Default:add_user }
+
+support_create_user:
+    pattern: /support/admin/users/create/
+    defaults: { _controller: SupportAdminBundle:Default:create_user }
+       
+modify_user:
+    pattern: /support/admin/users/modify/
+    defaults: { _controller: SupportAdminBundle:Default:usermodify }
+    
+support_admin_users:
+    pattern:  /support/admin/users/
+    defaults: { _controller: SupportAdminBundle:Default:users }    
+    
+support_activate_property:
+    pattern:  /support/admin/property/activate/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:activateProperty }     
+    
+support_deactivate_property:
+    pattern:  /support/admin/property/deactivate/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deactivateProperty }  
+    
+    
+support_activate_property_featured:
+    pattern:  /support/admin/property/activatefeatured/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:activateFeaturedProperty }
+
+support_deactivate_property_featured:
+    pattern:  /support/admin/property/deactivatefeatured/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deactivateFeaturedProperty }    
+    
+support_preview_property:
+    pattern:  /support/admin/properties/preview/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:previewProperty }     
+
+support_admin_router:
+    pattern:  /support/router/
+    defaults: { _controller: SupportAdminBundle:Default:router }   
+    
+support_admin_search:
+    pattern:  /support/properties/search/
+    defaults: { _controller: SupportAdminBundle:Default:search }       
+    
+support_clear_all_filters:
+    pattern:  /support/properties/clear/filters/
+    defaults: { _controller: SupportAdminBundle:Default:clearAllFilters } 
+    
+support_clear_filter:
+    pattern:  /support/properties/clear/filter/
+    defaults: { _controller: SupportAdminBundle:Default:clearFilter }      
+    
+support_list_news:
+    pattern:  /support/news/list/
+    defaults: { _controller: SupportAdminBundle:Default:listNews }  
+    
+support_create_news:
+    pattern:  /support/news/create/
+    defaults: { _controller: SupportAdminBundle:Default:createNews }  
+    
+support_edit_news:
+    pattern:  /support/news/edit/{id}/
+    defaults: { _controller: SupportAdminBundle:Default:editNews }    
+
+support_activate_news:
+    pattern:  /support/admin/news/activate/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:activateNews }     
+    
+support_deactivate_news:
+    pattern:  /support/admin/news/deactivate/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deactivateNews }    
+    
+support_delete_news:
+    pattern:  /support/admin/news/delete/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deleteNews }      
+    
+support_admin_news_search:
+    pattern:  /support/news/search/
+    defaults: { _controller: SupportAdminBundle:Default:searchNews }     
+    
+support_clear_all_filters_news:
+    pattern:  /support/news/clear/filters/
+    defaults: { _controller: SupportAdminBundle:Default:clearAllFiltersNews }     
+    
+support_clear_filter_news:
+    pattern:  /support/news/clear/filter/
+    defaults: { _controller: SupportAdminBundle:Default:clearFilterNews }    
+    
+support_admin_view_inquiries:
+    pattern:  /support/admin/inquiries/
+    defaults: { _controller: SupportAdminBundle:Default:adminInquiries }   
+    
+support_admin_inquiries_search:
+    pattern:  /support/inquiries/search/
+    defaults: { _controller: SupportAdminBundle:Default:searchInquiries }  
+    
+support_clear_all_filters_inquiries:
+    pattern:  /support/inquiries/clear/filters/
+    defaults: { _controller: SupportAdminBundle:Default:clearAllFiltersInquiries } 
+    
+support_clear_filter_inquiries:
+    pattern:  /support/inquiries/clear/filter/
+    defaults: { _controller: SupportAdminBundle:Default:clearFilterInquiries } 
+    
+support_delete_inquiry:
+    pattern:  /support/admin/inquiries/delete/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deleteInquiry }     
+    
+    
+support_view_contacts:
+    pattern:  /support/admin/contacts/
+    defaults: { _controller: SupportAdminBundle:Default:adminContacts }   
+    
+support_admin_contacts_search:
+    pattern:  /support/contacts/search/
+    defaults: { _controller: SupportAdminBundle:Default:searchContacts }  
+    
+support_clear_all_filters_contacts:
+    pattern:  /support/contacts/clear/filters/
+    defaults: { _controller: SupportAdminBundle:Default:clearAllFiltersContacts } 
+    
+support_clear_filter_contacts:
+    pattern:  /support/contacts/clear/filter/
+    defaults: { _controller: SupportAdminBundle:Default:clearFilterContacts }    
+    
+support_delete_contacts:
+    pattern:  /support/admin/contacts/delete/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deleteContacts }     
+    
+support_open_contact_ticket:
+    pattern:  /support/admin/contacts/open/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:openTicketContacts } 
+    
+support_close_contact_ticket:
+    pattern:  /support/admin/contacts/close/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:closeTicketContacts }    
+    
+support_reply_contact_ticket:
+    pattern:  /support/admin/contacts/reply/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:replyTicketContacts }    
+
+support_reply_close_contact_ticket:
+    pattern:  /support/admin/contacts/replyclose/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:replyCloseTicketContacts }      
+    
+    
+support_view_contacts_investor:
+    pattern:  /support/admin/contacts-investor/
+    defaults: { _controller: SupportAdminBundle:Default:adminContactsInvestor }   
+    
+support_admin_contacts_search_investor:
+    pattern:  /support/contacts-investor/search/
+    defaults: { _controller: SupportAdminBundle:Default:searchContactsInvestor }  
+    
+support_clear_all_filters_contacts_investor:
+    pattern:  /support/contacts-investor/clear/filters/
+    defaults: { _controller: SupportAdminBundle:Default:clearAllFiltersContactsInvestor } 
+    
+support_clear_filter_contacts_investor:
+    pattern:  /support/contacts-investor/clear/filter/
+    defaults: { _controller: SupportAdminBundle:Default:clearFilterContactsInvestor }   
+    
+support_delete_contacts_investor:
+    pattern:  /support/admin/contacts-investor/delete/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deleteContactsInvestor }     
+    
+    
+support_view_contacts_owner:
+    pattern:  /support/admin/contacts-owner/
+    defaults: { _controller: SupportAdminBundle:Default:adminContactsOwner }   
+    
+support_admin_contacts_search_owner:
+    pattern:  /support/contacts-owner/search/
+    defaults: { _controller: SupportAdminBundle:Default:searchContactsOwner }  
+    
+support_clear_all_filters_contacts_owner:
+    pattern:  /support/contacts-owner/clear/filters/
+    defaults: { _controller: SupportAdminBundle:Default:clearAllFiltersContactsOwner } 
+    
+support_clear_filter_contacts_owner:
+    pattern:  /support/contacts-owner/clear/filter/
+    defaults: { _controller: SupportAdminBundle:Default:clearFilterContactsOwner }    
+    
+support_delete_contacts_owner:
+    pattern:  /support/admin/contacts-owner/delete/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deleteContactsOwner }    
+    
+support_open_contactowner_ticket:
+    pattern:  /support/admin/contacts-owner/open/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:openOwnerTicketContacts } 
+    
+support_close_contactowner_ticket:
+    pattern:  /support/admin/contacts-owner/close/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:closeOwnerTicketContacts }    
+    
+support_reply_contactowner_ticket:
+    pattern:  /support/admin/contacts-owner/reply/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:replyOwnerTicketContacts }    
+
+support_reply_close_contactowner_ticket:
+    pattern:  /support/admin/contacts-owner/replyclose/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:replyCloseOwnerTicketContacts }        
+    
+    
+    
+support_view_user_owner:
+    pattern:  /support/admin/user-owner/
+    defaults: { _controller: SupportAdminBundle:Default:adminUserOwner }   
+    
+support_admin_user_search_owner:
+    pattern:  /support/user-owner/search/
+    defaults: { _controller: SupportAdminBundle:Default:searchUserOwner }  
+    
+support_clear_all_filters_user_owner:
+    pattern:  /support/user-owner/clear/filters/
+    defaults: { _controller: SupportAdminBundle:Default:clearAllFiltersUserOwner } 
+    
+support_clear_filter_user_owner:
+    pattern:  /support/user-owner/clear/filter/
+    defaults: { _controller: SupportAdminBundle:Default:clearFilterUserOwner }    
+    
+    
+support_activate_user:
+    pattern:  /support/admin/user/activate/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:activateUser }     
+    
+support_deactivate_user:
+    pattern:  /support/admin/user/deactivate/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deactivateUser }    
+    
+    
+support_view_reviews:
+    pattern:  /support/admin/reviews/
+    defaults: { _controller: SupportAdminBundle:Default:adminReviews }   
+    
+support_admin_search_reviews:
+    pattern:  /support/admin/reviews/search/
+    defaults: { _controller: SupportAdminBundle:Default:searchReviews }  
+    
+support_clear_all_filters_reviews:
+    pattern:  /support/admin/reviews/clear/filters/
+    defaults: { _controller: SupportAdminBundle:Default:clearAllFiltersReviews } 
+    
+support_clear_filter_reviews:
+    pattern:  /support/admin/reviews/clear/filter/
+    defaults: { _controller: SupportAdminBundle:Default:clearFilterReviews }    
+    
+support_delete_reviews:
+    pattern:  /support/admin/reviews/delete/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deleteReview }       
+    
+support_activate_review:
+    pattern:  /support/admin/review/activate/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:activateReview }     
+    
+support_deactivate_review:
+    pattern:  /support/admin/review/deactivate/{id}/{page}/
+    defaults: { _controller: SupportAdminBundle:Default:deactivateReview }              

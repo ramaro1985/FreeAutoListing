@@ -1,0 +1,27 @@
+common_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: CommonBundle:Default:index }
+
+step1_vehicle_register:
+    pattern:  /private-seller/step-details
+    defaults: { _controller: AppBundle:SellYourCar:Step1VehicleRegister}
+
+step2_vehicle_register:
+    pattern:  /private-seller/step_photos/{type}/{vehicle_id}
+    defaults: { _controller: AppBundle:SellYourCar:Step2VehicleRegister}
+
+step2_save_image:
+    pattern:  /private-seller/gallery/image/save/
+    defaults: { _controller: AppBundle:SellYourCar:saveImage }
+
+step2_upload_multiple_vehicle:
+    pattern:  /private-seller/step2_upload-multiple-vehicles-images/{vehicle_id}
+    defaults: { _controller: AppBundle:SellYourCar:uploadMultipleVehicleImages }
+
+step2_private_save_image:
+    pattern:  /private-seller/step2_gallery/image/save/
+    defaults: { _controller: AppBundle:SellYourCar:saveImage }
+
+step3_privateseller_register:
+    pattern:  /private-seller/step-register/{vehicle_id}
+    defaults: { _controller: AppBundle:SellYourCar:Step3PrivateSellerRegister}

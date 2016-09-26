@@ -1,0 +1,43 @@
+{% extends "AdminBundle:Layout:new-profile-layout-mobile.html.twig" %}
+{% block title %}Free Auto Listing | Create your Dealearship{% endblock %}
+{% block stylesheets %} {{ parent() }}
+    <style>
+
+
+    </style>
+    <link href="{{ asset('bundles/common/css/movil-search-result-style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/upload/vendor/jquery.ui.widget.js') }}"></script>
+               
+    <script src="{{ asset('bundles/common/js/upload/load-image.all.min.js') }}"></script>
+               
+    <script src="{{ asset('bundles/common/js/upload/canvas-to-blob.min.js') }}"></script>
+               
+    <script src="{{ asset('bundles/common/js/upload/jquery.iframe-transport.js') }}"></script>
+               
+    <script src="{{ asset('bundles/common/js/upload/jquery.fileupload.js') }}"></script>
+               
+    <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-process.js') }}"></script>
+               
+    <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-image.js') }}"></script>
+               
+    <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-validate.js') }}"></script>
+               
+    <script src="{{ asset('bundles/common/js/jquery.bxslider.min.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+{% endblock %}
+ {% block header %}
+     {{ parent() }}
+ {% endblock %}
+{% block body %}
+    <!------------------------------------ MOBILE Nav ---------------------------------->
+    <div class="visible-xs visible-sm">
+        {{ include('AdminBundle:Default:user-menu-movil.html.twig') }}
+        {{ include('AdminBundle:DealerForm:Mobile/new-profile-mobile-content.html.twig') }}
+    </div>
+{% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+

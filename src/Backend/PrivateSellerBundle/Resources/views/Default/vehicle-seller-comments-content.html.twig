@@ -1,0 +1,193 @@
+<div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+
+    <div class="row" style="margin-top: 15px">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-12">
+                <ul class="nav nav-pills nav-profile text-center" style="margin-top: 10px; margin-bottom: 20px">
+                    <!--div id="photos" class="anchor-profile-photo"></div>-->
+                    <li class="">
+                        <div class="btn-group">
+
+                            <a id="link-tab-index-1"
+                               href="{{ path('private_create_vehicle_basic_info',{'type':'save', 'vehicle_id': vehicle_id }) }}"
+                               class="btn btn-default b2b">
+                                Vehicle Information <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                          aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-2"
+                               href="{{ path('private_vehicle_options', {'type':'open' , 'vehicle_id': vehicle_id}) }}"
+                               class="btn btn-default b3b">
+                                Vehicle Options<span class="fal_icon icon-inventary"
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-3"
+                               href="{{ path('private_vehicle_gallery', {'type':'open' , 'vehicle_id': vehicle_id}) }}"
+                               class="btn btn-default b3b">
+                                Photos<span class="fal_icon icon-photo"
+                                            aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-5"
+                               href="{{ path('private_vehicle_warranty',{'type':'save' , 'vehicle_id': vehicle_id }) }}"
+                               class="btn btn-default b2b">
+                                Warranty<span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-4"
+                               href="{{ path('private_vehicle_seller_comments',{'type':'save' , 'vehicle_id': vehicle_id }) }}"
+                               class="btn btn-default b2b active">
+                                Seller Comments<span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-vehicle-sellercommemts"
+                  action="{{ path('private_vehicle_seller_comments' , {'type': 'open','vehicle_id' : vehicle_id }) }}" {{ form_enctype(form) }}
+                  method="POST" class="form-horizontal formulario" style="margin-top: 20px">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group">
+
+                        <div class="col-md-11 col-xs-12 text-left">
+                            <p>
+                                This your chance to tell shoppers your vehicle in yor own words.We've already captured
+                                the year, make and model, so
+                                focus more on unique selling points.Explain to shoppers why you're selling and disclose
+                                any prior maintenance.Give warranty
+                                information and detail anu modification made to you car.Above all, be honest with
+                                shoppers.After your ad is placed, you can come
+                                back anytime to edit your ad details.Please note:We don't recommend entering your phone
+                                number or email address in this space.
+                                We'll give shoppers access to your contact information on your ad.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-11 col-xs-12">
+                            {{ form_widget(form.seller_comments) }}
+                            <div class="pull-right form-inline">
+                                <label for="count_back" style="font-size: 12px">Characters remaining</label>
+                                <input class="counter_input" type="text" id="count_back" name="count_back"
+                                       value="800" size="4px">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12 text-left" style="margin-top: 20px">
+                    <div class="form-group" style="margin-bottom: 10px">
+
+                        <!-- <button id="btnsave" type="submit" class="btn btn-primary">Save</button>-->
+                        <button id="btnsavefinish" type="submit" class="btn btn-primary"
+                                style="margin-left: 10px">
+                            Save &
+                            Finish
+                        </button>
+
+                    </div>
+
+                </div>
+                {{ form_rest(form) }}
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    jQuery('#btnsavefinish').click(function (e) {
+        jQuery('#form-vehicle-sellercommemts').attr('action', "{{path('private_vehicle_seller_comments', {'type':'continue'  , 'vehicle_id': vehicle_id })}}");
+    });
+
+
+    var area = document.getElementById("vehiclesellercomments_seller_comments");
+    var message = document.getElementById("count_back");
+    var maxLength = 800;
+    var checkLength = function() {
+        if(area.value.length < maxLength) {
+            message.value = (maxLength-area.value.length);
+        }
+    }
+    setInterval(checkLength, 300);
+
+   /* function contador_regresivo(myfield, e, field_to_count)   //nombre de la funcion.....
+    {
+        //alert(field_to_count)
+        var key;
+        var keychar;
+        if (window.event) {
+            key = window.event.keyCode;
+        }
+        else if (e) {
+            key = e.which;
+        }
+        else {
+            return true;
+        }
+        //esto es para cuando borre aumente el contador
+        if ((key == 8)) {
+
+            var contador = document.getElementById('count_back').value;
+            if (contador > 2000) {
+                return false;
+            } else {
+                var text = document.getElementById(field_to_count).value;
+                //alert();
+                document.getElementById('count_back').setAttribute('value', 2000 - text.length);
+                return true;
+            }
+        }
+        //esto es para permitir las teclas de control
+        if ((key == null) || (key == 0) || (key == 9) || (key == 13) || (key == 27)) {
+            return true;
+        }
+        //donde estan los numeros pueden colocar todos los caracteres
+        // que quieres aceptar por ejemplo: abcd...xyzABCD...XYZ
+        else if ((("0123456789").indexOf(keychar) > -1) || (("xyzABCD").indexOf(keychar))) {
+
+            var contador = document.getElementById('count_back').value;
+            document.getElementById('count_back').setAttribute('value', contador - 1);
+            return true;
+        }
+        else if (dec && (keychar == "."))// decimalt jump poin
+        {
+            myfield.form.elements[dec].focus();
+            return false;
+        }
+        else {
+            return false;
+        }
+    }*/
+
+</script>

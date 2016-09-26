@@ -1,0 +1,163 @@
+<div class="modal fade" id="myModalOwnerDetails{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Owner Details</h4>
+            </div>
+            <div class="modal-body">
+                <form id="" method="POST" class="form-horizontal">
+
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+
+                            <b>Full Name:</b> 
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+
+                            {{user.name}} {{user.lastName}}
+                        </div>
+
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <b>Email:</b> 
+
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            {{user.email}}
+
+                        </div>
+
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+
+                            <b>Phone:</b>
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+
+                            {% if user.phone != '' and user.phone != null%}
+                                {{user.phone}}
+                            {% else %}
+                                Unspecified
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <b>Last login:</b> 
+
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            {{user.lastLogin| date("M j \\,\\ Y H:i:s")}}
+
+                        </div>
+
+
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <b>Status:</b> 
+
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            {% if user.enabled == '1'%}
+                                Enabled
+                            {% else %}
+                                Disabled
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <b>Registered with:</b> 
+
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            {% if user.facebookId != '' and user.facebookId != null %}
+                                Facebook
+                            {% else %}
+                                HomeEscape
+                            {% endif %}
+
+                        </div>
+
+
+
+                    </div>
+
+
+                    {%if user.email != contact.email%}
+                       
+
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="border-bottom: 1px solid #e5e5e5; padding: 15px; margin-bottom: 15px">
+                               <h4 class="modal-title">Alternate Contact</h4> 
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+
+                                <b>Full Name:</b> 
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+
+                                {{contact.name}}
+                            </div>
+
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <b>Email:</b> 
+
+                            </div>
+
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{contact.email}}
+
+                            </div>
+
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+
+                                <b>Phone:</b>
+                            </div>
+
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+
+                                {% if contact.phone1 != '' and contact.phone1 != null%}
+                                    {{contact.phone1}}
+                                {% else %}
+                                    Unspecified
+                                {% endif %}
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    {%endif%}
+
+
+
+
+
+
+
+
+
+
+                    <input type="hidden" id="resId" name="resId" value="{{id}}" >
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12"><div id="error"></div></div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,102 @@
+{% extends "CommonBundle:Layout:base.html.twig" %}
+
+  {% block title %} Free Auto Listing  {% endblock %}
+
+ {% block header %}
+     {{ include('CommonBundle:Default:header-registration.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+
+     <div class="container">
+         <nav class="navbar header_nav" style="margin-bottom: 10px;">
+             <div class="row">
+                 <div class="col-md-12 col-sm-12">
+                     <div class="navbar-header col-md-12 col-sm-12 col-xs-12 no_padding">
+                         <div class="col-md-7 col-xs-12 col-sm-12 no_padding" style="padding-top: 8px">
+
+                             <div style="margin-top: 25px;margin-bottom: 25px">
+                                 <p style="font-size: 16px; font-weight: bold">Thank you for registering your vehicle
+                                     with Free Auto Listing&trade; </p>
+                             </div>
+                             <div style="margin-bottom: 25px">
+                                 <p>
+                                     Hi <span style="color: red">{{ user }}</span>, thanks for registering your vehicle
+                                     with Free
+                                     Auto Listing!
+                                     Free Auto Listing is one of the fastest growing peer-to-peer vehicle listing sites,
+                                     connecting shoppers to auto deals and making high-pressured sales a thing of the
+                                     past.
+                                 </p>
+                             </div>
+                             <div style="margin-bottom: 25px">
+                                 <button id="confirm" type="submit" class="btn btn-primary btn-danger"
+                                         style="border-radius: 0">CONFIRM YOUR ACCOUNT
+                                 </button>
+                             </div>
+
+                             <div style="margin-bottom: 25px">
+                                 <span>If you need to contact the team for anything, feel free to do so at:<span
+                                             style="color: red">registration@freeautolisting.com</span></span>
+
+                             </div>
+                             <div style="margin-bottom: 25px">
+                                 <ul class="unl">
+                                     Free Auto Listing is a 100% FREE listing site. Follow us on Facebook to get the
+                                     latest news:
+                                 </ul>
+                                 <span style="color: red"> https://www.facebook.com/freeautolisting</span>
+                             </div>
+
+                             <div style="margin-bottom: 25px;border: 1px solid #000000;">
+                                 <div style="margin-top: 25px;margin-bottom: 25px;margin-left: 25px;margin-right: 25px">
+                                     <span>&copy; 2009 - 2015. <span
+                                                 style="color: red">FreeAutoListing.com</span> Inc. 17401 NW 2nd Ave
+                                         Ste#4 Miami
+                                         Gardens FL
+                                         33169
+                                     </span>
+                                     <span style="margin-left: 25%">This email was sent to <span
+                                                 style="color: red">{{ user }}</span></span>
+
+                                     <p style="margin-top: 10px">
+                                         <span>Please add us to your address book to ensure you continue receiving Free Auto Listing emails.</span>
+                                     </p>
+                                     <span style="margin-left: 15px">
+                                         <span>Need help? Call 1.800.000.0000 to speak with Customer Care. M-F 7am to 7pm CST</span>
+                                     </span>
+
+                                     <p style="color: red;margin-left: 25%;margin-top: 15px" class=""><a
+                                                 style="color: red" href="{{ path('privacy_policy') }}">Privacy
+                                             Statement</a> | <a style="color: red" href="{{ path('terms') }}">Terms &
+                                             Conditions</a></p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </nav>
+     </div>
+     <script type="text/javascript">
+         jQuery(document).ready(function () {
+
+             jQuery('#confirm').click(function () {
+                 var user ='{{ user }}';
+                 jQuery.post('{{ path('user_registration_resend_confirm')}}',
+                         {
+                             user: user
+                         },
+                         function (data) {
+                             if (data.error != undefined && data.error != "") {
+                                 alert(data.error);
+                             } else {
+                                 window.location = "{{ path('owner_login') }}";
+                             }
+                         }, "json");
+
+             });
+         })
+     </script>
+ {% endblock %}
+

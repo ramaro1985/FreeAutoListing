@@ -1,0 +1,161 @@
+{% if form_errors(form.email) %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center text-danger alert alert-danger"
+                 role="alert">{{ form_errors(form.email) }}</div>
+        </div>
+    </div>
+{% endif %}
+
+{% if form_errors(form.plainPassword) %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center text-danger alert alert-danger"
+                 role="alert">{{ form_errors(form.plainPassword) }}</div>
+        </div>
+    </div>
+{% endif %}
+<div class="container">
+    <div class="row" style="margin-top: 40px">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <h1>Start building your listing</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center" style="padding: 0 30px">
+            <form id="form-register" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }}
+                  method="POST" class="form-horizontal" style="margin-top: 20px">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+                <div class="form-group">
+
+                    <div class="col-sm-12 text-danger">
+                        {{ form_errors(form.name) }}
+                        {{ form_errors(form.lastname) }}
+                        {{ form_errors(form.plainPassword) }}
+                        {{ form_errors(form.phone) }}
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px">
+
+                    <div class="col-sm-5 col-md-5 col-md-offset-1 col-sm-offset-1">
+                        {{ form_widget(form.name) }}
+                    </div>
+                    <div class="col-sm-5 col-md-5">
+                        {{ form_widget(form.lastname) }}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1">
+                        {{ form_widget(form.email) }}
+
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px">
+
+                    <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1">
+                        {{ form_widget(form.plainPassword) }}
+                    </div>
+                    <div class="col-sm-1 col-md-1" style="margin-top: 20px;padding-left: 0">
+                        <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right"
+                              title="Must have at least 6 characters, 1 number, 1 upper case (example: Passw5)"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group" style="margin-bottom: 5px">
+
+                    <div class="col-sm-5 col-md-5 col-md-offset-1 col-sm-offset-1 ">
+                        {{ form_widget(form.countryphonecode) }}
+                    </div>
+                    <div class="col-sm-5 col-md-5">
+                        {{ form_widget(form.phone) }}
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="margin-bottom: 5px; margin-top: 20px">
+
+                    <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1 text-left">
+                        <label style="margin-top: 10px; margin-bottom: 10px">
+
+                            <span style="display: inline; font-weight: 400"> {{ form_widget(form.t_and_c) }} I accept the <a
+                                        href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></span>
+                        </label>
+                    </div>
+                    <div class="col-sm-5 col-md-5 col-md-offset-1 col-sm-offset-1 text-left">
+                        <a href="#" class="facebook_button" onclick="fb_login();">Log in with Facebook</a>
+
+                    </div>
+                    <div class="col-sm-5 col-md-5 text-right">
+                        <input type="hidden" value="0" id="invalid"/>
+                        <button id="btn-submit" type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+
+
+                {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+        jQuery(function () {
+            jQuery(".glyphicon-info-sign").tooltip();
+        });
+
+
+        jQuery('#fos_user_registration_form_plainPassword_second').focusout(function () {
+            if (jQuery(this).val() !== '' && jQuery('#fos_user_registration_form_plainPassword_first').val()) {
+                if (jQuery(this).val() !== jQuery('#fos_user_registration_form_plainPassword_first').val()) {
+                    createPopover(jQuery(this), 'Passwords does not match');
+                    jQuery(this).css('box-shadow', '0 0 0 rgba(0, 0, 0, 1) inset, 0 0 8px rgba(255, 0, 0, 1)');
+                    jQuery('#invalid').val('1');
+
+                } else {
+                    jQuery(this).css('box-shadow', 'none');
+                    jQuery(this).popover('destroy');
+                    jQuery('#invalid').val('0');
+                }
+            }
+        });
+
+
+        jQuery('#fos_user_registration_form_plainPassword_second').click(function () {
+            jQuery(this).popover('destroy');
+        });
+        jQuery('#fos_user_registration_form_plainPassword_first, #fos_user_registration_form_name, #fos_user_registration_form_lastname, #fos_user_registration_form_email').click(function () {
+            jQuery('#fos_user_registration_form_plainPassword_second').popover('destroy');
+        });
+
+        jQuery('#btn-submit').click(function (e) {
+            if (jQuery('#invalid').val() === '1') {
+                jQuery('#fos_user_registration_form_plainPassword_second').focus();
+                e.preventDefault();
+            }
+
+        });
+
+
+        function createPopover(elem, text) {
+            elem.attr('data-toggle', 'popover');
+            elem.attr('data-placement', 'right');
+            elem.attr('data-content', text);
+            elem.attr('data-container', 'body');
+            elem.popover();
+            elem.trigger('click');
+
+        }
+
+    });
+
+</script>

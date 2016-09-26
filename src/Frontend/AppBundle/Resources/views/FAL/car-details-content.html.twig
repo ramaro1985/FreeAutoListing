@@ -1,0 +1,1013 @@
+<style>
+
+    hr {
+        width: 100%;
+        margin-bottom: 0px;
+        margin-top: 8px;
+        border-width: thin;
+        border-color: #000000;
+    }
+
+    .hr_text {
+        position: relative;
+        left: 47%;
+        padding-left: 2px;
+        padding-right: 2px;
+        background-color: white;
+        bottom: 11px;
+    }
+
+    .details dl {
+        margin-bottom: 0px;
+        margin-top: 5px;
+    }
+
+    .details span {
+        margin-bottom: 6px;
+    }
+
+    .details dl > dt, dd {
+        font-weight: normal;
+        text-align: left;
+    }
+
+    .details dl dt {
+        width: 108px;
+        color: #555555;
+    }
+
+    .details dl dd {
+        margin-left: 100px;
+    }
+
+    .nav-tabs li:hover {
+        background-color: #ffffff;
+    }
+
+    .nav-tabs li a:hover {
+        background-color: #ffffff;
+    }
+
+    #myTabContent {
+        background-color: #ffffff;
+        border: 1px solid #CCCCCC;
+        border-top-color: transparent;
+    }
+
+    ul.nav-tabs {
+        margin-bottom: 0px;
+    }
+
+    ul.nav-tabs li a {
+        background-color: #ffffff;
+        border: 1px solid #CCCCCC;
+        border-radius: 0px;
+        padding: 4px 15px
+    }
+
+    ul.nav-tabs li.active a {
+        border: 1px solid #CCCCCC;
+        border-bottom-color: transparent;
+    }
+
+    .list_styled {
+        -webkit-padding-start: 32px;
+        list-style-type: disc;
+    }
+
+    .list_styled li {
+        display: list-item;
+    }
+
+    .media-buttons {
+        margin-top: 0px;
+        text-decoration: none;
+        color: #fff;
+        display: inline-block;
+        border: none;
+        height: 22px;
+        font-weight: bold;
+        font-size: 11px;
+        color: white;
+        text-decoration: none;
+        font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+        line-height: 22px;
+        margin-top: 11px;
+        cursor: pointer;
+        margin-left: 4px;
+    }
+
+    .facebook_button {
+        background: #627aac url({{ asset('bundles/common/images/fb.png') }}) left no-repeat;
+        padding: 0px;
+        width: 49px;
+    }
+
+    .twitter_button {
+        background: #d0d0d0 url({{ asset('bundles/common/images/tw.png') }}) left no-repeat;
+        padding: 0px;
+        width: 58px;
+        margin-left: 0px;
+    }
+
+    .googleplus_button {
+        background: #ececec url({{ asset('bundles/common/images/g+.png') }}) left no-repeat;
+        padding: 0px;
+        width: 35px;
+    }
+
+</style>
+
+<div class="container">
+<div class="col-md-12 text-left">
+    <a href="{{ path('search_car_results') }}"><< Back to Results</a>
+</div>
+
+<div class="col-xs-12 col-md-12 col-sm-12 no_padding">
+<div class="col-md-9">
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12 no_padding">
+
+            <div class="col-md-6 text-right pull-right no_padding">
+                <button type="button" class="btn black_buttons btn-xs">Compare</button>
+                <button type="button" class="btn black_buttons btn-xs">Save Car</button>
+                <a class="media-buttons facebook_button icon icon_twitter tip-top tooltipstered"
+                   target="_blank"
+                   rel="nofollow"
+                   onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                   href="http://www.facebook.com/plugins/like.php?href={{ path('car_details', {'serie': vehicle.serie}) }}">
+                    </i>
+                </a>
+                <a class="media-buttons twitter_button icon icon_twitter tip-top tooltipstered" target="_blank"
+                   rel="nofollow"
+                   onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                   href="https://twitter.com/share?url=https://www.freeautolisting.com{{ path('car_details', {'serie': vehicle.serie}) }}">
+                    </i>
+                </a>
+                <a class="media-buttons googleplus_button icon icon_googleplus tip-top tooltipstered  pull-right pull-right"
+                   target="_blank" rel="nofollow"
+                   onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px'); return false;"
+                   href="//plus.google.com/share?url=https://www.freeautolisting.com{{ path('car_details', {'serie': vehicle.serie}) }}">
+                    </i>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12 col-xs-12 col-sm-12 container_box no_padding">
+<div class="col-md-8 col-xs-12 col-sm-10" style="padding-bottom: 15px;">
+    <div class="col-md-12 no_padding">
+        <h4>{{ vehicle.vehiclesinformation.condition.name }}
+            {{ vehicle.vehiclesinformation.year.year }}
+            {{ vehicle.vehiclesinformation.make.makeDisplay }}
+            {{ vehicle.vehiclesinformation.model.modelDisplay }}</h4>
+    </div>
+    <div class="col-md-12 no_padding">
+        <span>Mileage: {{ vehicle.vehiclesinformation.mileage }}</span>
+    </div>
+
+    <div class="col-md-12 no_padding" style="margin-top: 18px">
+        {% if vehicle.profile %}
+            {% if(vehicle.gallery is not null ) %}
+                {% set pf = vehicle.gallery.profileimages[0] %}
+                <div class="tumb-large"
+                     style="height: 423px;background-image: url({{ asset(pf.getWebPathMediumVehicle(vehicle.profile,vehicle.serie)) }})">
+
+                </div>
+            {% else %}
+                {% set pf = 0 %}
+                <div class="tumb-large"
+                     style="height: 423px;background-image: url({{ asset('bundles/common/images/image-bg.jpg') }})">
+
+                </div>
+            {% endif %}
+        {% endif %}
+        {% if vehicle.user %}
+            {% if(vehicle.gallery is not null ) %}
+                {% set pf = vehicle.gallery.vehicleimages[0] %}
+                <div class="tumb-large"
+                     style="height: 423px;background-image: url({{ asset(pf.getWebPathMediumVehicle(vehicle.user.id,vehicle.serie)) }})">
+
+                </div>
+            {% else %}
+                {% set pf = 0 %}
+                <div class="tumb-large"
+                     style="height: 423px;background-image: url({{ asset('bundles/common/images/image-bg.jpg') }})">
+
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="col-md-12 no_padding imagegallery" style="margin-top: 15px">
+
+        {% if vehicle.profile %}
+            {% if(vehicle.gallery is not null) %}
+                {% for pf in vehicle.gallery.profileimages %}
+
+                    <div class="image-form">
+                        {% if pf.getWebPath is not null %}
+                            <div class="tumb old active"
+                                 style="padding-left: 1px;padding-right: 1px;padding-top: 2px;
+                                         background-image:url('{{ asset(pf.getWebPathThumbnailVehicle(vehicle.profile,vehicle.serie)) }}');"></div>
+                        {% else %}
+                            <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                 style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+
+                {% if  vehicle.gallery.profileimages|length < 9 %}
+                    {% for i in vehicle.gallery.profileimages|length..9 %}
+
+                        <div class="image-form">
+                            <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                 style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                        </div>
+
+                    {% endfor %}
+
+
+                {% endif %}
+            {% else %}
+
+                {% for i in 0..9 %}
+
+                    <div class="image-form">
+                        <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                             style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+
+        {% endif %}
+
+        {% if vehicle.user %}
+
+            {% if(vehicle.gallery is not null) %}
+                {% for pf in vehicle.gallery.vehicleimages %}
+
+                    <div class="image-form">
+                        {% if pf.getWebPath is not null %}
+                            <div class="tumb old active"
+                                 style="padding-left: 1px;padding-right: 1px;padding-top: 2px;
+                                         background-image:url('{{ asset(pf.getWebPathThumbnailVehicle(vehicle.user.id,vehicle.serie)) }}');"></div>
+                        {% else %}
+                            <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                 style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+
+                {% if  vehicle.gallery.vehicleimages|length < 9 %}
+                    {% for i in vehicle.gallery.vehicleimages|length..9 %}
+
+                        <div class="image-form">
+                            <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                 style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+
+                {% for i in 0..9 %}
+
+                    <div class="image-form">
+                        <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                             style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+<div class="col-md-4 no_padding" style="padding-left: 0px">
+
+    <div class="container-fluid">
+        <div class="col-md-12 no_padding pull-left"
+             style="border-bottom: 1px solid black"><span
+                    style="padding-top: 15px;padding-bottom: 15px;">
+                                        Price:<span class="bold_text_black"
+                                                    style="font-size: 25px;">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                                    </span></div>
+
+        <div class="col-md-12 no_padding pull-left">
+            <div class="thumbnail col-md-5 no_padding">
+                {% if(vehicle.profile) %}
+                    <a href="{{ path('dealer-info', {'profile': vehicle.profile.serie}) }}">
+                        <div class="logo img-responsive"
+                             style="margin-top: 2px;margin-bottom: 2px;background-image:url('{{ asset( vehicle.profile.logo) }}');height: 85px;width:100%">
+                        </div>
+                    </a>
+                {% elseif vehicle.user %}
+                    <div class="logo img-responsive"
+                         style="margin-top: 2px;margin-bottom: 2px;background-image:url('{{ asset( 'bundles/common/images/for-sale.jpg' ) }}');height: 85px;width:100%">
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-7" style="padding-top: 5px">
+                {% if(vehicle.profile) %}
+                    <div class="col-md-12 no_padding caption"
+                         style="padding-left: 0px;padding-right: 0px;">
+                        <a style="text-decoration: none"
+                           href="{{ path('dealer-info', {'profile': vehicle.profile.serie}) }}"><h5
+                                    class="textlogo">{{ vehicle.profile.description.name }}</h5></a>
+                    </div>
+                {% elseif vehicle.user %}
+                    <div class="col-md-12 no_padding caption"
+                         style="padding-left: 0px;padding-right: 0px;">
+                        <h5 style="font-weight: bold;margin-top: 0px">Private Seller</h5>
+                        <span style="width: 100%">{{ vehicle.user.name }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-12 no_padding clearfix" style="padding-top: 8PX">
+            {% if vehicle.profile %}
+                <span style="width: 100%">{{ vehicle.profile.description.phone }}</span>
+                <br/>
+                <span style="width: 100%">{{ vehicle.profile.description.address }} {{ vehicle.vehiclesinformation.zipcode }}</span>
+            {% endif %}
+            {% if vehicle.user %}
+                <span style="width: 100%">{{ vehicle.user.phone }}</span>
+            {% endif %}
+        </div>
+
+        <div class="col-md-12 no_padding" style="margin-top: 15px">
+            <div class="panel panel-default" style="border: none;font-size: 12px">
+                <form id="form-description"
+                      action="{{ path('car_details',{'serie': vehicle.serie}) }}" {{ form_enctype(form) }}
+                      method="POST" class="form-horizontal">
+                    <fieldset>
+                        <div class="panel-heading" style="padding-left: 0px;">
+                            <h2 class="panel-title"><strong>Email this seller</strong></h2>
+                        </div>
+                        <div class="panel-body"
+                             style="padding-bottom: 0px;padding-top: 0px;">
+                            <div class="form-group">
+                                {{ form_widget(form.remitent_name) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.remitent_mail) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.remitent_phone) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.body_mail) }}
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox"
+                                     style="padding-top: 0px;font-size: 12px">
+                                    <label>
+                                        <input type="checkbox"> I would like to receives
+                                        updates, and promotions.
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row hide" id="loading" style="margin-left: 2px">
+                                    <img id="loading"
+                                         src="{{ asset('bundles/common/images/loading.gif') }}"
+                                         style="font-size:12px;  border: 0 none;" class="">
+                                    &nbsp; Sending
+                                    Message...
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                 <div class="alert hide" id="succes_mess"
+                                      style="background-color: #0cffdd">
+                                     <button type="button" class="close"
+                                             data-dismiss="alert">&times;</button>
+
+                                                             <strong>Succes!</strong> Your message has been submited
+                                                             succesfully....
+                                                         </div>
+                                                     </div>-->
+                            <a href="javascript:void(0)" id="submit_mail"
+                               class="btn btn-default text-uppercase btn-toolbar active col-md-12"
+                               style="margin-left: 0px">
+                                SEND MESSAGE </a>
+
+
+                            <div class="col-md-12 no_padding">
+
+                                <hr style="width: 100%;margin-bottom: 0px;"/>
+                                <span class="hr_text">or</span>
+
+                            </div>
+
+                            <a href="javascript:void(0)" id="create_offer"
+                               data-toggle="modal"
+                               data-target="#myModalCar"
+                               class="btn btn-default text-uppercase btn-danger col-md-12">
+                                MAKE AN OFFER
+                            </a>
+                        </div>
+                    </fieldset>
+                    {{ form_rest(form) }}
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+<div class="modal fade" id="myModalCar" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Make an Offer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form id="offerVehicle"
+                          action="{{ path('car_details',{'serie': vehicle.serie}) }}"
+                          method="POST"
+                          class="form-horizontal">
+
+                        <fieldset>
+                            <div class="col-md-12" style="padding: 0px 33px;">
+
+                                <div class="">
+                                    <br>
+                                    <br>
+
+                                    <div class="form-group no_padding">
+                                        <ul class="no_padding list-unstyled">
+                                            <li>
+                                                <span style="font-size: 16px;font-weight: bold; font-style: inherit;">Listed Price:&nbsp;${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                                            </li>
+                                            <li>
+                                                                    <span style="font-size: 14px;">
+                                                                    {{ vehicle.vehiclesinformation.condition.name|upper }}
+                                                                        &nbsp;{{ vehicle.vehiclesinformation.year.year|upper }}
+                                                                        &nbsp;{{ vehicle.vehiclesinformation.make.makeDisplay|upper }}
+                                                                        &nbsp; {{ vehicle.vehiclesinformation.model.modelDisplay|upper }}
+                                                                </span>
+                                            </li>
+                                            <li>
+                                                <span style="font-size: 14px;">Milage:&nbsp;{{ vehicle.vehiclesinformation.mileage }}</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_offer.remitent_name) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_offer.remitent_mail) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form_offer.remitent_phone) }}
+                                    </div>
+                                    <div class="form-group bold_text_black">
+                                        <div class="col-md-12 no_padding">
+                                            <span style="position: absolute;top: 25px;left: -13px;">$</span>
+                                            <span style="font-style: inherit;font-weight: bold">Your Offer</span>
+                                            {{ form_widget(form_offer.text) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row hide" id="loadingOff"
+                                             style="margin-left: 2px">
+                                            <img id="loading"
+                                                 src="{{ asset('bundles/common/images/loading.gif') }}"
+                                                 style="font-size:12px;  border: 0 none;" class="">
+                                            &nbsp; Sending
+                                            Message...
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="alert hide" id="succes_offer"
+                                             style="background-color: #0cffdd">
+                                            <button type="button" class="close"
+                                                    data-dismiss="alert">&times;</button>
+
+                                            <strong>Succes!</strong> Your Offer has been submited
+                                            succesfully....
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <br>
+                                        <br>
+
+                                        <div class="col-md-9 col-sm-9 col-xs-9"
+                                             style="padding-left: 0px">
+                                            <a href="javascript:void(0)" id="submit_offer"
+                                               class="btn btn-default btn-block text-uppercase btn-danger col-md-7">
+                                                MAKE A OFFER
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2"
+                                             style="padding-left: 0px">
+                                            <button type="button"
+                                                    class="btn btn-toolbar close-btn text-uppercase"
+                                                    data-dismiss="modal"
+                                                    style="background-color: white;color: blue;">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {{ form_rest(form_offer) }}
+                            <br>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-xs-12 col-sm-12" style="margin-top: 20px;margin-bottom: 20px">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <!-- FreeAutoListing Car Profile -->
+
+    <ins class="adsbygoogle"
+
+         style="display:block"
+
+         data-ad-client="ca-pub-7661672510407172"
+
+         data-ad-slot="3129379241"
+
+         data-ad-format="auto"></ins>
+
+    <script>
+
+        (adsbygoogle = window.adsbygoogle || []).push({});
+
+    </script>
+</div>
+
+</div>
+</div>
+
+<div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow track-url auto-scroll"
+     style="margin-bottom: 50px;">
+    <ul class="nav nav-tabs">
+        <li id="overview_tab" class="active">
+            <a aria-expanded="false" href="#overview" data-toggle="tab">
+                <span class="glyphicon overview_icon"></span>
+                OVERVIEW</a>
+        </li>
+        {#<li id="modelsdetails_tab" class="text-uppercase">
+            <a aria-expanded="true" href="#modelsdetails" data-toggle="tab">
+                <span class="glyphicon details_icon"></span>
+                Models Details</a></li>
+        <li id="reviews_tab" class="text-uppercase">
+            <a aria-expanded="true" href="#reviews" data-toggle="tab">
+                <span class="glyphicon reviews_icon"></span>
+                Reviews</a>
+        </li>#}
+        <li id="warranty_tab" class="text-uppercase">
+            <a aria-expanded="true" href="#warranty" data-toggle="tab">
+                <span class="glyphicon waranty_icon"></span>
+                Warranty</a>
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane active in" id="overview">
+            <div class="container-fluid">
+                <h2 style="margin-bottom: 0px;font-weight: 500">{{ vehicle.vehiclesinformation.year.year }}
+                    {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                    {{ vehicle.vehiclesinformation.model.modelDisplay }}</h2>
+
+                <p>This is general modern information, and some of the...... </p>
+
+                <h2 style="margin-bottom: 0px;font-weight: 500">Seller Comments</h2><br/>
+
+                <p style="margin-top: -20px;">{{ vehicle.getSellerComments() }}</p>
+
+                <h2 style="margin-bottom: 0px;font-weight: 500">Vehicle Details</h2><br/>
+
+                <div class="row details" style="margin-top: -20px;">
+                    <div class="col-md-4">
+                        <dl class="dl-horizontal">
+                            <dt>Trim</dt>
+                            <dd>{{ vehicle.vehiclesdetails.trim }}</dd>
+                            <dt>Mileage</dt>
+                            <dd>{{ vehicle.vehiclesinformation.mileage|number_format() }} miles</dd>
+                            <dt>Doors</dt>
+                            <dd>{{ vehicle.vehiclesdetails.doors }}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4">
+                        <dl class="dl-horizontal">
+                            <dt>Engine Type</dt>
+                            <dd>{{ vehicle.vehiclesdetails.enginetype.name }}</dd>
+                            <dt>Transmission</dt>
+                            <dd>{{ vehicle.vehiclesdetails.transmission.name }}</dd>
+                            <dt>Fuel Type</dt>
+                            <dd>{{ vehicle.vehiclesdetails.fueltype.name }}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4">
+                        <dl class="dl-horizontal">
+                            <dt>Drive Type</dt>
+                            <dd>{{ vehicle.vehiclesdetails.drive.name }}</dd>
+                            <dt>Exterior Color</dt>
+                            <dd>{{ vehicle.vehiclesdetails.exteriorcolor.colorname }}</dd>
+                            <dt>Interior Color</dt>
+                            <dd>{{ vehicle.vehiclesdetails.interiorcolor.colorname }}</dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <h2 style="margin-bottom: 0px;margin-top: 3px;font-weight: 500">Options</h2><br/>
+
+                <div class="row" style="margin-top: -20px;margin-bottom: 30px;">
+                    <div class="container-fluid">
+                        <ul class="list_styled list-inline">
+                            {% for option in vehicle.vehiclesoptions %}
+                                <li class="col-sm-3 list-group-item" style="border: 0px">
+                                    {{ option.name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# <div class="tab-pane" id="modelsdetails">
+             <div class="container-fluid" style="height: 539px;background-color: #ffffff">
+                 <h2>Model Details Panel</h2>
+             </div>
+         </div>
+         <div class="tab-pane" id="reviews">
+             <div class="container-fluid" style="height: 539px;background-color: #ffffff">
+                 <h2>Reviews Panel</h2>
+             </div>
+         </div>#}
+        <div class="tab-pane" id="warranty">
+            <div class="container-fluid" style="height: 539px;background-color: #ffffff">
+                <h2 style="margin-bottom: 0px;font-weight: 500">Warranty</h2><br/>
+
+                <p style="margin-top: -20px;padding: 3px;">{{ vehicle.warranty }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="sidebar-right" class="col-md-3">
+    <div class="row ">
+        <div class="col-md-12 no_padding" style="margin-bottom: 20px;border: 1px solid #C8C6C6">
+
+            <div class="col-xs-12 col-sm-6 col-md-12 no_padding">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+                <!-- FreeAutoListing Car Profile -->
+
+                <ins class="adsbygoogle"
+
+                     style="display:block"
+
+                     data-ad-client="ca-pub-7661672510407172"
+
+                     data-ad-slot="3129379241"
+
+                     data-ad-format="auto"></ins>
+
+                <script>
+
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+
+                </script>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-12 no_padding" style="margin-bottom: 2px;margin-top: 10px;">
+                <div class="col-md-5 text-left">
+                    <a href="#" class="btn btn-danger text-uppercase" style="font-size: 10px">BUILD A PRICE
+                        <i
+                                class="glyphicon glyphicon-chevron-right small"></i>
+                    </a>
+                </div>
+                <div class="col-md-7 text-right">
+                    <a href="#" class="btn btn-danger text-uppercase" style="font-size: 10px">VIEW
+                        INCENTIVES <i
+                                class="glyphicon glyphicon-chevron-right small"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-12 col-sm-6 col-md-12 no_padding" style="background-color: #F1F1F1">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="border-bottom: 1px solid #AAA5A5">
+                    <h2 class="panel-title text-uppercase"><strong>SIMILAR MODELS</strong></h2>
+                </div>
+                <div class="panel-body"
+                     style="background-color: rgb(241, 241, 241);padding: 20px 10px 10px 10px">
+
+                    {% for car in similars|slice( 0, 3 ) %}
+
+                        {% if(car.profile) %}
+
+                            <a href=" {{ path('car_details', {'serie': car.serie}) }} ">
+                                <div class="container-fluid panel_box"
+                                     style="background-color: white">
+                                    <div class="thumbnail">
+                                        <div class="col-md-5 no_padding">
+                                            {% if(car.gallery is not null) %}
+                                                {% set pf = car.gallery.profileimages[0] %}
+                                                <div class="similar_car_tumb old"
+                                                     style="padding-left: 1px;padding-right: 1px;padding-top: 2px;
+                                                             background-image:url('{{ asset(pf.getWebPathThumbnailVehicle(car.profile,car.serie)) }}');"></div>
+                                            {% else %}
+                                                <div id="gallery_propertyImages"
+                                                     class="similar_car_tumb no_image"
+                                                     style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-7 caption">
+
+                                            <a>{{ car.vehiclesinformation.condition.name }}
+                                                {{ car.vehiclesinformation.year.year }}
+                                                {{ car.vehiclesinformation.make.makeDisplay }}</a><br/>
+                                            <a>{{ car.vehiclesinformation.model.modelDisplay }}</a>
+
+                                            <p>
+                                                <span class="price">${{ car.vehiclesinformation.price }}</span><br/>
+                                                <span>{{ car.profile.description.name }}</span><br/>
+                                                <span>{{ car.vehiclesdetails.enginetype }}</span>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                        {% endif %}
+
+                        {% if(car.user) %}
+                            <a href=" {{ path('car_details', {'serie': car.serie}) }} ">
+                                <div class="container-fluid panel_box"
+                                     style="background-color: white">
+                                    <div class="thumbnail">
+                                        <div class="col-md-5 no_padding">
+                                            {% if(car.gallery is not null) %}
+                                                {% set pf = car.gallery.vehicleimages[0] %}
+
+                                                <div class="similar_car_tumb old"
+                                                     style="padding-left: 1px;padding-right: 1px;padding-top: 2px;
+                                                             background-image:url('{{ asset(pf.getWebPathThumbnailVehicle(car.user.id,car.serie)) }}');"></div>
+                                            {% else %}
+                                                <div id="gallery_propertyImages"
+                                                     class="similar_car_tumb no_image"
+                                                     style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-7 caption">
+
+                                            <a>{{ car.vehiclesinformation.condition.name }}
+                                                {{ car.vehiclesinformation.year.year }}
+                                                {{ car.vehiclesinformation.make.makeDisplay }}</a><br/>
+                                            <a>{{ car.vehiclesinformation.model.modelDisplay }}</a>
+
+                                            <p>
+                                                <span class="price">${{ car.vehiclesinformation.price|number_format() }}</span><br/>
+                                                <span>{{ car.user.name }}</span><br/>
+                                                <span>{{ car.vehiclesdetails.enginetype }}</span>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+
+                    {% endfor %}
+
+                    <div class="col-md-12">
+                        <div class="container-fluid text-right">
+                            <a id="moreOptions" href="javascript:void(0)"> More Options <span
+                                        class="glyphicon glyphicon-triangle-right"></span> </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+                function createPopover(elem, text) {
+                    elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'right');
+                    // elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+                }
+
+                function disableForm(formulario) {
+                    if (formulario == 'mail') {
+                        jQuery('#form-description').find('input ,button, textarea').attr('disabled', 'disabled')
+                        jQuery("#form-description").css("opacity", 0.37);
+                        jQuery("#loading").removeClass("hide");
+                        jQuery("#succes_mess").addClass("hide");
+
+                    } else if (formulario == 'offer') {
+                        jQuery('#offerVehicle').find('input ,button').attr('disabled', 'disabled')
+                        jQuery("#offerVehicle").css("opacity", 0.37);
+                        jQuery("#loadingOff").removeClass("hide");
+                        jQuery("#succes_offer").addClass("hide");
+                    }
+
+
+                }
+
+                function resetForm(formulario) {
+                    if (formulario == 'mail') {
+                        jQuery('#form-description').find('input, textarea').val('');
+                    } else if (formulario == 'offer') {
+                        jQuery('#offerVehicle').find('input, textarea').val('');
+                    }
+
+
+                }
+
+                function enableForm(formulario) {
+                    if (formulario == 'mail') {
+                        jQuery('#form-description').find('input , button, textarea').removeAttr('disabled')
+                        jQuery("#form-description").css("opacity", 1);
+                    } else if (formulario == 'offer') {
+                        jQuery('#offerVehicle').find('input , button').removeAttr('disabled')
+                        jQuery("#offerVehicle").css("opacity", 1);
+                    }
+
+                }
+
+                function checkSelected(o) {
+                    if (o.val() == 0) {
+                        createPopover(o, 'Please fill out this field');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+
+                function checkLength(o, min, max) {
+                    if (o.val().length < min) {
+                        createPopover(o, 'Please fill out this field');
+
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+
+
+                function checkRegexp(o, regexp) {
+                    if (!( regexp.test(o.val()) )) {
+                        createPopover(o, 'Invalid field');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+
+                function validateForm(formulario) {
+                    var bValid = true;
+
+                    if (formulario == 'mail') {
+                        bValid = bValid && checkSelected(jQuery('#email_remitent_name'));
+                        bValid = bValid && checkLength(jQuery('#email_remitent_name'), 4, 100);
+
+
+                        /*bValid = bValid && checkSelected(jQuery('#email_remitent_last_name'));
+                         bValid = bValid && checkLength(jQuery('#email_remitent_last_name')), 4, 100;*/
+
+                        bValid = bValid && checkSelected(jQuery('#email_remitent_mail'));
+                        bValid = bValid && checkSelected(jQuery('#email_body_mail'));
+                        bValid = bValid && checkLength(jQuery('#email_body_mail'), 2, 240);
+                        bValid = bValid && checkLength(jQuery('#email_remitent_mail'), 4, 100);
+                        bValid = bValid && checkRegexp(jQuery('#email_remitent_mail'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+
+                    } else if (formulario == 'offer') {
+                        bValid = bValid && checkSelected(jQuery('#offer_remitent_name'));
+                        bValid = bValid && checkLength(jQuery('#offer_remitent_name'), 4, 100);
+
+                        bValid = bValid && checkSelected(jQuery('#offer_remitent_mail'));
+                        bValid = bValid && checkLength(jQuery('#offer_remitent_mail'), 4, 100);
+
+                        bValid = bValid && checkSelected(jQuery('#offer_text'));
+                        bValid = bValid && checkLength(jQuery('#offer_text'), 1, 100);
+
+                        bValid = bValid && checkRegexp(jQuery('#offer_remitent_mail'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+
+                    }
+
+                    if (bValid) {
+                        disableForm(formulario);
+                        submitForm(formulario);
+                    }
+
+                }
+
+                function submitForm(formulario) {
+                    //var remitent_last_name;
+                    var remitent_mail;
+                    var remitent_phone;
+                    var remitent_name;
+                    var body_mail;
+                    var offer_text;
+
+                    // alert(offer_tetx = jQuery('#offer_tetx').val());
+
+                    if (formulario == 'mail') {
+                        remitent_name = jQuery('#email_remitent_name').val();
+                        //remitent_last_name = jQuery('#email_remitent_last_name').val();
+                        remitent_mail = jQuery('#email_remitent_mail').val();
+                        remitent_phone = jQuery('#email_remitent_phone').val();
+                        body_mail = jQuery('#email_body_mail').val();
+                        offer_text = "";
+
+                    } else if (formulario == 'offer') {
+                        remitent_name = jQuery('#offer_remitent_name').val();
+                        //remitent_last_name = '.';
+                        remitent_mail = jQuery('#offer_remitent_mail').val();
+                        remitent_phone = jQuery('#offer_remitent_phone').val();
+                        body_mail = "";
+                        offer_text = jQuery('#offer_text').val();
+                    }
+                    jQuery.ajax({
+                        url: jQuery('#form-description').attr('action'),
+                        type: "POST",
+                        data: {
+                            formulario: formulario,
+                            remitent_name: remitent_name,
+                            //remitent_last_name: remitent_last_name,
+                            remitent_mail: remitent_mail,
+                            remitent_phone: remitent_phone,
+                            body_mail: body_mail,
+                            offer_text: offer_text
+                        },
+                        async: false,
+                        success: function (response) {
+                            resetForm(formulario);
+                            enableForm(formulario);
+                            if (formulario == 'mail') {
+                                jQuery("#loading").addClass("hide");
+                                jQuery("#succes_mess").removeClass("hide");
+                            } else {
+                                jQuery("#loadingOff").addClass("hide");
+                                jQuery("#succes_offer").removeClass("hide");
+                            }
+
+                            jQuery("#myModalCar").modal('destroy');
+                        }
+                    });
+
+                }
+
+                jQuery('#submit_mail').click(function () {
+                    validateForm('mail');
+                });
+                jQuery('#submit_offer').click(function () {
+                    validateForm('offer');
+                });
+
+                jQuery(".tumb").click(function () {
+                    if (!jQuery(this).hasClass("no_image")) {
+                        var image = jQuery(this).css("background-image");
+                        jQuery(".tumb-large").css("background-image", image);
+                    }
+                })
+            }
+    )
+</script>

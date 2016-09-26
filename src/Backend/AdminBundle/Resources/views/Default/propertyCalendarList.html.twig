@@ -1,0 +1,16 @@
+{% extends "AdminBundle:Layout:user-admin.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} 
+<script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+{{ include('AdminBundle:Default:content-header.html.twig') }}  
+{{ include('AdminBundle:Default:propertyCalendarList-content.html.twig') }}  
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 

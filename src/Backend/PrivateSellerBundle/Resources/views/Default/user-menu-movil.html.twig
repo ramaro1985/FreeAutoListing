@@ -1,0 +1,152 @@
+<nav class="nav nav-dash">
+    <header style="margin-bottom: 0px"><i class="glyphicon glyphicon-cog" style="margin-right: 8px"></i><span
+                class="bold_text">Tool Box</span></header>
+</nav>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                Inquieries Manager
+            </li>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="headingOne">
+
+            <div class="container list-group">
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a href="{{ path('user_imbox',{'type': 'emails'} ) }}" id="" class="">Inbox
+                        ( {{ app.session.get('email_news') }} )</a>
+                </div>
+                <div class="list-item">
+                    <a href="{{ path('user_imbox',{'type': 'offers'}) }}" id="" class="">Offers
+                        ( {{ app.session.get('email_offers') }} )</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseTwo" aria-expanded="false" aria-controls="collapseOne"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                Vehicles Manager
+            </li>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="headingOne">
+            <div class="container list-group" id="condition_filter_box">
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a href="{{ path('private_create_vehicle_basic_info',{'type':'open' , 'vehicle_id': 'new' }) }}"
+                       id="" class="">Add New Vehicle</a>
+                </div>
+                <div class="list-item">
+                    <a href="{{ path('viewallvehicles') }}" id="" class="">View All Vehicles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="tools">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseThree" aria-expanded="false" aria-controls="collapseOne"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                Tools & Resources
+            </li>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="tools">
+            <div class="container list-group" id="tools_box">
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a href="{{ path('my_account') }}">My Account</a>
+                </div>
+                <div class="list-item" style="border-bottom: 1px solid rgba(218, 218, 218, 0.91)">
+                    <a class="" href="#" >
+                        <span>What's new?</span><span class="badge"
+                                                      style="margin-left: 10px">{#{app.session.get('news')}#}</span>
+                        <span class="badge badge-important"></span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a class="" href="{{ path('private_saved_cars') }}">
+
+                        <span>Saved Cars</span><span class="badge"
+                                                     style="margin-left: 10px">{#{app.session.get('news')}#}</span>
+                        <span class="badge badge-important"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapsevehicles" aria-expanded="true" aria-controls="collapsevehicles"
+                style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Vehicles
+            </li>
+        </div>
+        <div id="collapsevehicles" class="panel-collapse collapse in" role="tabpanel"
+             aria-labelledby="headingOne">
+
+            {% for vehicle in vehicles %}
+                {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                    {% set pf = vehicle.gallery.vehicleimages[0] %}
+                    {% set vehicle_image = pf.getwebpaththumbnailVehicle( user.id,vehicle.serie) %}
+                {% else %}
+                    {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                {% endif %}
+                <div class="row movil_car_display">
+                    <div class="col-xs-4 col-sm-3" style="padding-right: 7px;">
+                        <div class="thumbnail" style="margin-bottom: 0px;">
+                            <a href="{{ path('private_car_details_dashboard', {'serie': vehicle.serie}) }}"
+                               class="thumbnail" style="margin-bottom: 0px ">
+                                <img src="{{ asset(vehicle_image) }}"
+                                     alt=""
+                                     class="img-responsive"/></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-8 col-sm-9 no_padding">
+                        <div class=" caption " style="padding-right: 0px;padding-left: 0px">
+                            <a href="#" class="pull-left"
+                               style="text-decoration: no-underline;color: #838081">{{ vehicle.vehiclesinformation.condition.name }} {{ vehicle.vehiclesinformation.getYear() }} {{ vehicle.vehiclesinformation.getMake() }} {{ vehicle.vehiclesinformation.getModel().modelDisplay }}</a>
+                            <br>
+                                <span class="pull-left"
+                                      style="font-weight: bold; color: black">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                            <br/>
+                            {% if vehicle.vehiclesinformation.mileage != 0 %}
+                                <span class="pull-left">
+                                {{ vehicle.vehiclesinformation.mileage|number_format() }} <b>Miles</b>
+                                </span>
+                            <br/>
+                            {% endif %}
+                                <span class="pull-left">
+                                    {{ vehicle.vehiclesdetails.exteriorcolor.colorname }}
+                                </span>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+</div>

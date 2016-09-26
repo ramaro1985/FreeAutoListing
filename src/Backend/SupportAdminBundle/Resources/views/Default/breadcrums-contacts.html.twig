@@ -1,0 +1,186 @@
+<div class="row"> 
+    <form id="admin-form" action="{{ path('support_admin_contacts_search') }}"  method="POST" >
+        <div class="col-md-6 col-sm-6 col-xs-12 text-left" style="padding: 0">
+            <ul class="breadcrumb" style="margin: 0; padding-bottom: 0; background-color: #FFFFFF">
+                {% for breadcrumb in breadcrumbs %}
+
+                    <li class="{{ breadcrumb['class']}}">
+                        {% if( breadcrumb['path'] != '') %}
+                            <a style="font-size: 14px" href="{{ path(breadcrumb['path']) }}"><b>{{ breadcrumb['name']}}</b></a>
+                                {% else  %}  
+                                    {{ breadcrumb['name']}}
+                                {% endif %} 
+                                {% if( breadcrumb['class'] == '') %} 
+                            <span class="glyphicon glyphicon-chevron-right" style="margin-left: 5px; top: 1px" aria-hidden="true"></span>
+                        {% endif %} 
+
+
+                    </li>
+
+
+
+                {% endfor %}
+
+
+
+
+            </ul>
+
+        </div>
+    
+
+          <div class="col-md-1 col-sm-1 col-xs-12 text-left">
+                <div class="btn-group btn-block">
+                    <a type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false" >
+                        <span id="filter-text-reply">
+                            {% if (app.session.get('sareply') == '' or app.session.get('sareply') == null) %}
+                                Replys
+                            {% elseif app.session.get('sareply') == '1'%}
+                                Replied
+                            {% else%}
+                                Not Replied
+                            {% endif%}
+                        </span>  <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu text-left" role="menu">
+                        <li><a href="#" class="filter-replyed">Replied</a></li>
+                        <li><a href="#" class="filter-notreplyed">Not Replied</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" class="filter-clear-reply">Clear</a></li>
+                    </ul>
+                </div>
+            </div>  
+                        
+                        <div class="col-md-1 col-sm-1 col-xs-12 text-left">
+                <div class="btn-group btn-block">
+                    <a type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false" >
+                        <span id="filter-text">
+                            {% if (app.session.get('sastatuscontacts') == '' or app.session.get('sastatuscontacts') == null) %}
+                                Status
+                            {% elseif app.session.get('sastatuscontacts') == '5'%}
+                                New
+                            {% elseif app.session.get('sastatuscontacts') == '1'%}
+                                In Progress
+                            {% elseif app.session.get('sastatuscontacts') == '2'%}
+                                Closed
+                            {% endif%}
+                        </span>  <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu text-left" role="menu">
+                        <li><a href="#" class="filter-active">New</a></li>
+                        <li><a href="#" class="filter-inactive">In Progress</a></li>
+                        <li><a href="#" class="filter-featured">Closed</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" class="filter-clear">Clear</a></li>
+                    </ul>
+                </div>
+            </div>  
+     
+        
+     
+
+            <div class="col-md-2 col-sm-2 col-xs-12 text-left">
+                <div class="form-group">
+
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="sasearchtextcontacts" name="sasearchtextcontacts" value="{{app.session.get('sasearchtextcontacts')}}"  placeholder="Find by email, case # or subject">
+
+                    </div>
+                </div> 
+            </div>
+   
+      
+        <div class="col-md-2 col-sm-2 col-xs-12 text-left">
+            <div class="form-group">
+
+                <div class="col-sm-6 col-md-6 col-xs-6">
+                    <button id="btnsave" type="submit" class="btn btn-primary btn-block">Search</button>
+
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-xs-6">
+                    <a id="btnclear" type="button" class="btn btn-default btn-block">Clear Filters</a>
+
+                </div>
+            </div> 
+        </div>
+     
+        <input type="hidden" value="{{app.session.get('sastatuscontacts')}}" id="sastatuscontacts" name="sastatuscontacts">
+        <input type="hidden" value="{{app.session.get('sareply')}}" id="sareply" name="sareply">
+    </form>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('a.return-search').click(function () {
+            parent.history.back();
+            return false;
+        });
+
+        jQuery('.filter-active').click(function (e) {
+            jQuery('#sastatuscontacts').val('5');
+            jQuery('#filter-text').text(jQuery(this).text());
+            e.preventDefault();
+             jQuery('#admin-form').submit();
+        });
+
+        jQuery('.filter-inactive').click(function (e) {
+            jQuery('#sastatuscontacts').val('1');
+            jQuery('#filter-text').text(jQuery(this).text());
+            e.preventDefault();
+             jQuery('#admin-form').submit();
+        });
+        
+        jQuery('.filter-featured').click(function (e) {
+            jQuery('#sastatuscontacts').val('2');
+            jQuery('#filter-text').text(jQuery(this).text());
+            e.preventDefault();
+             jQuery('#admin-form').submit();
+        });
+        
+        jQuery('.filter-replyed').click(function (e) {
+            jQuery('#sareply').val('1');
+            jQuery('#filter-text-reply').text(jQuery(this).text());
+            e.preventDefault();
+             jQuery('#admin-form').submit();
+        });
+        
+           jQuery('.filter-notreplyed').click(function (e) {
+            jQuery('#sareply').val('0');
+            jQuery('#filter-text-reply').text(jQuery(this).text());
+            e.preventDefault();
+             jQuery('#admin-form').submit();
+        });
+        
+          jQuery('.filter-clear-reply').click(function (e) {
+            jQuery('#sareply').val('');
+            jQuery('#filter-text-reply').text('Replys');
+            e.preventDefault();
+             jQuery('#admin-form').submit(); 
+        });
+
+        jQuery('.filter-clear').click(function (e) {
+            jQuery('#sastatuscontacts').val('');
+            jQuery('#filter-text').text('Status');
+            e.preventDefault();
+             jQuery('#admin-form').submit(); 
+        });
+        
+        
+        jQuery('#btnsave').click(function(){
+         jQuery('#admin-form').attr('action', "{{path('support_admin_contacts_search')}}");   
+        });
+        
+        jQuery('#btnclear').click(function(){
+         jQuery('#admin-form').attr('action', "{{path('support_clear_all_filters_contacts')}}");   
+          jQuery('#admin-form').submit();
+        });
+        
+      
+        
+     
+          
+
+    });
+
+</script>

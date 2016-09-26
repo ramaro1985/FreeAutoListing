@@ -1,0 +1,898 @@
+    <div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+
+    <div class="row" style="margin-top: 15px">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-12">
+                <ul class="nav nav-pills nav-profile text-center" style="margin-top: 10px; margin-bottom: 20px">
+                    <!--div id="photos" class="anchor-profile-photo"></div>-->
+                    <li class="">
+                        <div class="btn-group">
+
+                            <a id="link-tab-index-1"
+                               href="{{ path('create_vehicle_basic_info',{'type':'open' , 'prop_pk':prop_pk , 'vehicle_id': vehicle_id }) }}"
+                               class="btn btn-default b2b ">
+                                Vehicle Information <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                          aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-3"
+                               href="{{ path('vehicle_options', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id}) }}"
+                               class="btn btn-default b3b ">
+                                Vehicle Options<span class="fal_icon icon-inventary "
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-3"
+                               href="{{ path('vehicle_gallery', {'type':'save' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id}) }}"
+                               class="btn btn-default b3b active">
+                                Photos<span class="fal_icon icon-photo"
+                                            aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-8"
+                               href="{{ path('vehicle_warranty', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id}) }}"
+                               class="btn btn-default b7b">
+                                Warranty <span class="glyphicon waranty_icon"
+                                                      aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-4"
+                               href="{{ path('vehicle_seller_comments', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id}) }}"
+                               class="btn btn-default b7b">
+                                Seller Comments <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                      aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="form-group">
+                <div class="col-md-11 col-xs-12 text-left">
+                    <p style="margin-bottom: 0">Upload your vehicle pictures and add a title or a brief description. The
+                        first image in the gallery will be your Featured Picture.If you don't have the photos handy,
+                        dont't worry.
+                        You can add or edit them after you complete your ad using the "Edit" button. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px;margin-bottom: 15px">
+        <div class="col-md-12 col-xs-12 text-left" style="padding-left: 30px">
+            <p style="margin-bottom: 0">
+                <a href="{{ path('vehicle_seller_comments', {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id}) }}"
+                   style="text-decoration: no-underline;color: #3763ff">Skip this step</a> and upload photos later.
+            </p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12 text-left" style="padding-left: 30px">
+
+                                <span class="btn btn-default b2b active pull-left" data-toggle="modal"
+                                      data-target="#myModalGallery"
+                                      style="margin-bottom: 10px; margin-top: 10px;">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>Add Photos...</span>
+                              </span>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12  text-center" style="padding-left: 30px">
+            <form id="form-vehicle-photos"
+                  action="{{ path('vehicle_gallery' , {'type':'save' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id }) }}" {{ form_enctype(form) }}
+                  method="POST" class="form-horizontal" style="margin-top: 20px">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+                <div class="col-sm-12 col-xs-12 text-left text-danger gallery-error no_padding">
+                    {% if form.vars is defined %}
+                        {% if not form.vars.valid %}
+                            {% for prop in form.profileImages %}
+                                {{ form_errors(prop.photo) }}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+
+                <div class="col-md-9 no_padding">
+                    <div class="col-md-12 col-xs-12 no_padding">
+
+                        <div class="form-group no_padding" style="margin-bottom: 10px">
+
+                            <div class="col-md-5 col-xs-5 text-left top-content" style="padding-left: 15px">
+                                <div class="tumb-large"></div>
+
+                            </div>
+                            <div class="col-md-4 col-xs-4 text-left top-content"
+                                 style="margin-top: 179px;min-height: 21px">
+                                <div class="title featured-picture" style="font-size: 16px;color: #2c9ec8">Featured
+                                    Picture
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 text-left top-content">
+                                <div class="title"><label>Description / Title</label></div>
+                            </div>
+                            <div class="col-md-4 col-xs-4 text-left title-input top-content">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-2 col-xs-2 text-left top-content" style="margin-top: 5px">
+
+                                <img id="loading" src="{{ asset('bundles/common/images/loading.gif') }}"
+                                     style="margin-left: 5px; border: 0 none;" class="hide">
+                            </div>
+
+                            <div class="col-md-12 col-xs-12 text-left" style="margin-top: 20px">
+
+                                <div class="title" style="font-size: 16px;color: #2c9ec8">Drag photos to change order
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                        {% if form.profileImages| length > 0 %}
+                            {% set total = 9 %}
+                            {% set aux = 0 %}
+                                <div class="row gallery"  id="gallery">
+                                    {% for i in range(0,total) %}
+
+                                        <div class="col-sm-2 col-xs-12 text-left image_column">
+                                            <div class="image-form">
+                                                {% if form.profileImages[i] is defined %}
+                                                    {% if form.profileImages[i].vars.data.getWebPath is not null %}
+                                                        <div class="tumb old"
+                                                             style="background-image:url('{{ asset(form.profileImages[i].vars.data.getWebPathThumbnailVehicle(prop,vehicle_id)) }}');"></div>
+                                                    {% else %}
+                                                        <div id="gallery_propertyImages_{{ i }}" class="tumb upload"
+                                                             style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                                    {% endif %}
+                                                    <span id="orden"
+                                                          class="hide">{{ form_widget(form.profileImages[i].orden) }}</span>
+
+                                                    <div class="col-md-2 col-xs-12 hide image_column">
+                                                        {{ form_widget(form.profileImages[i].photo) }}
+                                                    </div>
+
+                                                    <div class="col-md-2 col-xs-12 title-input-source hide image_column">
+                                                        {{ form_widget(form.profileImages[i].title) }}
+
+                                                    </div>
+                                                    <div class="col-md-2 col-xs-12 image_column" style="padding: 0">
+                                                        {% set picture  = form.profileImages[i].vars.value %}
+                                                        <input id="pictureId" type="hidden" value="{{ picture.id }}">
+
+                                                    </div>
+                                                {% else %}
+                                                    {{ include('AdminBundle:Default:image-form.html.twig',{ 'i': i}) }}
+                                                {% endif %}
+                                            </div>
+                                            <span class="orden"> {% set orden = i+1 %}{{ orden }}</span>
+                                            {% if form.profileImages[i].vars.data.getWebPath is defined %}
+                                                {% if form.profileImages[i].vars.data.getWebPath is not null %}
+                                                    <a href="#" class="deleteImage"><span
+                                                                class="glyphicon glyphicon-trash"
+                                                                aria-hidden="true"
+                                                                style="font-size: 12px; margin-left: 5px; top:1px"></span></a>
+                                                {% else %}
+                                                    <a href="#" class="hide deleteImage"><span
+                                                                class="glyphicon glyphicon-trash"
+                                                                aria-hidden="true"
+                                                                style="font-size: 12px; margin-left: 5px; top:1px"></span></a>
+
+                                                {% endif %}
+                                            {% else %}
+                                                <a href="#" class="hide deleteImagePreview"><span
+                                                            class="glyphicon glyphicon-trash"
+                                                            aria-hidden="true"
+                                                            style="font-size: 12px; margin-left: 5px; top:1px"></span></a>
+                                            {% endif %}
+                                        </div>
+
+                                    {% endfor %}
+                                </div>
+                        {% endif %}
+
+                    <div id="result" class=""></div>
+
+
+                </div>
+
+
+                <div id="form-buttons" class="col-md-10 text-center no_padding" style="margin-top: 20px">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left" style="padding-left:8px;">
+                            <!-- <button id="btnsave" type="submit" class="btn btn-primary">Save</button>-->
+                            <button id="btnsavecontinue" type="submit" class="btn btn-primary"
+                                    style="margin-left: 10px">
+                                Save & Continue
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div style="display: none">{{ form_rest(form) }}</div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalGallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Upload Images</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="form-group">
+                                <div class="col-md-11 col-xs-12 text-left">
+                                    <div style="margin-right: 20px" class="text-danger"><em>Maximum image size allowed
+                                            is 5
+                                            MB</em></div>
+                                    <div class="text-danger"><em>Minimum image dimensions requirements (400 x 285)</em>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 text-left" style="padding-left: 30px">
+
+                                <span id="selectfile" class="btn btn-default active fileinput-button pull-left"
+                                      style="margin-bottom: 10px; margin-top: 10px;">
+                                    <i class="glyphicon glyphicon-picture" style="margin-right: 7px"></i>
+                                <span>Select files...</span>
+                                <!-- The file input field used as target for the file upload widget -->
+
+                            </span>
+                            <input class="hide" id="fileupload" type="file" accept="image/*" name="files[]" multiple>
+
+                            <div class="pull-left text-muted uploading hide"
+                                 style="padding-top: 15px; padding-left: 15px">
+                                Uploading Images <img id="loading"
+                                                      src="{{ asset('bundles/common/images/loading.gif') }}"
+                                                      style="margin-left: 5px; border: 0 none;" class=""></div>
+
+
+                            <!-- The container for the uploaded files -->
+
+
+                        </div>
+                        <div id="files" class="files col-md-12 col-xs-12 text-left" style="padding-left: 30px"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close-upload" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    /* show the move cursor as the user moves the mouse over the picture.*/
+    .thumbnail {
+        cursor: move;
+    }
+
+
+</style>
+<script type="text/javascript">
+
+    jQuery(function () {
+        'use strict';
+        // Change this to the location of your server-side upload handler:
+        var url = "{{ path('upload_multiple_vehicle', {'prop_pk': prop_pk,'vehicle_id': vehicle_id}) }}",
+                uploadButton = jQuery('<button/>')
+                        .addClass('btn btn-primary')
+                        .prop('disabled', true)
+                        .text('Processing...')
+                        .on('click', function () {
+                            var $this = $(this),
+                                    data = $this.data();
+                            $this
+                                    .off('click')
+                                    .text('Abort')
+                                    .on('click', function () {
+                                        $this.remove();
+                                        data.abort();
+                                    });
+                            data.submit().always(function () {
+                                $this.remove();
+                            });
+                        });
+
+        var maxFiles = 24;
+        var counter = 0;
+        jQuery('#fileupload').fileupload({
+            url: url,
+            dataType: 'json',
+            autoUpload: true,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            // Enable image resizing, except for Android and Opera,
+            // which actually support image resizing, but fail to
+            // send Blob objects via XHR requests:
+            disableImageResize: true,
+            previewMaxWidth: 100,
+            previewMaxHeight: 100,
+            previewCrop: true
+        }).on('fileuploadadd', function (e, data) {
+
+            if (counter < maxFiles) {
+                counter++;
+            } else {
+                return false;
+            }
+
+
+            data.context = jQuery('<div/>').appendTo('#files');
+            jQuery.each(data.files, function (index, file) {
+
+                var node = jQuery('<p/>')
+                        .append(jQuery('<span/>').text(file.name));
+                if (!index) {
+                    node.append(' ');
+                }
+
+                node.appendTo(data.context);
+            });
+        }).on('fileuploadprocessalways', function (e, data) {
+
+            var index = data.index,
+                    file = data.files[index],
+                    node = jQuery(data.context.children()[index]);
+            /*if (file.preview) {
+             node
+             .prepend('<br>')
+             .prepend(file.preview);
+             }*/
+
+
+            if (file.error) {
+                node.append(jQuery('<span class="text-danger"/>').text(file.error));
+            }
+            if (index + 1 === data.files.length) {
+                data.context.find('button')
+                        .text('Upload')
+                        .prop('disabled', !!data.files.error);
+            }
+        }).on('fileuploaddone', function (e, data) {
+            jQuery.each(data.result.files, function (index, file) {
+                /* if (file.url) {
+                 var link = jQuery('<a>')
+                 .attr('target', '_blank')
+                 .prop('href', file.url);
+                 jQuery(data.context.children()[index])
+                 .wrap(link);
+                 } else*/
+                if (file.error) {
+                    var error = jQuery('<span class="text-danger"/>').text(file.error);
+                    jQuery(data.context.children()[index]).append(' ').append(error);
+                } else {
+                    var success = jQuery('<span class="text-success"/>').text('Uploaded');
+                    jQuery(data.context.children()[index]).append(' ').append(success);
+                }
+            });
+        }).on('fileuploadfail', function (e, data) {
+            jQuery.each(data.files, function (index) {
+                var error = jQuery('<span class="text-danger"/>').text('File upload failed.');
+                jQuery(data.context.children()[index])
+                        .append(' ')
+                        .append(error);
+            });
+        }).prop('disabled', !jQuery.support.fileInput)
+                .parent().addClass(jQuery.support.fileInput ? undefined : 'disabled');
+    });
+
+
+    jQuery(function () {
+        jQuery('#fileupload').bind('fileuploadstop', function (e) {
+            jQuery('.uploading').addClass('hide');
+            jQuery('.fileinput-button').removeAttr('disabled');
+            jQuery('#form-location #btnsave').removeClass('disabled');
+            jQuery('#form-location #btnsavecontinue').removeClass('disabled');
+            jQuery('.deleteImage').each(function () {
+                jQuery(this).removeClass('hide');
+            });
+            jQuery('#link-tab-index-1, #link-tab-index-2, #link-tab-index-4, #link-tab-index-6, #link-tab-index-5, #link-tab-index-3, #link-tab-index-7,#link-tab-index-8').removeClass('disabled');
+            window.location = "{{ path('vehicle_gallery' , {'type':'open' , 'prop_pk':prop_pk, 'vehicle_id': vehicle_id}) }}";
+        });
+
+    });
+
+
+    jQuery(function () {
+        jQuery('#fileupload').bind('fileuploadstart', function (e) {
+            //jQuery('#myModalGallery').attr('data-backdrop', 'static');
+            //jQuery('#myModalGallery').attr('data-keyboard', "false");
+            jQuery('.uploading').removeClass('hide');
+            jQuery('.fileinput-button').attr('disabled', 'disabled');
+            jQuery('.close-upload').attr('disabled', 'disabled');
+            jQuery('.deleteImage').each(function () {
+                jQuery(this).addClass('hide');
+            });
+            //jQuery('#link-tab-index-1, #link-tab-index-2, #link-tab-index-4, #link-tab-index-6, #link-tab-index-5, #link-tab-index-3, #link-tab-index-7').addClass('disabled');
+            jQuery('#form-vehicle-photos #btnsave').addClass('disabled');
+            jQuery('#form-vehicle-photos #btnsavecontinue').addClass('disabled');
+        });
+
+    });
+
+
+    function verifyAction() {
+
+        //jQuery('#btnsavecontinue').trigger('click');
+    }
+
+    jQuery(document).ajaxStart(function () {
+        jQuery("#loading").removeClass('hide');
+    });
+
+    jQuery(document).ajaxStop(function () {
+        jQuery("#loading").addClass('hide');
+    });
+
+    var posy;
+    var dragging = false;
+    jQuery(document).ready(function () {
+
+
+        var tab = 6;
+        jQuery('#btnsavecontinue').click(function (e) {
+
+            jQuery('#form-vehicle-photos').attr('action', "{{path('vehicle_gallery', {'type':'continue' , 'prop_pk':prop_pk, 'vehicle_id':vehicle_id})}}");
+
+        });
+
+        jQuery('#link-tab-index-5').click(function () {
+            jQuery('#btnsavecontinue').trigger('click');
+        });
+
+        jQuery('#btnsave').click(function (e) {
+            jQuery('.tumb.active').parent().find('.title-input-source input').val(jQuery('.title-input input').val());
+            jQuery('#form-vehicle-photos').attr('action', "{{path('vehicle_gallery', {'type':'save' , 'prop_pk':prop_pk, 'vehicle_id':vehicle_id})}}");
+        });
+        //var newIndex = jQuery('.gallery').find('.col-sm-1').length - 1;
+        // jQuery(jQuery('.gallery').find('.col-sm-1').last().find('input')[2]).val(newIndex);
+
+
+        jQuery("#selectfile").click(function () {
+            jQuery("#fileupload").trigger('click');
+        });
+
+        var count = 0;
+
+        jQuery('.deleteImage').click(function (e) {
+
+            if (confirm('Are you sure you want to delete this picture?')) {
+                count++;
+                var panelList = jQuery('.gallery');
+                var div = document.createElement("div");
+                var div1 = document.createElement("div");
+                var span = document.createElement("span");
+                jQuery(div1).addClass('image-form');
+                jQuery(div).addClass('col-sm-2 col-xs-12 text-left');
+
+                var aux = jQuery(jQuery('.col-sm-2', '.gallery')).length + count;
+                var pictId = jQuery(jQuery(this).parent().find('input')[3]).val();
+
+
+                jQuery.ajax({
+
+                    url: '{{path('new_image_form')}}',
+                    type: "POST",
+                    data: {i: aux, pictId: pictId, prop: "{{prop_pk}}"},
+                    async: false,
+                    success: function (response) {
+                        jQuery(div1).html(response);
+
+                    }
+                });
+
+                jQuery(this).parent().remove();
+                jQuery(span).addClass('orden');
+                jQuery(span).html('24');
+                jQuery(div1).append(span);
+                jQuery(div).append(div1);
+
+                jQuery(div).insertAfter(jQuery(jQuery('.col-sm-2', panelList)[22]));
+                //document.getElementById("gallery").appendChild(div);
+
+                jQuery('.col-sm-2', panelList).each(function (index, elem) {
+
+
+                    var $listItem = jQuery(elem),
+                            newIndex = $listItem.index();
+                    // Persist the new indices.
+                    //alert(index);
+                    // jQuery('#gallery_propertyImages_'+index+'_order').val(newIndex);
+                    jQuery($listItem.find('.orden')).html(newIndex + 1);
+                    jQuery($listItem.find('input')[0]).val(newIndex - 1);
+                });
+
+                panelList.sortable("refresh");
+                if (jQuery(jQuery('.tumb')[0]).hasClass('old')) {
+                    jQuery(jQuery('.tumb')[0]).trigger('click');
+                } else if (jQuery(jQuery(jQuery('.tumb')[0]).parent().find('input')[1]).val() == '') {
+                    jQuery('.top-content').hide();
+                }
+
+                jQuery('.tumb').removeClass('active');
+                jQuery(jQuery('.tumb')[0]).addClass('active');
+                var bg = jQuery(jQuery('.tumb')[0]).css("background-image");
+                jQuery('.tumb-large').css("background-image", bg);
+                e.preventDefault();
+            }
+
+
+        });
+
+        jQuery('.deleteImagePreview').click(function (e) {
+            jQuery(this).parent().find('.tumb').css("background-image", "url({{ asset('bundles/common/images/image-bg.jpg') }})");
+
+            var control = jQuery(jQuery(this).parent().find('input')[1]);
+            var title = jQuery(jQuery(this).parent().find('input')[2]);
+            var id = control.attr('id');
+            var name = control.attr('name');
+
+            control.replaceWith(jQuery('<input type="file" id=' + id + '  name=' + name + '  accept="image/*" onchange="preview(this);" />'));
+            jQuery(this).parent().find('.tumb').removeClass('active');
+            jQuery('.top-content').hide();
+            jQuery('.tumb').removeClass('active');
+            jQuery(this).parent().find('.tumb').addClass('active');
+            jQuery(this).addClass('hide');
+            title.val('');
+            e.preventDefault();
+
+        });
+
+
+        jQuery('#btnadd').click(function (e) {
+
+            jQuery('#btnadd').css('display', 'none');
+            jQuery('.title').css('display', 'block');
+            jQuery('.featured-image').css('display', 'block');
+            jQuery('#form-buttons').css('display', 'block');
+            e.preventDefault();
+        });
+
+
+        jQuery('#saveTitle').click(function (e) {
+
+            var orden = jQuery(jQuery('.tumb.active').parent().find('input')[0]).val();
+            var photo = jQuery(jQuery('.tumb.active').parent().find('input')[1]).prop('files')[0];
+            var title = jQuery('.title-input').find('input').val();
+            var pictId = jQuery(jQuery('.tumb.active').parent().find('input')[3]).val();
+            var newUpload = jQuery('#newUpload').val();
+
+
+            if (photo) {
+
+                var post_data = new FormData();
+                post_data.append('id', '{{prop_pk}}');
+                post_data.append('pictId', pictId);
+                post_data.append('orden', orden);
+                post_data.append('photo', photo);
+                post_data.append('title', title);
+
+
+                jQuery.ajax({
+                    statusCode: {
+                        200: function () {
+                            //alert('asdad');
+                            jQuery(jQuery('.tumb.active').parent().find('input')[2]).val(title);
+                            jQuery(jQuery('.tumb.active').parent().find('input')[2]).attr('value', title);
+                            jQuery('.tumb.active').removeClass('upload');
+                            jQuery(jQuery('.tumb.active').parent().find('input')[1]).attr("disabled", 'disabled');
+                            jQuery(jQuery('.tumb.active').parent().parent().find('#deleteImage')).removeClass('hide');
+                            // jQuery('.tumb.active').unbind('click');
+                        }
+                    },
+                    url: '{{path('save_image')}}',
+                    type: "POST",
+                    data: post_data,
+                    processData: false,
+                    contentType: false,
+                    async: false,
+                    success: function (response) {
+                        if (pictId == 'new') {
+                            jQuery('.tumb.active').parent().parent().find('.deleteImage').removeClass('hide');
+
+                        }
+
+                    }
+                });
+
+            }
+
+            e.preventDefault();
+
+
+        });
+
+
+        if (jQuery('.gallery').find('.col-sm-2').length == 0) {
+
+            jQuery('#btnadd').css('display', 'inline-block');
+            jQuery('.title').css('display', 'none');
+            jQuery('.featured-image').css('display', 'none');
+            jQuery('#form-buttons').css('display', 'none')
+        }
+
+        jQuery(".period-calendar").datepicker({});
+        /* jQuery('.upload').click(function(){
+         var $element_id = jQuery(this).attr('id');
+         jQuery('#'+$element_id +'_photo').trigger('click');  ;
+
+         });*/
+
+        jQuery('.tumb').each(function (index, value) {
+
+            jQuery(document).on("click", ".tumb", function () {
+
+
+                jQuery('.tumb').removeClass('active');
+                jQuery(this).addClass('active');
+
+                if (jQuery(this).hasClass('old')) {
+                    var bg = jQuery(this).css("background-image");
+                    jQuery('.tumb-large').css("background-image", bg);
+                }
+                var source = jQuery(this).parent().find('.title-input-source input').val();
+                jQuery('.title-input input').val(source);
+
+
+                if (jQuery(this).parent().parent().index() != 1) {
+                    jQuery('.featured-picture').hide();
+                    //jQuery('.tumb-large').css('border','0px');
+                } else {
+                    jQuery('.featured-picture').show();
+                    //jQuery('.tumb-large').css('border','2px solid #39b1dc');
+                }
+
+
+            });
+
+
+        });
+
+
+        jQuery(function ($) {
+            var panelList = jQuery('.gallery');
+            panelList.sortable({
+                grid: [3, 8],
+                // Only make the .panel-heading child elements support dragging.
+                // Omit this to make then entire <li>...</li> draggable.
+                handle: '.tumb',
+                update: function (event, ui) {
+                    jQuery('.tumb').removeClass('active');
+                    jQuery(ui.item).find('.tumb').addClass('active');
+                    var bg = jQuery(ui.item).find('.tumb').css("background-image");
+                    jQuery('.tumb-large').css("background-image", bg);
+                    var source = jQuery(ui.item).find('.tumb').parent().find('.title-input-source input').val();
+                    jQuery('.title-input input').val(source);
+                    if (ui.item.index() == 1) {
+
+                        jQuery('.featured-picture').show();
+
+                    } else {
+
+                        jQuery('.featured-picture').hide();
+                    }
+                    jQuery('.col-sm-2', panelList).each(function (index, elem) {
+
+                        panelList.sortable("refresh");
+                        var $listItem = jQuery(elem),
+                                newIndex = $listItem.index() + 1;
+                        // Persist the new indices.
+                        //alert(index);
+                        // jQuery('#gallery_propertyImages_'+index+'_order').val(newIndex);
+                        jQuery($listItem.find('.orden')).html(newIndex);
+                        jQuery($listItem.find('input')[0]).val(newIndex - 1);
+                    });
+
+                },
+                change: function (event, ui) {
+                    dragging = true;
+                }
+
+            });
+        });
+
+        jQuery(function () {
+
+            jQuery(jQuery('.tumb')[0]).addClass('active');
+            if (jQuery('.old').length == 0) {
+                jQuery('.top-content').hide();
+            } else {
+                jQuery('.top-content').show();
+                var bg = jQuery(jQuery('.tumb')[0]).css("background-image");
+                jQuery('.tumb-large').css("background-image", bg);
+            }
+
+
+            var source = jQuery(jQuery('.tumb')[0]).parent().find('.title-input-source input').val();
+            jQuery('.title-input input').val(source);
+        });
+
+
+    });
+
+
+    jQuery(document).on("click", ".upload", function () {
+
+        if (!dragging) {
+            var $element_id = jQuery(this).attr("id");
+            //jQuery("#" + $element_id + "_photo").trigger("click");
+        }
+
+    });
+
+
+    jQuery(document).on("mousedown", ".upload", function () {
+        dragging = false;
+    });
+
+
+    jQuery(document).on("keyup", ".title-input input", function () {
+        jQuery(jQuery('.tumb.active').parent().find('input')[2]).val(jQuery(this).val());
+    });
+
+
+    function preview(input) {
+        var panelList = jQuery('.gallery');
+        //jQuery(input).parent().parent().find('#orden input').val(jQuery(input).index());
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+
+                jQuery(input).parent().parent().find('.tumb').css('background-image', 'url(' + e.target.result + ')');
+                jQuery('.tumb-large').css('background-image', 'url(' + e.target.result + ')');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        jQuery('.col-sm-2', panelList).each(function (index, elem) {
+
+            panelList.sortable("refresh");
+            var $listItem = jQuery(elem),
+                    newIndex = $listItem.index();
+            // Persist the new indices.
+            //alert(index);
+            // jQuery('#gallery_propertyImages_'+index+'_order').val(newIndex);
+            jQuery($listItem.find('.orden')).html(newIndex);
+            jQuery($listItem.find('input')[0]).val(newIndex - 1);
+        });
+
+        jQuery('.tumb.active').parent().parent().find('.deleteImagePreview').removeClass('hide');
+        jQuery('.top-content').show();
+
+    }
+
+
+    function handleFileSelect(evt) {
+        var panelList = jQuery('.gallery');
+        var output = panelList.find('.old').last().parent().parent();
+        var files = evt.target.files; // FileList object
+        panelList.sortable("refresh");
+        // Loop through the FileList and render image files as thumbnails.
+        for (var i = 0, f; f = files[i]; i++) {
+
+            // Only process image files.
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    // Render thumbnail.
+
+                    var length = jQuery('.old').length;
+                    var picFile = e.target;
+                    var div = document.createElement("div");
+                    var div1 = document.createElement("div");
+                    var div2 = document.createElement("div");
+                    var span = document.createElement("span");
+                    jQuery(div).addClass('col-sm-2 col-xs-12 text-left');
+                    jQuery(div1).addClass('image-form');
+                    jQuery(div2).addClass('tumb upload');
+                    var uploadId = length + i - files.length;
+                    jQuery(div2).attr('id', 'upload' + uploadId);
+                    jQuery(div2).css('background-image', 'url(' + picFile.result + ')');
+
+
+                    jQuery(div1).addClass('image-form');
+                    jQuery(div).addClass('col-sm-2 col-xs-12 text-left');
+                    jQuery(span).addClass('orden');
+
+
+                    jQuery(div1).append(div2);
+                    jQuery(div1).append(span);
+                    jQuery(panelList.find('.upload').parent().parent()[0]).remove();
+
+                    var post_data = new FormData();
+                    post_data.append('i', length + i++ - files.length);
+                    post_data.append('file', picFile.result);
+                    jQuery(span).html(uploadId);
+                    jQuery.ajax({
+
+                        url: '{{path('image_multiple_form')}}',
+                        type: "POST",
+                        data: post_data,
+                        processData: false,
+                        contentType: false,
+                        async: false,
+                        success: function (response) {
+                            jQuery(div1).append(response);
+                            panelList.sortable("refresh");
+                        }
+                    });
+
+                    jQuery(div).append(div1);
+                    jQuery(div).insertAfter(output);
+
+
+                };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+        }
+        setTimeout(function () {
+            jQuery('.col-sm-2', panelList).each(function (index, elem) {
+
+
+                var $listItem = jQuery(elem),
+                        newIndex = $listItem.index();
+                // Persist the new indices.
+                //alert(index);
+                // jQuery('#gallery_propertyImages_'+index+'_order').val(newIndex);
+                jQuery($listItem.find('.orden')).html(newIndex + 1);
+                jQuery($listItem.find('input')[0]).val(newIndex - 1);
+            });
+        }, 500);
+
+        evt.preventDefault();
+    }
+
+    //document.getElementById('uploadMultiple').addEventListener('change', handleFileSelect, false);
+
+
+    jQuery('.uploadMultipleVisible').click(function () {
+        jQuery('#uploadMultiple').trigger('click');
+    });
+
+
+</script>

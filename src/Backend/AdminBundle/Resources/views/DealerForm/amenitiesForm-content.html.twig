@@ -1,0 +1,290 @@
+<div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="col-md-12">
+            <ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+                <div id="photos" class="anchor-profile-photo"></div>
+                <li class="">
+                    <div class="btn-group">
+
+                        <a id="link-tab-index-1"
+                           href="{{ path('set_description', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                           class="btn btn-default b2b">
+                            Dealer Information <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+                <!-- <li class="">
+                    <div class="btn-group">
+
+                        <a id="link-tab-index-2" href="{{ path('set_location', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                           class="btn btn-default">
+                            Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right"
+                                           aria-hidden="true"
+                                           style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+-->
+
+                <li class="">
+                    <div class="btn-group">
+                        <a id="link-tab-index-3"
+                           href="{{ path('set_amenities', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                           class="btn btn-default b3b active">
+                            Services & Amenities<span class="fal_icon servicetoolsicon"
+                                                      aria-hidden="true" style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="">
+                    <div class="btn-group">
+                        <a id="link-tab-index-3"
+                           href="{{ path('set_gallery', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                           class="btn btn-default b3b">
+                            Gallery<span class="fal_icon photosicon"
+                                         aria-hidden="true" style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="">
+                    <div class="btn-group">
+                        <a id="link-tab-index-4" href="{{ path('set_feeds', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                           class="btn btn-default b7b">
+                            Social Media & Web <span class="fal_icon socialfeedicon"
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+            <div class="row">
+                <div class="col-md-11 col-sm-12 col-xs-12  text-center">
+                    <form id="form-location"
+                          action="{{ path('set_amenities' , {'type':'save' , 'prop_pk':prop_pk}) }}" {{ form_enctype(form) }}
+                          method="POST" class="form-horizontal" style="margin-top: 20px">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+                        <div class="col-md-12 col-xs-12">
+                            <div class="form-group">
+                                <div class="col-md-12 col-xs-12 text-left form-title">
+                                    Services and Amenities
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-left">
+                                    <p>This is the basic information needed to create your ad. It will appear on your listing
+                                        and detailed ad.This is the basic information needed to create your ad. It will appear
+                                        on your listing
+                                        and detailed ad.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+            <div class="col-md-12 col-xs-12" style="margin-top: 20px">
+                <hr>
+                <div class="form-group">
+                    <div class="container-fluid">
+                        <div class="form-inline">
+                            {% set totalServices = (-form.services|length // 3) %}
+                            {% set aux = 0 %}
+                            {% set desciptioncounter = 0 %}
+                            {% for i in range(0,totalServices) %}
+                                <div class="row no_padding">
+                                    <div class="col-md-12 no_padding">
+                                        {% for serv in form.services|slice( aux, 3 ) %}
+                                            <div class="checkbox col-md-4">
+                                                <div class="checkbox col-md-12">
+                                                    {{ form_widget(serv) }} {{ form_label(serv) }}
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <textarea
+                                                            class="form-control description " {% if serv.vars.data != 1 %} disabled {% endif %}
+                                                            placeholder="Description" rows="2"
+                                                            style="margin-bottom: 10px;width: 100% !important;">{{ servicesdescriptions[desciptioncounter] }}</textarea>
+
+                                                </div>
+                                            </div>
+                                            {% set desciptioncounter = desciptioncounter + 1 %}
+                                        {% endfor %}
+                                        {% set aux = aux + 3 %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12 col-xs-12" style="margin-top: 25px">
+                <div class="form-group">
+                    <div class="col-md-12 col-xs-12 text-left form-title">
+                        Useful Information
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-left">
+                        <p>This is the basic information needed to create your ad. It will appear on your listing
+                            and detailed ad.This is the basic information needed to create your ad. It will appear
+                            on your listing
+                            and detailed ad.</p>
+                    </div>
+                </div>
+                <!-- <div class="form-group" style="margin-top: 20px">
+
+                     <div class="col-sm-3 col-xs-12">
+                         <label class="" style="padding-top: 6px">Languages Spoken</label>
+                     </div>
+                     <div id="languages" class="checkbox col-sm-9 no_padding">
+                         <div class="col-sm-3">
+                             <input id="esp" type="checkbox" value="esp" name="">
+                             <label for="esp">Español</label>
+                         </div>
+                         <div class="col-sm-3">
+                             <input id="fra" type="checkbox" value="fra" name="">
+                             <label for="fra">Francais</label>
+                         </div>
+                         <div class="col-sm-3">
+                             <input id="pyc" type="checkbox" value="pyc" name="">
+                             <label for="pyc">Pycckmñ</label>
+                         </div>
+                         <div class="col-sm-3">
+                             <input id="other" type="checkbox" value="other" name="">
+                             <label for="other">Other</label>
+                         </div>
+                     </div>
+
+
+                 </div>-->
+                <div class="form-group form-inline" style="margin-top: 20px">
+                    <div class="col-sm-3 col-xs-12">
+                        {{ form_label(form.usefulinformation.languages) }}
+                    </div>
+                    <div id="languages" class="checkbox col-sm-9 no_padding" style="padding-top: 0px">
+                        {% for language in form.usefulinformation.languages %}
+
+                            <div class="col-sm-3">
+                                <div class="checkbox col-sm-12">
+                                    {{ form_widget(language) }} {{ form_label(language) }}
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-xs-12" style="margin-top: 25px">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.usefulinformation.whyBuyaCar) }}
+
+                        </div>
+                        <div class="col-sm-5 col-xs-12">
+                            {{ form_widget(form.usefulinformation.whyBuyaCar) }}
+
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 text-danger">
+                            {{ form_errors(form.usefulinformation.whyBuyaCar) }}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12" style="margin-top: 25px">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.usefulinformation.Disclaimer) }}
+
+                        </div>
+                        <div class="col-sm-5 col-xs-12">
+                            {{ form_widget(form.usefulinformation.Disclaimer) }}
+
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 text-danger">
+                            {{ form_errors(form.usefulinformation.Disclaimer) }}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-10 text-center" style="margin-top: 25px">
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-12 col-xs-12 text-left">
+                        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+                        <button id="btnsavecontinue" type="submit" class="btn btn-primary"
+                                style="margin-left: 10px">Save &
+                            Continue
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            {{ form_rest(form) }}
+        </form>
+    </div>
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+
+
+    jQuery(document).ready(function () {
+
+        var tab = 7;
+
+        jQuery('#btnsavecontinue').click(function (e) {
+
+            jQuery('#form-location').attr('action', "{{path('set_amenities', {'type':'continue' , 'prop_pk':prop_pk})}}");
+
+        });
+
+        /* jQuery('#link-tab-index-4, #link-tab-index-5').click(function(){
+         jQuery('#btnsavecontinue').trigger('click');
+         });*/
+
+        jQuery('#btnsave').click(function (e) {
+            jQuery('#form-location').attr('action', "{{path('set_amenities', {'type':'save' , 'prop_pk':prop_pk})}}");
+        });
+
+        jQuery("input[type=checkbox]").click(function () {
+            if (this.checked) {
+                jQuery(this).parent().siblings().children().removeAttr("disabled");
+            }
+            else {
+                jQuery(this).parent().siblings().children().attr("disabled","true");
+                jQuery(this).parent().siblings().children().val("");
+            }
+        });
+
+        SetNameOntextarea();
+
+    });
+
+    function SetNameOntextarea() {
+        jQuery(".description").each(function () {
+            var id = jQuery(this).parent().prev().find("input[type=checkbox]").attr("id");
+            jQuery(this).attr("name", id);
+        });
+    }
+    ;
+
+</script>
+    

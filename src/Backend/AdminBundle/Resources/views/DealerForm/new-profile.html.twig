@@ -1,0 +1,100 @@
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+{% block title %}Free Auto Listing | Create your Dealearship{% endblock %}
+{% block stylesheets %} {{ parent() }}
+    <style>
+        .col-sm-2 {
+            width: 18.667%;
+        }
+
+        .panel-heading {
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 0px !important;
+            border-top-right-radius: 0px !important;;
+            padding: 10px 15px;
+        }
+
+        .glyphicon {
+            top: 0px;
+        }
+
+        .glyphicon-info-sign {
+            font-size: 14px;
+        }
+
+        #logobrowseM {
+            background-color: #A1A1A1;
+            border-radius: 0;
+        }
+    </style>
+    <style>
+        .col-sm-2 {
+            width: 18.667%;
+        }
+
+        .mobile label {
+            font-weight: normal;
+        }
+
+        .checkbox label, .radio label {
+            padding-left: 0px;
+        }
+
+        .mobile .panel-heading {
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 0px !important;
+            border-top-right-radius: 0px !important;;
+            padding: 10px 15px;
+            background-color: #e4e4e4;
+            border-color: #b8b8b8;
+        }
+
+        .panel-heading li {
+            list-style: none;
+            margin-right: 0px !important;
+            margin-left: 0px !important;
+            font-size: 18px;
+        }
+
+        .glyphicon {
+            top: 0px;
+        }
+
+        .glyphicon-info-sign {
+            font-size: 14px;
+        }
+
+        #logobrowseM {
+            background-color: #A1A1A1;
+            border-radius: 0;
+        }
+
+        .panel-default .panel-collapse {
+            font-size: 14px;
+            /* margin-left: 15px;
+             margin-right: 12px;*/
+            margin-top: 15px;
+        }
+
+    </style>
+    <link href="{{ asset('bundles/common/css/movil-search-result-style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+{% endblock %}
+ {% block header %}
+     {{ parent() }}
+ {% endblock %}
+ {% block body %}
+
+
+
+             {{ include('AdminBundle:Default:content-header.html.twig') }}
+             {{ include('AdminBundle:DealerForm:new-profile-content.html.twig') }}
+
+
+ {% endblock %}
+
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+

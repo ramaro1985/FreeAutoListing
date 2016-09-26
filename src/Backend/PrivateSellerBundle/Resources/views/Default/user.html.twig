@@ -1,0 +1,28 @@
+{% extends "PrivateSellerBundle:Layout:user-admin.html.twig" %}
+ 
+{% block stylesheets %}
+    {#<link href="{{ asset('bundles/common/css/movil-search-result-style.css') }}" rel="stylesheet"/>#}
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+
+
+
+     {{ include('PrivateSellerBundle:Default:content-header.html.twig') }}
+
+     {{ include('PrivateSellerBundle:Default:user-inquiries.html.twig') }}
+
+     {#{ include('PrivateSellerBundle:Default:user-content.html.twig') }#}
+
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 

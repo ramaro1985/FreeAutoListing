@@ -1,0 +1,27 @@
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+
+{% block stylesheets %} {{ parent() }}
+
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block body %}
+
+
+
+     {{ include('AdminBundle:Default:content-header.html.twig') }}
+
+
+     {{ include('AdminBundle:VehicleForm:vehicle-options-content.html.twig') }}
+
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

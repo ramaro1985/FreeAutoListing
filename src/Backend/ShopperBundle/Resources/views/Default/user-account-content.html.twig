@@ -1,0 +1,910 @@
+<style>
+    #header {
+        z-index: 0;
+    }
+
+    .dismiss_button {
+        margin-left: 6px;
+    }
+
+    #savedCars .form-group {
+        padding: 4px 0;
+    }
+
+    #savedCars .form-group input {
+        position: absolute;
+        bottom: 2px;
+    }
+
+    #myTabContent {
+        background-color: #ffffff;
+        border: 1px solid #CCCCCC;
+    }
+
+    ul.nav-tabs {
+        margin-bottom: 0px;
+    }
+
+    .nav-tabs > li {
+        margin-bottom: -2px;
+    }
+
+    ul.nav-tabs li a {
+        background-color: #ffffff;
+        border: 1px solid #CCCCCC;
+        border-radius: 0px;
+        padding: 4px 15px;
+    }
+
+    ul.nav-tabs li.active a {
+        border: 1px solid #CCCCCC;
+        border-bottom-color: transparent;
+    }
+
+</style>
+<div class="container">
+<div class="row">
+<div class="col-md-9">
+<div class="col-md-12 no_padding" id="compare_panel" hidden="">
+    <div id="compare_image_container" class="col-md-6 text-left">
+        <!--<div class="compare_cars_photo img-responsive" hasfoto="no" style="background-image:url({{ asset('bundles/common/images/for-sale.jpg') }})">
+             <div class="reset">X</div>
+            </div>-->
+        <div class="compare_cars_photo thumbnail">
+            <div class="reset" hidden="" onclick="ResetCompareImage(this,0)">X</div>
+            <img class="img-responsive" style="height: 100%; border: 1px solid white;"/>
+        </div>
+        <div class="compare_cars_photo thumbnail">
+            <div class="reset" hidden="" onclick="ResetCompareImage(this,1)">X</div>
+            <img class="img-responsive" style="height: 100%; border: 1px solid white;"/>
+        </div>
+        <div class="compare_cars_photo thumbnail">
+            <div class="reset" hidden="" onclick="ResetCompareImage(this,2)">X</div>
+            <img class="img-responsive" style="height: 100%;border: 1px solid white;"/>
+        </div>
+    </div>
+    <div class="col-md-3" style="padding: 26px 0px;">
+        <label><span id="compare_counter">0</span> <span id="cartext">car</span> selected to compare</label>
+    </div>
+    <form action="{{ path("compare_cars") }}" method="POST" target="_blank">
+        <input type="hidden" id="image-0" name="image-0" value=""/>
+        <input type="hidden" id="image-1" name="image-1" value=""/>
+        <input type="hidden" id="image-2" name="image-2" value=""/>
+        <input type="hidden" id="image-0_imagesrc" name="image-0_imagesrc" value=""/>
+        <input type="hidden" id="image-1_imagesrc" name="image-1_imagesrc" value=""/>
+        <input type="hidden" id="image-2_imagesrc" name="image-2_imagesrc" value=""/>
+
+        <div class="col-md-3" style="padding: 21px 15px;">
+            <button id="btncompare" type="submit" class="btn btn-primary disabled">Compare</button>
+            <label id="clearAllCompare" style="padding-left: 10px;">Clear All</label>
+        </div>
+    </form>
+</div>
+<div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow track-url auto-scroll"
+     style="margin-bottom: 50px;padding-top: 20px">
+<ul class="nav nav-tabs">
+    <li id="modelsdetails_tab" class="active">
+        <a aria-expanded="true" href="#myaccount" data-toggle="tab" style="padding: 12px 25px;">
+            My Account</a>
+    </li>
+    <li id="overview_tab">
+        <a aria-expanded="false" href="#savedCars" data-toggle="tab"
+           style="padding: 12px 25px;">My Saved Cars</a>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+
+<div class="tab-pane active in" id="myaccount" style="color: #888888;">
+    <div class="row" style="margin-left: 15px;margin-top: 15px">
+        <div class="col-md-12">
+            <h3 style="margin-bottom: 0px;">Profile</h3>
+            <span>Any information you provide is kept confidential.</span><br/>
+        </div>
+        <div class="col-md-6" style="margin-top: 20px">
+
+            <form id="form-description"
+                  action="{{ path('shopper_page') }}" {{ form_enctype(form) }}
+                  method="POST" class="form-horizontal">
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <div class="col-sm-6 col-xs-6">
+                        {{ form_label(form.name) }} <span class="asterik">*</span>
+                        {{ form_widget(form.name) }}
+                    </div>
+                    <div class="col-sm-6 col-xs-6">
+                        {{ form_label(form.lastName) }} <span class="asterik">*</span>
+                        {{ form_widget(form.lastName) }}
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px">
+                    <div class="col-sm-12 col-xs-12">
+                        {{ form_label(form.zipCode) }} <span class="asterik">*</span>
+                        {{ form_widget(form.zipCode) }}
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px">
+                    <div class="col-sm-12 col-xs-12">
+                        {{ form_label(form.phone) }}
+                        {{ form_widget(form.phone) }}
+                    </div>
+                </div>
+                <input type="hidden" id="edit_shopper" name="edit_shopper" value="yes">
+                <input type="hidden" id="edit_profile" name="edit_profile" value="yes">
+
+                <div class="form-group" style="margin-bottom: 15px">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="alert hide" id="succes_usser"
+                             style="background-color: #A6CFC9">
+                            <button type="button" class="close"
+                                    data-dismiss="alert">&times;</button>
+                            <strong>Succes!</strong> Your Account has been updated.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-left"
+                     style="margin-top: 30px;padding-left: 0px; !important;margin-bottom: 30px;">
+                    <button id="btnsavecontinue" type="submit" class="btn btn-primary"
+                            style="background-color: #cb2020;border-color:transparent;color: white;border-radius: 0px;padding: 6px 50px;">
+                        SAVE CHANGES
+                    </button>
+                </div>
+                {{ form_rest(form) }}
+            </form>
+        </div>
+        <div class="col-md-6" style="margin-top: 20px">
+            <input type="hidden" id="open_modal" value="{{ open_modal }}">
+            <input type="hidden" id="pass_change" value="{{ pass_change }}">
+            <input type="hidden" id="edit_profile_succes" value="{{ edit_profile_succes }}">
+            <input type="hidden" id="exist_email" value="{{ exist_email }}">
+            <input type="hidden" id="edit_user_succes" value="{{ edit_user_succes }}">
+
+            <ul class="list-unstyled" style="margin-left: 25px;">
+                <li><span style="font-size: 14px;font-weight: 700">Email</span></li>
+                <li><a href="#">{{ email }}</a></li>
+                <li><a href="javascript:void(0)" id="change_email" style="color: #758ebe;"
+                       data-toggle="modal"
+                       data-target="#myEmail">
+                        Change
+                        Email
+                    </a>
+            </ul>
+
+            <div class="form-group" style="margin-top: 10px;margin-left: 25px;margin-right: 25px">
+                <div class="alert hide" id="profile_succes"
+                     style="background-color: #A6CFC9">
+                    <button type="button" class="close"
+                            data-dismiss="alert">&times;</button>
+                    <strong>Succes!</strong> Your Email has been changed.
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 10px;margin-left: 25px;margin-right: 25px">
+                <div class="alert hide" id="exist_email_alert"
+                     style="background-color: #cb2020">
+                    <button type="button" class="close"
+                            data-dismiss="alert">&times;</button>
+                    <strong>Error!</strong> This Email exist.
+                </div>
+            </div>
+
+            <ul class="list-unstyled" style="margin-left: 25px;margin-top: 20px">
+                <li><span style="font-size: 14px;font-weight: 700">Password</span></li>
+                <li>
+                    <a href="javascript:void(0)" id="change_pass" style="color: #758ebe;"
+                       data-toggle="modal"
+                       data-target="#myPassword">
+                        Change your password
+                    </a>
+                </li>
+            </ul>
+            <div class="form-group" style="margin-top: 10px;margin-left: 25px;margin-right: 25px">
+                <div class="alert hide" id="succes_password"
+                     style="background-color: #A6CFC9">
+                    <button type="button" class="close"
+                            data-dismiss="alert">&times;</button>
+                    <strong>Succes!</strong> Your Password has been changed.
+                </div>
+            </div>
+            <form id="form-cancelAcc"
+                  action="{{ path('shopper_page') }}" {{ form_enctype(form1) }}
+                  method="POST" class="form-horizontal" style="margin-top: 20px">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('cancelAcc') }}">
+                <input type="hidden" name="cancelAccVal" id="cancelAccVal" value="yes">
+            </form>
+
+            <ul class="list-unstyled" style="margin-left: 25px;margin-top: 20px">
+                <li><span style="font-size: 14px;font-weight: 700">Cancel Membership</span></li>
+                <li><a id="cancelAcc" name="cancelAcc" style="color: #758ebe;" href="#"
+                       class="cancelAcc">Cancel
+                        your account at FreeAutolisting</a></li>
+            </ul>
+        </div>
+        <img src="{{ asset('bundles/common/images/banner-contact.jpg') }}"
+             style="margin-left: 15px;margin-bottom: 10px"/>
+    </div>
+
+</div>
+
+<div class="tab-pane" id="savedCars">
+    <div class="container-fluid" style="margin-bottom: 40px">
+        <div class="col-md-12 no_padding">
+            <h3 style="margin-bottom: 0px;">My Cars</h3>
+            <span>You have <span id="savedcars_counter">{{ vehiclessaved|length }}</span> saved cars</span><br/>
+
+            <div class="row" style="">
+                <div class="col-md-12 text-right">
+                     <a href="javascript:void(0)" id="send_email_toF"
+                                           style="text-decoration: none"
+                                           data-toggle="modal"
+                                           data-target="#myModalEmailToF">
+                                            <i class="email_icon"></i> Email a friend
+                                        </a>
+                    <a href="{{ path('printsavedcars') }}" target="_blank"
+                       style="text-decoration: none;margin-left: 15px"><i
+                                class="glyphicon glyphicon-print"></i> Printeable version</a>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+
+        {% for vehiclesave in vehiclessaved %}
+            {% set vehicle =  vehiclesave.vehicle %}
+            {% if(vehicle.profile) %}
+                {% set pf = vehicle.gallery.profileimages[0] %}
+                {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                {% set photoid = vehicle.profile %}
+                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+            {% elseif vehicle.user %}
+                {% set photoid = vehicle.user.id %}
+                {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                    {% set pf = vehicle.gallery.vehicleimages[0] %}
+                    {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                    {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                {% else %}
+                    {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                    {% set profileimageslength = 0 %}
+                {% endif %}
+            {% endif %}
+            <div class="row" id="row_{{ vehicle.serie }}">
+                <div class="container-fluid">
+                    <div class="form-group">
+                        <label class="checkbox-inline" style="font-size: 12px">
+                            <input type="checkbox" class="compare_check" currentcar="{{ vehicle.serie }}">
+                            COMPARE
+                        </label>
+                    </div>
+                    <div class="col-md-12 no_padding">
+                        <div class="row" style="margin-bottom: 8px;">
+                            <div class="col-md-4">
+                                <a id="{{ vehicle.serie }}" href="{{ path('car_details', {'serie': vehicle.serie}) }}">
+                                    <div class="thumbnail col-md-4 no_padding">
+
+                                        <img src="{{ asset(vehicle_image) }}"
+                                             alt="" {% if vehicle.gallery is null %} style="width: 100%; {% if vehicle_image == 'bundles/common/images/image-bg.jpg' %} height: 177px {% endif %} "{% endif %}/>
+
+                                    </div>
+                                </a>
+
+                                <div class="col-md-8 no_padding">
+                                    <p class="text-left nomarginbottom"
+                                       style="font-size: 13px;padding-left: 5px;margin-bottom: 0px;min-height: 42px">
+                                        {{ vehicle.vehiclesinformation.condition.name }}
+                                        {{ vehicle.vehiclesinformation.year.year }}
+                                        {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                        {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                                    </p>
+
+                                    <p class="text-left nomarginbottom"
+                                       style="font-size: 13px;padding-left: 5px">
+                                                <span class="price_text"
+                                                      style="font-size: 12px">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p style="font-size: 12px;margin-bottom: 0px;line-height: 1.2;">
+                                    <span style="font-weight: bold">Notes:</span><br>
+                                    {{ vehiclesave.notes }}
+                                </p>
+                            </div>
+                            <div class="col-md-2 text-right" style="padding: 8px 15px">
+                                <button type="submit" class="btn btn-default delete_button text-uppercase"
+                                        car-serie="{{ vehicle.serie }}">Delete
+                                </button>
+                            </div>
+                        </div>
+                        <hr/>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="container-fluid" class="" style="height: 10px;background-color: #f1f1f1">
+    </div>
+    <div class="container-fluid" style="margin-top: 10px">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Others cars you might be interested in</h3>
+            </div>
+            <div class="col-md-12" style="margin: 10px 0px">
+                <div class="row">
+                    {% for vehicle in vehiclesall %}
+                        {% if(vehicle.profile) %}
+                            {% set pf = vehicle.gallery.profileimages[0] %}
+                            {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                            {% set photoid = vehicle.profile %}
+                            {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                        {% elseif vehicle.user %}
+                            {% set photoid = vehicle.user.id %}
+                            {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                                {% set pf = vehicle.gallery.vehicleimages[0] %}
+                                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                                {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                            {% else %}
+                                {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                                {% set profileimageslength = 0 %}
+                            {% endif %}
+                        {% endif %}
+
+                        <div class="col-md-2" style="width: 20%;">
+                            <a id="{{ vehicle.serie }}" href="{{ path('car_details', {'serie': vehicle.serie}) }}">
+                                <div class="thumbnail no_padding">
+
+                                    <img src="{{ asset(vehicle_image) }}"
+                                         alt="" {% if vehicle.gallery is null %} style="width: 100%; {% if vehicle_image == 'bundles/common/images/image-bg.jpg' %} height: 177px {% endif %} "{% endif %}/>
+
+                                </div>
+                            </a>
+
+                            <p class="car_info">
+                                <a href="{{ path('car_details', {'serie': vehicle.serie}) }}"
+                                   class="text-left nomarginbottom">
+                                    {{ vehicle.vehiclesinformation.condition.name }}
+                                    {{ vehicle.vehiclesinformation.year.year }}
+                                    {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                    {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                                </a></p>
+                            <span style="font-size: 14px;font-weight: bold">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="col-md-3" style="margin-top: 20px">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <!-- FreeAutoListing Car Profile -->
+
+    <ins class="adsbygoogle"
+
+         style="display:block"
+
+         data-ad-client="ca-pub-7661672510407172"
+
+         data-ad-slot="3129379241"
+
+         data-ad-format="auto"></ins>
+
+    <script>
+
+        (adsbygoogle = window.adsbygoogle || []).push({});
+
+    </script>
+</div>
+</div>
+
+<!-- PAGE MODALS -->
+
+<div class="modal fade" id="myPassword" tabindex="-1" role="dialog"
+     aria-labelledby="myPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myPasswordLabel">Change password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <fieldset>
+                        <div class="row">
+                            <form id="form-change-password"
+                                  action="{{ path('shopper_page') }}" {{ form_enctype(form1) }}
+                                  method="POST" class="form-horizontal" style="margin-top: 20px">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('change_password') }}">
+
+                                <div class="form-group">
+
+                                    <div class="col-sm-12">
+                                        {{ form_errors(form1.current_password) }}
+                                        {{ form_errors(form1.plainPassword) }}
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form1.current_password) }}
+
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 20px">
+
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form1.plainPassword) }}
+                                    </div>
+                                </div>
+                                <input type="hidden" id="edit_shopper" name="edit_shopper" value="yes">
+
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                    </div>
+                                </div>
+                                {{ form_rest(form1) }}
+                            </form>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myEmail" tabindex="-1" role="dialog"
+     aria-labelledby="myEmailLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myPasswordLabel">Change Email</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <fieldset>
+                        <div class="row">
+                            <form id="form-change-email"
+                                  action="{{ path('shopper_page') }}" method="POST" class="form-horizontal"
+                                  style="margin-top: 20px">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('change_email') }}">
+                                <input type="hidden" id="edit_shopper" name="edit_shopper" value="yes">
+                                <input type="hidden" id="edit_profile" name="edit_profile" value="yes">
+
+                                <div class="form-group">
+
+                                    <div class="col-sm-12">
+                                        <label for="user_phone">Email</label>
+                                        <span class="asterik">*</span>
+                                        <input id="email" class="form-control" required="required" type="email"
+                                               value="{{ email }}"
+                                               name="email">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 10px">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Change Email</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Email this Dealer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="myModalEmailToF" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: lightgrey">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Send Email to Friend</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form id="offerVehicle"
+                              action=""
+                              method="POST"
+                              class="form-horizontal">
+                            <div class="col-md-12" style="padding: 0px 33px;">
+
+                                <div class="form-group" style="margin-bottom: 10px">
+                                    <input id="email_remitent_name" class="form-control" type="text"
+                                           placeholder="Full Name" widget="single_text" maxlength="255"
+                                           required="required" name="email[remitent_name]">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 10px">
+                                    <input id="email_remitent_mail" class="form-control" type="email"
+                                           placeholder="Email (Separate by ;)" widget="single_text" required="required"
+                                           name="email[remitent_mail]" style="row-span: 2">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 10px">
+                                    <input id="email_remitent_phone" class="form-control" type="text"
+                                           placeholder="Phone (Optional)" widget="single_text" required="required"
+                                           name="email[remitent_phone]">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 10px">
+                                    <textarea id="email_body_mail" class="form-control description disabled"
+                                              max_length="240" placeholder="Message (max. 240 charact)" rows="4"
+                                              required="required" name="email[body_mail]"></textarea>
+                                </div>
+                                <div class="form-group"style="margin-bottom: 10px">
+                                    <div class="row hide" id="loadingSend"
+                                         style="margin-left: 2px">
+                                        <img id="loading"
+                                             src="{{ asset('bundles/common/images/loading.gif') }}"
+                                             style="font-size:12px;  border: 0 none;" class="">
+                                        &nbsp; Sending
+                                        Message...
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 10px">
+                                    <div class="alert hide" id="succes_send"
+                                         style="background-color: #0cffdd">
+                                        <button type="button" class="close"
+                                                data-dismiss="alert">&times;</button>
+
+                                        <strong>Succes!</strong> Your Email has been submited
+                                        succesfully....
+                                    </div>
+                                </div>
+                                <div class="form-group"style="margin-bottom: 10px">
+                                    <div class="col-md-9 col-sm-9 col-xs-9"
+                                         style="padding-left: 0px">
+                                        <a href="javascript:void(0)" id="submit_offer"
+                                           class="btn btn-default btn-block text-uppercase btn-danger col-md-7">
+                                            Send Email
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 col-xs-2"
+                                         style="padding-left: 0px">
+                                        <button type="button"
+                                                class="btn btn-toolbar close-btn text-uppercase"
+                                                data-dismiss="modal"
+                                                style="background-color: white;color: blue;">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function () {
+
+    function createPopover(elem, text) {
+        elem.attr('data-toggle', 'popover');
+        elem.attr('data-placement', 'right');
+        // elem.attr('data-placement', 'bottom');
+        elem.attr('data-content', text);
+        elem.attr('data-container', 'body');
+        elem.popover();
+        elem.trigger('click');
+        elem.focus();
+    }
+
+    /*function disableForm(formulario) {
+     if (formulario == 'mail') {
+     jQuery('#emailDealer').find('input ,button, textarea').attr('disabled', 'disabled')
+     jQuery("#emailDealer").css("opacity", 0.37);
+     jQuery("#loadingOff").removeClass("hide");
+     jQuery("#succes_mess").addClass("hide");
+     }
+     }*/
+
+    /*function resetForm(formulario) {
+     if (formulario == 'mail') {
+     jQuery('#emailDealer').find('input, textarea').val('');
+     }
+     }*/
+
+    /* function enableForm(formulario) {
+     if (formulario == 'mail') {
+     jQuery('#emailDealer').find('input , button, textarea').removeAttr('disabled')
+     jQuery("#emailDealer").css("opacity", 1);
+     }
+     }*/
+
+    function checkSelected(o) {
+        if (o.val() == 0) {
+            createPopover(o, 'Please fill out this field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkLength(o, min, max) {
+        if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkRegexp(o, regexp) {
+        if (!( regexp.test(o.val()) )) {
+            createPopover(o, 'Invalid field');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /*function validateForm(formulario) {
+     var bValid = true;
+
+     if (formulario == 'mail') {
+     bValid = bValid && checkSelected(jQuery('#email_remitent_name'));
+     bValid = bValid && checkLength(jQuery('#email_remitent_name'), 4, 100);
+
+     bValid = bValid && checkSelected(jQuery('#email_remitent_mail'));
+     bValid = bValid && checkSelected(jQuery('#email_body_mail'));
+     bValid = bValid && checkLength(jQuery('#email_body_mail'), 2, 240);
+     bValid = bValid && checkLength(jQuery('#email_remitent_mail'), 4, 100);
+     bValid = bValid && checkRegexp(jQuery('#email_remitent_mail'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+
+     }
+     if (bValid) {
+     disableForm(formulario);
+     submitForm(formulario);
+     }
+
+     }*/
+
+    /*function submitForm(formulario) {
+     var remitent_mail;
+     var remitent_phone;
+     var remitent_name;
+     var body_mail;
+
+     if (formulario == 'mail') {
+     remitent_name = jQuery('#email_remitent_name').val();
+     remitent_mail = jQuery('#email_remitent_mail').val();
+     remitent_phone = jQuery('#email_remitent_phone').val();
+     body_mail = jQuery('#email_body_mail').val();
+     }
+     jQuery.ajax({
+     url: jQuery('#emailDealer').attr('action'),
+     type: "POST",
+     data: {
+     formulario: formulario,
+     remitent_name: remitent_name,
+     remitent_mail: remitent_mail,
+     remitent_phone: remitent_phone,
+     body_mail: body_mail,
+     profile: jQuery('#profile_serie').val(),
+     compare_car: true
+     },
+     async: false,
+     success: function (response) {
+     resetForm(formulario);
+     enableForm(formulario);
+     if (formulario == 'mail') {
+     jQuery("#loadingOff").addClass("hide");
+     jQuery("#succes_mess").removeClass("hide");
+     }
+     jQuery("#myModal").modal('destroy');
+     }
+     });
+
+     }*/
+
+    /*jQuery('#submit_mail').click(function () {
+     validateForm('mail');
+     });*/
+
+
+    /**
+     *   Compare checkbox event on images boxes
+     * */
+
+    jQuery("input:checked").each(function () {
+        this.checked = false;
+    });
+
+    jQuery(".compare_check").change(function () {
+        var check = this;
+        if (jQuery("#compare_panel").css("display") == "none")
+            jQuery("#compare_panel").slideDown("slow");
+        if (check.checked == true) {
+            var car_serie = jQuery(check).attr("currentcar");
+            var imagen = jQuery("#" + car_serie).find("img")[0];
+            var currentsrcimage = imagen.src;
+            var inserted = false;
+            jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+                if (!jQuery(this).hasClass("hasphoto") && !inserted) {
+                    //jQuery(this).css("background-image","url('"+ currentsrcimage +"')")
+                    jQuery(this).find("img").attr("src", currentsrcimage);
+                    jQuery(this).addClass("hasphoto");
+                    jQuery(this).find(".reset").show();
+                    inserted = true;
+                    jQuery(check).attr("image_compare", i);
+                    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) + 1);
+                    jQuery("#image-" + i).val(car_serie);
+                    jQuery("#image-" + i + "_imagesrc").val(currentsrcimage);
+
+                    if (parseInt(jQuery("#compare_counter").text()) > 1) {
+                        jQuery("#btncompare").removeClass("disabled");
+                        jQuery("#cartext").text("cars");
+                    }
+                }
+            });
+            if (!inserted)
+                check.checked = false;
+        } else {
+            var asociated = jQuery(check).attr("image_compare");
+            jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+                if (i == asociated) {
+                    jQuery(this).find("img").attr("src", "");
+                    jQuery(this).removeClass("hasphoto");
+                    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) - 1);
+                    jQuery(this).find(".reset").hide();
+                    jQuery("#image-" + i).val("");
+                    jQuery("#image-" + i + "_imagesrc").val("");
+                    if (parseInt(jQuery("#compare_counter").text()) < 2) {
+                        jQuery("#btncompare").addClass("disabled");
+                        jQuery("#cartext").text("car");
+                    }
+                    if (parseInt(jQuery("#compare_counter").text()) == 0)
+                        jQuery("#compare_panel").slideUp("slow");
+
+                }
+            });
+        }
+    });
+
+    jQuery("#clearAllCompare").click(function () {
+        jQuery("#compare_image_container .compare_cars_photo").each(function (i) {
+            if (jQuery(this).hasClass("hasphoto")) {
+                jQuery(this).find("img").attr("src", "");
+                jQuery(this).removeClass("hasphoto");
+                jQuery("#compare_counter").text(0);
+                jQuery("#btncompare").addClass("disabled");
+                jQuery("#compare_panel").slideUp("slow");
+            }
+        });
+        for (var i = 0; i < 3; i++) {
+            jQuery("#image-" + i).val("");
+            jQuery("#image-" + i + "_imagesrc").val("");
+        }
+        jQuery("input:checked").each(function () {
+            this.checked = false;
+        });
+        jQuery(".reset").hide();
+    });
+
+    jQuery(".btn-primary").click(function (e) {
+        if (jQuery(this).hasClass("disabled"))
+            e.preventDefault();
+    });
+
+    if (jQuery('#exist_email').val() == 1) {
+
+        jQuery('#exist_email_alert').removeClass('hide');
+    } else {
+        jQuery('#exist_email_alert').addClass('hide');
+    }
+    if (jQuery('#edit_user_succes').val() == 1) {
+
+        jQuery('#succes_usser').removeClass('hide');
+    } else {
+        jQuery('#succes_usser').addClass('hide');
+    }
+    if (jQuery('#open_modal').val() == 1) {
+        jQuery('#change_pass').trigger('click');
+    }
+    if (jQuery('#pass_change').val() == 1) {
+        jQuery('#succes_password').removeClass('hide');
+    } else {
+        jQuery('#succes_password').addClass('hide');
+    }
+    if (jQuery('#edit_profile_succes').val() == 1) {
+        jQuery('#profile_succes').removeClass('hide');
+    } else {
+        jQuery('#profile_succes').addClass('hide');
+    }
+
+    jQuery('.cancelAcc').confirmation({
+        placement: 'bottom',
+        btnOkLabel: 'Yes',
+        btnCancelLabel: 'Nevermind',
+        btnCancelIcon: '',
+        onConfirm: function () {
+            jQuery('#form-cancelAcc').submit();
+        },
+        onCancel: function () {
+
+        }
+    })
+
+});
+
+function ResetCompareImage(elem, pos) {
+    var compareBox = jQuery(elem).parent();
+    jQuery(compareBox).find("img").attr("src", "");
+    jQuery(compareBox).removeClass("hasphoto");
+    jQuery("#compare_counter").text(parseInt(jQuery("#compare_counter").text()) - 1);
+    jQuery(compareBox).find(".reset").hide();
+    jQuery("#image-" + pos).val("");
+    jQuery("input[image_compare='" + pos + "']")[0].checked = false;
+    if (parseInt(jQuery("#compare_counter").text()) < 2)
+        jQuery("#btncompare").addClass("disabled");
+    if (parseInt(jQuery("#compare_counter").text()) == 0)
+        jQuery("#compare_panel").slideUp("slow");
+}
+
+jQuery(".delete_button").on("click", function () {
+    var savecarelement = jQuery(this);
+
+    var vehicle_serie = savecarelement.attr("car-serie");
+    jQuery.post('{{ path('remove_carsaved_in_user')}}',
+            {
+                serie: vehicle_serie
+            },
+            function (data) {
+                if (data.response) {
+                    jQuery("#row_" + vehicle_serie).fadeOut().remove();
+                    var count = jQuery("#savedcars_counter").text();
+                    jQuery("#savedcars_counter").text(parseInt(count) - 1);
+                }
+                else {
+                    alert(data.error);
+                }
+            });
+});
+
+function PrintDiv() {
+    var div = jQuery("#savedCars").html();
+    jQuery.post('{{ path('printsavedcars')}}',
+            {
+                div: div
+            });
+}
+
+</script>

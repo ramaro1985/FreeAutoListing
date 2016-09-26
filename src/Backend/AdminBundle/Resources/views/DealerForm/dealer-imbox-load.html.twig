@@ -1,0 +1,219 @@
+{% set total_emails = emails|length %}
+        {% set count = 0 %}
+        {% for i in range(0,total_emails // 3) %}
+            <div class="row row_cars">
+                {% for emails_n in emails|slice( count, 3 ) %}
+
+                    <div class="col-md-4 {% if loop.first %} first {% elseif loop.last %} last {% else %} middle {% endif %}"
+                         style="margin-top: 15px">
+                        <div class="col-md-12 previewbox borderBoxShadows"
+                             style="padding-bottom: 10px;padding-top: 10px;background-color: #ffffff">
+                            <div class="col-md-12 email_buttons hide">
+                                <a id="read{{ emails_n.id }}"
+                                   image="<a class='thumbnail pull-left' style='margin-bottom: 0px'>{% if emails_n.profile %}{% if emails_n.vehicle and emails_n.vehicle.gallery is not null %}{% set pf = emails_n.vehicle.gallery.profileimages[0] %}<img src='{{ asset(pf.getwebpaththumbnailVehicle(emails_n.profile,emails_n.vehicle.serie)) }}' class='img-responsive'/>{% else %}<img src='{{ asset('bundles/common/images/private-profile.jpg') }}'class='img-responsive'/>{% endif %}{% else %}{% if emails_n.vehicle and emails_n.vehicle.gallery is not null %}{% set pf = emails_n.vehicle.gallery.vehicleimages[0] %} <img src='{{ asset(pf.getwebpaththumbnailVehicle(emails_n.user.id,emails_n.vehicle.serie)) }}' class='img-responsive'/>{% else %} <img src='{{ asset('bundles/common/images/image-bg.jpg') }}' class='img-responsive' style='width: 100%'/> <br/>{% endif %}{% endif %} "
+                                   vehiclesinformation="{{ emails_n.vehicle.vehiclesinformation.condition.name }} {{ emails_n.vehicle.vehiclesinformation.getYear() }} {{ emails_n.vehicle.vehiclesinformation.getMake() }} {{ emails_n.vehicle.vehiclesinformation.getModel().modelDisplay }}<br><span class='bold_text_black'>Price: ${{ emails_n.vehicle.vehiclesinformation.price|number_format() }}</span>"
+                                   vehiclesinformation1="Milage: {{ emails_n.vehicle.vehiclesinformation.mileage }}<br/>Color: {{ emails_n.vehicle.vehiclesdetails.exteriorcolor }}<br/>Stock #: {{ emails_n.vehicle.vehiclesinformation.stockNumber }}<br/>"
+                                   image_user="{% if(emails_n.profile.logo is not null) %}<img class='col-md-5 col-sm-3 col-xs-5 logo img-responsive'src='{{ asset(emails_n.profile.logo) }}' style='padding-left: 0px;height: 120px;width:50%'>{% else %}<img class='col-md-5 col-sm-3 col-xs-5 logo img-responsive'src='{{ asset('bundles/common/images/image-bg.jpg')}}' style='padding-left: 0px;height: 120px;width:50%'>{% endif %}<div class='caption col-md-12 col-sm-12 col-xs-12' style='padding-left: 0px'><a href='{{ path('profile_view',{'prop_pk':emails_n.profile.serie }) }}'class='blue_text'>{{ emails_n.profile.description.name }}</a></div>"
+                                   email_inf1="<span class='date'> {{ emails_n.datecreated | date('M d, Y - h:i a') }}</span><br/><span class='bold_text_black'> {{ emails_n.remitentname }}:</span>"
+                                   email_inf2="<span class=''>Email:</span> <span class='blue_link'>{{ emails_n.remitentMail }}</span><br/><span class=''>Phone:</span> <span class='blue_link'> {{ emails_n.remitentphone }}</span>"
+                                   email_inf3=" {% if emails_n.offer %}<h3>Offer: ${{ emails_n.offertext }} </h3>{% else %}<span>{{ emails_n.bodymail }}</span>{% endif %}"
+                                   data-toggle="modal"
+                                   data-target="#myModalInquiryListRead"
+                                   class="btn btn-default btn-block text-center text-uppercase read">
+                                    <small>Read</small>
+                                </a>
+                                <a id="{{ emails_n.id }}" name="{{ emails_n.remitentname }}"
+                                   offer="<h3>Offer: ${{ emails_n.offertext }} </h3>"
+                                   body="{{ emails_n.bodymail }}"
+                                   data-toggle="modal"
+                                   data-target="#myModalInquiryListReply"
+                                   class="btn btn-default btn-block text-center text-uppercase reply">
+                                    <small>Reply</small>
+                                </a>
+                            </div>
+                            <div class="thumbnail" style="margin-bottom: 0px;">
+
+                                {% if emails_n.vehicle and emails_n.vehicle.gallery is not null %}
+                                    {% set pf = emails_n.vehicle.gallery.profileimages[0] %}
+                                    <a href="javascript:void(0)" class="thumbnail" style="margin-bottom: 0px ">
+                                        <img src="{{ asset(pf.getwebpaththumbnailVehicle(emails_n.profile,emails_n.vehicle.serie)) }}"
+                                             alt=""
+                                             class="img-responsive"/>
+                                    </a>
+                                {% else %}
+                                    {% set pf = 0 %}
+                                    <a href="javascript:void(0)" class="thumbnail" style="margin-bottom: 0px ">
+                                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}"
+                                             alt=""
+                                             class="img-responsive" style="width: 100%;height: 201px"/>
+                                    </a>
+                                {% endif %}
+
+
+                                <div class=" caption " style="padding-right: 0px;padding-left: 0px">
+                                    <a href="#" class="pull-left blue_text"
+                                       style="text-decoration: no-underline;">{{ emails_n.vehicle.vehiclesinformation.condition.name }} {{ emails_n.vehicle.vehiclesinformation.getYear() }} {{ emails_n.vehicle.vehiclesinformation.getMake() }} {{ emails_n.vehicle.vehiclesinformation.getModel().modelDisplay }}</a>
+                                    {% if emails_n.vehicle %}
+                                        <span class="pull-right bold_text_black">${{ emails_n.vehicle.vehiclesinformation.price|number_format() }}</span>
+                                        <br>
+                                        <span class="pull-left">stock #: {{ emails_n.vehicle.vehiclesinformation.stockNumber }}</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="row line_with_image" style="margin-top: 10px">
+                                    <hr/>
+                                    <a href="{{ path('email_content' ,{'mail_id':emails_n.id}) }}"
+                                       opened="{{ emails_n.opened }}"
+                                       mail_id="{{ emails_n.id }}"
+                                       class="line_icon
+                                                {% if emails_n.offer %}
+                                                    icon-offer
+                                                {% else %}
+                                                  {% if emails_n.opened == 1 %}
+                                                    messageicon
+                                                  {% else %}
+                                                    messageicon_new
+                                                  {% endif %}
+                                                {% endif %}"></a>
+                                </div>
+
+                                <div class="clearfix">
+                                    <span class="date"> {{ emails_n.datecreated | date() }}</span><br>
+                                    <span class="user_name bold_text_black"
+                                          style="color: #000000;">{{ emails_n.remitentname }}{% if emails_n.offer %}'s Offer:{% endif %}</span><br>
+                                    {% if emails_n.offer %}
+                                        <span class="blue_text"
+                                              style="font-size: 14px ">${{ emails_n.offertext }}</span>
+                                    {% else %}
+                                        {% if  emails_n.bodymail|length < 35 %}
+                                            <span style="font-size: 14px ">{{ emails_n.bodymail }}...</span>
+                                        {% else %}
+                                            {% set bodyMail = emails_n.bodymail|split('', 35) %}
+                                            <span style="font-size: 14px ">{{ bodyMail[0] }}...</span>
+                                        {% endif %}
+                                    {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+                {% set count = count + 3 %}
+            </div>
+        {% endfor %}
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        jQuery('.selected_dealer').click(function () {
+            $("#loading_dealer").removeClass("hide");
+            var profile_id = $(this).attr("id_profile");
+
+            $('#contendio_email_dealer').load('{{ path('dealer_imbox_load') }}', {
+                profile_id: profile_id
+            }, function (data) {
+                $("#loading_dealer").addClass("hide");
+            });
+
+        });
+        jQuery('.read').click(function () {
+            jQuery('#vehicle_image').html(jQuery(this).attr('image'));
+            jQuery('#vehiclesinformation').html(jQuery(this).attr('vehiclesinformation'));
+            jQuery('#vehiclesinformation1').html(jQuery(this).attr('vehiclesinformation1'));
+            jQuery('#image_user').html(jQuery(this).attr('image_user'));
+            jQuery('#email_inf1').html(jQuery(this).attr('email_inf1'));
+            jQuery('#email_inf2').html(jQuery(this).attr('email_inf2'));
+            jQuery('#email_inf3').html(jQuery(this).attr('email_inf3'));
+        });
+
+        jQuery('.reply').click(function () {
+            jQuery("#succes_reply").addClass("hide");
+            jQuery('#remitent').html(jQuery(this).attr('name') + ':');
+            jQuery('#id').val(jQuery(this).attr('id'));
+            if (jQuery(this).attr('body') != null && jQuery(this).attr('body') != '') {
+                jQuery('#content').html('<span>' + jQuery(this).attr('body') + '</span>');
+            } else {
+                jQuery('#content').html(jQuery(this).attr('offer'));
+            }
+        });
+
+        function disableFormReadReply() {
+            jQuery('#myModalInquiryListReply #formListReply').find('textarea').attr('disabled', 'disabled')
+            jQuery("#myModalInquiryListReply #formListReply").css("opacity", 0.37);
+        }
+
+        function enableFormReadReply() {
+            jQuery('#myModalInquiryListReply #formListReply').find('textarea').val('');
+            jQuery('#myModalInquiryListReply #formListReply').find('textarea').removeAttr('disabled');
+            jQuery("#myModalInquiryListReply #formListReply").css("opacity", 1);
+        }
+
+        function submitFormReadReply() {
+
+            jQuery.ajax({
+                statusCode: {
+                    500: function () {
+                        jQuery("#succes_reply").addClass("hide");
+                        jQuery('#myModalInquiryListReply #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                    }
+                },
+                url: jQuery('#myModalInquiryListReply #formListReply').attr('action'),
+                type: "POST",
+                data: {id: jQuery("#id").val(), text: jQuery('#myModalInquiryListReply #inquiryReply_text').val()},
+                async: false,
+                success: function (response) {
+                    jQuery("#succes_reply").removeClass("hide");
+                    enableFormReadReply();
+                }
+            });
+        }
+
+        jQuery('#myModalInquiryListReply .confirm-send').click(function (e) {
+            validateFormReadReply();
+
+        });
+        jQuery('#myModalInquiryListReply').find('textarea').each(function () {
+            jQuery(this).focusout(function () {
+                jQuery(this).popover('destroy');
+            });
+        });
+        function validateFormReadReply() {
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#myModalInquiryListReply #inquiryReply_text'), 5, 500);
+            if (bValid) {
+                disableFormReadReply();
+                submitFormReadReply();
+            }
+        }
+
+        function checkLength(o, min, max) {
+            if (o.val().length < min) {
+                createPopover(o, 'Please fill out this field');
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function createPopover(elem, text) {
+            elem.attr('data-toggle', 'popover');
+            elem.attr('data-placement', 'bottom');
+            elem.attr('data-content', text);
+            elem.attr('data-container', 'body');
+            elem.popover();
+            elem.trigger('click');
+            elem.focus();
+        }
+
+        jQuery(".previewbox").mouseover(function () {
+            jQuery(this).find(".line_icon").css("opacity", 0.5);
+            jQuery(this).find(".email_buttons").removeClass("hide").fadeIn();
+        });
+
+        jQuery(".previewbox").mouseout(function () {
+            jQuery(this).find(".line_icon").css("opacity", 1);
+            jQuery(this).find(".email_buttons").addClass("hide");
+        });
+    });
+</script>

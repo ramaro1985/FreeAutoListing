@@ -1,0 +1,167 @@
+<div class="modal fade" id="myModalReviewReply{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Review</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formReply" action="{{ path('save_review_reply') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+                    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+                    <div class="row" style="margin-bottom: 20px">
+                           <div class="col-md-12 col-sm-12 col-xs-12">
+                               <p>{{review.description}}</p>
+                       
+                           </div>
+                    </div>
+                               
+                    <div class="row">
+                        
+                         <div class="col-md-12 col-sm-12 col-xs-12">Reply</div>       
+                        <div class="col-md-12 col-sm-12 col-xs-12">{{ form_widget(form.text) }}</div>       
+                         
+                    
+                         
+                </div>
+                         
+                         
+              
+               
+                   
+                 
+                    <div style="display: none">{{ form_rest(form) }}</div>
+                        <input type="hidden" id="viewed" name="inqId" value="{{review.viewed}}" >
+                        <input type="hidden" id="resId" name="inqId" value="{{id}}" >
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12"><div id="error"></div></div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary confirm-send">Send</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+
+
+        function disableFormReadReply() {
+            jQuery('#myModalReviewReply{{id}} #formReply').find('textarea').attr('disabled', 'disabled')
+            jQuery("#myModalReviewReply{{id}} #formReply").css("opacity", 0.37);
+        }
+
+
+
+        function enableFormReadReply() {
+            jQuery('#myModalReviewReply{{id}} #formReply').find('textarea').val('');
+            jQuery('#myModalReviewReply{{id}} #formReply').find('textarea').removeAttr('disabled');
+            jQuery("#myModalReviewReply{{id}} #formReply").css("opacity", 1);
+        }
+
+        function submitFormReadReply() {
+
+            jQuery.ajax({
+                statusCode: {
+                    500: function () {
+                        //enableFormConfirmReservation();
+                        jQuery('#myModalReviewReply{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                    }
+                },
+                url: jQuery('#myModalReviewReply{{id}} #formReply').attr('action'),
+                type: "POST",
+                data: {id: '{{id}}', text: jQuery('#myModalReviewReply{{id}} #reviewReply_text').val()},
+                async: false,
+                success: function (response) {
+                    enableFormReadReply();
+                    jQuery('#myModalReviewReply{{id}}').modal('hide');
+                }
+            });
+        }
+
+
+        jQuery('#myModalReviewReply{{id}} .confirm-send').click(function (e) {
+            //alert(jQuery('#myModalCancel{{id}} #formReservationCancel').serialize());    
+            validateFormReadReply();
+
+        });
+
+  jQuery('#myModalReviewReply{{id}}').find('textarea').each(function(){
+    jQuery(this).focusout(function(){
+    jQuery(this).popover('destroy');
+    });
+    });
+
+
+        function validateFormReadReply() {
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#myModalReviewReply{{id}} #reviewReply_text'), 5, 500);
+            if (bValid) {
+                disableFormReadReply();
+                submitFormReadReply();
+            }
+
+        }
+        
+          function checkLength(o, min, max) {
+            if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+                    return false;
+            } else {
+            return true;
+            }
+            }
+            
+                function createPopover(elem, text){
+                elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+            }
+            
+            
+            
+                    jQuery('#myModalReviewReply{{id}}').on('shown.bs.modal', function (e) {
+           if(!jQuery('#myModalReviewReply{{id}} #viewed').val() || jQuery('#myModalReviewReply{{id}} #viewed').val() == ""){
+                     jQuery.ajax({
+                statusCode: {
+                    500: function () {
+                        //enableFormConfirmReservation();
+                        jQuery('#myModalReviewReply{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                    }
+                },
+                url: '{{ path('update_new_review') }}',
+                type: "POST",
+                data: {id: '{{id}}'},
+                async: false,
+                success: function (response) {
+                jQuery('#myModalReviewReply{{id}} #viewed').val(true);
+                }
+            });
+           }
+           
+        });
+
+    });
+
+
+
+
+
+
+</script>

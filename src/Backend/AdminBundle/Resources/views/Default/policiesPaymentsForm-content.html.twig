@@ -1,0 +1,339 @@
+<div id="container" class="container-fluid properties-container">
+
+        <div class="row" style="margin-left: 5px; margin-top: 30px">
+         <div class="col-md-12">
+<ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+                        <div id="photos" class="anchor-profile-photo"></div> 
+                         <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-1" href="#description" class="btn btn-default b2b ">
+                                    Listing Details <span class="glyphicon glyphicon-info-sign glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-2" href="#location" class="btn btn-default b3b ">
+                                    Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        
+                       
+                        <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-4" href="#photos" class="btn btn-default b1b ">
+                                    Photos  <span class="glyphicon glyphicon-picture glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-6" href="#rates"  class="btn btn-default b6b " >
+                                    Rates <span class="glyphicon glyphicon-usd glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-5" href="#booking-calendar"  class="btn btn-default b5b">
+                                    Calendar <span class="glyphicon glyphicon-calendar glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                         
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-3" href="#amenities" class="btn btn-default b3b ">
+                                    Amenities <span class="glyphicon glyphicon-list glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-7" href="#payments"  class="btn btn-primary b7b active" >
+                                    Policies & Payments <span class="glyphicon glyphicon-credit-card glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        
+                       
+                        
+                    </ul>
+</div>
+        </div>
+    
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-location" action="{{ path('create_policies_property' , {'type':'policiesPayments' , 'prop_pk':prop_pk}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal" style="margin-top: 20px">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+   
+    <div class="col-md-12 col-xs-12">
+       <div class="form-group" >
+           <div class="col-md-12 col-xs-12 text-left form-title">
+       Policies & Payments
+        </div>
+               
+      <div class="col-md-11 col-xs-12 text-left">
+          <p>Are there additional fees and policies that your guests need to know about? Add them here. You can edit and update them as often as you need. Make sure to click "Save" when you're finished!</p>
+        </div>        
+       </div>
+         
+    </div>
+    
+    
+     <div class="col-md-12 col-xs-12">
+         <hr>
+       <div class="form-group" style="margin-bottom: 10px">
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Miscellaneous Fees
+        </div>
+       </div>
+           
+    </div>
+            
+        <div class="col-md-12 col-xs-12 text-center">    
+        
+        <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.miscellaneousFees.cleaningFee) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     <div class="input-group">
+                 <span class="input-group-addon" id="sizing-addon1">$</span>
+  {{ form_widget(form.miscellaneousFees.cleaningFee) }}
+</div>
+    </div>
+    
+             
+    <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.miscellaneousFees.cleaningFee) }}
+           </div>
+     
+  </div>
+            
+            <div class="form-group" style="margin-bottom: 10px">
+            <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.miscellaneousFees.lodgingTax) }}
+    </div>
+                <div class="col-sm-5 col-xs-12">
+         <div class="input-group">
+                 
+  {{ form_widget(form.miscellaneousFees.lodgingTax) }}
+  <span class="input-group-addon" id="sizing-addon2">%</span>
+</div>
+           </div>
+           <div class="col-sm-1 col-md-1  col-xs-12 text-left">
+                <span><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Lodging Tax varies. Check your local regulations."></span>
+                           </span>
+     
+    </div>
+                    <div class="col-sm-2 col-xs-12 text-danger">
+            {{ form_errors(form.miscellaneousFees.lodgingTax) }}
+           </div>
+           </div>
+         
+          <div class="form-group" style="margin-bottom: 10px">
+              <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.miscellaneousFees.otherFees) }}
+    </div>
+              <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.miscellaneousFees.otherFees) }}
+    </div>
+                  <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.miscellaneousFees.otherFees) }}
+           </div>
+         </div>       
+         </div>     
+            
+    
+    
+     
+            
+            <div class="col-md-12 col-xs-12" style="margin-top: 10px">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Other
+        </div>
+       </div>
+           
+    </div>
+            
+           
+             <div class="col-md-12 col-xs-12 text-center">    
+        
+        <div class="form-group" style="margin-bottom: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.otherPaymentsOptions.checkout) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+        {{ form_widget(form.otherPaymentsOptions.checkout) }}
+        </div>
+       
+        </div>
+                 
+                 
+        <div class="form-group" style="margin-bottom: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.otherPaymentsOptions.checkin) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+        {{ form_widget(form.otherPaymentsOptions.checkin) }}
+        </div>
+       
+        </div>
+                 
+                 <div class="form-group" style="margin-bottom: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.otherPaymentsOptions.maximumStay) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+        {{ form_widget(form.otherPaymentsOptions.maximumStay) }}
+        </div>
+                         <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.otherPaymentsOptions.maximumStay) }}
+           </div>
+       
+        </div>
+                 
+                 <div class="form-group" style="margin-bottom: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.otherPaymentsOptions.depositRequirements) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+        {{ form_widget(form.otherPaymentsOptions.depositRequirements) }}
+        </div>
+                         <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.otherPaymentsOptions.depositRequirements) }}
+           </div>
+       
+        </div>
+                 
+                 <div class="form-group" style="margin-bottom: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.otherPaymentsOptions.cancellationRefundPolicie) }}
+    </div>
+         <div class="col-sm-5 col-xs-12">
+        {{ form_widget(form.otherPaymentsOptions.cancellationRefundPolicie) }}
+        </div>
+                         <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.otherPaymentsOptions.cancellationRefundPolicie) }}
+           </div>
+       
+        </div>
+         </div>      
+            
+            
+            
+            
+            
+            
+            
+      
+            
+            
+            
+            
+      <div class="col-md-10 col-md-offset-2 text-center">
+   <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-12 col-xs-12 text-left">
+        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+        <button id="btnsavecontinue" type="submit" class="btn btn-primary hide" style="margin-left: 10px">Save & Continue</button>
+        <button id="btnsavefinish" type="submit" class="btn btn-primary" style="margin-left: 10px">Save & Finish</button>
+    </div>
+    </div>        
+    
+  </div>
+    {{ form_rest(form) }}
+</form>
+                </div>
+            </div>
+    
+    
+    
+    </div>
+
+<script type="text/javascript">
+            
+            jQuery(document).ready(function() {
+            var tab = 1;    
+                
+            jQuery('#btnsavecontinue').click(function(e){
+             if(tab == 1){ 
+            jQuery('#form-location').attr('action', "{{path('create_policies_property', {'type':'description' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 2){ 
+            jQuery('#form-location').attr('action', "{{path('create_policies_property', {'type':'location' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 3){ 
+            jQuery('#form-location').attr('action', "{{path('create_policies_property', {'type':'amenities' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 4){ 
+            jQuery('#form-location').attr('action', "{{path('create_policies_property', {'type':'gallery' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 5){ 
+            jQuery('#form-location').attr('action', "{{path('create_policies_property', {'type':'calendar' , 'prop_pk':prop_pk})}}");
+            }
+            else if(tab == 6){ 
+            jQuery('#form-location').attr('action', "{{path('create_policies_property', {'type':'rates' , 'prop_pk':prop_pk})}}");
+            }
+            }); 
+          
+          
+            jQuery('#link-tab-index-1').click(function(e){
+            tab = 1;
+             jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+          
+            jQuery('#link-tab-index-2').click(function(e){
+            tab = 2;
+            jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+           
+            jQuery('#link-tab-index-3').click(function(e){
+            tab = 3;
+              jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+           
+           jQuery('#link-tab-index-4').click(function(e){
+            tab = 4;
+             jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+           
+           jQuery('#link-tab-index-5').click(function(e){
+            tab = 5;
+            jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+           jQuery('#link-tab-index-6').click(function(e){
+            tab = 6;
+            jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+
+             jQuery('#btnsave').click(function(e){
+            jQuery('#form-location').attr('action', "{{path('create_policies_property', {'type':'policiesPayments' , 'prop_pk':prop_pk})}}");
+            }); 
+            
+             jQuery('#btnsavefinish').click(function(e){
+            jQuery('#form-location').attr('action', "{{path('create_policies_property', {'type':'finish' , 'prop_pk':prop_pk})}}");
+            }); 
+  
+  
+            
+            jQuery(function () {
+                jQuery(".glyphicon-info-sign").tooltip();
+                });
+  
+            });           
+            
+             
+              
+              
+           
+            
+            </script>
+    

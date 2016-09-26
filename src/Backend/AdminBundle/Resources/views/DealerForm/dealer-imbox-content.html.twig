@@ -1,0 +1,395 @@
+<style>
+    #inquiries-container .carousel-control {
+        background-color: transparent;
+        height: 100%;
+        position: relative;
+        opacity: 1
+    }
+
+    .btn-default {
+        background-color: rgba(68, 70, 71, 0.79);
+        color: white;
+        border: none;
+    }
+
+    .btn-default.focus, .btn-default:focus {
+        background-color: rgba(55, 57, 58, 0.85);
+        color: white;
+        border: none;
+    }
+
+    .btn-default:hover {
+        background-color: rgba(52, 54, 55, 0.85);
+        color: white;
+        border: none;
+    }
+
+    .btn-default.active, .btn-default:active, .open > .dropdown-toggle.btn-default {
+        background-color: rgba(52, 54, 55, 0.85);
+        color: white;
+        border: none;
+    }
+
+    .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover {
+        background-color: rgba(52, 54, 55, 0.85);
+        color: white;
+        border: none;
+    }
+
+    .btn-default.active, .btn-default:active, .open > .dropdown-toggle.btn-default {
+        background-image: none
+    }
+
+    .email_buttons {
+        padding: 90px;
+        position: absolute;
+        background-color: rgba(254, 254, 254, 0.54) !important;
+        margin-left: -15px;
+        height: 100%;
+    }
+</style>
+<div class="container-fluid">
+    <div id="contendio_email_dealer" style="margin-bottom: 20px">
+
+        {% set total_emails = emails|length %}
+        {% set count = 0 %}
+        {% for i in range(0,total_emails // 3) %}
+            <div class="row row_cars">
+                {% for emails_n in emails|slice( count, 3 ) %}
+
+                    <div class="col-md-4 {% if loop.first %} first {% elseif loop.last %} last {% else %} middle {% endif %}"
+                         style="margin-top: 15px">
+                        <div class="col-md-12 previewbox borderBoxShadows"
+                             style="padding-bottom: 10px;padding-top: 10px;background-color: #ffffff">
+                            <div class="col-md-12 email_buttons hide">
+                                <a id="read{{ emails_n.id }}"
+                                   image="<a class='thumbnail pull-left' style='margin-bottom: 0px'>{% if emails_n.profile %}{% if emails_n.vehicle and emails_n.vehicle.gallery is not null %}{% set pf = emails_n.vehicle.gallery.profileimages[0] %}<img src='{{ asset(pf.getwebpaththumbnailVehicle(emails_n.profile,emails_n.vehicle.serie)) }}' class='img-responsive'/>{% else %}<img src='{{ asset('bundles/common/images/private-profile.jpg') }}'class='img-responsive'/>{% endif %}{% else %}{% if emails_n.vehicle and emails_n.vehicle.gallery is not null %}{% set pf = emails_n.vehicle.gallery.vehicleimages[0] %} <img src='{{ asset(pf.getwebpaththumbnailVehicle(emails_n.user.id,emails_n.vehicle.serie)) }}' class='img-responsive'/>{% else %} <img src='{{ asset('bundles/common/images/image-bg.jpg') }}' class='img-responsive' style='width: 100%'/> <br/>{% endif %}{% endif %} "
+                                   vehiclesinformation="{{ emails_n.vehicle.vehiclesinformation.condition.name }} {{ emails_n.vehicle.vehiclesinformation.getYear() }} {{ emails_n.vehicle.vehiclesinformation.getMake() }} {{ emails_n.vehicle.vehiclesinformation.getModel().modelDisplay }}<br><span class='bold_text_black'>Price: ${{ emails_n.vehicle.vehiclesinformation.price|number_format() }}</span>"
+                                   vehiclesinformation1="Milage: {{ emails_n.vehicle.vehiclesinformation.mileage }}<br/>Color: {{ emails_n.vehicle.vehiclesdetails.exteriorcolor }}<br/>Stock #: {{ emails_n.vehicle.vehiclesinformation.stockNumber }}<br/>"
+                                   image_user="{% if(emails_n.profile.logo is not null) %}{{ asset( emails_n.profile.logo) }}{% else %}{{ asset( emails_n.profile.logo) }}{% endif %}"
+                                   dealer_caption="<div class='caption col-md-12 col-sm-12 col-xs-12' style='padding-left: 0px'><a href='{{ path('profile_view',{'prop_pk':emails_n.profile.serie }) }}'class='blue_text'>{{ emails_n.profile.description.name }}</a></div>"
+                                   email_inf1="<span class='date'> {{ emails_n.datecreated | date('M d, Y - h:i a') }}</span><br/><span class='bold_text_black'> {{ emails_n.remitentname }}:</span>"
+                                   email_inf2="<span class=''>Email:</span> <span class='blue_link'>{{ emails_n.remitentMail }}</span><br/><span class=''>Phone:</span> <span class='blue_link'> {{ emails_n.remitentphone }}</span>"
+                                   email_inf3=" {% if emails_n.offer %}<h3>Offer: ${{ emails_n.offertext }} </h3>{% else %}<span>{{ emails_n.bodymail }}</span>{% endif %}"
+                                   data-toggle="modal"
+                                   data-target="#myModalInquiryListRead"
+                                   class="btn btn-default btn-block text-center text-uppercase read">
+                                    <small>Read</small>
+                                </a>
+                                <a id="{{ emails_n.id }}" name="{{ emails_n.remitentname }}"
+                                   offer="<h3>Offer: ${{ emails_n.offertext }} </h3>"
+                                   body="{{ emails_n.bodymail }}"
+                                   data-toggle="modal"
+                                   data-target="#myModalInquiryListReply"
+                                   class="btn btn-default btn-block text-center text-uppercase reply">
+                                    <small>Reply</small>
+                                </a>
+                            </div>
+                            <div class="thumbnail" style="margin-bottom: 0px;">
+
+                                {% if emails_n.vehicle and emails_n.vehicle.gallery is not null %}
+                                    {% set pf = emails_n.vehicle.gallery.profileimages[0] %}
+                                    <a href="javascript:void(0)" class="thumbnail" style="margin-bottom: 0px ">
+                                        <img src="{{ asset(pf.getwebpaththumbnailVehicle(emails_n.profile,emails_n.vehicle.serie)) }}"
+                                             alt=""
+                                             class="img-responsive"/>
+                                    </a>
+                                {% else %}
+                                    {% set pf = 0 %}
+                                    <a href="javascript:void(0)" class="thumbnail" style="margin-bottom: 0px ">
+                                        <img src="{{ asset('bundles/common/images/image-bg.jpg') }}"
+                                             alt=""
+                                             class="img-responsive" style="width: 100%;height: 201px"/>
+                                    </a>
+                                {% endif %}
+
+
+                                <div class=" caption " style="padding-right: 0px;padding-left: 0px">
+                                    <a href="#" class="pull-left blue_text"
+                                       style="text-decoration: no-underline;">{{ emails_n.vehicle.vehiclesinformation.condition.name }} {{ emails_n.vehicle.vehiclesinformation.getYear() }} {{ emails_n.vehicle.vehiclesinformation.getMake() }} {{ emails_n.vehicle.vehiclesinformation.getModel().modelDisplay }}</a>
+                                    {% if emails_n.vehicle %}
+                                        <span class="pull-right bold_text_black">${{ emails_n.vehicle.vehiclesinformation.price|number_format() }}</span>
+                                        <br>
+                                        <span class="pull-left">stock #: {{ emails_n.vehicle.vehiclesinformation.stockNumber }}</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="row line_with_image" style="margin-top: 10px">
+                                    <hr/>
+                                    <a href="{{ path('email_content' ,{'mail_id':emails_n.id}) }}"
+                                       opened="{{ emails_n.opened }}"
+                                       mail_id="{{ emails_n.id }}"
+                                       class="line_icon
+                                                {% if emails_n.offer %}
+                                                    icon-offer
+                                                {% else %}
+                                                  {% if emails_n.opened == 1 %}
+                                                    messageicon
+                                                  {% else %}
+                                                    messageicon_new
+                                                  {% endif %}
+                                                {% endif %}"></a>
+                                </div>
+
+                                <div class="clearfix">
+                                    <span class="date"> {{ emails_n.datecreated | date() }}</span><br>
+                                    <span class="user_name bold_text_black"
+                                          style="color: #000000;">{{ emails_n.remitentname }}{% if emails_n.offer %}'s Offer:{% endif %}</span><br>
+                                    {% if emails_n.offer %}
+                                        <span class="blue_text"
+                                              style="font-size: 14px ">${{ emails_n.offertext }}</span>
+                                    {% else %}
+                                        {% if  emails_n.bodymail|length < 35 %}
+                                            <span style="font-size: 14px ">{{ emails_n.bodymail }}...</span>
+                                        {% else %}
+                                            {% set bodyMail = emails_n.bodymail|split('', 35) %}
+                                            <span style="font-size: 14px ">{{ bodyMail[0] }}...</span>
+                                        {% endif %}
+                                    {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+                {% set count = count + 3 %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="modal fade" id="myModalInquiryListReply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Reply Form</h4>
+
+                <div class="alert hide" id="succes_reply"
+                     style="background-color: #0cffdd">
+                    <button type="button" class="close"
+                            data-dismiss="alert">&times;</button>
+
+                    <strong>Succes!</strong> Your Email has been replied
+                    succesfully....
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-7 col-sm-8 col-xs-9" style="padding-left: 0px !important;">
+                    <p>
+                        <span class="bold_text_black" id="remitent"></span>
+                    </p>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 text-left" id="content"
+                     style="max-resolution: 15px;padding-left: 0px !important;margin-top: 0px !important;">
+                </div>
+                <form id="formListReply" action="{{ path('save_inquiry_reply') }}"
+                      method="POST" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">Reply</div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <textarea id="inquiryReply_text" class="form-control description disabled" rows="6"
+                                      maxlength="2000" required="required" name="inquiryReply[text]"></textarea>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="id" name="id" value="">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                        <div id="error"></div>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close
+                        </button>
+                        <button type="button" class="btn btn-primary confirm-send">Reply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModalInquiryListRead" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 1024px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Read Email</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div style="margin-left:15px;margin-right: 15px">
+                        <div class="borderBoxShadows col-md-12 col-xs-12 col-lg-12"
+                             style="background-color: white; padding:15px">
+                            <div class="col-md-4 col-xs-4 col-lg-4 no_padding">
+                                <div class="thumbnail" style="margin-bottom: 10px;">
+                                    <div id="vehicle_image"></div>
+                                    <div class="clearfix"></div>
+                                    <div class="caption" style="margin-bottom: 10px;padding-left: 0px;">
+                                        <p id="vehiclesinformation" style='display: inline-block;margin-top: 10px'></p>
+
+                                        <p id="vehiclesinformation1"></p>
+
+                                        <div class="thumbnail" style="margin-bottom: 0px" id="image_user">
+                                            <div id="dealercaption">
+
+                                            </div>
+                                            <div class='col-md-5 col-sm-3 col-xs-5 logo img-responsive'
+                                                 style='background-image:url("");padding-left: 0px;height: 120px;width:50%'>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-xs-8 col-lg-8">
+                                <div class="col-md-7 col-sm-8 col-xs-9" {#style="margin-left: 75px"#}>
+                                    <p id="email_inf1"></p>
+
+                                    <p style="margin-top: 10px" id="email_inf2"></p>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-left"
+                                     style="max-resolution: 15px;/*margin-left: 75px*/" id="email_inf3"></div>
+                            </div>
+
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                        <div id="error"></div>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        jQuery('.read').click(function () {
+            jQuery('#vehicle_image').html(jQuery(this).attr('image'));
+            jQuery('#vehiclesinformation').html(jQuery(this).attr('vehiclesinformation'));
+            jQuery('#vehiclesinformation1').html(jQuery(this).attr('vehiclesinformation1'));
+            var image = jQuery(this).attr('image_user');
+            jQuery('#dealercaption').html(jQuery(this).attr('dealer_caption'));
+            jQuery('#image_user .logo').css("background-image", "url('" + image + "')");
+            jQuery('#email_inf1').html(jQuery(this).attr('email_inf1'));
+            jQuery('#email_inf2').html(jQuery(this).attr('email_inf2'));
+            jQuery('#email_inf3').html(jQuery(this).attr('email_inf3'));
+        });
+
+        jQuery('.selected_dealer').click(function () {
+            $("#loading_dealer").removeClass("hide");
+            var profile_id = $(this).attr("id_profile");
+
+            $('#contendio_email_dealer').load('{{ path('dealer_imbox_load') }}', {
+                profile_id: profile_id
+            }, function (data) {
+                $("#loading_dealer").addClass("hide");
+            });
+
+        });
+
+        jQuery('.reply').click(function () {
+            jQuery("#succes_reply").addClass("hide");
+            jQuery('#remitent').html(jQuery(this).attr('name') + ':');
+            jQuery('#id').val(jQuery(this).attr('id'));
+            if (jQuery(this).attr('body') != null && jQuery(this).attr('body') != '') {
+                jQuery('#content').html('<span>' + jQuery(this).attr('body') + '</span>');
+            } else {
+                jQuery('#content').html(jQuery(this).attr('offer'));
+            }
+        });
+
+        function disableFormReadReply() {
+            jQuery('#myModalInquiryListReply #formListReply').find('textarea').attr('disabled', 'disabled')
+            jQuery("#myModalInquiryListReply #formListReply").css("opacity", 0.37);
+        }
+
+        function enableFormReadReply() {
+            jQuery('#myModalInquiryListReply #formListReply').find('textarea').val('');
+            jQuery('#myModalInquiryListReply #formListReply').find('textarea').removeAttr('disabled');
+            jQuery("#myModalInquiryListReply #formListReply").css("opacity", 1);
+        }
+
+        function submitFormReadReply() {
+
+            jQuery.ajax({
+                statusCode: {
+                    500: function () {
+                        jQuery("#succes_reply").addClass("hide");
+                        jQuery('#myModalInquiryListReply #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                    }
+                },
+                url: jQuery('#myModalInquiryListReply #formListReply').attr('action'),
+                type: "POST",
+                data: {id: jQuery("#id").val(), text: jQuery('#myModalInquiryListReply #inquiryReply_text').val()},
+                async: false,
+                success: function (response) {
+                    jQuery("#succes_reply").removeClass("hide");
+                    enableFormReadReply();
+                }
+            });
+        }
+
+        jQuery('#myModalInquiryListReply .confirm-send').click(function (e) {
+            validateFormReadReply();
+
+        });
+        jQuery('#myModalInquiryListReply').find('textarea').each(function () {
+            jQuery(this).focusout(function () {
+                jQuery(this).popover('destroy');
+            });
+        });
+        function validateFormReadReply() {
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#myModalInquiryListReply #inquiryReply_text'), 5, 500);
+            if (bValid) {
+                disableFormReadReply();
+                submitFormReadReply();
+            }
+        }
+
+        function checkLength(o, min, max) {
+            if (o.val().length < min) {
+                createPopover(o, 'Please fill out this field');
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function createPopover(elem, text) {
+            elem.attr('data-toggle', 'popover');
+            elem.attr('data-placement', 'bottom');
+            elem.attr('data-content', text);
+            elem.attr('data-container', 'body');
+            elem.popover();
+            elem.trigger('click');
+            elem.focus();
+        }
+
+        jQuery(".previewbox").mouseover(function () {
+            jQuery(this).find(".line_icon").css("opacity", 0.5);
+            jQuery(this).find(".email_buttons").removeClass("hide").fadeIn();
+        });
+
+        jQuery(".previewbox").mouseout(function () {
+            jQuery(this).find(".line_icon").css("opacity", 1);
+            jQuery(this).find(".email_buttons").addClass("hide");
+        });
+    });
+</script>

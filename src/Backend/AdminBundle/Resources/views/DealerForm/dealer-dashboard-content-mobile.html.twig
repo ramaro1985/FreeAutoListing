@@ -1,0 +1,402 @@
+<div class="row">
+
+<div class="col-xs-12 col-sm-8 col-md-offset-2 no_padding">
+<div id="dealer_carrusel_container" class="col-md-3 no_padding">
+    <div id="dealer_carrusel" class="carousel slide" data-interval="10000" data-ride="carousel">
+
+        <!-- Bloque para las imágenes -->
+        <div class="carousel-inner">
+            {% for profileimage in profile.gallery.profileImages %}
+                <div class="carrusel_tumb old item  {% if loop.first %} active {% endif %}"
+                     style="height: 250px;background-image:url('{{ asset(profileimage.getWebPathThumbnail(profile)) }}');"></div>
+            {% endfor %}
+        </div>
+
+        <!-- Controles -->
+        <a class="left carousel-control" href="#dealer_carrusel" data-slide="prev">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+        </a>
+        <a class="right carousel-control" href="#dealer_carrusel" data-slide="next">
+            <span class="glyphicon glyphicon-triangle-right"></span>
+        </a>
+    </div>
+</div>
+<div class="row" style="margin-top: 10px">
+    <div class="col-xs-6 col-sm-4 no_padding">
+
+
+        <div class="thumbnail">
+            <div class="logo img-responsive"
+                 style="background-image:url('{{ asset( profile.logo) }}');height: 100px;width:100%;margin-bottom: 5px;">
+            </div>
+        </div>
+
+        <div class="row espacio" style="margin-top: 5px">
+            <a href="{{ path('set_description', {'type':'open' , 'prop_pk': prop_pk}) }}"
+               class="btn btn_edit btn-block">Edit dealership info</a>
+        </div>
+
+    </div>
+
+    <div class="col-xs-6 col-sm-6">
+        <div class="row">
+            <div style="line-height: 0.5em">
+                <h3 style="margin-top: 0px;margin-bottom: 0px; font-weight: 500;color: black">{{ profile.description.name }}</h3>
+                <br>
+                <a class="blue_link" href="">Inventory <span>{{ profile.getInventory() }}</span> cars</a>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 17px">
+            <div>
+                <span style="font-size: 15px;font-weight: 400">{{ profile.description.phone }}</span><br/>
+                <span id="address">{{ profile.description.address }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-xs-12 text-center no_padding" id="map-canvas"
+         style="height: 160px;margin-top: 10px;">
+    </div>
+</div>
+<div class="col-xs-12 col-sm-6 col-sm-offset-3 no_padding" style="margin-top: 15px;padding: 0px 0px">
+    {{ include('AdminBundle:Default:user-menu-movil.html.twig') }}
+</div>
+<div class="col-xs-12 col-sm-6 col-sm-offset-3 no_padding" style="margin-top: 15px;margin-bottom:30px;padding: 0px 0px">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 20px">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingVehicles" style="background-color: #9B9B9B;color: #ffffff">
+                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    href="#collapsevehicles" aria-expanded="true" aria-controls="collapsevehicles"
+                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                    Vehicles
+                </li>
+            </div>
+            <div id="collapsevehicles" class="panel-collapse collapse in" role="tabpanel"
+                 aria-labelledby="headingVehicles">
+                {% set vehicles = profile.getVehiclesComplete() %}
+                {% for vehicle in vehicles %}
+                    {% if vehicle.gallery.profileimages is defined %}
+                        {% set pf = vehicle.gallery.profileimages[0] %}
+                        {% set vehicle_image = pf.getwebpaththumbnailVehicle(profile,vehicle.serie) %}
+                    {% else %}
+                        {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                    {% endif %}
+                    <div class="row movil_car_display">
+                        <div class="col-xs-4 col-sm-3" style="padding-right: 7px;padding-left: 0px">
+                            <div class="thumbnail" style="margin-bottom: 0px;">
+                                <a href="{{ path('private_car_details_dashboard', {'serie': vehicle.serie}) }}"
+                                   class="thumbnail" style="margin-bottom: 0px ">
+                                    <img src="{{ asset(vehicle_image) }}"
+                                         alt=""
+                                         class="img-responsive"/></a>
+                            </div>
+                        </div>
+                        <div class="col-xs-8 col-sm-9 no_padding">
+                            <div class=" caption " style="padding-right: 0px;padding-left: 0px">
+                                <a href="#" class="pull-left"
+                                   style="text-decoration: no-underline;color: #838081">{{ vehicle.vehiclesinformation.condition.name }} {{ vehicle.vehiclesinformation.getYear() }} {{ vehicle.vehiclesinformation.getMake() }} {{ vehicle.vehiclesinformation.getModel().modelDisplay }}</a>
+                                <br>
+                                <span class="pull-left"
+                                      style="font-weight: bold; color: black">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                                <br/>
+                                {% if vehicle.vehiclesinformation.mileage != 0 %}
+                                    <span class="pull-left">
+                                {{ vehicle.vehiclesinformation.mileage|number_format() }} <b>Miles</b>
+                                </span>
+                                    <br/>
+                                {% endif %}
+                                <span class="pull-left">
+                                    {{ vehicle.vehiclesdetails.exteriorcolor.colorname }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingaboutdealership"
+                 style="background-color:#9B9B9B;color: #ffffff">
+                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    href="#collapseaboutdealership" aria-expanded="true" aria-controls="collapsevehicles"
+                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                    About the dealerschip
+                </li>
+            </div>
+            <div id="collapseaboutdealership" class="panel-collapse collapse" role="tabpanel"
+                 aria-labelledby="headingaboutdealership">
+
+                <div class="row">
+                    {#<div class="col-md-4 col-sm-3 col-xs-12">#}
+
+
+                    <ul style="padding-left: 0px">
+                        <li style="font-size: medium; font-weight: bold  ">Website URl</li>
+                        <li style="font-size: medium; font-weight: 200 "><a
+                                    href="{{ profile.description.getWebPage() }}"> <span
+                                        style="font-size: 14px  ;color:#006dcc"
+                                        >{{ profile.description.getWebPage() }}</span></a>
+                        </li>
+                    </ul>
+                    {# </div>#}
+                    {#<div class="col-md-4 col-sm-3 col-xs-12">#}
+                    <ul style="padding-left: 0px">
+                        <li style="font-size: medium; font-weight: bold  ">Hours of operation</li>
+                        <li style="font-size: medium; font-size: 14px ">from <span
+                                    style="color: #006dcc">{{ profile.description.getHoursOpen() }}</span> to <span
+                                    style="color: #006dcc">{{ profile.description.getHoursClose() }}</span></li>
+                    </ul>
+                    {#</div>#}
+                    {#<div class="col-md-4 col-sm-3 col-xs-12">#}
+                    <ul style="padding-left: 0px">
+                        <li style="font-size: medium; font-weight: bold  ">Languages Spoken</li>
+
+                        {% for language in profile.usefulinformation.languages %}
+
+                            <li style="font-size: medium; font-size: 14px;"><span
+                                        style="color: black">{{ language.name }}</span></li>
+
+                        {% endfor %}
+
+                    </ul>
+                    {#</div>#}
+                    {#<div class="col-md-4 col-sm-3 col-xs-12">#}
+                    <ul style="padding-left: 0px">
+                        <li style="font-size: medium; font-weight: bold  ">Services and Amenities</li>
+
+                        {% for profileservice in profile.profileservices %}
+
+                            <li style="font-size: medium; font-size: 14px;"><span
+                                        style="color: black"><span
+                                            style="color:#006dcc;font-weight: bold; font-size: 15px">·</span>{{ profileservice.services.name }}</span>
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+                    {#</div>#}
+
+                </div>
+
+                <div class="row">
+
+                    {#<div class="col-md-12 col-sm-12 col-xs-12">#}
+
+                    <br>
+
+                    <p style="font-size: medium; font-weight: bold  ">Why You Should Buy a Car From Us</p>
+
+                    <p style="font-size: medium; font-size: 14px;">{{ profile.usefulinformation.whyBuyaCar }}</p>
+
+                    <br>
+
+                    <p style="font-size: medium; font-weight: bold  ">Dealer Disclaimer</p>
+
+                    <p style="font-size: medium; font-size: 14px;">{{ profile.usefulinformation.Disclaimer }}</p>
+
+                    {#</div>#}
+                </div>
+
+
+                <div class="row">
+                    {#<div class="col-md-12 col-sm-12 col-xs-12">#}
+                    {% if profile.feeds is defined and profile.feeds is not null %}
+                        <ul style="padding-left: 0px">
+                            <li style="font-size: medium; font-weight: bold  "> Social Media Links</li>
+                            <li style="font-size: medium; font-weight: bold  "><a
+                                        href="{{ profile.feeds.getFacebook() }}"> <span
+                                            style="font-size: 14px; color:#006dcc;">{{ profile.feeds.getFacebook() }}</span></a><a
+                                        href="{{ profile.feeds.getTwitter() }}"><span>&nbsp;&nbsp;</span> <span
+                                            style="font-size: 14px; color:#006dcc;">{{ profile.feeds.getTwitter() }}</span></a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                    {#</div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            center: {lat: -34.397, lng: 150.644}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+
+        geocodeAddress(geocoder, map);
+
+    }
+
+    function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').textContent;
+        geocoder.geocode({'address': address}, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    jQuery(document).ready(function () {
+        /**
+         *  request the controller with all the filters values when one year has been selected
+         * */
+        jQuery('.year_link').click(function () {
+            var text = $(this).text();
+            var year_id = $(this).attr("year_id");
+            $("#year_list").find(".selected").text(text);
+            $("#year_list").find(".selected").attr("year_id", year_id);
+            loadVehicles(1);
+        });
+
+        /**
+         *  request the controller with all the filters values when one make has been selected
+         * */
+        jQuery('.make_link').click(function () {
+            var text = $(this).text();
+            var make_id = $(this).attr("make_id");
+            $("#make_list").find(".selected").attr("make_id", make_id);
+            $("#make_list").find(".selected").text(text);
+            loadVehicles(1);
+        });
+
+        /**
+         *  request the controller with all the filters values when one sort option has been selected
+         * */
+        jQuery('.sort_link').click(function () {
+            var text = $(this).text();
+            var sort_id = $(this).attr("sort_id");
+            $("#sort_list").find(".selected").attr("sort_id", sort_id);
+            $("#sort_list").find(".selected").text(text);
+            loadVehicles(1);
+        });
+
+        /**
+         *  request the controller with all the filters values when one sort option has been selected
+         * */
+        jQuery('.view_link').click(function () {
+            var text = $(this).text();
+            var view_id = $(this).attr("view_id");
+            $("#view_list").find(".selected").attr("view_id", view_id);
+            $("#view_list").find(".selected").text(text);
+            loadVehicles(1);
+        });
+
+        /**
+         *  Active tab buttons on click event
+         * */
+        jQuery(".tab_button").click(function () {
+            $(this).addClass("tabactive");
+            $(".tab_button").not(this).removeClass("tabactive");
+
+            if ($(this).attr("id") == 'invent') {
+                $("#down_arrow_1").removeClass("hidden");
+                $("#down_arrow_2").addClass("hidden");
+                $("#down_arrow_3").addClass("hidden");
+
+            } else if ($(this).attr("id") == 'about') {
+                $("#down_arrow_2").removeClass("hidden");
+                $("#down_arrow_1").addClass("hidden");
+                $("#down_arrow_3").addClass("hidden");
+            } else {
+                $("#down_arrow_3").removeClass("hidden");
+                $("#down_arrow_1").addClass("hidden");
+                $("#down_arrow_2").addClass("hidden");
+            }
+
+
+        });
+
+        jQuery(".ratingoption").jRating({
+            isDisabled: true
+        });
+
+        jQuery('#customerrating,#pricerating,#overallrating,#facilitiesrating').jRating({
+            length: 5,
+            decimalLength: 1, // number of decimal in the rate
+            showRateInfo: false,
+            canRateAgain: true,
+            nbRates: 3,
+            sendRequest: false,
+            onClick: function (element, rate) {
+                var currentrating = "";
+                switch (element.id) {
+                    case "customerrating":
+                        currentrating = "#review_customerservice";
+                        break;
+                    case "pricerating":
+                        currentrating = "#review_price";
+                        break;
+                    case "overallrating":
+                        currentrating = "#review_overall";
+                        break;
+                    case "facilitiesrating":
+                        currentrating = "#review_facilities";
+                        break;
+                }
+                jQuery(currentrating).val(rate);
+            }
+        });
+    })
+    function loadVehicles(start) {
+        $("#loading").removeClass("hide");
+        var year_id = $("#year_list").find(".selected").attr("year_id");
+        var make_id = $("#make_list").find(".selected").attr("make_id");
+        var sort_id = $("#sort_list").find(".selected").attr("sort_id");
+        var limit = $("#view_list").find(".selected").attr("view_id");
+        $('#dealer_vehicles_content').load('{{ path('dealer_vehicles_content', {'prop_pk': prop_pk}) }}', {
+            start: start,
+            limit: limit,
+            year: year_id,
+            sort: sort_id,
+            make: make_id
+        }, function (data) {
+            $("#loading").addClass("hide");
+            $('#dealer_vehicles_content').html(data);
+        });
+    }
+
+    function loadReview(start) {
+        $("#loading_dealer").removeClass("hide");
+        $('#containerReview').load('{{ path('dealer_reviews',{'prop_pk': prop_pk}) }}', {
+            start: start,
+            profile_id: '{{ profile.id }}'
+        }, function (data) {
+            $("#loading_dealer").addClass("hide");
+            $('#containerReview').html(data);
+        });
+    }
+    jQuery("#dealer_vehicles_content").on("click", ".pagination span a", function () {
+        var url = $(this).attr("href");
+        var currentvalue = url.split("page=")[1];
+        loadVehicles(currentvalue);
+        return false;
+    });
+    jQuery("#containerReview").on("click", ".pagination span a", function () {
+        var url = $(this).attr("href");
+        var currentvalue = url.split("page=")[1];
+        //alert(currentvalue)
+        loadReview(currentvalue);
+        return false;
+    });
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap" async defer></script>

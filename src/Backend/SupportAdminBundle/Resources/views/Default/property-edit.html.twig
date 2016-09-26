@@ -1,0 +1,88 @@
+
+{% extends "SupportAdminBundle:Layout:user-admin.html.twig" %}
+ {% block title %}
+Edit property
+ {% if property is not null%}
+"{{property.description.name}}"
+{% endif %} 
+{% endblock %}
+
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+ {{ include('CommonBundle:Default:header-support.html.twig') }}
+ {% endblock %}
+ {% block menu %}
+ {{ include('SupportAdminBundle:Default:admin-tools.html.twig') }}
+{% endblock %}
+ {% block body %}
+ {% if property is not null%}  
+
+<div class="row">
+    <div><h3>Edit property  {% if property is not null%}"{{property.description.name}}"{% endif %} </h3></div>
+    <form id="form-register" class="form-horizontal" method="POST" action="{{ path("modify_user") }}" name="Form">
+        <table class="table-striped">
+            <tr style="color: #0066cc;"> 
+                <th>
+            <p style="color: #FF8438;">Name</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;">Adress</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;">Bedrooms</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;margin-right: 14px;">Bathrooms</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;margin-right: 14px;">Featured</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;">Save</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;margin-left: 14px;">Del</p>    
+            </th>
+            </tr>   
+            <tr>  
+
+  
+                <th>
+                    <input name="name" type="text" style="width: 100px;margin-right: 20px;" value=" {{ property.description.name }} "/>  
+                </th>
+                <th>
+                    <input name="last-name" type="text" style="width: 300px;margin-right: 20px;" value=" {{property.location.address}} "/>  
+                </th>
+                <th>
+                    <input name="user-name" type="text" style="width: 60px;margin-right: 20px;" value=" {{property.propertyDetails.bedrooms}} "/>  
+                </th>
+                <th>
+                    <input name="phone" type="text" style="width: 68px;margin-right: 20px;" value=" {{property.propertyDetails.bathrooms}} "/>   
+                </th>
+                <th>
+                    <select name="sel" style="width: 50px;">
+                    {% if property.featured == 1%}
+                        <option value="YES" selected="true" style="width: 25px; margin-right: 14px;">YES</option>
+                        <option value="NO" style="margin-right: 14px; width: 25px;">NO</option> 
+                   {% else %}
+                        <option value="YES" style="margin-right: 14px;width: 30px;">YES</option>
+                        <option value="NO" selected="true" style="margin-right: 14px; width: 30px;">NO</option> 
+            {% endif %} 
+                    </select>
+                </th>
+               <th>
+                <button style="cursor: pointer;" id="btnsave" type="submit">Save</button>
+            </th>
+              <th>
+                <button class="close" style="color: #cc0000" onclick="return false;">&times;</button>
+            </th>
+            </tr>
+        </table>
+    </form>
+</div>
+    {% endif %} 
+    {% endblock %}
+ {% block footer %}
+ {{ include('CommonBundle:Default:footer.html.twig') }}   
+ {% endblock %}

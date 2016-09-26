@@ -1,0 +1,29 @@
+
+{% extends "AdminBundle:Layout:user-admin.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/car-details-style.css') }}" rel="stylesheet" />
+   {# <link href="{{ asset('bundles/common/css/preview.css') }}" rel="stylesheet" />#}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/bootstrap-confirmation.min.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+
+ {% block body %}
+
+
+
+     {{ include('AdminBundle:Default:content-header.html.twig') }}
+
+     {{ include('AdminBundle:Default:car-details-dashboard-content.html.twig') }}
+
+
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

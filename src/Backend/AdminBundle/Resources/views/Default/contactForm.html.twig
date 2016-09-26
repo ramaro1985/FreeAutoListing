@@ -1,0 +1,215 @@
+
+
+<div class="row">
+        <div class="col-md-12  text-center">
+            
+    
+    
+    <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.name) }}<span style="color: red">*</span>
+    </div>
+    <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.name , { 'attr': {'name': 'contact_name'} }) }}
+    </div>
+        
+    <div class="col-sm-1 col-xs-12 text-right">
+     {{ form_label(form.displayName) }}
+    </div>
+            
+     <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.displayName) }}
+    </div>
+            
+     <div class="col-sm-3 col-xs-12 text-danger">
+    {{ form_errors(form.name) }}
+    </div>
+  </div> 
+    
+        
+    <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.phone1) }}<span style="color: red">*</span>
+     
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.phone1) }}
+     
+    </div>
+        <div class="col-sm-1 col-xs-12 text-right">
+  {{ form_label(form.displayPhone1) }}
+     
+    </div>
+        <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.displayPhone1) }}
+     
+    </div>
+            <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.phone1) }}
+     
+    </div>
+  </div> 
+    
+        <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.phone2) }}
+     
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.phone2) }}
+    </div>
+            <div class="col-sm-1 col-xs-12 text-right">
+  
+     {{ form_label(form.displayPhone2) }}
+    </div>
+                
+                <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.displayPhone2) }}
+     
+    </div>
+                 <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.phone2) }}
+     
+    </div>
+  </div>  
+            <div class="form-group" style="margin-bottom: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.phone3) }}
+     
+    </div>
+         <div class="col-sm-5 col-xs-12 ">
+    {{ form_widget(form.phone3) }}
+    </div>
+                <div class="col-sm-1 col-xs-12 text-right">
+   
+     {{ form_label(form.displayPhone3) }}
+    </div>
+                        <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.displayPhone3) }}
+     
+    </div>
+                    
+                     <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.phone3) }}
+     
+    </div>
+  </div>  
+            
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-2 col-xs-12 text-right">
+    {{ form_label(form.email) }}<span style="color: red">*</span>
+    </div>
+         <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.email) }}
+    </div>
+                    
+                    <div class="col-sm-1 col-xs-12 text-right">
+  {{ form_label(form.displayEmail) }}
+    </div>
+                <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.displayEmail, { 'attr': {'disabled': 'disabled'} }) }}
+     
+    </div>
+                     <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.email) }}
+     
+    </div>
+  </div>  
+    
+    <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.fax) }}
+    </div>
+     <div class="col-sm-5 col-xs-12">
+    {{ form_widget(form.fax) }}
+    </div>
+    <div class="col-sm-1 col-xs-12 text-right">
+    {{ form_label(form.displayFax) }}
+     
+    </div>
+                    
+     <div class="col-sm-1 col-xs-12">
+     {{ form_widget(form.displayFax) }}
+    </div>
+    <div class="col-sm-2 col-xs-12 text-danger">
+    {{ form_errors(form.fax) }}
+     
+    </div>
+  </div>
+   
+   
+          
+            <div class="form-group" style="margin-top: 10px">
+
+         
+                 <div class="col-sm-2 text-right"> 
+          <label>Languages</label>
+       </div>
+       <div class="col-md-2 col-sm-2"> 
+           <div class="pull-left" style="padding: 5px">{{ form_widget(form.languages.english) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.languages.english) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-2 col-sm-2" style="padding-left: 0"> 
+           <div class="pull-left" style="padding: 5px">{{ form_widget(form.languages.spanish) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.languages.spanish) }}</div>
+       </div>
+        
+           
+       <div class="col-md-2 col-sm-2" style="padding-left: 0"> 
+           <div class="pull-left" style="padding: 5px">{{ form_widget(form.languages.russian) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.languages.russian) }}</div>
+       </div>
+        
+       <div class="col-md-2 col-sm-2" style="padding-left: 0"> 
+           <div class="pull-left" style="padding: 5px">{{ form_widget(form.languages.arabic) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.languages.arabic) }}</div>
+       </div>
+              
+       
+    
+            
+  </div>
+       
+       <div class="form-group">
+ 
+         
+       <div class="col-md-2 col-sm-2 col-sm-offset-2" > 
+           <div class="pull-left" style="padding: 5px">{{ form_widget(form.languages.german) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.languages.german) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-2 col-sm-2" style="padding-left: 0"> 
+           <div class="pull-left" style="padding: 5px">{{ form_widget(form.languages.french) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.languages.french) }}</div>
+       </div>
+        
+           
+       
+
+              <div class="col-md-2 col-sm-2" style="padding-left: 0"> 
+           <div class="pull-left" style="padding: 5px">{{ form_widget(form.languages.chinese) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.languages.chinese) }}</div>
+       </div>
+       <div class="col-md-3 col-sm-3" style="padding-left: 0"> 
+           <div class="pull-left" style="padding: 5px">{{ form_widget(form.languages.portuguese) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.languages.portuguese) }}</div>
+       </div>
+       
+    
+            
+  </div>
+       
+       
+         
+    
+
+                </div>
+        
+    
+  
+</div>

@@ -1,0 +1,115 @@
+{% extends "SupportAdminBundle:Layout:user-admin.html.twig" %}
+ {% block title %}
+Edit user
+ {% if user is not null%}
+"{{user.getName}}"
+{% endif %} 
+{% endblock %}
+
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+ {{ include('CommonBundle:Default:header.html.twig') }}
+ 
+
+ {% endblock %}
+ {% block menu %}
+ {{ include('SupportAdminBundle:Default:admin-tools.html.twig') }}
+{% endblock %}
+ {% block body %}
+ {% if user is not null%}  
+
+<div class="row">
+    <div><h3>Edit user  {% if user is not null%}"{{user.getName}}"{% endif %} </h3></div>
+    <form id="form-register" class="form-horizontal" method="POST" action="{{ path("modify_user") }}" name="Form">
+        <table class="table-striped">
+            <tr style="color: #0066cc;"> 
+                <th>
+            <p style="color: #FF8438;">Name</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;">Last Name</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;">User Name</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;margin-right: 14px;">Phone</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;margin-right: 14px;">Role</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;margin-right: 14px;">Phone Code</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;">Email</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;">Save</p>    
+            </th>
+            <th>
+            <p style="color: #FF8438;margin-left: 14px;">Del</p>    
+            </th>
+            </tr>   
+            <tr>  
+
+    {% if user.getName is not empty %}   
+                <th>
+                    <input name="name" type="text" style="width: 60px;margin-right: 20px;" value="{{user.getName}}"/>  
+                </th>
+                <th>
+                    <input name="last-name" type="text" style="width: 60px;margin-right: 20px;" value="{{user.getLastName}}"/>  
+                </th>
+                <th>
+                    <input name="user-name" type="text" style="width: 160px;margin-right: 20px;" value="{{user.getUserName}}"/>  
+                </th>
+                <th>
+                    <input name="phone" type="text" style="width: 90px;margin-right: 20px;" value="{{user.getPhone()}}"/>   
+                </th>
+                <th>
+                    <select name="role" id="user-name" style="margin-right: 20px;height: 27px;width: 100px;">
+                    {%if user.getRoles()[0]=="ROLE_SUPER_ADMIN" %}                        
+                        <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+                        <option value="ROLE_MARKETING">ROLE_MARKETING</option>
+                        <option value="ROLE_SUPPORT">ROLE_SUPPORT</option>
+                        <option value="ROLE_USER">ROLE_USER</option>
+                       {% endif %}
+                    {%if user.getRoles()[0]=="ROLE_MARKETING" %}                        
+                        <option value="ROLE_MARKETING">ROLE_MARKETING</option>
+                        <option value="ROLE_SUPPORT">ROLE_SUPPORT</option>
+                        <option value="ROLE_USER">ROLE_USER</option>
+                       {% endif %}
+                    {%if user.getRoles()[0]=="ROLE_SUPPORT" %}                        
+                        <option value="ROLE_SUPPORT">ROLE_SUPPORT</option>
+                        <option value="ROLE_USER">ROLE_USER</option>
+                       {% endif %}
+                    {%if user.getRoles()[0]=="ROLE_USER" %}                        
+                        <option value="ROLE_USER">ROLE_USER</option>
+                       {% endif %}
+                    </select>       
+                </th>
+                <th>
+                    <input name="phone-code" type="text" style="width: 60px;margin-right: 20px;" value="{{user.getCountryPhoneCode()}}"/> 
+                </th>
+                <th>
+                    <input name="email" type="text" style="width: 160px;margin-right: 20px;" value="{{user.getEmail()}}"/>  
+                </th>
+            <input type="hidden" name="id" value="{{user.getId()}}"/>
+            <th>
+                <button style="cursor: pointer;" id="btnsave" type="submit">Save</button>
+            </th>
+            <th>
+                <button class="close" style="color: #cc0000" onclick="return false;">&times;</button>
+            </th>
+    {% endif %} 
+            </tr>
+        </table>
+    </form>
+    </div>
+    {% endif %} 
+    {% endblock %}
+ {% block footer %}
+ {{ include('CommonBundle:Default:footer.html.twig') }}   
+ {% endblock %}
+

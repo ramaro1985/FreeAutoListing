@@ -1,0 +1,2400 @@
+<div id="header" class="container-fluid">
+    <div id="header-top" class="container-fluid header-top" style="padding: 0">
+        <div class="container">
+            <div class="row hidden-xs">
+                <div id="logo" class="col-xs-12 col-md-6 col-sm-4">
+                    <a href="{{ path('app_homepage') }}"><img src="{{ asset('bundles/common/images/logo.png') }}" alt="HomeEscape Logo"/></a>
+
+                </div>
+
+                <div id="chat" class="col-xs-12 col-md-6 col-sm-8">
+
+                    <div class="pull-right">
+                        <nav>
+
+
+                            <ul id="mainMenu" class="nav nav-pills nav-main">
+                               
+                                <li>
+                                    <a href="{{ path('contact_us') }}">Support</a>
+                                </li>
+                                <li class="hide">
+                                    <a href="{{ path('app_homepage') }}">News</a>
+                                </li>
+                                <li>
+                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        <div class="btn-group">
+                                            <a  class="btn dropdown-toggle login" data-toggle="dropdown">
+                                                <span style="margin-right: 10px">{{  app.user.name }} </span><span class="path glyphicon glyphicon-chevron-down"></span>
+
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu">                   
+                                                <li><a href="{{ path('admin_user_homepage') }}">Manage Listings</a></li>
+                                                <li><a href="#" data-toggle="modal" data-target="#myModalSupport">Contact Support</a></li>
+                                                <li><a href="{{ path('fos_user_change_password') }}">Change Password</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                                            </ul>
+                                        </div>
+
+                                    {% else %}
+                                        <a class="login" href="{{ path('fos_user_security_login') }}">Owner Login »</a>
+
+                                    {% endif %} 
+                                </li>
+                                {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <div class="pull-right btn-register-header"><a class="pull-left btn btn-default" style="color: #2c9ec8" href="{{  path("fos_create_user") }}">List your property for FREE</a></div>
+                                {% endif %} 
+
+                            </ul>                       
+                        </nav></div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="row visible-xs">
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <nav class="navbar" role="navigation" style="padding-left: 15px;" >
+                        <div class="container-fluid">
+                            <div class="navbar-header" style="margin-right: -18px">
+                                <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-9" data-toggle="collapse" type="button">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>  
+
+                            </div>
+                            <div id="bs-example-navbar-collapse-9" class="navbar-collapse collapse" style="width: 250px;padding-left: 0;margin-left: -40px;">
+                                <ul id="mainMenu" class="nav navbar-nav">
+                                    <li><a href="{{ path('app_homepage') }}">Support</a></li>
+                                    <li><a href="{{ path('how_works') }}">How it works</a></li>
+                                <li><a href="{{ path('help_center') }}">Get help</a></li>
+                                <li><a href="{{ path('about_us') }}">Company</a></li>
+                                <li><a href="{{ path('investor') }}">Investors</a></li>
+                                <li><a href="{{ path('content_guidelines') }}">Content Guidelines</a></li>
+                                      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
+                                    <li>
+                                        <div class=""><a class="pull-left btn btn-default" style="color: #2c9ec8" href="{{  path("fos_create_user") }}">List your property for FREE</a></div>
+                                    </li>
+                                    {%endif%}
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div id="logo" class="col-xs-4 col-md-6"  style="padding-left: 10px">
+                    <a href="{{ path('app_homepage') }}"><img src="{{ asset('bundles/common/images/logo.png') }}" alt="HomeEscape Logo"/></a>
+                </div>
+                <div class="col-xs-5 col-md-4" style="float:right;margin-top:10px;text-align:right;padding-right: 0">
+                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        <div class="btn-group">
+                                            <a class="btn dropdown-toggle login" data-toggle="dropdown">
+                                                <span class="path glyphicon glyphicon-chevron-down"></span>
+
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" style="text-align:right;left:-127px;">
+                                            <li><a style="padding-left: 5px" href="{{ path('admin_user_homepage') }}">Manage Listings</a></li>
+                                            <li><a  style="padding-left: 5px" href="#" data-toggle="modal" data-target="#myModalSupport">Contact Support</a></li>
+                                            <li><a  style="padding-left: 5px" href="{{ path('fos_user_change_password') }}">Change Password</a></li>
+                                            <li><a style="padding-left: 5px" href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                                            </ul>
+                                        </div>
+
+                                    {% else %}
+                                        <a class="login" href="{{ path('fos_user_security_login') }}">Owner Login »</a>
+
+                                    {% endif %} 
+            </div>
+            </div>
+        </div>
+    </div>                
+
+    <div class="hidden-xs" id="raya" style="height:3px; background:#ffffff"></div>
+    <div class="hidden-xs" id="raya" style="height:5px; background:#3396cd"></div>
+    <div class="visible-xs" id="raya" style="height:3px; background:#ffffff"></div>
+    <div class="visible-xs" id="raya" style="height:5px; background:#2c9ec8;margin-top:-15px;"></div>
+    
+    <div id="form" class="container-fluid filters-container" >
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-xs-12 col-md-12">
+                    <form id="search" role="form" style="padding: 11px 0" action="{{ path('properties') }}">
+
+                        <div class="row">
+
+                            <div class="col-xs-12 col-md-4">
+                                <input name="searchtext" style="-webkit-appearance: none;" id="searchtext" type="text" value="{{app.session.get('searchtext')}}" class="form-control" placeholder="Enter destination or Property ID">
+                            </div>
+
+                            <div class="checkin calendar input-group col-xs-6 col-md-2 pull-left calendario">
+                                <input id="datepicker1" style="-webkit-appearance: none;" name="checkin" type="text" class="form-control" placeholder="Check-in" value="{{app.session.get('checkin')}}" readonly="true">
+                                <span class="input-group-addon" style="border:none;background-color:transparent;"><img src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+                            </div>   
+
+                            <div  class="checkout calendar input-group col-xs-6 col-md-2 pull-left calendario">
+                                <input id="datepicker2" style="-webkit-appearance: none;" name="checkout" type="text" class="form-control" placeholder="Check-out" value="{{app.session.get('checkout')}}" readonly="true">
+                                <span class="input-group-addon" style="border:none;background-color:transparent;"><img src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+                            </div>  
+
+                            <div  class="sleeps input-group hidden-xs col-md-1 pull-left">
+
+                                <select name="sleeps" class="form-control" >
+                                    <option disabled="disabled" selected="selected" value=""> Sleeps</option>
+                                    <option value="1" {% if (app.session.get('minSleeps') == '1')%} selected="selected" {%endif%} >1+</option>
+                                    <option value="2" {% if (app.session.get('minSleeps') == '2')%} selected="selected" {%endif%} >2+</option>
+                                    <option value="3" {% if (app.session.get('minSleeps') == '3')%} selected="selected" {%endif%} >3+</option>
+                                    <option value="4" {% if (app.session.get('minSleeps') == '4')%} selected="selected" {%endif%} >4+</option>
+                                    <option value="5" {% if (app.session.get('minSleeps') == '5')%} selected="selected" {%endif%} >5+</option>
+                                    <option value="6" {% if (app.session.get('minSleeps') == '6')%} selected="selected" {%endif%} >6+</option>
+                                    <option value="7" {% if (app.session.get('minSleeps') == '7')%} selected="selected" {%endif%} >7+</option>
+                                    <option value="8" {% if (app.session.get('minSleeps') == '8')%} selected="selected" {%endif%} >8+</option>
+                                    <option value="9" {% if (app.session.get('minSleeps') == '9')%} selected="selected" {%endif%} >9+</option>
+                                    <option value="10" {% if (app.session.get('minSleeps') == '10')%} selected="selected" {%endif%} >10+</option>
+                                    <option value="11" {% if (app.session.get('minSleeps') == '11')%} selected="selected" {%endif%} >11+</option>
+                                    <option value="12" {% if (app.session.get('minSleeps') == '12')%} selected="selected" {%endif%} >12+</option>
+                                    <option value="13" {% if (app.session.get('minSleeps') == '13')%} selected="selected" {%endif%} >13 or more</option>
+
+                                </select>
+                                <span class="input-group-addon"><i class="fa fa-users" style="color: #B5B5B5;padding-top: 3px; font-size: 16px;"></i></span>
+
+
+                            </div>
+                            <div class="search-btn col-xs-6 col-md-2 col-sm-2 text-left">
+                                <button id="btnsave" type="submit" class="hide">Save</button>
+                                <a id="btnsearch" href="#" class="btn btn-block btn-gradient-search">Search<span class="glyphicon glyphicon-search" style="padding-left: 10px"></span></a>
+                            </div>
+                            <div class="filter-btn col-xs-6  visible-xs filter-btn-col">
+
+                                <a class="btn btn-default btn-block" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="filters" style="background-color: #F4F4F4">Filter<span class="glyphicon glyphicon-filter" style="padding-left: 10px; "></span></a>
+                            </div>
+
+
+                        </div>
+
+                        <input type="hidden" id="location_locality" class="add" name="location_locality">
+                        <input type="hidden" id="location_postal_town" class="add" name="location_postal_town">
+                        <input type="hidden" id="location_administrative_area_level_2" class="add" name="location_administrative_area_level_2">
+                        <input type="hidden" id="location_administrative_area_level_1" class="add" name="location_administrative_area_level_1">
+                        <input type="hidden" id="location_neighborhood" class="add" name="location_neighborhood">
+                        <input type="hidden" id="location_postal_code" class="add" name="location_postal_code">
+                        <input type="hidden" id="location_country" class="add" name="location_country">
+
+                    </form>
+                    <div class="collapse" id="collapseExample">
+
+                        <div class="well">
+                            <form class="form-filter" action="{{ path('update_filtro_movil') }}">
+                                <div class="row">
+                                    <div class="col-xs-12 text-right">
+                                        <a class="btn btn-default" data-toggle="collapse" href="#collapseExample">Hide</a>
+                                        <a class="btn btn-default movile-clear">Clear Filters</a>
+                                        <a class="btn btn-default movile-apply">Apply Filters</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xs-4 text-left filter-label"><b>Price</b></div>
+                                    <div class="col-xs-4">
+                                        <select id="minPrice"  class="form-control"  name="minPrice">
+                                            <option value="" selected="selected">Any</option>
+                                            <option value="0" {% if (app.session.get('minPrice') == '0')%} selected="selected" {%endif%} >0</option>
+                                            <option value="500" {% if (app.session.get('minPrice') == '500')%} selected="selected" {%endif%}>500</option>
+                                            <option value="1000" {% if (app.session.get('minPrice') == '1000')%} selected="selected" {%endif%}>1000</option>
+                                            <option value="1500" {% if (app.session.get('minPrice') == '1500')%} selected="selected" {%endif%}>1500</option>
+                                            <option value="2000" {% if (app.session.get('minPrice') == '2000')%} selected="selected" {%endif%}>2000</option>
+                                            <option value="3000" {% if (app.session.get('minPrice') == '3000')%} selected="selected" {%endif%}>3000</option>
+                                            <option value="4000" {% if (app.session.get('minPrice') == '4000')%} selected="selected" {%endif%}>4000</option>
+                                            <option value="5000" {% if (app.session.get('minPrice') == '5000')%} selected="selected" {%endif%}>5000</option>
+                                            <option value="6000" {% if (app.session.get('minPrice') == '6000')%} selected="selected" {%endif%}>6000</option>
+                                            <option value="7000" {% if (app.session.get('minPrice') == '7000')%} selected="selected" {%endif%}>7000</option>
+                                            <option value="8000" {% if (app.session.get('minPrice') == '8000')%} selected="selected" {%endif%}>8000</option>
+                                            <option value="9000" {% if (app.session.get('minPrice') == '9000')%} selected="selected" {%endif%}>9000</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <select id="maxPrice"  class="form-control"  name="maxPrice">
+                                            <option value="" selected="selected">Any</option>
+                                            <option value="500" {% if (app.session.get('maxPrice') == '500')%} selected="selected" {%endif%}>500</option>
+                                            <option value="1000" {% if (app.session.get('maxPrice') == '1000')%} selected="selected" {%endif%}>1000</option>
+                                            <option value="1500" {% if (app.session.get('maxPrice') == '1500')%} selected="selected" {%endif%}>1500</option>
+                                            <option value="2000" {% if (app.session.get('maxPrice') == '2000')%} selected="selected" {%endif%}>2000</option>
+                                            <option value="3000" {% if (app.session.get('maxPrice') == '3000')%} selected="selected" {%endif%}>3000</option>
+                                            <option value="4000" {% if (app.session.get('maxPrice') == '4000')%} selected="selected" {%endif%}>4000</option>
+                                            <option value="5000" {% if (app.session.get('maxPrice') == '5000')%} selected="selected" {%endif%}>5000</option>
+                                            <option value="6000" {% if (app.session.get('maxPrice') == '6000')%} selected="selected" {%endif%}>6000</option>
+                                            <option value="7000" {% if (app.session.get('maxPrice') == '7000')%} selected="selected" {%endif%}>7000</option>
+                                            <option value="8000" {% if (app.session.get('maxPrice') == '8000')%} selected="selected" {%endif%}>8000</option>
+                                            <option value="9000" {% if (app.session.get('maxPrice') == '9000')%} selected="selected" {%endif%}>9000</option>
+                                            <option value="10000" {% if (app.session.get('maxPrice') == '10000')%} selected="selected" {%endif%}>10000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xs-4 text-left filter-label"><b>Sleeps</b></div>
+                                    <div class="col-xs-4">
+                                        <select id="minSleeps"  class="form-control"  name="minSleeps">
+                                            <option value="" selected="selected">Any</option>
+                                            <option value="1" {% if (app.session.get('minSleeps') == '1')%} selected="selected" {%endif%}>1+</option>
+                                            <option value="2" {% if (app.session.get('minSleeps') == '2')%} selected="selected" {%endif%}>2+</option>
+                                            <option value="3" {% if (app.session.get('minSleeps') == '3')%} selected="selected" {%endif%}>3+</option>
+                                            <option value="4" {% if (app.session.get('minSleeps') == '4')%} selected="selected" {%endif%}>4+</option>
+                                            <option value="5" {% if (app.session.get('minSleeps') == '5')%} selected="selected" {%endif%}>5+</option>
+                                            <option value="6" {% if (app.session.get('minSleeps') == '6')%} selected="selected" {%endif%}>6+</option>
+                                            <option value="7" {% if (app.session.get('minSleeps') == '7')%} selected="selected" {%endif%}>7+</option>
+                                            <option value="8" {% if (app.session.get('minSleeps') == '8')%} selected="selected" {%endif%}>8+</option>
+                                            <option value="9" {% if (app.session.get('minSleeps') == '9')%} selected="selected" {%endif%}>9+</option>
+                                            <option value="10" {% if (app.session.get('minSleeps') == '10')%} selected="selected" {%endif%}>10+</option>
+                                            <option value="11" {% if (app.session.get('minSleeps') == '11')%} selected="selected" {%endif%}>11+</option>
+                                            <option value="12" {% if (app.session.get('minSleeps') == '12') %} selected="selected" {%endif%}>12+</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <select id="maxSleeps"  class="form-control"  name="maxSleeps">
+                                            <option value="" selected="selected">Any</option>
+                                            <option value="2" {% if (app.session.get('maxSleeps') == '2')%} selected="selected" {%endif%}>2</option>
+                                            <option value="3" {% if (app.session.get('maxSleeps') == '3')%} selected="selected" {%endif%}>3</option>
+                                            <option value="4" {% if (app.session.get('maxSleeps') == '4')%} selected="selected" {%endif%}>4</option>
+                                            <option value="5" {% if (app.session.get('maxSleeps') == '5')%} selected="selected" {%endif%}>5</option>
+                                            <option value="6" {% if (app.session.get('maxSleeps') == '6')%} selected="selected" {%endif%}>6</option>
+                                            <option value="7" {% if (app.session.get('maxSleeps') == '7')%} selected="selected" {%endif%}>7</option>
+                                            <option value="8" {% if (app.session.get('maxSleeps') == '8')%} selected="selected" {%endif%}>8</option>
+                                            <option value="9" {% if (app.session.get('maxSleeps') == '9')%} selected="selected" {%endif%}>9</option>
+                                            <option value="10" {% if (app.session.get('maxSleeps') == '10')%} selected="selected" {%endif%}>10</option>
+                                            <option value="11" {% if (app.session.get('maxSleeps') == '11')%} selected="selected" {%endif%}>11</option>
+                                            <option value="12" {% if (app.session.get('maxSleeps') == '12')%} selected="selected" {%endif%}>12</option>
+                                            <option value="13" {% if (app.session.get('maxSleeps') == '13')%} selected="selected" {%endif%}>13</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xs-4 text-left filter-label"><b>Bedrooms</b></div>
+                                    <div class="col-xs-4">
+                                        <select id="minBedrooms"  class="form-control"  name="minBedrooms">
+                                            <option value="" selected="selected">Any</option>
+                                            <option value="1" {% if (app.session.get('minBedrooms') == '1')%} selected="selected" {%endif%}>1+</option>
+                                            <option value="2" {% if (app.session.get('minBedrooms') == '2')%} selected="selected" {%endif%}>2+</option>
+                                            <option value="3" {% if (app.session.get('minBedrooms') == '3')%} selected="selected" {%endif%}>3+</option>
+                                            <option value="4" {% if (app.session.get('minBedrooms') == '4')%} selected="selected" {%endif%}>4+</option>
+                                            <option value="5" {% if (app.session.get('minBedrooms') == '5')%} selected="selected" {%endif%}>5+</option>
+                                            <option value="6" {% if (app.session.get('minBedrooms') == '6')%} selected="selected" {%endif%}>6+</option>
+                                            <option value="7" {% if (app.session.get('minBedrooms') == '7')%} selected="selected" {%endif%}>7+</option>
+                                            <option value="8" {% if (app.session.get('minBedrooms') == '8')%} selected="selected" {%endif%}>8+</option>
+                                            <option value="9" {% if (app.session.get('minBedrooms') == '9')%} selected="selected" {%endif%}>9+</option>
+                                            <option value="10" {% if (app.session.get('minBedrooms') == '10')%} selected="selected" {%endif%}>10+</option>
+                                            <option value="11" {% if (app.session.get('minBedrooms') == '11')%} selected="selected" {%endif%}>11+</option>
+                                            <option value="12" {% if (app.session.get('minBedrooms') == '12') %} selected="selected" {%endif%}>12+</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <select id="maxBedrooms"  class="form-control"  name="maxBedrooms">
+                                            <option value="" selected="selected">Any</option>
+                                            <option value="1" {% if (app.session.get('maxBedrooms') == '1')%} selected="selected" {%endif%}>1</option>
+                                            <option value="2" {% if (app.session.get('maxBedrooms') == '2')%} selected="selected" {%endif%}>2</option>
+                                            <option value="3" {% if (app.session.get('maxBedrooms') == '3')%} selected="selected" {%endif%}>3</option>
+                                            <option value="4" {% if (app.session.get('maxBedrooms') == '4')%} selected="selected" {%endif%}>4</option>
+                                            <option value="5" {% if (app.session.get('maxBedrooms') == '5')%} selected="selected" {%endif%}>5</option>
+                                            <option value="6" {% if (app.session.get('maxBedrooms') == '6')%} selected="selected" {%endif%}>6</option>
+                                            <option value="7" {% if (app.session.get('maxBedrooms') == '7')%} selected="selected" {%endif%}>7</option>
+                                            <option value="8" {% if (app.session.get('maxBedrooms') == '8')%} selected="selected" {%endif%}>8</option>
+                                            <option value="9" {% if (app.session.get('maxBedrooms') == '9')%} selected="selected" {%endif%}>9</option>
+                                            <option value="10" {% if (app.session.get('maxBedrooms') == '10')%} selected="selected" {%endif%}>10</option>
+                                            <option value="11" {% if (app.session.get('maxBedrooms') == '11')%} selected="selected" {%endif%}>11</option>
+                                            <option value="12" {% if (app.session.get('maxBedrooms') == '12') %} selected="selected" {%endif%}>12</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xs-4 text-left filter-label"><b>Bathrooms</b></div>
+                                    <div class="col-xs-4">
+                                        <select id="minBathrooms"  class="form-control"  name="minBathrooms">
+                                            <option value="" selected="selected">Any</option>
+                                            <option value="1" {% if (app.session.get('minBathrooms') == '1')%} selected="selected" {%endif%}>1+</option>
+                                            <option value="2" {% if (app.session.get('minBathrooms') == '2')%} selected="selected" {%endif%}>2+</option>
+                                            <option value="3" {% if (app.session.get('minBathrooms') == '3')%} selected="selected" {%endif%}>3+</option>
+                                            <option value="4" {% if (app.session.get('minBathrooms') == '4')%} selected="selected" {%endif%}>4+</option>
+                                            <option value="5" {% if (app.session.get('minBathrooms') == '5')%} selected="selected" {%endif%}>5+</option>
+                                            <option value="6" {% if (app.session.get('minBathrooms') == '6')%} selected="selected" {%endif%}>6+</option>
+                                            <option value="7" {% if (app.session.get('minBathrooms') == '7')%} selected="selected" {%endif%}>7+</option>
+                                            <option value="8" {% if (app.session.get('minBathrooms') == '8')%} selected="selected" {%endif%}>8+</option>
+                                            <option value="9" {% if (app.session.get('minBathrooms') == '9')%} selected="selected" {%endif%}>9+</option>
+                                            <option value="10" {% if (app.session.get('minBathrooms') == '10')%} selected="selected" {%endif%}>10+</option>
+                                            <option value="11" {% if (app.session.get('minBathrooms') == '11')%} selected="selected" {%endif%}>11+</option>
+                                            <option value="12" {% if (app.session.get('minBathrooms') == '12') %} selected="selected" {%endif%}>12+</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <select id="maxBathrooms"  class="form-control"  name="maxBathrooms">
+                                            <option value="" selected="selected">Any</option>
+                                            <option value="1" {% if (app.session.get('maxBathrooms') == '1')%} selected="selected" {%endif%}>1</option>
+                                            <option value="2" {% if (app.session.get('maxBathrooms') == '2')%} selected="selected" {%endif%}>2</option>
+                                            <option value="3" {% if (app.session.get('maxBathrooms') == '3')%} selected="selected" {%endif%}>3</option>
+                                            <option value="4" {% if (app.session.get('maxBathrooms') == '4')%} selected="selected" {%endif%}>4</option>
+                                            <option value="5" {% if (app.session.get('maxBathrooms') == '5')%} selected="selected" {%endif%}>5</option>
+                                            <option value="6" {% if (app.session.get('maxBathrooms') == '6')%} selected="selected" {%endif%}>6</option>
+                                            <option value="7" {% if (app.session.get('maxBathrooms') == '7')%} selected="selected" {%endif%}>7</option>
+                                            <option value="8" {% if (app.session.get('maxBathrooms') == '8')%} selected="selected" {%endif%}>8</option>
+                                            <option value="9" {% if (app.session.get('maxBathrooms') == '9')%} selected="selected" {%endif%}>9</option>
+                                            <option value="10" {% if (app.session.get('maxBathrooms') == '10')%} selected="selected" {%endif%}>10</option>
+                                            <option value="11" {% if (app.session.get('maxBathrooms') == '11')%} selected="selected" {%endif%}>11</option>
+                                            <option value="12" {% if (app.session.get('maxBathrooms') == '12') %} selected="selected" {%endif%}>12</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xs-4 text-left filter-label"><b>Amenities</b></div>
+                                    <div class="col-xs-8 text-right"><a  data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1"><span class="glyphicon glyphicon-chevron-down"></span></a></div>
+                                    <div class="collapse" id="collapseExample1">
+
+                                        <div class="well">
+                                            <div class="row amenitiesM">
+                                                <div class="row">
+                                                    <div class="col-xs-1">
+                                                        <input  type="checkbox" class="checkbox" name="airConditioned"  {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                {% if amenities == 'airConditioned' %}
+                                                                    checked="true"
+                                                                {% endif %}
+
+                                                                {% endfor %}
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Air Conditioned
+
+                                                        </div>
+                                                    </div>   
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="balcony"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'balcony' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Balcony
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="ceilingFans"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'ceilingFans' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    >
+                                                        </div>                     
+                                                        <div class="col-xs-11">
+                                                            Ceiling Fans
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="petsAllowed"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'petsAllowed' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    >
+                                                        </div>
+
+                                                        <div class="col-xs-11">
+                                                            Pets Allowed
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="communityExerciseRoom"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'communityExerciseRoom' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>                   
+
+                                                        <div class="col-xs-11">
+                                                            Community Exercise Room
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="fullkitchen"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'fullkitchen' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+
+                                                        <div class="col-xs-11">
+                                                            Full Kitchen
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="garage"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'garage' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Garage
+
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="longTermRenters"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'longTermRenters' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Long Term Renters
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="heater"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'heater' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Heater
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="nonSmokingOnly"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'nonSmokingOnly' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Non Smoking Only
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="pool"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'pool' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Pool
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="childrenWelcome"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'childrenWelcome' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Children Welcome
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="telephone"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'telephone' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Telephone
+
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="fireplace"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'fireplace' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Fire Place
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="hotTub"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'hotTub' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %} 
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Hot Tub
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="washingMachine"
+
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'washingMachine' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %}       
+
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Washing Machine
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row">
+
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="parking"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'parking' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %}  
+
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Parking
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row">
+
+                                                        <div class="col-xs-1">
+                                                            <input  type="checkbox" class="checkbox" name="wheelchairAccessible"
+                                                                    {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'wheelchairAccessible' %}
+                                                                            checked="true"
+
+                                                                        {% endif %}
+                                                                    {% endfor %}  
+                                                                    >
+                                                        </div>
+                                                        <div class="col-xs-11">
+                                                            Wheelchair Accessible
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-xs-4 text-left filter-label"><b>Property Type</b></div>
+                                        <div class="col-xs-8 text-right"><a data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2"><span class="glyphicon glyphicon-chevron-down"></span></a></div>
+                                        <div class="collapse" id="collapseExample2">
+
+                                            <div class="well">
+                                                <div class="row propertyM">
+                                                    <div class="col-md-12 col-xs-12">
+                                                        {% for propertyType in propertyTypes %}
+
+                                                            <div class="row">
+
+                                                                <div class="col-xs-1">
+                                                                    <input  type="checkbox" class="checkbox" value="{{propertyType.name }}" name="{{propertyType.name }}"
+                                                                            {% for  property in app.session.get('MoreProperty') %}
+                                                                                {% if property == propertyType.name %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %}    
+
+                                                                            >
+                                                                </div>
+                                                                <div class="col-xs-11">
+                                                                    {{propertyType.name }}
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        {% endfor %}
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-xs-4 text-left filter-label"><b>Location Type</b></div>
+                                        <div class="col-xs-8 text-right"><a data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3"><span class="glyphicon glyphicon-chevron-down"></span></a></div>
+                                        <div class="collapse" id="collapseExample3">
+
+                                            <div class="well">
+                                                <div class="row locationM">
+
+                                                    <div class="col-md-12 col-xs-12">
+                                                        {% for key , locationType in locationTypes %}
+
+                                                            <div class="row">
+                                                                <div class="col-xs-1">
+                                                                    <input  type="checkbox" class="checkbox" value="{{locationType.name }}" name="{{locationType.name }}"
+
+                                                                            {% for  location in app.session.get('MoreLocation') %}
+                                                                                {% if location == locationType.name %}
+                                                                                    checked="true"
+                                                                                {% endif %}
+                                                                            {% endfor %}    
+
+
+
+                                                                            >
+                                                                </div>
+                                                                <div class="col-xs-11">
+                                                                    {{locationType.name }}
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                        </div>  
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 text-right">
+                                            <a class="btn btn-default" data-toggle="collapse" href="#collapseExample">Hide</a>
+                                            <a class="btn btn-default movile-clear">Clear Filters</a>
+                                            <a class="btn btn-default movile-apply">Apply Filters</a>
+                                            <button class="btn hide submit-movil-form" type="submit"></button>
+                                        </div>
+                                    </div>
+
+                                    <input id="moreProperty" type="hidden" value="" name="moreProperty">
+                                    <input id="moreLocation" type="hidden" value="" name="moreLocation">
+                                    <input id="moreAmenities" type="hidden" value="" name="moreAmenities">                
+
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row hidden-xs">
+                    <div class="col-xs-12 col-md-12" style="padding-left: 0">
+
+                        <ul class="nav nav-pills filters-ul">
+
+                            <li class="">
+                                <div class="btn-group">
+
+                                    <button id="price" type="button" class="btn btn-default dropdown-toggle">
+                                        <b>Price</b> <span class="glyphicon glyphicon-chevron-down"></span>
+                                        <div style="text-align: left">
+                                            <a href="#" id="price-link" class="blocked">
+                                                {% if (app.session.get('minPrice') is empty) and (app.session.get('maxPrice') is empty)  %} 
+                                                    Any 
+                                                {% elseif (app.session.get('minPrice') is empty) and (app.session.get('maxPrice')  is not empty)  %}  
+                                                    0 - {{app.session.get('maxPrice')}}
+                                                {% elseif (app.session.get('minPrice') is not empty) and (app.session.get('maxPrice')  is empty)  %} 
+                                                    {{app.session.get('minPrice')}}+
+                                                {% endif%}    
+
+                                                {% if (app.session.get('minPrice') is not empty ) and (app.session.get('maxPrice') is not empty ) %} {{app.session.get('minPrice')}} - {{app.session.get('maxPrice')}} {% endif%} 
+
+                                            </a>    
+                                        </div> 
+                                    </button>
+                                    <div id="price-pop" class="pop"></div>
+                                </div>
+                            </li>  
+                            <li class="">
+                                <div class="btn-group">
+                                    <button id="sleeps" type="button" class="btn btn-default dropdown-toggle" data-toggle="popover" aria-expanded="false">
+                                        <b>Sleeps</b> <span class="glyphicon glyphicon-chevron-down"></span><div style="text-align: left">
+                                            <a href="#" id="sleeps-link" class="blocked">
+
+                                                {% if (app.session.get('minSleeps') is empty) and (app.session.get('maxSleeps') is empty)  %} 
+                                                    Any 
+                                                {% elseif (app.session.get('minSleeps') is empty) and (app.session.get('maxSleeps')  is not empty)  %}  
+                                                    0 - {{app.session.get('maxSleeps')}}
+                                                {% elseif (app.session.get('minSleeps') is not empty) and (app.session.get('maxSleeps')  is empty)  %} 
+                                                    {{app.session.get('minSleeps')}}+
+                                                {% endif%}    
+
+                                                {% if (app.session.get('minSleeps') is not empty ) and (app.session.get('maxSleeps') is not empty ) %} {{app.session.get('minSleeps')}} - {{app.session.get('maxSleeps')}} {% endif%} 
+
+
+                                            </a>  </div> 
+                                    </button>
+                                    <div id="sleeps-pop" class="pop"></div>
+
+                                </div>
+                            </li>   
+                            <li class="">
+                                <div class="btn-group">
+                                    <button id="bedrooms" type="button" class="btn btn-default dropdown-toggle" data-toggle="popover" aria-expanded="false">
+                                        <b>Bedrooms</b> <span class="glyphicon glyphicon-chevron-down"></span><div style="text-align: left">
+                                            <a href="#" id="bedrooms-link" class="blocked">
+                                                {% if (app.session.get('minBedrooms') is empty) and (app.session.get('maxBedrooms') is empty)  %} 
+                                                    Any 
+                                                {% elseif (app.session.get('minBedrooms') is empty) and (app.session.get('maxBedrooms')  is not empty)  %}  
+                                                    0 - {{app.session.get('maxBedrooms')}}
+                                                {% elseif (app.session.get('minBedrooms') is not empty) and (app.session.get('maxBedrooms')  is empty)  %} 
+                                                    {{app.session.get('minBedrooms')}}+
+                                                {% endif%}    
+
+                                                {% if (app.session.get('minBedrooms') is not empty ) and (app.session.get('maxBedrooms') is not empty ) %} {{app.session.get('minBedrooms')}} - {{app.session.get('maxBedrooms')}} {% endif%} 
+
+                                            </a>
+                                        </div> 
+                                    </button>
+                                    <div id="bedrooms-pop" class="pop"></div>
+
+                                </div>
+                            </li>  
+                            <li class="">
+                                <div class="btn-group">
+                                    <button id="bathrooms" type="button" class="btn btn-default dropdown-toggle" data-toggle="popover" aria-expanded="false">
+                                        <b>Bathrooms</b> <span class="glyphicon glyphicon-chevron-down"></span><div style="text-align: left">
+                                            <a href="#" id="bathrooms-link" class="blocked">
+
+                                                {% if (app.session.get('minBathrooms') is empty) and (app.session.get('maxBathrooms') is empty)  %} 
+                                                    Any 
+                                                {% elseif (app.session.get('minBathrooms') is empty) and (app.session.get('maxBathrooms')  is not empty)  %}  
+                                                    0 - {{app.session.get('maxBathrooms')}}
+                                                {% elseif (app.session.get('minBathrooms') is not empty) and (app.session.get('maxBathrooms')  is empty)  %} 
+                                                    {{app.session.get('minBathrooms')}}+
+                                                {% endif%}    
+
+                                                {% if (app.session.get('minBathrooms') is not empty ) and (app.session.get('maxBathrooms') is not empty ) %} {{app.session.get('minBathrooms')}} - {{app.session.get('maxBathrooms')}} {% endif%} 
+
+
+                                            </a>
+                                        </div> 
+                                    </button>
+                                    <div id="bathrooms-pop" class="pop"></div>
+
+                                </div>
+                            </li>  
+                            <li class="">
+                                <div class="btn-group">
+                                    <button id="more" type="button" class="btn btn-default dropdown-toggle" data-toggle="popover" aria-expanded="false">
+                                        <b>More Filters</b> <span class="glyphicon glyphicon-chevron-down"></span><div style="text-align: left">
+
+                                            <a href="#" id="more-link" class="blocked">
+                                                edit
+                                            </a>
+                                        </div> 
+                                    </button>
+                                    <div id="more-pop" class="pop"></div>
+                                </div>
+                            </li>  
+
+                            <li class="hide">
+                                <div class="left text-left"><span class="list-title">SEARCH RESULTS</span></div><div class="text-left"><span class="results">{{app.session.get('results') }} Properties </span></div>
+                            </li>
+
+                            <li style="float: right;padding-right: 20px;padding-top: 20px;">
+                                <div class="btn-group">
+                                    <button id="sort" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                        <span style="color: #636F7C;">Sort By</span>  <span style="color: #333333; font-weight: bold">{{app.session.get('sort')}}</span><span class="glyphicon glyphicon-chevron-down"></span>
+
+                                    </button>
+                                    <ul class="dropdown-menu text-left" role="menu" aria-labelledby="sort">
+                                        <li><a href="{{ path('update_sort', {'sort': 'Price: Low to High' }) }}">Price: Low to High</a></li>
+                                        <li><a href="{{ path('update_sort', {'sort': 'Price: High to Low' }) }}">Price: High to Low</a></li>                 
+                                        <li><a href="{{ path('update_sort', {'sort': 'Bedrooms: Fewest to Most' }) }}">Bedrooms: Fewest to Most</a></li>
+                                        <li><a href="{{ path('update_sort', {'sort': 'Bedrooms: Most to Fewest' }) }}">Bedrooms: Most to Fewest</a></li>
+                                        <li><a href="{{ path('update_sort', {'sort': 'Bathrooms: Fewest to Most' }) }}">Bathrooms: Fewest to Most</a></li>
+                                        <li><a href="{{ path('update_sort', {'sort': 'Bathrooms: Most to Fewest' }) }}">Bathrooms: Most to Fewest</a></li>
+                                        <li><a href="{{ path('update_sort', {'sort': 'Number of Reviews' }) }}">Number of Reviews</a></li>
+
+                                        <li class="divider"></li>
+                                        <li><a href="{{ path('update_sort', {'sort': 'Default Sort' }) }}">Default Sort</a></li>
+                                    </ul>
+                                </div>
+                            </li>  
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="price-form" class="hide" data-trigger="focus">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 text-left">  
+                            <form class="form-inline filter-form" action="{{path('update_filtro_price')}}" method="POST">
+
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-md-6 col-xs-12" style="padding-right: 3px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-usd" style="color: #B6B6B6"></i></span>
+                                                <select id="minPrice"  class="form-control"  name="minPrice">
+                                                    <option value="" selected="selected">Any</option>
+                                                    <option value="0" {% if (app.session.get('minPrice') == '0')%} selected="selected" {%endif%} >0</option>
+                                                    <option value="500" {% if (app.session.get('minPrice') == '500')%} selected="selected" {%endif%}>500</option>
+                                                    <option value="1000" {% if (app.session.get('minPrice') == '1000')%} selected="selected" {%endif%}>1000</option>
+                                                    <option value="1500" {% if (app.session.get('minPrice') == '1500')%} selected="selected" {%endif%}>1500</option>
+                                                    <option value="2000" {% if (app.session.get('minPrice') == '2000')%} selected="selected" {%endif%}>2000</option>
+                                                    <option value="3000" {% if (app.session.get('minPrice') == '3000')%} selected="selected" {%endif%}>3000</option>
+                                                    <option value="4000" {% if (app.session.get('minPrice') == '4000')%} selected="selected" {%endif%}>4000</option>
+                                                    <option value="5000" {% if (app.session.get('minPrice') == '5000')%} selected="selected" {%endif%}>5000</option>
+                                                    <option value="6000" {% if (app.session.get('minPrice') == '6000')%} selected="selected" {%endif%}>6000</option>
+                                                    <option value="7000" {% if (app.session.get('minPrice') == '7000')%} selected="selected" {%endif%}>7000</option>
+                                                    <option value="8000" {% if (app.session.get('minPrice') == '8000')%} selected="selected" {%endif%}>8000</option>
+                                                    <option value="9000" {% if (app.session.get('minPrice') == '9000')%} selected="selected" {%endif%}>9000</option>
+                                                </select>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-6 col-xs-12" style="padding-left: 3px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon2"><i class="fa fa-usd" style="color: #B6B6B6"></i></span>
+                                                <select id="maxPrice"  class="form-control"  name="maxPrice">
+                                                    <option value="" selected="selected">Any</option>
+                                                    <option value="500" {% if (app.session.get('maxPrice') == '500')%} selected="selected" {%endif%}>500</option>
+                                                    <option value="1000" {% if (app.session.get('maxPrice') == '1000')%} selected="selected" {%endif%}>1000</option>
+                                                    <option value="1500" {% if (app.session.get('maxPrice') == '1500')%} selected="selected" {%endif%}>1500</option>
+                                                    <option value="2000" {% if (app.session.get('maxPrice') == '2000')%} selected="selected" {%endif%}>2000</option>
+                                                    <option value="3000" {% if (app.session.get('maxPrice') == '3000')%} selected="selected" {%endif%}>3000</option>
+                                                    <option value="4000" {% if (app.session.get('maxPrice') == '4000')%} selected="selected" {%endif%}>4000</option>
+                                                    <option value="5000" {% if (app.session.get('maxPrice') == '5000')%} selected="selected" {%endif%}>5000</option>
+                                                    <option value="6000" {% if (app.session.get('maxPrice') == '6000')%} selected="selected" {%endif%}>6000</option>
+                                                    <option value="7000" {% if (app.session.get('maxPrice') == '7000')%} selected="selected" {%endif%}>7000</option>
+                                                    <option value="8000" {% if (app.session.get('maxPrice') == '8000')%} selected="selected" {%endif%}>8000</option>
+                                                    <option value="9000" {% if (app.session.get('maxPrice') == '9000')%} selected="selected" {%endif%}>9000</option>
+                                                    <option value="10000" {% if (app.session.get('maxPrice') == '10000')%} selected="selected" {%endif%}>10000</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>       
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+
+
+                                    <div class="col-md-12 col-xs-12 text-right">
+                                        <button type="button" id="clear-price" class="btn btn-default-filter" onclick="clearPrice(jQuery('.webui-popover #minPrice'), jQuery('.webui-popover #maxPrice'), event)">Clear</button>  
+                                        <a type="button" type="button" id="apply-price" class="btn btn-primary-filter" onclick=" updatePrice(jQuery('.webui-popover #minPrice'), jQuery('.webui-popover #maxPrice'), event)">Apply Filter</a>  
+                                        <button id="btnsubmitprice" class="hide" type="submit"></button>
+                                        </br>
+
+                                    </div>
+
+                                </div>
+                                <input id="sminPrice" type="hidden" value="" name="sminPrice">
+                                <input id="smaxPrice" type="hidden" value="" name="smaxPrice">
+
+
+                            </form>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div id="sleeps-form" class="hide">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 text-left">  
+                            <form class="filter-form" action="{{path('update_filtro_sleeps')}}" method="POST" style="max-width: 260px;">
+
+                                <div class="row">
+                                    <div class="form-group" >
+                                        <div class="col-md-6 col-xs-12" style="padding-right:  3px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon3"><i class="fa fa-users"  style="color: #B6B6B6"></i></span>
+                                                <select id="minSleeps"  class="form-control"  name="minSleeps">
+                                                    <option value="" selected="selected">Any</option>
+                                                    <option value="1" {% if (app.session.get('minSleeps') == '1')%} selected="selected" {%endif%}>1+</option>
+                                                    <option value="2" {% if (app.session.get('minSleeps') == '2')%} selected="selected" {%endif%}>2+</option>
+                                                    <option value="3" {% if (app.session.get('minSleeps') == '3')%} selected="selected" {%endif%}>3+</option>
+                                                    <option value="4" {% if (app.session.get('minSleeps') == '4')%} selected="selected" {%endif%}>4+</option>
+                                                    <option value="5" {% if (app.session.get('minSleeps') == '5')%} selected="selected" {%endif%}>5+</option>
+                                                    <option value="6" {% if (app.session.get('minSleeps') == '6')%} selected="selected" {%endif%}>6+</option>
+                                                    <option value="7" {% if (app.session.get('minSleeps') == '7')%} selected="selected" {%endif%}>7+</option>
+                                                    <option value="8" {% if (app.session.get('minSleeps') == '8')%} selected="selected" {%endif%}>8+</option>
+                                                    <option value="9" {% if (app.session.get('minSleeps') == '9')%} selected="selected" {%endif%}>9+</option>
+                                                    <option value="10" {% if (app.session.get('minSleeps') == '10')%} selected="selected" {%endif%}>10+</option>
+                                                    <option value="11" {% if (app.session.get('minSleeps') == '11')%} selected="selected" {%endif%}>11+</option>
+                                                    <option value="12" {% if (app.session.get('minSleeps') == '12') %} selected="selected" {%endif%}>12+</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 col-xs-12" style="padding-left: 3px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon4"><i class="fa fa-users" style="color: #B6B6B6"></i></span>
+                                                <select id="maxSleeps"  class="form-control"  name="maxSleeps">
+                                                    <option value="" selected="selected">Any</option>
+                                                    <option value="2" {% if (app.session.get('maxSleeps') == '2')%} selected="selected" {%endif%}>2</option>
+                                                    <option value="3" {% if (app.session.get('maxSleeps') == '3')%} selected="selected" {%endif%}>3</option>
+                                                    <option value="4" {% if (app.session.get('maxSleeps') == '4')%} selected="selected" {%endif%}>4</option>
+                                                    <option value="5" {% if (app.session.get('maxSleeps') == '5')%} selected="selected" {%endif%}>5</option>
+                                                    <option value="6" {% if (app.session.get('maxSleeps') == '6')%} selected="selected" {%endif%}>6</option>
+                                                    <option value="7" {% if (app.session.get('maxSleeps') == '7')%} selected="selected" {%endif%}>7</option>
+                                                    <option value="8" {% if (app.session.get('maxSleeps') == '8')%} selected="selected" {%endif%}>8</option>
+                                                    <option value="9" {% if (app.session.get('maxSleeps') == '9')%} selected="selected" {%endif%}>9</option>
+                                                    <option value="10" {% if (app.session.get('maxSleeps') == '10')%} selected="selected" {%endif%}>10</option>
+                                                    <option value="11" {% if (app.session.get('maxSleeps') == '11')%} selected="selected" {%endif%}>11</option>
+                                                    <option value="12" {% if (app.session.get('maxSleeps') == '12')%} selected="selected" {%endif%}>12</option>
+                                                    <option value="13" {% if (app.session.get('maxSleeps') == '13')%} selected="selected" {%endif%}>13</option>
+                                                </select>
+                                            </div>
+
+                                        </div>      
+
+                                    </div>       
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+
+
+                                    <div class="col-md-12 col-xs-12 text-right" >
+                                        <button type="button" id="clear-sleeps" class="btn btn-default-filter" onclick="clearSleeps(jQuery('.webui-popover #minSleeps'), jQuery('.webui-popover #maxSleeps'), event)">Clear</button>  
+                                        <a id="apply-price" type="button" class="btn btn-primary-filter" onclick="updateSleeps(jQuery('.webui-popover #minSleeps'), jQuery('.webui-popover #maxSleeps'), event)">Apply Filter</a>
+                                        <button id="btnsubmitsleeps" class="hide" type="submit"></button>
+                                        </br>
+
+                                    </div>
+
+                                </div>
+                                <input id="sminSleeps" type="hidden" value="" name="sminSleeps">
+                                <input id="smaxSleeps" type="hidden" value="" name="smaxSleeps">
+
+
+                            </form>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+                <div id="bedrooms-form" class="hide">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 text-left">  
+                            <form class=" filter-form" action="{{path('update_filtro_bedrooms')}}" method="POST" style="max-width: 260px;">
+                                <div class="row">
+                                    <div class="form-group" style="margin-bottom: 10px">
+                                        <div class="col-md-6 col-xs-12" style="padding-right:  3px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon5"><i class="fa fa-bed" style="color: #B6B6B6"></i></span>
+                                                <select id="minBedrooms"  class="form-control"  name="minBedrooms">
+                                                    <option value="" selected="selected">Any</option>
+                                                    <option value="1" {% if (app.session.get('minBedrooms') == '1')%} selected="selected" {%endif%}>1+</option>
+                                                    <option value="2" {% if (app.session.get('minBedrooms') == '2')%} selected="selected" {%endif%}>2+</option>
+                                                    <option value="3" {% if (app.session.get('minBedrooms') == '3')%} selected="selected" {%endif%}>3+</option>
+                                                    <option value="4" {% if (app.session.get('minBedrooms') == '4')%} selected="selected" {%endif%}>4+</option>
+                                                    <option value="5" {% if (app.session.get('minBedrooms') == '5')%} selected="selected" {%endif%}>5+</option>
+                                                    <option value="6" {% if (app.session.get('minBedrooms') == '6')%} selected="selected" {%endif%}>6+</option>
+                                                    <option value="7" {% if (app.session.get('minBedrooms') == '7')%} selected="selected" {%endif%}>7+</option>
+                                                    <option value="8" {% if (app.session.get('minBedrooms') == '8')%} selected="selected" {%endif%}>8+</option>
+                                                    <option value="9" {% if (app.session.get('minBedrooms') == '9')%} selected="selected" {%endif%}>9+</option>
+                                                    <option value="10" {% if (app.session.get('minBedrooms') == '10')%} selected="selected" {%endif%}>10+</option>
+                                                    <option value="11" {% if (app.session.get('minBedrooms') == '11')%} selected="selected" {%endif%}>11+</option>
+                                                    <option value="12" {% if (app.session.get('minBedrooms') == '12') %} selected="selected" {%endif%}>12+</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 col-xs-12" style="padding-left: 3px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon6"><i class="fa fa-bed" style="color: #B6B6B6"></i></span>
+                                                <select id="maxBedrooms"  class="form-control"  name="maxBedrooms">
+                                                    <option value="" selected="selected">Any</option>
+                                                    <option value="1" {% if (app.session.get('maxBedrooms') == '1')%} selected="selected" {%endif%}>1</option>
+                                                    <option value="2" {% if (app.session.get('maxBedrooms') == '2')%} selected="selected" {%endif%}>2</option>
+                                                    <option value="3" {% if (app.session.get('maxBedrooms') == '3')%} selected="selected" {%endif%}>3</option>
+                                                    <option value="4" {% if (app.session.get('maxBedrooms') == '4')%} selected="selected" {%endif%}>4</option>
+                                                    <option value="5" {% if (app.session.get('maxBedrooms') == '5')%} selected="selected" {%endif%}>5</option>
+                                                    <option value="6" {% if (app.session.get('maxBedrooms') == '6')%} selected="selected" {%endif%}>6</option>
+                                                    <option value="7" {% if (app.session.get('maxBedrooms') == '7')%} selected="selected" {%endif%}>7</option>
+                                                    <option value="8" {% if (app.session.get('maxBedrooms') == '8')%} selected="selected" {%endif%}>8</option>
+                                                    <option value="9" {% if (app.session.get('maxBedrooms') == '9')%} selected="selected" {%endif%}>9</option>
+                                                    <option value="10" {% if (app.session.get('maxBedrooms') == '10')%} selected="selected" {%endif%}>10</option>
+                                                    <option value="11" {% if (app.session.get('maxBedrooms') == '11')%} selected="selected" {%endif%}>11</option>
+                                                    <option value="12" {% if (app.session.get('maxBedrooms') == '12') %} selected="selected" {%endif%}>12</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                    </div>       
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+
+
+                                    <div class="col-md-12 col-xs-12 text-right">
+                                        <button type="button" id="clear-bedrooms" class="btn btn-default-filter" onclick="clearBedrooms(jQuery('.webui-popover #minBedrooms'), jQuery('.webui-popover #maxBedrooms'), event)">Clear</button>  
+                                        <a id="apply-bedrooms" type="button" class="btn btn-primary-filter" onclick="updateBedrooms(jQuery('.webui-popover #minBedrooms'), jQuery('.webui-popover #maxBedrooms'), event)">Apply Filter</a>
+                                        <button id="btnsubmitbedrooms" class="hide" type="submit"></button>
+                                        </br>
+
+                                    </div>
+
+                                </div>
+                                <input id="sminBedrooms" type="hidden" value="" name="sminBedrooms">
+                                <input id="smaxBedrooms" type="hidden" value="" name="smaxBedrooms">
+
+
+                            </form>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div id="bathrooms-form" class="hide">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 text-left">  
+                            <form class=" filter-form" action="{{path('update_filtro_bathrooms')}}" method="POST" style="max-width: 255px;">
+
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-xs-12" style="padding-right:  3px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon7"><i class="fa fa-tint" style="color: #B6B6B6"></i></span>
+                                                <select id="minBathrooms"  class="form-control"  name="minBathrooms">
+                                                    <option value="" selected="selected">Any</option>
+                                                    <option value="1" {% if (app.session.get('minBathrooms') == '1')%} selected="selected" {%endif%}>1+</option>
+                                                    <option value="2" {% if (app.session.get('minBathrooms') == '2')%} selected="selected" {%endif%}>2+</option>
+                                                    <option value="3" {% if (app.session.get('minBathrooms') == '3')%} selected="selected" {%endif%}>3+</option>
+                                                    <option value="4" {% if (app.session.get('minBathrooms') == '4')%} selected="selected" {%endif%}>4+</option>
+                                                    <option value="5" {% if (app.session.get('minBathrooms') == '5')%} selected="selected" {%endif%}>5+</option>
+                                                    <option value="6" {% if (app.session.get('minBathrooms') == '6')%} selected="selected" {%endif%}>6+</option>
+                                                    <option value="7" {% if (app.session.get('minBathrooms') == '7')%} selected="selected" {%endif%}>7+</option>
+                                                    <option value="8" {% if (app.session.get('minBathrooms') == '8')%} selected="selected" {%endif%}>8+</option>
+                                                    <option value="9" {% if (app.session.get('minBathrooms') == '9')%} selected="selected" {%endif%}>9+</option>
+                                                    <option value="10" {% if (app.session.get('minBathrooms') == '10')%} selected="selected" {%endif%}>10+</option>
+                                                    <option value="11" {% if (app.session.get('minBathrooms') == '11')%} selected="selected" {%endif%}>11+</option>
+                                                    <option value="12" {% if (app.session.get('minBathrooms') == '12') %} selected="selected" {%endif%}>12+</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 col-xs-12" style="padding-left:  3px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon8"><i class="fa fa-tint" style="color: #B6B6B6"></i></span>
+                                                <select id="maxBathrooms"  class="form-control"  name="maxBathrooms">
+                                                    <option value="" selected="selected">Any</option>
+                                                    <option value="1" {% if (app.session.get('maxBathrooms') == '1')%} selected="selected" {%endif%}>1</option>
+                                                    <option value="2" {% if (app.session.get('maxBathrooms') == '2')%} selected="selected" {%endif%}>2</option>
+                                                    <option value="3" {% if (app.session.get('maxBathrooms') == '3')%} selected="selected" {%endif%}>3</option>
+                                                    <option value="4" {% if (app.session.get('maxBathrooms') == '4')%} selected="selected" {%endif%}>4</option>
+                                                    <option value="5" {% if (app.session.get('maxBathrooms') == '5')%} selected="selected" {%endif%}>5</option>
+                                                    <option value="6" {% if (app.session.get('maxBathrooms') == '6')%} selected="selected" {%endif%}>6</option>
+                                                    <option value="7" {% if (app.session.get('maxBathrooms') == '7')%} selected="selected" {%endif%}>7</option>
+                                                    <option value="8" {% if (app.session.get('maxBathrooms') == '8')%} selected="selected" {%endif%}>8</option>
+                                                    <option value="9" {% if (app.session.get('maxBathrooms') == '9')%} selected="selected" {%endif%}>9</option>
+                                                    <option value="10" {% if (app.session.get('maxBathrooms') == '10')%} selected="selected" {%endif%}>10</option>
+                                                    <option value="11" {% if (app.session.get('maxBathrooms') == '11')%} selected="selected" {%endif%}>11</option>
+                                                    <option value="12" {% if (app.session.get('maxBathrooms') == '12') %} selected="selected" {%endif%}>12</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                    </div>       
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+
+
+                                    <div class="col-md-12 col-xs-12 text-right">
+                                        <button type="button" id="clear-bathrooms" class="btn btn-default-filter" onclick="clearBathrooms(jQuery('.webui-popover #minBathrooms'), jQuery('.webui-popover #maxBathrooms'), event)">Clear</button> 
+                                        <a type="button" id="apply-bathrooms" class="btn btn-primary-filter"  onclick="updateBathrooms(jQuery('.webui-popover #minBathrooms'), jQuery('.webui-popover #maxBathrooms'), event)">Apply Filter</a>
+                                        <button id="btnsubmitbathrooms" class="hide" type="submit"></button>
+                                        </br>
+                                    </div>
+
+                                </div>
+                                <input id="sminBathrooms" type="hidden" value="" name="sminBathrooms">
+                                <input id="smaxBathrooms" type="hidden" value="" name="smaxBathrooms">
+
+
+                            </form>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div id="more-form" class="hide">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 text-left" style="margin-top: 2px">  
+                            <form class="form-inline filter-form" action="{{path('update_filtro_more')}}" method="POST">
+
+                                <div class="row">
+                                    <div class="form-group" style="margin-bottom: 5px">
+
+                                        <div class="col-md-12 col-xs-12" style="padding-bottom: 5px"><label> Amenities</label> 
+                                            <a type="button" id="apply-more" class="btn btn-primary-filter pull-right" style="margin-left: 5px" onclick="updateMore(event);">Apply Filter</a>
+                                            <button id="btnsubmitmore" class="hide" type="submit"></button>
+                                            <button type="button" id="clear-more" class="btn btn-default-filter pull-right" onclick="clearMore(event)">Clear</button> 
+                                            
+
+
+                                       
+                                        </div>
+
+
+                                        <div class="row amenities">
+                                            <div class="col-md-6 col-xs-12">
+                                                <div class="row" style="margin-left: 0">
+
+                                                    <div class="col-md-12 col-xs-12">
+                                                        <div class="row">
+                                                            <div class="col-md-9 col-xs-12">
+                                                                Air Conditioned
+
+                                                            </div>
+                                                            <div class="col-md-3 col-xs-12">
+                                                                <input  type="checkbox" class="checkbox" name="airConditioned"  {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                        {% if amenities == 'airConditioned' %}
+                                                                            checked="true"
+                                                                        {% endif %}
+
+                                                                        {% endfor %}
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div> 
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Balcony
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="balcony"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'balcony' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %}
+
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div> 
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Ceiling Fans
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="ceilingFans"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'ceilingFans' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div> 
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Pets Allowed
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="petsAllowed"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'petsAllowed' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Community Exercise Room
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="communityExerciseRoom"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'communityExerciseRoom' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Full Kitchen
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="fullkitchen"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'fullkitchen' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Garage
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="garage"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'garage' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Long Term Renters
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="longTermRenters"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'longTermRenters' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Heater
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="heater"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'heater' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>   
+                                                    </div>
+
+                                                </div>    
+                                                <div class="col-md-6 col-xs-12">
+                                                    <div class="row">
+
+
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Non Smoking Only
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="nonSmokingOnly"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'nonSmokingOnly' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Pool
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="pool"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'pool' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Children Welcome
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="childrenWelcome"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'childrenWelcome' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Telephone
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="telephone"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'telephone' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Fire Place
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="fireplace"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'fireplace' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Hot Tub
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="hotTub"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'hotTub' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %} 
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Washing Machine
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="washingMachine"
+
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'washingMachine' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %}       
+
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Parking
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="parking"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'parking' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %}  
+
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    Wheelchair Accessible
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" name="wheelchairAccessible"
+                                                                            {% for  amenities in app.session.get('MoreAmenities') %}
+                                                                                {% if amenities == 'wheelchairAccessible' %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %}  
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>   
+
+                                            </div>
+
+                                            <hr style="margin: 5px 10px"> 
+
+
+
+
+
+                                            <div class="col-md-6 col-xs-12">
+                                                <div class="row property">
+                                                    <div class="col-md-12 col-xs-12">     
+                                                        <label> Property Type</label>   
+                                                    </div>
+                                                    <div class="col-md-12 col-xs-12">
+                                                        {% for propertyType in propertyTypes %}
+
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    {{propertyType.name }}
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" value="{{propertyType.name }}" name="{{propertyType.name }}"
+                                                                            {% for  property in app.session.get('MoreProperty') %}
+                                                                                {% if property == propertyType.name %}
+                                                                                    checked="true"
+
+                                                                                {% endif %}
+                                                                            {% endfor %}    
+
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+
+                                                        {% endfor %}
+                                                    </div>  
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6 col-xs-12">
+                                                <div class="row location">
+                                                    <div class="col-md-12 col-xs-12">     
+                                                        <label> Location Type</label>   
+                                                    </div>
+                                                    <div class="col-md-12 col-xs-12" style="padding-right: 0">
+                                                        {% for key , locationType in locationTypes %}
+
+                                                            <div class="row">
+                                                                <div class="col-md-9 col-xs-12">
+                                                                    {{locationType.name }}
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <input  type="checkbox" class="checkbox" value="{{locationType.name }}" name="{{locationType.name }}"
+
+                                                                            {% for  location in app.session.get('MoreLocation') %}
+                                                                                {% if location == locationType.name %}
+                                                                                    checked="true"
+                                                                                {% endif %}
+                                                                            {% endfor %}    
+
+
+
+                                                                            >
+                                                                </div>
+                                                            </div>
+
+
+                                                        {% endfor %}
+                                                    </div>
+                                                </div> 
+                                            </div> 
+
+                                        </div>  
+
+                                    </div>
+
+                                    
+
+                                    <input id="sMoreProperty" type="hidden" value="" name="sMoreProperty">
+                                    <input id="sMoreLocation" type="hidden" value="" name="sMoreLocation">
+                                    <input id="sMoreAmenities" type="hidden" value="" name="sMoreAmenities">
+
+
+                                </form>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <input id="priceOpen" type="hidden" value="" name="priceOpen">
+                <input id="sleepsOpen" type="hidden" value="" name="sleepsOpen">
+                <input id="bedroomsOpen" type="hidden" value="" name="bedroomsOpen">
+                <input id="bathroomsOpen" type="hidden" value="" name="bathroomsOpen">
+                <input id="moreOpen" type="hidden" value="" name="moreOpen"> 
+            </div>
+
+
+        </div>
+        {{ include('AdminBundle:Default:owner-support-form.html.twig') }}
+
+        <input id="starsPath" type="hidden" value="{{starsPath}}">                                           
+        <script type="text/javascript">
+              jQuery("#searchtext").val('');
+            jQuery(document).ready(function () {
+                //--------------------------------------------------------------------------------
+
+                //------------------------------------------------------------------------------
+                jQuery('#btnsearch').click(function (e) {
+
+                    if (checkDate(jQuery('#datepicker1'), jQuery('#datepicker2'))) {
+                        jQuery('#btnsave').trigger('click');
+                    }
+                    e.preventDefault();
+                });
+
+
+        
+
+
+                jQuery('#searchtext').keydown(function (event) {
+                    if (event.keyCode !== 13 && event.keyCode !== 9 && event.keyCode !== 16 && event.keyCode !== 17 && event.keyCode !== 18 && event.keyCode !== 27 && event.keyCode !== 35 && event.keyCode !== 36 && event.keyCode !== 37 && event.keyCode !== 38 && event.keyCode !== 39 && event.keyCode !== 40) {
+                        jQuery('#search').find('.add').each(function () {
+                            jQuery(this).val('');
+                        });
+                    }
+                    
+                    
+                     if (event.which == 13 && jQuery('.pac-container:visible').length) return false;
+                });
+
+
+                var placeSearch, autocomplete;
+                var componentForm = {
+                    locality: 'long_name',
+                    postal_town: 'long_name',
+                    administrative_area_level_2: 'short_name',
+                    administrative_area_level_1: 'long_name',
+                    country: 'long_name',
+                    neighborhood: 'long_name',
+                    postal_code: 'short_name'
+
+
+                };
+
+                function initialize() {
+                    // Create the autocomplete object, restricting the search
+                    // to geographical location types.
+                    autocomplete = new google.maps.places.Autocomplete(
+                            /** @type {HTMLInputElement} */(document.getElementById('searchtext')),
+                            {types: ['(regions)']});
+                    // When the user selects an address from the dropdown,
+                    // populate the address fields in the form.
+                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                        fillInAddress(autocomplete);
+                    });
+                }
+
+                function fillInAddress(autocomplete) {
+                    // Get the place details from the autocomplete object.
+                    var place = autocomplete.getPlace();
+                    //jQuery('#response').html(place.address_components);
+                    // Get each component of the address from the place details
+                    // and fill the corresponding field on the form.
+
+                    jQuery('#search').find('.add').each(function () {
+                        jQuery(this).val('');
+                    });
+
+
+
+                    // Get each component of the address from the place details
+                    // and fill the corresponding field on the form.
+                    for (var i = 0; i < place.address_components.length; i++) {
+                        var addressType = place.address_components[i].types[0];
+
+
+
+                        //if(place.address_components[i].types[0] === 'postal_town'){
+                        //var addressType1 = place.address_components[i].types[0];  
+                        //var town = place.address_components[i]['long_name'];   
+                        //document.getElementById('stateName').value = town;
+                        //}   
+
+                        if (componentForm[addressType]) {
+
+                            var val = place.address_components[i][componentForm[addressType]];
+                            var addressType1 = "location_" + addressType;
+                            document.getElementById(addressType1).value = val;
+
+                        }
+
+                    }
+
+
+
+                }
+
+
+                google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+                function createPopoverForm(elem, text) {
+                    elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'top');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+                }
+
+                function checkDate(o, u) {
+                    if (u.val() < o.val()) {
+                        createPopoverForm(u, 'Invalid Date');
+                        return false;
+
+                    } else {
+                        return true;
+                    }
+                }
+
+
+
+
+
+
+                jQuery('.basic').jRating({
+                    isDisabled: true,
+                    nbRates: 0,
+                    sendRequest: false,
+                    rateMax: 5,
+                    bigStarsPath: jQuery('#starsPath').val()
+                });
+
+                jQuery('.basictemp').each(function () {
+                    jQuery(this).attr("data-average", jQuery(this).parent().find('.valoration').val()).attr("data-id", 1);
+
+                });
+
+                jQuery('.basic').remove();
+                jQuery('.basictemp').jRating({
+                    isDisabled: true,
+                    nbRates: 0,
+                    sendRequest: false,
+                    rateMax: 5,
+                    showRateInfo: true,
+                    bigStarsPath: jQuery('#starsPath').val()
+                });
+
+
+
+                
+                var optionsPrice = {
+                    trigger: 'click',
+                    placement: 'bottom-right',
+                    title: 'Price per Week',
+                    content: jQuery('#price-form').html(),
+                    width: 265,
+                    multi: false,
+                    closeable: false,
+                    style: '',
+                    delay: 100,
+                    padding: true
+                };
+                 var optionsSleeps = {
+                    trigger: 'click',
+                    placement: 'bottom-right',
+                    title: 'Sleeps',
+                    content: jQuery('#sleeps-form').html(),
+                    width: 290,
+                    multi: false,
+                    closeable: false,
+                    style: '',
+                    delay: 100,
+                    padding: true
+                };
+                 var optionsBedrooms = {
+                    trigger: 'click',
+                    placement: 'bottom-right',
+                    title: 'Bedrooms',
+                    content: jQuery('#bedrooms-form').html(),
+                    width: 290,
+                    multi: false,
+                    closeable: false,
+                    style: '',
+                    delay: 100,
+                    padding: true
+                };
+                 var optionsBathrooms = {
+                    trigger: 'click',
+                    placement: 'bottom-right',
+                    title: 'Bathrooms',
+                    content: jQuery('#bathrooms-form').html(),
+                    width: 290,
+                    multi: false,
+                    closeable: false,
+                    style: '',
+                    delay: 100,
+                    padding: true
+                };
+                 var optionsMore = {
+                    trigger: 'click',
+                    placement: 'bottom-right',
+                    title: 'More Filters',
+                    content: jQuery('#more-form').html(),
+                    width: 486,
+                    multi: false,
+                    closeable: false,
+                    style: '',
+                    delay: 100,
+                    padding: true
+                };
+                
+
+
+                jQuery('#price').webuiPopover(optionsPrice);
+                jQuery('#sleeps').webuiPopover(optionsSleeps);
+                jQuery('#bedrooms').webuiPopover(optionsBedrooms);
+                jQuery('#bathrooms').webuiPopover(optionsBathrooms);
+                jQuery('#more').webuiPopover(optionsMore);
+
+              
+
+
+
+
+                function createPopoverValid(elem, text) {
+                    elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'top');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+                }
+
+                //---------------------------------------------------------------------------------------------
+
+                //---------------------------------------------------------------------------------------------
+
+                function createPopover(elem, text, title) {
+                    elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.attr('title', title);
+                    elem.popover({
+                        html: true,
+                        content: function () {
+                            return jQuery(text);
+                        }
+                    });
+                    elem.trigger('click');
+                    elem.focus();
+                }
+
+
+
+
+
+            });
+
+
+            function validateMinMax(elem1, elem2) {
+
+                if (elem1 !== "" && elem2 !== "") {
+                    if (elem1 > elem2) {
+                        return false;
+                    }
+                }
+                return true;
+
+            }
+
+
+
+
+
+            function updatePrice(elem1, elem2, e) {
+
+                if (validateMinMax(parseInt(elem1.val()), parseInt(elem2.val()))) {
+                    if (parseInt(elem1.val()) === parseInt(elem2.val())) {
+                        elem1.val("");
+                        elem2.val("");
+                    }
+                    jQuery('#sminPrice').val(elem1.val());
+                    jQuery('#smaxPrice').val(elem2.val());
+
+                    e.preventDefault();
+
+                    jQuery('#btnsubmitprice').trigger('click');
+                } else {
+                    processValues1(elem1, elem2);
+                }
+
+            }
+
+
+            function clearPrice(elem1, elem2, e) {
+
+
+                if (elem1.val() !== '' || elem2.val() !== '') {
+                    jQuery('#sminPrice').val('');
+                    jQuery('#smaxPrice').val('');
+                    elem1.val('');
+                    elem2.val('');
+
+                    e.preventDefault();
+
+                    jQuery('#btnsubmitprice').trigger('click');
+                } else {
+                    elem1.focus();
+                }
+            }
+
+
+
+
+
+            function updateSleeps(elem1, elem2, e) {
+
+
+                if (validateMinMax(parseInt(elem1.val()), parseInt(elem2.val()))) {
+                    if (parseInt(elem1.val()) === parseInt(elem2.val())) {
+                        elem1.val("");
+                        elem2.val("");
+                    }
+                    jQuery('#sminSleeps').val(elem1.val());
+                    jQuery('#smaxSleeps').val(elem2.val());
+
+                    e.preventDefault();
+
+                    jQuery('#btnsubmitsleeps').trigger('click');
+                } else {
+                    processValues1(elem1, elem2);
+                }
+
+
+            }
+
+
+
+            function clearSleeps(elem1, elem2, e) {
+
+
+                if (elem1.val() !== '' || elem2.val() !== '') {
+                    jQuery('#sminSleeps').val('');
+                    jQuery('#smaxSleeps').val('');
+                    elem1.val('');
+                    elem2.val('');
+
+                    e.preventDefault();
+
+                    jQuery('#btnsubmitsleeps').trigger('click');
+                } else {
+                    elem1.focus();
+                }
+
+            }
+
+
+            //-------------------------------------------
+            function Is_Number(elem)
+            {
+                var regexp = /^[0-9]+$/i;
+                if (elem === "") {
+                    return true;
+                }
+
+
+                if (!(regexp.test(elem))) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            //-------------------------------------------   
+            function updateBedrooms(elem1, elem2, e) {
+
+                if (validateMinMax(parseInt(elem1.val()), parseInt(elem2.val()))) {
+                    if (parseInt(elem1.val()) === parseInt(elem2.val())) {
+                        elem1.val("");
+                        elem2.val("");
+                    }
+                    jQuery('#sminBedrooms').val(elem1.val());
+                    jQuery('#smaxBedrooms').val(elem2.val());
+
+                    e.preventDefault();
+
+                    jQuery('#btnsubmitbedrooms').trigger('click');
+                } else {
+                    processValues1(elem1, elem2);
+                }
+
+
+            }
+
+
+
+            function clearBedrooms(elem1, elem2, e) {
+
+                if (elem1.val() !== '' || elem2.val() !== '') {
+                    jQuery('#sminBedrooms').val('');
+                    jQuery('#smaxBedrooms').val('');
+                    elem1.val('');
+                    elem2.val('');
+
+                    e.preventDefault();
+
+                    jQuery('#btnsubmitbedrooms').trigger('click');
+                } else {
+                    elem1.focus();
+                }
+
+            }
+
+
+
+
+
+            function updateBathrooms(elem1, elem2, e) {
+
+                if (validateMinMax(parseInt(elem1.val()), parseInt(elem2.val()))) {
+                    if (parseInt(elem1.val()) === parseInt(elem2.val())) {
+                        elem1.val("");
+                        elem2.val("");
+                    }
+                    jQuery('#sminBathrooms').val(elem1.val());
+                    jQuery('#smaxBathrooms').val(elem2.val());
+
+                    e.preventDefault();
+
+                    jQuery('#btnsubmitbathrooms').trigger('click');
+                } else {
+                    processValues1(elem1, elem2);
+                }
+
+            }
+
+
+            function clearBathrooms(elem1, elem2, e) {
+
+                if (elem1.val() !== '' || elem2.val() !== '') {
+                    jQuery('#sminBathrooms').val('');
+                    jQuery('#smaxBathrooms').val('');
+                    elem1.val('');
+                    elem2.val('');
+
+                    e.preventDefault();
+
+                    jQuery('#btnsubmitbathrooms').trigger('click');
+                } else {
+                    elem1.focus();
+                }
+
+            }
+
+
+
+
+
+            function updateMore(e) {
+
+                var listProperty = [];
+                var listLocation = [];
+                var listAmenities = [];
+                jQuery('.webui-popover .property input:checked').each(function () {
+                    listProperty.push(this.name);
+                });
+
+                jQuery('.webui-popover .location input:checked').each(function () {
+                    listLocation.push(this.name);
+                });
+
+                jQuery('.webui-popover .amenities input:checked').each(function () {
+                    listAmenities.push(this.name);
+                });
+
+                jQuery('#sMoreProperty').val(listProperty);
+                jQuery('#sMoreLocation').val(listLocation);
+                jQuery('#sMoreAmenities').val(listAmenities);
+
+
+                e.preventDefault();
+
+
+                jQuery('#btnsubmitmore').trigger('click');
+            }
+
+            function clearMore(e) {
+
+                var listProperty = [];
+                var listLocation = [];
+                var listAmenities = [];
+
+                jQuery('.webui-popover .property :checkbox').attr('checked', false);
+                jQuery('.webui-popover .location :checkbox').attr('checked', false);
+                jQuery('.webui-popover .amenities :checkbox').attr('checked', false);
+
+                jQuery('#sMoreProperty').val(listProperty);
+                jQuery('#sMoreLocation').val(listLocation);
+                jQuery('#sMoreAmenities').val(listAmenities);
+
+                e.preventDefault();
+
+
+                jQuery('#btnsubmitmore').trigger('click');
+            }
+
+
+            jQuery('.form-filter a .glyphicon').click(function () {
+                if (jQuery(this).hasClass('glyphicon-chevron-down')) {
+                    jQuery(this).removeClass('glyphicon-chevron-down');
+                    jQuery(this).addClass('glyphicon-chevron-up');
+                } else {
+                    jQuery(this).removeClass('glyphicon-chevron-up');
+                    jQuery(this).addClass('glyphicon-chevron-down');
+                }
+            });
+
+
+
+            function processValues(elem1, elem2) {
+
+                if (elem1 !== "") {
+                    if (!Is_Number(elem1.val())) {
+                        elem1.val("");
+                        elem1.focus();
+                    }
+                }
+                if (elem2 !== "") {
+                    if (!Is_Number(elem2.val())) {
+                        elem2.val("");
+                        elem2.focus();
+                    }
+                }
+            }
+
+            function  processValues1(elem1, elem2) {
+                var old1 = elem1.val();
+                elem1.val(elem2.val());
+                elem2.val(old1);
+                elem1.focus();
+            }
+
+            function validateInputs(elem1, elem2) {
+
+                if (Is_Number(elem1.val()) && Is_Number(elem2.val())) {
+                    if (validateMinMax(elem1, elem2)) {
+                        return true;
+                    } else {
+
+                        processValues1(elem1, elem2);
+                        return false;
+                    }
+                } else {
+
+                    processValues(elem1, elem2);
+                    return false;
+                }
+
+
+            }
+
+
+            function validateFormMovil() {
+
+                var elem1 = jQuery('#minPrice');
+                var elem2 = jQuery('#maxPrice');
+                var elem3 = jQuery('#minSleeps');
+                var elem4 = jQuery('#maxSleeps');
+                var elem5 = jQuery('#minBedrooms');
+                var elem6 = jQuery('#maxBedrooms');
+                var elem7 = jQuery('#minBathrooms');
+                var elem8 = jQuery('#maxBathrooms');
+
+                var bValid = true;
+
+
+
+                if (elem1.val() !== "" || elem2.val() !== "") {
+                    bValid = bValid && validateInputs(elem1, elem2);
+                }
+                if (elem3.val() !== "" || elem4.val() !== "") {
+                    bValid = bValid && validateInputs(elem3, elem4);
+                }
+                if (elem5.val() !== "" || elem6.val() !== "") {
+                    bValid = bValid && validateInputs(elem5, elem6);
+                }
+                if (elem7.val() !== "" || elem8.val() !== "") {
+                    bValid = bValid && validateInputs(elem7, elem8);
+                }
+
+                return bValid;
+            }
+
+            jQuery('.movile-clear').click(function (e) {
+
+                var elem1 = jQuery('#minPrice');
+                var elem2 = jQuery('#maxPrice');
+                var elem3 = jQuery('#minSleeps');
+                var elem4 = jQuery('#maxSleeps');
+                var elem5 = jQuery('#minBedrooms');
+                var elem6 = jQuery('#maxBedrooms');
+                var elem7 = jQuery('#minBathrooms');
+                var elem8 = jQuery('#maxBathrooms');
+
+                if (elem1.val() === "" && elem2.val() === "" && elem3.val() === "" && elem4.val() === "" && elem5.val() === "" && elem6.val() === "" && elem7.val() === "" && elem8.val() === "") {
+                    jQuery(elem1).focus();
+
+                } else {
+
+                    elem1.val('');
+                    elem2.val('');
+                    elem3.val('');
+                    elem4.val('');
+                    elem5.val('');
+                    elem6.val('');
+                    elem7.val('');
+                    elem8.val('');
+
+                    var listProperty = [];
+                    var listLocation = [];
+                    var listAmenities = [];
+
+                    jQuery('.propertyM :checkbox').attr('checked', false);
+                    jQuery('.locationM :checkbox').attr('checked', false);
+                    jQuery('.amenitiesM :checkbox').attr('checked', false);
+
+                    jQuery('#moreProperty').val(listProperty);
+                    jQuery('#moreLocation').val(listLocation);
+                    jQuery('#moreAmenities').val(listAmenities);
+
+                    e.preventDefault();
+                    jQuery('.submit-movil-form').trigger('click');
+
+                }
+
+            });
+
+            jQuery('.movile-apply').click(function (e) {
+                if (validateFormMovil()) {
+
+                    var listProperty = [];
+                    var listLocation = [];
+                    var listAmenities = [];
+                    jQuery('.propertyM input:checked').each(function () {
+                        listProperty.push(this.name);
+                    });
+
+                    jQuery('.locationM input:checked').each(function () {
+                        listLocation.push(this.name);
+                    });
+
+                    jQuery('.amenitiesM input:checked').each(function () {
+                        listAmenities.push(this.name);
+                    });
+
+                    jQuery('#moreProperty').val(listProperty);
+                    jQuery('#moreLocation').val(listLocation);
+                    jQuery('#moreAmenities').val(listAmenities);
+
+                    e.preventDefault();
+                    jQuery('.submit-movil-form').trigger('click');
+                }
+
+            });
+
+
+
+
+            jQuery(document).scroll(function () {
+               jQuery('#price').webuiPopover('hide');	
+               jQuery('#sleeps').webuiPopover('hide');	
+               jQuery('#bedrooms').webuiPopover('hide');	
+               jQuery('#bathrooms').webuiPopover('hide');	
+               jQuery('#more').webuiPopover('hide');	
+            });
+
+            
+
+
+
+
+        </script>

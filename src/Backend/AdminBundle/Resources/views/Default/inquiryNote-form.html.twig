@@ -1,0 +1,143 @@
+<div class="modal fade" id="myModalInquiryNote{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Notes</h4>
+            </div>
+            <div class="modal-body">
+                 <div class="row notes" style="margin: 0px 17px 0 17px">
+         
+                </div>
+                
+                <form id="formNote" action="{{ path('save_inquiry_note') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+                    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+                  
+                    <div class="row" style="margin-top: 5px">
+                       <div class="col-md-12 col-sm-12 col-xs-12">Add Note</div> 
+                        <div class="col-md-12 col-sm-12 col-xs-12">{{ form_widget(form.text) }}</div>       
+                         
+                    
+                         
+                </div>
+                         
+                         
+              
+               
+                   
+                 
+                    <div style="display: none">{{ form_rest(form) }}</div>
+
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12"><div id="error"></div></div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary confirm-create">Create</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+
+
+        function disableFormReadReply() {
+            jQuery('#myModalInquiryNote{{id}} #formNote').find('textarea, button').attr('disabled', 'disabled');
+            jQuery("#myModalInquiryNote{{id}} #formNote").css("opacity", 0.37);
+        }
+
+
+
+        function enableFormReadReply() {
+            jQuery('#myModalInquiryNote{{id}} #formNote').find('textarea').val('');
+            jQuery('#myModalInquiryNote{{id}} #formNote').find('textarea, button').removeAttr('disabled');
+            jQuery("#myModalInquiryNote{{id}} #formNote").css("opacity", 1);
+        }
+
+        function submitFormReadReply() {
+
+            jQuery.ajax({
+                statusCode: {
+                    500: function () {
+                        //enableFormConfirmReservation();
+                        jQuery('#myModalInquiryNote{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                    }
+                },
+                url: jQuery('#myModalInquiryNote{{id}} #formNote').attr('action'),
+                type: "POST",
+                data: {id: '{{id}}', text: jQuery('#myModalInquiryNote{{id}} #inquiryNote_text').val()},
+                async: false,
+                success: function (response) {
+                    enableFormReadReply();
+                    //jQuery('#myModalInquiryNote{{id}}').modal('hide');
+                    jQuery("#myModalInquiryNote{{id}} .notes").load("{{path('inquiry_notes', {'id':id} )}}");
+                }
+            });
+        }
+
+
+        jQuery('#myModalInquiryNote{{id}} .confirm-create').click(function (e) {
+            //alert(jQuery('#myModalCancel{{id}} #formReservationCancel').serialize());    
+            validateFormReadReply();
+
+        });
+
+  jQuery('#myModalInquiryNote{{id}}').find('textarea').each(function(){
+    jQuery(this).focusout(function(){
+    jQuery(this).popover('destroy');
+    });
+    });
+
+
+        function validateFormReadReply() {
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#myModalInquiryNote{{id}} #inquiryNote_text'), 5, 500);
+            if (bValid) {
+                disableFormReadReply();
+                submitFormReadReply();
+            }
+
+        }
+        
+          function checkLength(o, min, max) {
+            if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+                    return false;
+            } else {
+            return true;
+            }
+            }
+            
+                function createPopover(elem, text){
+                elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+            }
+            
+            jQuery("#myModalInquiryNote{{id}} .notes").load("{{path('inquiry_notes', {'id':id} )}}");
+
+    });
+
+
+
+
+
+
+</script>

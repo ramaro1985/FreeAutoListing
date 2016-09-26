@@ -1,0 +1,58 @@
+{% extends "PrivateSellerBundle:Layout:user-admin.html.twig" %}
+
+{% block stylesheets %}
+    {#<link href="{{ asset('bundles/common/css/movil-search-result-style.css') }}" rel="stylesheet"/>#}
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+
+ {% block body %}
+
+
+
+     {{ include('PrivateSellerBundle:Default:content-header.html.twig') }}
+
+     <div class="col-md-12 visible-md visible-lg hidden-xs hidden-sm" style="background-color: #ffffff;margin-top: 15px">
+
+         <nav class="navbar" role="navigation"
+              style="background-color: white;border-radius: 0px;padding: 5px 0px;margin-bottom: 0px;min-height: 46px;">
+             <div class="collapse navbar-collapse navbar-ex1-collapse"
+                  style="padding-left: 0px;padding-right: 0px;padding-top: 3px;">
+                 <div class="col-md-2 no_padding">
+                     <ul class="nav navbar-nav pull-left" id="input_search" style="margin: 0;">
+                         <li>
+                             <a href="{{ path('private_create_vehicle_basic_info',{'type':'open' , 'vehicle_id': 'new' }) }}"
+                                class="navbar-text brand text-uppercase blue_link "
+                                style="font-size: 11px ;font-weight: 600;margin-bottom: 0px;margin-top: 0px;padding-left: 0px;margin-left: 0px;">[add
+                                 a new
+                                 car]</a>
+                         </li>
+                     </ul>
+
+                 </div>
+
+                 <div class="col-md-10 no_padding pull-right text-right">
+                     {{ include('CommonBundle:Default:filters.html.twig') }}
+                 </div>
+
+
+             </div>
+         </nav>
+
+     </div>
+
+     {{ include('PrivateSellerBundle:Default:user-vehicles-content.html.twig') }}
+
+     {#{{ include('PrivateSellerBundle:Default:user-inquiries.html.twig') }}#}
+
+     {#{ include('PrivateSellerBundle:Default:user-content.html.twig') }#}
+
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

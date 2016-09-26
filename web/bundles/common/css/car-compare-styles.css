@@ -1,0 +1,22 @@
+
+.thumbnail {
+    width: 145px;
+    border: none;
+}
+
+.title {
+    background-color: #337ab7;
+    color: #ffffff;
+    height: 43px;
+}
+
+.arrow {
+    color: #d53232;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+.table-responsive {
+    overflow-x: visible;
+    overflow-x: -moz-hidden-unscrollable;
+}

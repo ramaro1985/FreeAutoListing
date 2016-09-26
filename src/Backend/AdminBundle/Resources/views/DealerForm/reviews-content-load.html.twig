@@ -1,0 +1,101 @@
+<div class="row" style="margin-top: 15px">
+    {% for review in reviews %}
+        <div class="col-sm-6 col-md-6" style="margin-top: 30px">
+            <div class="row">
+                <div class="col-sm-2 col-md-2">
+                    <div class="thumbnail">
+                        <img src="{{ asset('bundles/common/images/private-profile.jpg') }}"
+                             alt=""
+                             class="img-responsive"/>
+
+                        <div class="caption"
+                             style="padding-left: 0px;padding-top: 4px;padding-right: 0px;font-size: 12px">
+                            {{ review.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10 col-md-10" style="padding-left: 5px;padding-right: 25px;">
+                    <h4 style="margin-top: 0px">{{ review.title }}</h4>
+
+                    <p>{{ review.description }}</p>
+
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12 text-left">
+                            <label for="customerrating">Customer service</label>
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="ratingoption" data-average="{{ review.customerservice }}"
+                                 data-id="1"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12 text-left">
+                            <label for="pricerating">Price</label>
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="ratingoption" data-average="{{ review.price }}" data-id="1"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12 text-left">
+                            <label for="facilitiesrating">Facilities</label>
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="ratingoption" data-average="{{ review.facilities }}" data-id="1"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12 text-left">
+                            <label for="overallrating">Overall</label>
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="ratingoption" data-average="{{ review.overall }}" data-id="1"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="pagination pull-right" style="margin-top: 15px">
+    {{ knp_pagination_render(reviews) }}
+</div>
+</div>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+        jQuery(".ratingoption").jRating({
+            isDisabled: true
+        });
+
+        jQuery('#customerrating,#pricerating,#overallrating,#facilitiesrating').jRating({
+            length: 5,
+            decimalLength: 1, // number of decimal in the rate
+            showRateInfo: false,
+            canRateAgain: true,
+            nbRates: 3,
+            sendRequest: false,
+            onClick: function (element, rate) {
+                var currentrating = "";
+                switch (element.id) {
+                    case "customerrating":
+                        currentrating = "#review_customerservice";
+                        break;
+                    case "pricerating":
+                        currentrating = "#review_price";
+                        break;
+                    case "overallrating":
+                        currentrating = "#review_overall";
+                        break;
+                    case "facilitiesrating":
+                        currentrating = "#review_facilities";
+                        break;
+                }
+                jQuery(currentrating).val(rate);
+            }
+        });
+    })
+
+</script>

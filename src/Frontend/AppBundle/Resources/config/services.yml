@@ -1,0 +1,43 @@
+parameters:
+     acme_demo.sitemap.listener.class: Frontend\AppBundle\EventListener\SitemapListener
+
+services:
+#    app.example:
+#        class: %app.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+     app_user_registration.form.type:
+        class: Frontend\AppBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: app_user_registration }
+     app_user_change_password.form.type:
+        class: Frontend\AppBundle\Form\Type\ChangePasswordFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: app_user_change_password }    
+     app_user_resetting.form.type:
+        class: Frontend\AppBundle\Form\Type\ResettingFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: app_user_resetting }
+            
+     user.resend_confirm.form.factory:
+        class: FOS\UserBundle\Form\Factory\FormFactory
+        arguments: ['@form.factory', 'user_resend_confirm', '@user.resend_confirm.form.type', ['ResendConfirm']]
+            
+     user.resend_confirm.form.type:
+        class: Frontend\AppBundle\Form\Type\ResendConfirmFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: user_resend_confirm }          
+
+     user.resend_confirm:
+        class: Frontend\AppBundle\EventListener\EmailConfirmationListener
+        arguments: [@fos_user.mailer, @fos_user.util.token_generator, @router, @session]
+        tags:
+            - { name: kernel.event_listener, event: user.resend_confirm, method: onResendConfirm }        
+            
+     my.sitemap.listener:
+        class: %acme_demo.sitemap.listener.class%
+        arguments: [@router, @doctrine.orm.entity_manager]
+        tags: [{name: "presta.sitemap.listener"}]        

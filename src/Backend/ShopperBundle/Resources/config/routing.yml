@@ -1,0 +1,19 @@
+shopper_page:
+    pattern:  /myaccount/
+    defaults: { _controller: ShopperBundle:Default:index }
+
+add_carsaved_to_user:
+    pattern: /addsavecartouser/
+    defaults: { _controller: ShopperBundle:Default:addCarToUser }
+
+remove_carsaved_in_user:
+    pattern: /removesavedcarinuser/
+    defaults: { _controller: ShopperBundle:Default:removeCarSaved }
+
+update_carsaved_in_user:
+    pattern: /updatesavedcarinuser/
+    defaults: { _controller: ShopperBundle:Default:updateCarSaved }
+
+printsavedcars:
+    pattern: /getpdf/
+    defaults: { _controller: ShopperBundle:Default:getPdfPage }

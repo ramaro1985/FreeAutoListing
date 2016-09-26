@@ -1,0 +1,432 @@
+<style>
+
+    hr {
+        width: 100%;
+        margin-bottom: 0px;
+        margin-top: 8px;
+        border-width: thin;
+        border-color: #000000;
+    }
+
+    .hr_text {
+        position: relative;
+        left: 47%;
+        padding-left: 2px;
+        padding-right: 2px;
+        background-color: white;
+        bottom: 11px;
+    }
+
+    .details dl {
+        margin-bottom: 0px;
+        margin-top: 5px;
+    }
+
+    .details span {
+        margin-bottom: 6px;
+    }
+
+    .details dl > dt, dd {
+        font-weight: normal;
+        text-align: left;
+    }
+
+    .details dl dt {
+        width: 108px;
+    }
+
+    .details dl dd {
+        margin-left: 100px;
+    }
+
+    #myTabContent {
+        background-color: #ffffff;
+        border: 1px solid #CCCCCC;
+        border-top-color: transparent;
+    }
+
+    ul.nav-tabs {
+        margin-bottom: 0px;
+    }
+    ul.nav-tabs li a {
+        background-color: #ffffff;
+        border: 1px solid #CCCCCC;
+        border-radius: 0px ;
+        padding: 4px 15px
+    }
+
+    ul.nav-tabs li.active a {
+        border: 1px solid #CCCCCC;
+        border-bottom-color: transparent;
+    }
+
+    .list_styled {
+        -webkit-padding-start: 32px;
+        list-style-type: disc;
+    }
+
+    .list_styled li {
+        display: list-item;
+    }
+
+
+</style>
+
+<div class="row">
+    <div class="container-fluid">
+
+        <div class="col-xs-12 col-md-12 col-sm-12 no_padding">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12 container_box no_padding">
+                        <div class="col-md-12 col-xs-12 col-sm-10">
+                            <div class="col-md-12 no_padding">
+                                <h4>{{ vehicle.vehiclesinformation.condition.name }}
+                                    {{ vehicle.vehiclesinformation.year.year }}
+                                    {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                    {{ vehicle.vehiclesinformation.model.modelDisplay }}</h4>
+                            </div>
+                            <div class="col-md-12 no_padding">
+                                <span>Mileage: {{ vehicle.vehiclesinformation.mileage }}</span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12" style="margin-top: 15px;padding-right: 0px">
+                            <div class="col-md-8 no_padding">
+                                <div class="">
+                                    {% if vehicle.profile %}
+                                        {% if(vehicle.gallery is not null ) %}
+                                            {% set pf = vehicle.gallery.profileimages[0] %}
+                                            <div class="tumb-large"
+                                                 style="height: 423px;background-image: url({{ asset(pf.getWebPathMediumVehicle(vehicle.profile,vehicle.serie)) }})">
+
+                                            </div>
+                                        {% else %}
+                                            {% set pf = 0 %}
+                                            <div class="tumb-large"
+                                                 style="height: 423px;background-image: url({{ asset('bundles/common/images/image-bg.jpg') }})">
+
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if vehicle.user %}
+                                        {% if(vehicle.gallery is not null ) %}
+                                            {% set pf = vehicle.gallery.vehicleimages[0] %}
+                                            <div class="tumb-large"
+                                                 style="height: 423px;background-image: url({{ asset(pf.getWebPathMediumVehicle(vehicle.user.id,vehicle.serie)) }})">
+
+                                            </div>
+                                        {% else %}
+                                            {% set pf = 0 %}
+                                            <div class="tumb-large"
+                                                 style="height: 423px;background-image: url({{ asset('bundles/common/images/image-bg.jpg') }})">
+
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-4 no_padding">
+
+                                <div class="container-fluid">
+                                    <div class="col-md-12 no_padding pull-left"
+                                         style="border-bottom: 1px solid black"><span
+                                                style="padding-top: 15px;padding-bottom: 15px;">
+                                        Price:<span class="bold_text_black"
+                                                    style="font-size: 25px">${{ vehicle.vehiclesinformation.price|number_format() }}</span>
+                                    </span></div>
+
+                                    <div class="col-md-12 no_padding pull-left">
+                                        <div class="thumbnail col-md-5 no_padding">
+                                            {% if(vehicle.profile) %}
+                                                <div class="logo img-responsive"
+                                                     style="margin-top: 2px;margin-bottom: 2px;background-image:url('{{ asset( vehicle.profile.logo) }}');height: 85px;width:100%">
+                                                </div>
+                                            {% elseif vehicle.user %}
+                                                <div class="logo img-responsive"
+                                                     style="margin-top: 2px;margin-bottom: 2px;background-image:url('{{ asset( 'bundles/common/images/for-sale.jpg' ) }}');height: 85px;width:100%">
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-7" style="padding-top: 5px">
+                                            <label for="views"><span class="glyphicon glyphicon-eye-open"
+                                                                     style="font-size: 16px;padding-top: 5px"></span></label>
+                                            <a id="views" style="text-decoration: none">{{ vehicle.views }} Views</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 no_padding clearfix">
+                                        {% if vehicle.profile %}
+                                            <span style="width: 100%">{{ vehicle.profile.description.phone }}</span>
+                                            <br/>
+                                            <span style="width: 100%">{{ vehicle.profile.description.address }}</span>
+                                        {% endif %}
+                                        {% if vehicle.user %}
+                                            <span style="width: 100%">{{ vehicle.user.name }}</span>
+                                            <br/>
+                                            <span style="width: 100%">{{ vehicle.user.phone }}</span>
+                                        {% endif %}
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-8" style="margin-bottom: 15px">
+                                <div class="row">
+                                    {% if vehicle.profile %}
+                                        {% if(vehicle.gallery is not null) %}
+                                            {% for pf in vehicle.gallery.profileimages %}
+
+                                                <div class="image-form">
+                                                    {% if pf.getWebPath is not null %}
+                                                        <div class="tumb old active"
+                                                             style="padding-left: 1px;padding-right: 1px;padding-top: 2px;
+                                                                     background-image:url('{{ asset(pf.getWebPathThumbnailVehicle(vehicle.profile,vehicle.serie)) }}');"></div>
+                                                    {% else %}
+                                                        <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                                             style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                                    {% endif %}
+                                                </div>
+
+                                            {% endfor %}
+
+                                            {% if  vehicle.gallery.profileimages|length < 9 %}
+                                                {% for i in vehicle.gallery.profileimages|length..9 %}
+
+                                                    <div class="image-form">
+                                                        <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                                             style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                                    </div>
+
+                                                {% endfor %}
+
+
+                                            {% endif %}
+                                        {% else %}
+
+                                            {% for i in 0..9 %}
+
+                                                <div class="image-form">
+                                                    <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                                         style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                                </div>
+
+                                            {% endfor %}
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                    {% if vehicle.user %}
+
+                                        {% if(vehicle.gallery is not null) %}
+                                            {% for pf in vehicle.gallery.vehicleimages %}
+
+                                                <div class="image-form">
+                                                    {% if pf.getWebPath is not null %}
+                                                        <div class="tumb old active"
+                                                             style="padding-left: 1px;padding-right: 1px;padding-top: 2px;
+                                                                     background-image:url('{{ asset(pf.getWebPathThumbnailVehicle(vehicle.user.id,vehicle.serie)) }}');"></div>
+                                                    {% else %}
+                                                        <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                                             style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                                    {% endif %}
+                                                </div>
+
+                                            {% endfor %}
+
+                                            {% if  vehicle.gallery.vehicleimages|length < 9 %}
+                                                {% for i in vehicle.gallery.vehicleimages|length..9 %}
+
+                                                    <div class="image-form">
+                                                        <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                                             style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                                    </div>
+
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% else %}
+
+                                            {% for i in 0..9 %}
+
+                                                <div class="image-form">
+                                                    <div id="gallery_propertyImages_{{ i }}" class="tumb no_image"
+                                                         style="background-image:url('{{ asset('bundles/common/images/image-bg.jpg') }}');"></div>
+                                                </div>
+
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <form id="form-delete"
+                                  action="{{ path('delete_vehicle_profile', {'vehicle_id': vehicle.serie }) }}"
+                                  method="POST">
+                                <div class="col-md-4" style="padding-top: 71px;">
+                                    <div class="col-md-12 no_padding clearfix">
+                                        <a href="javascript:void(0)" id="delete_vehicle"
+                                           class="btn btn-default text-uppercase btn-toolbar active col-md-12 delete_vehicle"
+                                           style="margin-left: 0px">
+                                            DELETE THIS VEHICLE
+                                        </a>
+
+                                        <div class="col-md-12 no_padding" style="height: 19px">
+                                            <hr style="width: 100%;margin-bottom: 0px;"/>
+                                            <span class="hr_text">or</span>
+                                        </div>
+
+                                        <a href="javascript:void(0)" id="edit_vehicle"
+                                           class="btn btn-default text-uppercase btn-danger col-md-12">
+                                            EDIT THIS VEHICLE INFO
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-xs-12 col-sm-12" style="margin-top: 20px;margin-bottom: 20px">
+                        <img src="{{ asset('bundles/common/images/search/ads.jpg') }}" alt=""
+                             style="width: 100%"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container-fluid clearfix" style="margin-bottom: 15px">
+                <div class="row">
+                    <div class="col-md-12 text-left no_padding">
+                        <div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow track-url auto-scroll" style="margin-bottom: 50px;">
+                            <ul class="nav nav-tabs">
+                                <li id="overview_tab" class="active">
+                                    <a aria-expanded="false" href="#overview" data-toggle="tab">
+                                        <span class="glyphicon overview_icon"></span>
+                                        OVERVIEW</a>
+                                </li>
+                                <li id="warranty_tab" class="text-uppercase">
+                                    <a aria-expanded="true" href="#warranty" data-toggle="tab">
+                                        <span class="glyphicon waranty_icon"></span>
+                                        Warranty</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active in" id="overview">
+                                    <div class="container-fluid">
+                                        <h2 style="margin-bottom: 0px;font-weight: 500">{{ vehicle.vehiclesinformation.year.year }}
+                                            {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                            {{ vehicle.vehiclesinformation.model.modelDisplay }}</h2>
+
+                                        <h2 style="margin-bottom: 0px;font-weight: 500">Seller Comments</h2><br/>
+
+                                        <p style="margin-top: -20px;">{{ vehicle.getSellerComments() }}</p>
+
+                                        <h2 style="margin-bottom: 0px;font-weight: 500">Vehicle Details</h2><br/>
+
+                                        <div class="row details" style="margin-top: -20px;">
+                                            <div class="col-md-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>Trim</dt>
+                                                    <dd>{{ vehicle.vehiclesdetails.trim }}</dd>
+                                                    <dt>Mileage</dt>
+                                                    <dd>{{ vehicle.vehiclesinformation.mileage|number_format() }} miles</dd>
+                                                    <dt>Doors</dt>
+                                                    <dd>{{ vehicle.vehiclesdetails.doors }}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>Engine Type</dt>
+                                                    <dd>{{ vehicle.vehiclesdetails.enginetype.name }}</dd>
+                                                    <dt>Transmission</dt>
+                                                    <dd>{{ vehicle.vehiclesdetails.transmission.name }}</dd>
+                                                    <dt>Fuel Type</dt>
+                                                    <dd>{{ vehicle.vehiclesdetails.fueltype.name }}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <dl class="dl-horizontal">
+                                                    <dt>Drive Type</dt>
+                                                    <dd>{{ vehicle.vehiclesdetails.drive.name }}</dd>
+                                                    <dt>Exterior Color</dt>
+                                                    <dd>{{ vehicle.vehiclesdetails.exteriorcolor.colorname }}</dd>
+                                                    <dt>Interior Color</dt>
+                                                    <dd>{{ vehicle.vehiclesdetails.interiorcolor.colorname }}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <h2 style="margin-bottom: 0px;margin-top: 3px;font-weight: 500">Options</h2><br/>
+
+                                        <div class="row" style="margin-top: -20px;margin-bottom: 30px;">
+                                            <div class="container-fluid">
+                                                <ul class="list_styled list-inline">
+                                                    {% for option in vehicle.vehiclesoptions %}
+                                                        <li class="col-sm-3 list-group-item" style="border: 0px">
+                                                            {{ option.name }}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="warranty">
+                                    <div class="container-fluid" style="height: 539px;background-color: #ffffff">
+                                        <h2 style="margin-bottom: 0px;font-weight: 500">Warranty</h2><br/>
+
+                                        <p style="margin-top: -20px;padding: 3px;">{{ vehicle.warranty }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+
+        function createPopover(elem, text) {
+            elem.attr('data-toggle', 'popover');
+            elem.attr('data-placement', 'right');
+            // elem.attr('data-placement', 'bottom');
+            elem.attr('data-content', text);
+            elem.attr('data-container', 'body');
+            elem.popover();
+            elem.trigger('click');
+            elem.focus();
+        }
+
+
+        jQuery(".tumb").click(function () {
+            if (!jQuery(this).hasClass("no_image")) {
+                var image = jQuery(this).css("background-image");
+                jQuery(".tumb-large").css("background-image", image);
+            }
+        })
+
+        jQuery('.delete_vehicle').confirmation({
+            onConfirm: function () {
+                jQuery('#form-delete').submit();
+            },
+            onCancel: function () {
+
+            }
+        })
+        ;
+        jQuery('#edit_vehicle').click(function () {
+            {% if vehicle.profile %}
+
+            window.location = "{{ path('create_vehicle_basic_info' , {'type':'open' , 'prop_pk':vehicle.profile.serie, 'vehicle_id': vehicle.serie}) }}";
+
+            {% else %}
+            window.location = "{{ path('private_create_vehicle_basic_info' , {'type':'open' , 'vehicle_id': vehicle.serie}) }}";
+            {% endif %}
+        })
+
+    })
+</script>

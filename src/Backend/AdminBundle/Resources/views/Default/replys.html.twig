@@ -1,0 +1,15 @@
+
+{% if inquiry.getReplys | length > 0 %}
+
+          {% for inquiryReply in inquiry.getReplys %}
+<div class="col-md-12 col-xs-12">
+    <div class="row" style="margin: 5px 0px">
+            <div class="col-md-3 col-sm-3 col-xs-12 note-title">You <br><span class="text-muted" >{{inquiryReply.dateCreated | date("F jS \\,\\ Y")}}</span></div>
+            <div class="col-md-8 col-sm-8 col-xs-12 note">
+             <span class="text-muted" >{{inquiryReply.text}}</span>
+        </div>
+    </div>
+ </div>
+          {% endfor %}
+       
+         {% endif %}    

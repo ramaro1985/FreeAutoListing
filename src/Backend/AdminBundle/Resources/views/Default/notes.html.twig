@@ -1,0 +1,12 @@
+
+{% if inquiry.getNotes | length > 0 %}
+    <div class="row"> 
+    {% for inquiryNote in inquiry.getNotes %}
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class=" sticky"><span class="text-muted" >{{inquiryNote.dateCreated | date("F jS \\,\\ Y")}}</span><br/>{{inquiryNote.text}}</div>
+    </div>
+
+          {% endfor %}
+      </div>     
+         {% endif %}    

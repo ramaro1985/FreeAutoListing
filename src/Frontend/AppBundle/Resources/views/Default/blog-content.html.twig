@@ -1,0 +1,143 @@
+<div class="container-fluid blog-container" style="background-color: #F4F4F4">
+<div class="container">
+    {%if blogs != ""%}
+    <div class="row" style="margin-top: 40px; margin-bottom: 20px">
+      
+        <div class="col-xs-12 col-md-9 col-sm-9 blog-container">
+             {% for blog in blogs %}
+            <div class="row">
+       
+                <div class="col-xs-12 col-md-12 col-sm-12 blog-container1">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 col-sm-12">
+                            <a style="text-decoration: none" href="{{  path("blog_detail", {'slug': blog.slug })  }}"><h1 >{{blog.tittle}}</h1></a>    
+                        </div> 
+                    </div>
+                        <div class="row">
+                        <div class="col-xs-12 col-md-12 col-sm-12">
+                            <h3 class="text-muted" style="margin-top: 0px;  font-weight: 200; font-size: 14px">{{blog.datePosted| date("M j \\,\\ Y")}} by HomeEscape </h3>    
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 col-sm-12">
+                           {% if blog.getWebPath != "" %}
+                            <img src="{{ asset(blog.getWebPath)}}" class="img-responsive" alt="{{blog.tittle}}" title="{{blog.tittle}}"/>
+                    {% endif %} 
+                        </div> 
+                    </div>
+                        
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 col-sm-12" style="margin-top: 10px">
+                            {{blog.text | raw}}  
+                        </div> 
+                    </div>
+                        
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 col-sm-12" style="margin-top: 10px">
+                                <ul class="nav nav-pills blog-tags">
+                                    <li><b>Tags:</b></li>
+                                   {% for tag in blog.getTags %} 
+                                   <li><a href="#" style="font-size: 12px;line-height: 1;text-decoration: underline;">{{tag.name}}</a></li>
+                                    {%endfor%} 
+                                </ul>   
+                            </div> 
+                    </div>
+                    <div class="row">
+                            <div class="col-md-1 col-xs-3"><div class="fb-like" data-href="https://www.facebook.com/homeescape" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div> </div>    
+                            <div class="col-md-1 col-xs-3" style="padding-left: 5px"><div  class="fb-share-button" data-href="{{  path("blog_detail", {'slug': blog.slug })  }}" data-layout="button"></div> </div>    
+                            <div class="col-md-1 col-xs-3" style="padding-left: 5px"><a class="twitter-share-button"  href="{{  path("blog_detail", {'slug': blog.slug })  }}"  data-via="twitterdev" data-count="none">Tweet</a></div>
+                            <div class="col-md-1 col-xs-3" style="padding-left: 0px"><div class="g-plusone" data-annotation="none" data-size="medium" data-href="{{  path("blog_detail", {'slug': blog.slug })  }}"></div></div>
+                            </div>
+                            
+                            
+                </div>
+              
+                 
+        
+            </div>
+               {%endfor%}
+               
+               <div class="row" style="margin-bottom: 10px; margin-top: 5px">
+        <div class="col-md-12 col-xs-12">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="pull-right hide">
+                        {% set count = blogs.getTotalItemCount %}
+                        <div class="text-right pull-right" style="margin: 8px 15px 0px 0px"><span style="padding: 7px;font-size: 14px;" class="label label-primary">{{ count }} 
+                                {% transchoice  count %}
+                                {0} There are no Blogs|{1} Blog Found|]1,Inf] Blogs Found
+                                {% endtranschoice %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="pagination pull-right ">
+                        {{ knp_pagination_render(blogs) }}
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+        </div>
+     
+ 
+        
+     
+        
+        <div class="col-xs-12 col-md-3 col-sm-3 hidden-xs"  style="background-color: #FFFFFF; padding-bottom: 20px">
+            <div class="row">
+                     <div class="col-xs-12 col-md-12 col-sm-12" style="margin-top: 15px">
+                    <ul class="nav nav-pills blog-tags">
+                                    <li><b>Tags:</b></li>
+                                   {% for tag in tags %} 
+                                   <li><a href="#" style="font-size: 12px;line-height: 1;text-decoration: underline;">{{tag.name}}</a></li>
+                                    {%endfor%} 
+                                </ul>    
+                 </div>
+                                
+                                
+            </div>
+            <div class="row">
+                     <div class="col-xs-12 col-md-12 col-sm-12" style="margin-top: 20px">
+                    <b>Recent Posts:</b>     
+                 </div>
+            </div>
+            <div class="row">
+       
+                 {% for blog in recentBlogs %}
+                     <div class="col-xs-12 col-md-12 col-sm-12" style="margin-top: 10px">
+                          <div class="row">
+                <div class="col-xs-12 col-md-5 col-sm-5">
+                   <div class="photo-tumb-featured img-responsive" style="height: 65px;background-image:url('{{ (blog.getWebPath) | imagine_filter('my_thumb') }}');"></div>
+                    
+                </div>
+                <div class="col-xs-12 col-md-7 col-sm-7" style="font-size: 12px; padding-left: 0;  line-height: 1.5;">
+                    {{blog.text | slice(0, 70)|raw}}   
+                </div>
+                 </div>
+                 </div>
+                 {%endfor%}
+            </div>
+        </div>
+        
+    </div>
+    {%else %}
+        No blogs
+        {%endif %}
+ </div>
+
+</div>   
+
+
+
+
+
+
+
+

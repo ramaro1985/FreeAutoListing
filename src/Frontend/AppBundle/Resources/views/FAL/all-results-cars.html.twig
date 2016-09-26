@@ -1,0 +1,312 @@
+<div class="row row_cars">
+    {% if vehicles|length > 5 %}
+        {% set total = 6 %}
+    {% else %}
+        {% set total = vehicles|length %}
+    {% endif %}
+    {% for vehicle in vehicles|slice( 0, 6 ) %}
+        {% if(vehicle.profile) %}
+            {% set pf = vehicle.gallery.profileimages[0] %}
+            {% set profileimageslength = vehicle.gallery.profileimages|length %}
+            {% set photoid = vehicle.profile %}
+            {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+        {% elseif vehicle.user %}
+            {% set photoid = vehicle.user.id %}
+            {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                {% set pf = vehicle.gallery.vehicleimages[0] %}
+                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+            {% else %}
+                {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                {% set profileimageslength = 0 %}
+            {% endif %}
+        {% endif %}
+        {% set issaved = false %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% for car_serie in savedcars %}
+                {% if car_serie == vehicle.serie %}
+                    {% set issaved = true %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% set car_serie = vehicle.serie %}
+        <div class="col-md-4"
+             style="margin-top: 15px">
+
+            <div class="col-md-12 borderBoxShadows" car-serie="{{ car_serie }}"
+                 style="padding-bottom: 0px;padding-top: 7px;background-color: #ffffff">
+                <div class="form-inline text-right" style="padding: 0px 0px 7px 0px;font-size: 12px">
+                    <div class="form-group">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="compare_check" style="margin-top: 1px"> COMPARE
+                        </label>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            {% if app.user.type.id != 2 %}
+                                <label class="checkbox-inline savecar_option {% if issaved %}saved{% endif %}"
+                                       car-serie="{{ car_serie }}"
+                                       style="margin-left: 0px;padding-left: 10px">
+                                    {% if issaved %} SAVED CAR {% else %} SAVE CAR {% endif %}
+                                </label>
+                            {% endif %}
+                        {% else %}
+                            <label class="checkbox-inline show-pop-large_logregister"
+                                   onclick="javascript:SetCarSerieInSession(this)" data-placement="auto"
+                                   car-serie="{{ car_serie }}"
+                                   style="margin-left: 0px;padding-left: 10px">SAVE CAR
+                            </label>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="">
+                    <a href="{{ path('car_details', {'serie': car_serie}) }}">
+                        <div class="thumbnail">
+
+                            <img src="{{ asset(vehicle_image) }}" id="car_image_{{ car_serie }}"
+                                 alt="" {% if vehicle.gallery is null %} style="width: 100%; {% if vehicle_image == 'bundles/common/images/image-bg.jpg' %} height: 177px {% endif %} "{% endif %}/>
+
+                            <div class="views">
+                                        <span> <span
+                                                    class="glyphicon glyphicon-camera"></span> {{ profileimageslength }}</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <p id="car_info_{{ car_serie }}" class="text-left"
+                       style="font-size: 16px;margin-top: 16px;margin-bottom:0px;min-height: 45px;">
+                        {{ vehicle.vehiclesinformation.condition.name }}
+                        {{ vehicle.vehiclesinformation.year.year }}
+                        {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                        {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                    </p>
+
+                    <p class="text-left" style="line-height: 145%;margin-bottom: 5px;font-size: 14px">
+                                            <span> Price: <span
+                                                        class="price_text"
+                                                        style="font-size: 18px">${{ vehicle.vehiclesinformation.price|number_format() }}</span></span><br>
+                        {% if vehicle.profile is defined and vehicle.profile is not null and vehicle.vehiclesinformation.msrp != 0 %}
+                            <span class="bo">MSRP: ${{ vehicle.vehiclesinformation.msrp|number_format() }}</span><br>
+                        {% else %}
+                            <span class="bo"></span><br>
+                        {% endif %}
+                    </p>
+
+                    <p class="text-left" style="margin-bottom: 0px;font-size: 14px">
+                        Mileage: <span>{{ vehicle.vehiclesinformation.mileage|number_format() }}</span><br>
+                    </p>
+
+                    <p class="text-left" style="margin-bottom: 0px">
+                        Color: <span>{{ vehicle.vehiclesdetails.exteriorcolor }}</span><br>
+                    </p>
+                </div>
+                <div class="row">
+                    <hr/>
+                </div>
+
+                <div class="col-md-12 no_padding" style="min-height: 73px;padding-top: 3px;">
+                    <div class="thumbnail col-md-4">
+                        {% if(vehicle.profile) %}
+                            <div class="logo img-responsive"
+                                 style="background-image:url('{{ asset( vehicle.profile.logo) }}');height: 56px;width:100%">
+                            </div>
+                        {% elseif vehicle.user %}
+                            <div class="logo img-responsive"
+                                 style="margin-top: 2px;margin-bottom: 2px;background-image:url('{{ asset( 'bundles/common/images/for-sale.jpg' ) }}');height: 56px;width:100%">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8" style="padding-left: 10px">
+                        <p class="text-left" style="line-height: 1.3;margin-bottom: 0px">
+                            {% if(vehicle.profile) %}
+                                <span style="font-size: 16px">{{ vehicle.profile.description.name }}</span><br>
+                                <span class="bo"
+                                      style="font-size: 14px">{{ vehicle.profile.description.phone }}</span><br>
+                                <span class="small">4 miles from 45877</span>
+                            {% elseif vehicle.user %}
+                                <span style="font-size: 16px">Private Seller</span>
+                                <br>
+                                <span style="font-size: 14px">{{ vehicle.user.phone }}</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+<!-- DIV DE PUBLICIDAD  -->
+<div class="container-fluid" style="height: 145px;margin-top: 15px">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- FreeAutoListing Car Profile -->
+    <ins class="adsbygoogle">
+            style="display:block"
+            data-ad-client="ca-pub-7661672510407172"
+            data-ad-slot="3129379241"
+            data-ad-format="auto">
+    </ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- FreeAutoListing Search Results -->
+    <ins class="adsbygoogle">
+            style="display:block"
+            data-ad-client="ca-pub-7661672510407172"
+            data-ad-slot="6082845642"
+            data-ad-format="auto">
+    </ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+
+{% if vehicles|length > 6 %}
+    <div class="row row_cars">
+        {% for vehicle in vehicles|slice( 6, vehicles|length ) %}
+            {% if(vehicle.profile) %}
+                {% set pf = vehicle.gallery.profileimages[0] %}
+                {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                {% set photoid = vehicle.profile %}
+                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+            {% elseif vehicle.user %}
+                {% set photoid = vehicle.user.id %}
+                {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                    {% set pf = vehicle.gallery.vehicleimages[0] %}
+                    {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                    {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                {% else %}
+                    {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                    {% set profileimageslength = 0 %}
+                {% endif %}
+            {% endif %}
+            {% set issaved = false %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% for car_serie in savedcars %}
+                    {% if car_serie == vehicle.serie %}
+                        {% set issaved = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% set car_serie = vehicle.serie %}
+
+            <div class="col-md-4"
+                 style="margin-bottom: 15px">
+
+                <div class="col-md-12 borderBoxShadows"
+                     style="padding-bottom: 0px;padding-top: 10px;background-color: #ffffff">
+                    <div class="form-inline text-right" style="padding: 0px 0px 7px 0px;font-size: 12px">
+                        <div class="form-group">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" class="compare_check" style="margin-top: 1px"> COMPARE
+                            </label>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                {% if app.user.type.id != 2 %}
+                                    <label class="checkbox-inline savecar_option {% if issaved %}saved{% endif %}"
+                                           car-serie="{{ car_serie }}"
+                                           style="margin-left: 0px;padding-left: 10px">
+                                        {% if issaved %} SAVED CAR {% else %} SAVE CAR {% endif %}
+                                    </label>
+                                    {% endif %}
+                            {% else %}
+                                <label class="checkbox-inline show-pop-large_logregister"
+                                       onclick="javascript:SetCarSerieInSession(this)" data-placement="auto"
+                                       car-serie="{{ car_serie }}"
+                                       style="margin-left: 0px;padding-left: 10px">SAVE CAR
+                                </label>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="">
+                        <a href="{{ path('car_details', {'serie': vehicle.serie}) }}">
+                            <div class="thumbnail">
+
+                                <img src="{{ asset(vehicle_image) }}"
+                                     alt="" {% if vehicle.gallery is null %} style="width: 100%; {% if vehicle_image == 'bundles/common/images/image-bg.jpg' %} height: 177px {% endif %} "{% endif %}/>
+
+                                <div class="views">
+                                        <span> <span
+                                                    class="glyphicon glyphicon-camera"></span> {{ profileimageslength }}</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <p class="text-left" style="font-size: 16px;margin-top: 16px;min-height: 45px;">
+                            {{ vehicle.vehiclesinformation.condition.name }}
+                            {{ vehicle.vehiclesinformation.year.year }}
+                            {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                            {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                        </p>
+
+                        <p class="text-left" style="line-height: 145%;margin-bottom: 14px;font-size: 14px">
+                                            <span> Price: <span
+                                                        class="price_text"
+                                                        style="font-size: 18px">${{ vehicle.vehiclesinformation.price|number_format() }}</span></span><br>
+                            {% if vehicle.profile is defined and vehicle.profile is not null %}
+                                <span class="bo">MSRP: ${{ vehicle.vehiclesinformation.msrp|number_format() }}</span>
+                                <br>
+                            {% else %}
+                                <span class="bo"></span><br>
+                            {% endif %}
+                        </p>
+
+                        <p class="text-left" style="margin-bottom: 0px;font-size: 14px">
+                            Mileage: <span>{{ vehicle.vehiclesinformation.mileage|number_format() }}</span><br>
+                        </p>
+
+                        <p class="text-left" style="margin-bottom: 0px">
+                            Color: <span>{{ vehicle.vehiclesdetails.exteriorcolor }}</span><br>
+                        </p>
+                    </div>
+                    <div class="row">
+                        <hr/>
+                    </div>
+
+                    <div class="col-md-12 no_padding" style="min-height: 73px;padding-top: 5px;padding-bottom: 5px;">
+                        <div class="thumbnail col-md-3">
+                            {% if(vehicle.profile) %}
+                                <div class="logo img-responsive"
+                                     style="margin-top: 2px;margin-bottom: 2px;background-image:url('{{ asset( vehicle.profile.logo) }}');height: 50px;width:100%">
+                                </div>
+                            {% elseif vehicle.user %}
+                                <div class="logo img-responsive"
+                                     style="margin-top: 2px;margin-bottom: 2px;background-image:url('{{ asset( 'bundles/common/images/for-sale.jpg' ) }}');height: 50px;width:100%">
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9" style="padding-left: 10px">
+                            <p class="text-left" style="line-height: 1.3;margin-bottom: 0px">
+                                {% if(vehicle.profile) %}
+                                    <span style="font-size: 16px">{{ vehicle.profile.description.name }}</span><br>
+                                    <span class="bo"
+                                          style="font-size: 14px">{{ vehicle.profile.description.phone }}</span><br>
+                                    <span class="small">4 miles from 45877</span>
+                                {% elseif vehicle.user %}
+                                    <span style="font-size: 16px">Private Seller</span>
+                                    <br>
+                                    <span style="font-size: 14px">{{ vehicle.user.phone }}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+{% endif %}
+
+<div class="pagination pull-right" style="margin-top: 15px">
+    {{ knp_pagination_render(vehicles) }}
+</div>

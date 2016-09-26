@@ -1,0 +1,62 @@
+<div class="container-fluid">
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 20px">
+                <h1>About HomeEscape</h1>
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 10px">
+                <h2 class="blue-title">HomeEscape is your risk free vacation rental solution.</h2>
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left">
+                <p>Why stay at a hotel when you can rent a whole house for half the cost? Beyond the affordability, vacation rentals can provide added privacy and amenities such as fully-equipped kitchens, so families and groups can relax and have a more memorable vacation experience. </p>
+                <p>At HomeEscape, we believe that listing your home should be free. 100% free. We are the fastest growing vacation rental site, bringing homeowners and travelers together, with no strings attached. With listings across the world, we are committed to providing travelers and families with the perfect home for an escape.</p>
+                <p>Headquartered in Miami, Florida, HomeEscape connects homeowners and property managers with travelers who seek the space, value and amenities of vacation rental homes as an alternative to hotels.  With detailed property descriptions, photos and list of amenities and nearby attractions, HomeEscape makes it easy to find and compare properties all over the world.</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 20px;">
+
+                <a href="{{  path("fos_create_user") }}"><img src="{{ asset('bundles/common/images/aboutus-list-your-property.jpg') }}" /></a>
+
+            </div>
+
+                <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 40px;">
+
+                    <a href="{{  path("search_results") }}"><img src="{{ asset('bundles/common/images/aboutus-find-your-escape.jpg') }}" /></a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>   
+
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        jQuery('#contactfront_userType input').change(function () {
+
+            if (jQuery(this).val() === '0') {
+                jQuery('.side-image img').attr('src', "{{ asset('bundles/common/images/contact-traveler-img.jpg')}}");
+            } else if (jQuery(this).val() === '1') {
+                jQuery('.side-image img').attr('src', "{{ asset('bundles/common/images/contact-owner-img.jpg')}}");
+            }
+
+        });
+
+    });
+
+
+
+
+</script>
+
+

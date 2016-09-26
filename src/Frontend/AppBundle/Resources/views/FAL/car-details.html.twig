@@ -1,0 +1,15 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Free Auto Listing  {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/car-details-style.css') }}" rel="stylesheet" />
+{% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+     {{ include('AppBundle:FAL:car-details-content.html.twig') }}
+ {% endblock %}

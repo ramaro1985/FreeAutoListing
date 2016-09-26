@@ -1,0 +1,281 @@
+app_homepage:
+    pattern:  /
+    defaults: { _controller: AppBundle:Default:index }
+
+app_list_properties:
+    pattern:  /search/vacation-rentals/
+    defaults: { _controller: AppBundle:Default:searchCarResults }
+
+update_sort:
+    pattern:  /vacation-rentals/sort/{sort}
+    defaults: { _controller: AppBundle:Default:updateSort} 
+
+update_filtro_movil:
+    pattern:  /vacation-rentals/filtro/movil/
+    defaults: { _controller: AppBundle:Default:updateFiltroMovil} 
+
+update_filtro_price:
+    pattern:  /vacation-rentals/filtro/price/
+    defaults: { _controller: AppBundle:Default:updateFiltroPrice} 
+
+update_filtro_sleeps:
+    pattern:  /vacation-rentals/filtro/sleeps/
+    defaults: { _controller: AppBundle:Default:updateFiltroSleeps}  
+    
+update_filtro_bedrooms:
+    pattern:  /vacation-rentals/filtro/bedrooms/
+    defaults: { _controller: AppBundle:Default:updateFiltroBedrooms}       
+
+update_filtro_bathrooms:
+    pattern:  /vacation-rentals/filtro/bathrooms/
+    defaults: { _controller: AppBundle:Default:updateFiltroBathrooms}    
+
+update_filtro_booking:
+    pattern:  /vacation-rentals/filtro/booking/
+    defaults: { _controller: AppBundle:Default:updateFiltroBooking}    
+
+update_filtro_more:
+    pattern:  /vacation-rentals/filtro/more/
+    defaults: { _controller: AppBundle:Default:updateFiltroMore}    
+
+
+    
+search_results:
+    pattern:  /vacation-rentals/world/{country}/{region}/{city}
+    defaults: { _controller: AppBundle:Default:searchResults, country: null, region: null, city: null}     
+    
+properties:
+    pattern:  /search/
+    defaults: { _controller: AppBundle:Default:properties }    
+   
+property_profile:
+    pattern:  /vacation-rental/{id}/
+    defaults: { _controller: AppBundle:Default:profile }   
+    
+photo_tour:
+    pattern:  /vacation-rentals/location/phototour/
+    defaults: { _controller: AppBundle:Default:loadPhotoTour }    
+     
+description:
+    pattern:  /vacation-rentals/location/description/
+    defaults: { _controller: AppBundle:Default:loadDescription }
+    
+amenities:
+    pattern:  /vacation-rentals/location/amenities/
+    defaults: { _controller: AppBundle:Default:loadAmenities }  
+    
+map:
+    pattern:  /vacation-rentals/location/map/
+    defaults: { _controller: AppBundle:Default:loadMap }  
+    
+calendar:
+    pattern:  /vacation-rentals/location/calendar/
+    defaults: { _controller: AppBundle:Default:loadCalendar } 
+    
+rates:
+    pattern:  /vacation-rentals/location/rates/
+    defaults: { _controller: AppBundle:Default:loadRates }    
+    
+payments:
+    pattern:  /vacation-rentals/location/payments/
+    defaults: { _controller: AppBundle:Default:loadPayments }   
+    
+reviews:
+    pattern:  /vacation-rentals/location/reviews/
+    defaults: { _controller: AppBundle:Default:loadReviews }    
+    
+create_inquiry:
+    pattern:  /vacation-rentals/property/inquiry/create/
+    defaults: { _controller: AppBundle:Default:createInquiry } 
+    
+review_form:
+    pattern:  /vacation-rentals/review/form/
+    defaults: { _controller: AppBundle:Default:reviewForm }     
+    
+create_review:
+    pattern:  /vacation-rentals/property/review/create/
+    defaults: { _controller: AppBundle:Default:createReview } 
+    
+create_reservation:
+    pattern:  /vacation-rentals/property/reservation/create/
+    defaults: { _controller: AppBundle:Default:createReservation }     
+    
+AcmeHomeBundle_ajax_update_mydata:
+  pattern:  /vacation-rentals/property/reserved/
+  defaults: { _controller: AppBundle:Default:getreservedDays }     
+    
+search_regions:
+    pattern:  /search/regions/
+    defaults: { _controller: AppBundle:Default:searchRegions }      
+    
+search_cities:
+    pattern:  /search/regions/cities/
+    defaults: { _controller: AppBundle:Default:searchCities }  
+    
+search_by_state:
+    pattern:  /search/states
+    defaults: { _controller: AppBundle:Default:searchByState }
+    
+search_by_country:
+    pattern:  /search/countries/{country}
+    defaults: { _controller: AppBundle:Default:searchByCountry }
+    
+search_by_nation_name:
+    pattern:  /vacation-rentals/world/{country}/
+    defaults: { _controller: AppBundle:Default:searchByNationName }    
+    
+search_by_state_name:
+    pattern:  /vacation-rentals/world/{country}/{state}/
+    defaults: { _controller: AppBundle:Default:searchByStateName }       
+    
+search_by_city_name:
+    pattern:  /vacation-rentals/world/{country}/{state}/{city}/
+    defaults: { _controller: AppBundle:Default:searchByCityName }     
+    
+search_by_location_type:
+    pattern:  /search/location/{type}
+    defaults: { _controller: AppBundle:Default:searchByLocationType }  
+
+search_world:
+    pattern:  /vacation-rentals/world/
+    defaults: { _controller: AppBundle:Default:searchWorld }  
+ 
+app_list_properties_ajax:
+    pattern:  /search/properties-ajax/
+    defaults: { _controller: AppBundle:Default:getPropertyByCountryString }
+    
+reset_filtro_price:
+    pattern:  /vacation-rentals/filtro/price/reset
+    defaults: { _controller: AppBundle:Default:resetPriceFilter}     
+    
+help_center:
+    pattern:  /help-center/
+    defaults: { _controller: AppBundle:Default:helpCenter}
+    
+contact_us:
+    pattern:  /contact/
+    defaults: { _controller: AppBundle:Default:contactUs}    
+
+create_contact:
+    pattern:  /contact-us/create/
+    defaults: { _controller: AppBundle:Default:createContact}
+    
+about_us:
+    pattern:  /about/
+    defaults: { _controller: AppBundle:Default:aboutUs}    
+    
+content_guidelines:
+    pattern:  /content-guidelines/
+    defaults: { _controller: AppBundle:Default:contentGuidelines}  
+    
+investor:
+    pattern:  /investor/
+    defaults: { _controller: AppBundle:Default:investor}      
+    
+create_investor:
+    pattern:  /investor/create/
+    defaults: { _controller: AppBundle:Default:createInvestor}    
+    
+terms:
+    pattern:  /terms-conditions/
+    defaults: { _controller: AppBundle:Default:terms}  
+    
+validate_captcha:
+    pattern:  /captcha/validate/
+    defaults: { _controller: AppBundle:Default:validateCaptcha}     
+    
+privacy_policy:
+    pattern:  /privacy-policy/
+    defaults: { _controller: AppBundle:Default:privacyPolicy}    
+    
+how_works:
+    pattern:  /how-it-works/
+    defaults: { _controller: AppBundle:Default:howWorks}      
+    
+blog:
+    pattern:  /blog/
+    defaults: { _controller: AppBundle:Default:blog}
+    
+blog_detail:
+    pattern:  /blog/{slug}/
+    defaults: { _controller: AppBundle:Default:blogDetail}      
+    
+
+user_registration_resend_confirm:
+    path: /login/resend-confirm
+    defaults: { _controller: AppBundle:Default:resendConfirm }
+    requirements:
+        _method: GET|POST
+
+
+search_car_results:
+    pattern:  /search-cars-result
+    defaults: { _controller: AppBundle:FrontendFAL:searchCarResults }
+
+car_details:
+    pattern:  /car-details/{serie}
+    defaults: { _controller: AppBundle:FrontendFAL:carDetails }
+
+all_vehicles_content:
+    pattern:  /view/vehicles/content
+    defaults: { _controller: AppBundle:FrontendFAL:allVehiclesContent }
+
+
+search_all_vehicles_content:
+    pattern:  /view/vehicles/search
+    defaults: { _controller: AppBundle:FrontendFAL:searchAllVehiclesContent }
+
+find_makes_by_year_front:
+    pattern: /find/makes/
+    defaults: { _controller: AppBundle:FrontendFAL:findMakes }
+
+find_models_by_make_front:
+    pattern: /find/models/
+    defaults: { _controller: AppBundle:FrontendFAL:findModels }
+find_trims_by_model_front:
+    pattern: /find/trims/
+    defaults: { _controller: AppBundle:FrontendFAL:findTrims }
+
+movil_search_filters:
+    pattern: /view/mobiles/vehicles/search
+    defaults: { _controller: AppBundle:FrontendFAL:movilSearchFilters }
+
+movil_search_all_vehicles_content:
+    pattern:  /view/mobile/vehicles/search
+    defaults: { _controller: AppBundle:FrontendFAL:movilsearchAllVehiclesContent }
+
+movil_all_results_cars_content:
+   pattern:  /view/mobile/vehicles/search/ajax
+   defaults: { _controller: AppBundle:FrontendFAL:movilAllResultCarsContent }
+
+movil_car_details:
+    pattern:  /mobile/car-details/{serie}
+    defaults: { _controller: AppBundle:FrontendFAL:movilCarDetails }
+
+compare_cars:
+    pattern: /compare-cars/
+    defaults: { _controller: AppBundle:FrontendFAL:compareCars }
+
+contact_us:
+    pattern:  /contactUs
+    defaults: { _controller: AppBundle:FrontendFAL:contactUs}
+
+about_us:
+    pattern:  /aboutUs
+    defaults: { _controller: AppBundle:FrontendFAL:aboutUs}
+
+why_free:
+    pattern:  /whyFree
+    defaults: { _controller: AppBundle:FrontendFAL:whyFree}
+
+dealer-info:
+    pattern:  /vehicle/dealer/info/{profile}
+    defaults: { _controller: AppBundle:FrontendFAL:dealerInfo, tab: 1}
+
+#dealer-info-add-rating:
+ #   pattern:  /vehicle/dealer/info-rating/{profile}
+ #   defaults: { _controller: AppBundle:FrontendFAL:addReviewToProfile}
+
+savecarinsession:
+    pattern:  /savecarserie
+    defaults: { _controller: AppBundle:FrontendFAL:saveCarSerie}

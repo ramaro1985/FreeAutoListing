@@ -1,0 +1,145 @@
+<div class="container-fluid">
+<div class="container">
+    
+    
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 20px">
+            <h1>Investor</h1>
+        </div>
+        
+         <div class="col-xs-12 col-md-12 col-sm-12 text-left">
+             <p>Prohibitive prices and limited versatility of hotel rooms, combined with the growth of the "sharing economy", are leading consumers to seek larger and more affordable accommodations for their adventures. HomeEscape is one of the fastest growing peer-to-peer rental travel sites, connecting travelers to local accommodations and making hotel hassles a thing of the past.</p>
+             <p>HomeEscape allows travelers to partner with home owners or managers that are looking to rent their property. The listings are free, incentivizing home owners to list as many properties as they can. With no cost-of-entry, HomeEscape provides a platform for budget-conscious homeowners to share their piece of paradise – wherever it may be.</p>
+             <p>With a massive market and a unique business structure, HomeEscape is poised for large profits. Still a private company, we are eagerly anticipating our Initial Public Offering, and are excited to join hands with investors and make our company a huge success.</p>
+             <p>Now is the time to invest in an incredible opportunity.</p>
+             <p><b>Contact us today.</b></p>
+        </div>
+    
+    </div>
+        
+        <div class="row" style=" margin-bottom: 60px">
+            <div class="col-xs-12 col-md-12 col-sm-12">
+            <form id="formInvestor" action="{{ path('create_investor') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+                    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('investor') }}">
+
+
+
+
+                    <div class="form-group" style="margin-bottom: 10px">
+
+                        <div class="col-sm-12 col-xs-12 text-success text-left" style="font-size: 18px">
+                            {% for flashMessage in app.session.flashbag.get('message') %}
+
+                               <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ flashMessage }}
+
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                        
+                        <div class="form-group" style="margin-bottom: 10px">
+
+                        
+                        <div class="col-sm-12 col-xs-12 text-left text-danger gallery-error text-left" style="font-size: 18px">
+                       
+                          {{ form_errors(form.email) }}
+                          {{ form_errors(form.name) }}
+                          {{ form_errors(form.lastName) }}
+                          {{ form_errors(form.phone) }}
+                          {{ form_errors(form.text) }}
+                        
+                        </div>
+
+                    </div>
+
+                        
+                        <div class="row">
+                            <div class="col-xs-12 col-md-5 col-sm-5">
+                               
+                                <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-md-3 col-xs-12 text-left">
+                            {{ form_label(form.email) }}
+                        </div>
+                        <div class="col-sm-8 col-md-8 col-xs-12">
+                            {{ form_widget(form.email) }}
+                        </div>
+
+                    </div>
+                        
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-md-3 col-xs-12 text-left">
+                            {{ form_label(form.name)}}
+                        </div>
+                        <div class="col-sm-8 col-md-8 col-xs-12">
+                            {{ form_widget(form.name) }}
+                        </div>
+                       
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-md-3 col-xs-12 text-left">
+                            {{ form_label(form.lastName) }}
+                        </div>
+                        <div class="col-sm-8 col-md-8 col-xs-12">
+                            {{ form_widget(form.lastName) }}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-md-3 col-xs-12 text-left">
+                            {{ form_label(form.phone) }}
+                        </div>
+                        <div class="col-sm-8 col-md-8 col-xs-12">
+                            {{ form_widget(form.phone) }}
+                        </div>
+                    </div>
+
+                        <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-md-3 col-xs-12 text-left">
+                            {{ form_label(form.text) }}
+                        </div>
+                        <div class="col-sm-8 col-md-8 col-xs-12">
+                            {{ form_widget(form.text) }}
+                        </div>
+                    </div>
+                        
+                        <div class="form-group" style="margin-bottom: 20px">
+                        <div class="col-sm-8 col-md-offset-3 col-md-8 col-sm-offset-3 col-xs-12">
+                            {{ form_widget(form.recaptcha) }}
+                        </div>
+                        <div class="col-sm-8 col-md-offset-3 col-md-8 col-sm-offset-3 col-xs-12 captcha-error">
+                            {{ form_errors(form.recaptcha) }}
+                        </div>
+                    </div>
+                        
+                        <div class="form-group">
+                        <div class="col-sm-4  col-md-4 col-sm-offset-3 col-xs-12">
+                            <button type="submit" class="btn  btn-block btn-gradient-blue">Submit</button>   
+                        </div>
+                    </div>
+                            </div>
+                        <div class="col-xs-12 col-md-7 col-sm-7  side-image hidden-xs">
+                            <img src="{{ asset('bundles/common/images/investor-img.jpg') }}" /> 
+                             
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+               
+                    <div style="display: none">{{ form_rest(form) }}</div>
+                </form>
+        </div>
+        
+    </div>
+
+ </div>
+
+</div>   
+
+
+
+
+

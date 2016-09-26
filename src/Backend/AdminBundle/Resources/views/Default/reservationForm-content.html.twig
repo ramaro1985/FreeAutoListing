@@ -1,0 +1,253 @@
+
+<header>
+    <div class="row">                            
+    <div class="col-md-12 col-xs-12">
+                                    <ul class="breadcrumb breadcrumb-cap">
+                                            <li class="">
+                                         
+                                                <a href="{{ path('admin_user_homepage') }}">Properties</a>
+                                                <img src="{{ asset('bundles/common/images/line1.jpg') }}">
+                                            </li>
+                                            <li class="">
+                                         
+                                                <a href="{{ path("editPropertyHome", {'id': property.serie }) }}">{{property.description.name}}</a>
+                                                <img src="{{ asset('bundles/common/images/line1.jpg') }}">
+                                            </li>
+                                            <li class="active">
+                                                Reservations
+                                            </li>
+                                            
+                                    </ul>
+                                    </div>
+            </div>
+        <div  id="tools-container" class="container-fluid"> 
+        <div class="col-md-12 col-xs-12" >
+        
+                                                 <div class="toolbar-list clearfix">    
+                                     
+                                                <ul class="btn-toolbar">
+                                                 
+                                                    <li class="btn-group pull-right">
+                                                        {% set id = app.request.attributes.has('id')
+                                                    ? app.request.attributes.get('id')
+                                                    : ''
+                                                    %}
+                                                   {{ render(controller('AdminBundle:Default:listProperties',{'id': id, 'path':path, 'root': root,'param':filtro})) }}
+                                                        
+                                                    </li>
+                                                    
+                                                    <li class="btn-group pull-right">
+                                                        <a id="print-button" class="btn btn-default" title="New Reservation" href="{{ path('create_reservation_owner', {'id': property.serie, 'filtro':filtro }) }}">
+                                                            <span style="margin-right: 10px" class="path glyphicon glyphicon-plus"></span> New Reservation
+                                                        </a>
+                                                    </li>
+                                                    <li class="btn-group pull-right" style="display: none">
+                                                        <a id="print-button" class="btn btn-default" title="New Review" href="{{ path('create_review') }}">
+                                                            <span style="margin-right: 10px" class="path glyphicon glyphicon-plus"></span> New Review
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                </div>
+                </div>
+              
+                                        </header>
+
+
+<div id="container" class="container-fluid properties-container">
+
+        
+    
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-location" action="{{ path('create_reservation_owner',{'id': id , 'filtro':filtro}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+   
+    
+     <div class="col-md-12 col-xs-12">
+      
+       <div class="form-group" style="margin-bottom: 10px">
+       <div class="col-md-12 col-xs-12 text-left form-title">
+           
+           <div id="title">New Reservation</div>
+           
+       </div>
+       </div>
+           
+    </div>
+    
+    
+    
+    
+            
+    <div class="col-md-12 text-center">   
+          
+        
+        <div class="form-group" style="margin-bottom: 10px">
+ 
+         <div class="col-md-12 col-sm-12 col-xs-12 text-danger">
+       {% for flashMessage in app.session.flashbag.get('notice') %}
+           
+           {{ flashMessage }}
+        
+           {% endfor %}
+    </div>
+     
+  </div>
+
+          
+        
+       
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.firstName) }}
+    </div>
+         <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.firstName) }}
+    </div>
+     
+  </div>
+        
+        <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.lastName) }}
+    </div>
+         <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.lastName) }}
+    </div>
+     
+  </div>
+            
+        <div class="pcalendar form-group" style="margin-bottom: 10px">
+            <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.checkIn) }}
+    </div>
+            <div class="input-group col-sm-4 col-xs-12 pull-left">
+        {{ form_widget(form.checkIn) }}
+           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+           </div>
+                 <div class="col-sm-2 col-xs-12">
+                {{ form_widget(form.checkinhour) }}
+               </div>
+           </div>
+            
+            <div class="pcalendar form-group" style="margin-bottom: 10px">
+             <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.checkOut) }}
+    </div>
+                <div class="input-group col-sm-4 col-xs-12 pull-left">
+        {{ form_widget(form.checkOut) }}
+           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+           </div>
+                    <div class="col-sm-2 col-xs-12">
+                    {{ form_widget(form.checkouthour) }}
+                  </div>
+           </div>
+         
+          
+        <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.property) }}
+    </div>
+            <div class="col-sm-6 col-xs-12">
+    {{ form_widget(form.property) }}
+    </div>
+         </div>
+       
+         
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.adults) }}
+    </div>
+                <div class="col-sm-3 col-xs-12">
+    {{ form_widget(form.adults) }}
+    </div>
+       
+         <div class="col-sm-3 col-xs-12">
+     {{ form_widget(form.children) }}
+    </div>
+         </div> 
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.email) }}
+    </div>
+                <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.email) }}
+    </div>
+         </div>
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.phone) }}
+    </div>
+                <div class="col-sm-6 col-xs-12">
+    {{ form_widget(form.phone) }}
+    </div>
+         </div>
+        
+        <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.mobile) }}
+    </div>
+            <div class="col-sm-6 col-xs-12">
+    {{ form_widget(form.mobile) }}
+    </div>
+         </div>
+    <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.status) }}
+    </div>
+            <div class="col-sm-6 col-xs-12">
+    {{ form_widget(form.status) }}
+    </div>
+         </div>
+        
+            
+             <div class="form-group" style="margin-bottom: 10px">
+                </div>
+                
+                
+                           
+    
+         
+          </div>   
+         
+    
+    <div id="form-buttons" class="col-md-10 col-md-offset-3 text-center">
+   <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-12 col-xs-12 text-left">
+        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+        
+    </div>
+           
+    </div>        
+    
+  </div>
+    <div style="display: none">{{ form_rest(form) }}</div>
+</form>
+                </div>
+            </div>
+    
+    </div>
+
+<script type="text/javascript">
+            
+           jQuery(document).ready(function() {
+           
+           jQuery( ".period-calendar" ).datepicker({
+           
+            });
+  
+            });      
+            
+            
+            
+            
+        
+           
+            
+            
+            
+            </script>
+    

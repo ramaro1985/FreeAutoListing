@@ -1,0 +1,141 @@
+
+<div id="container" class="container-fluid container-list">
+ {% if inquiries|length > 0 %}
+     <div class="list-row">
+         <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 25px 5px 20px 5px">
+             <span class="property-title-1">Last 10 Inquiries for all properties:</span>
+         </div>
+     </div>
+        
+        <div class="list-row">
+        <div  class="row" style="margin: 0 10px; padding-bottom: 5px; border-bottom: solid 1px #CCC;">
+            <div class="col-md-3 col-xs-12"><strong>Guest / Phone</strong></div>
+            <div class="col-md-5 col-xs-12"><strong>Stay Dates / Property</strong></div>
+            <div class="col-md-2 col-xs-12"><strong>Received</strong></div>
+            <div class="col-md-2 col-xs-12 "></div>
+         </div>
+          {% for inquiry in inquiries %}
+                <div class="">
+        <div  class="row new-inquiry-row" style="margin: 0 10px; padding: 10px 0; border-bottom: solid 1px #CCC;">
+            <div class="col-md-3 col-xs-12 {%if inquiry.viewed == 0%}new-inquiry-row-content{%endif%}">{{inquiry.guest}} {{inquiry.lastName}}
+                <p style="font-size: 12px">{%if inquiry.phone != "" %}<i class="fa fa-phone-square" style="margin-right: 2px"></i>{{inquiry.phone}}{%endif%}</p></div>
+            <div class="col-md-5 col-xs-12 {%if inquiry.viewed == 0%}new-inquiry-row-content{%endif%}">
+                    {%if inquiry.startDate != '' and inquiry.endDate != '' %}    
+                                                
+                                                {%if inquiry.startDate | date("Y") == inquiry.endDate | date("Y") and inquiry.startDate | date("M") == inquiry.endDate | date("M")%}
+                                                {{inquiry.startDate | date("M j")}} - {{inquiry.endDate| date("j \\,\\ Y")}} 
+                                                {% elseif inquiry.startDate | date("Y") == inquiry.endDate | date("Y") and inquiry.startDate | date("M") != inquiry.endDate | date("M")%}
+                                                {{inquiry.startDate | date("M j")}} - {{inquiry.endDate| date("M j \\,\\ Y")}} 
+                                                {% else%}
+                                                {{inquiry.startDate | date("M j \\,\\ Y")}} - {{inquiry.endDate| date("M j \\,\\ Y")}} 
+                                                {% endif%}
+                                            {%else%}
+                                                Dates Unspecified
+                                                {% endif%}  
+              
+               
+                
+            <p> 
+            {{inquiry.property.description.name}}    
+            </p>
+      
+        </div>
+        <div class="col-md-2 col-xs-12"><span class="text-muted"><em>{{inquiry.dateCreated| date("F j \\,\\ Y")}}</em></span></div>
+        <div class="col-md-2 col-xs-12 text-right" style="padding: 0">
+            <a href="#" class="btn btn-default reply-inquiry" id="read{{inquiry.id}}"  data-toggle="modal" data-target="#myModalInquiryReadReply{{inquiry.id}}" style="margin-right: 2px">Reply</a>
+               <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span style="margin-right: 5px">More </span><span class="path glyphicon glyphicon-chevron-down"></span>
+        </button>
+        <ul class="dropdown-menu text-left" role="menu">
+             <li class=""><a  href="#"  data-toggle="modal" data-target="#myModalInquiryNote{{inquiry.id}}">Notes</a></li>  
+           {% if inquiry.booked != true %}
+             <li class="bookLink{{inquiry.id}}"><a  href="#"  data-toggle="modal" data-target="#myModalBookInquiry{{inquiry.id}}">Book It</a></li>  
+                 {%endif %}    
+       
+        
+       <li class="Link{{inquiry.id}}"><a  href="#"  data-toggle="modal" data-target="#myModalInquiryListReply{{inquiry.id}}">View Replies</a></li>  
+       
+        </ul>
+        </div>
+           
+      </div>
+        </div>
+        
+             </div>
+                <div id="form{{inquiry.id}}" class="row form hide" style="margin: 0px 17px; padding: 15px 0;border: 1px dashed #3396CD;border-top:0px;  border-radius: 3px">
+            <div class="col-md-12 col-xs-12">{{ render(controller('AdminBundle:Default:replyForm', {'id':inquiry.id})) }}</div>
+          </div>
+          {{ render(controller('AdminBundle:Default:replyInquiryForm',{ 'id': inquiry.id })) }} 
+          {{ render(controller('AdminBundle:Default:noteInquiryForm',{ 'id': inquiry.id })) }} 
+            {{ render(controller('AdminBundle:Default:bookInquiryForm' , {'id':inquiry.id})) }}      
+            {{ render(controller('AdminBundle:Default:replyInquiryListForm',{ 'id': inquiry.id })) }} 
+              {% endfor %}    
+               
+    </div>
+       
+            
+  
+          <div class="row" style="margin-bottom: 10px; margin-top: 10px">
+                <div class="col-md-12 col-xs-12">
+                    <div class="row">
+                      <div class="col-md-12 col-xs-12">
+                        
+                          
+                         
+                              
+                               </div>
+                            
+                            
+                           
+                    </div>
+                    
+                             
+                </div>
+            </div>
+
+        
+    {% else %} 
+
+           
+        <div class="row" style="margin: 20px 10px 0 ">
+                    <div class="col-xs-12 col-md-12">
+                       <div class="alert alert-info">There are no New Inquiries</div>
+                    </div>
+                </div>
+            
+        
+    {% endif %}
+    
+       
+</div>
+
+<script type="text/javascript">
+
+ jQuery(document).ready(function(){ 
+ 
+                
+           jQuery('.resp').each(function(){
+           jQuery(this).click(function(){
+               jQuery('#form'+jQuery(this).attr('name')).removeClass('hide');
+              
+                });
+            }); 
+            
+           jQuery('#btnReply').click(function(){
+            jQuery('.form').css('display','block');
+            });
+         
+              jQuery('.reply-inquiry').click(function(){
+                    jQuery(this).parent().parent().find('.new-inquiry-row-content').each(function (){
+                        jQuery(this).removeClass('new-inquiry-row-content');
+                        jQuery(this).addClass('new-inquiry-row-content-readed');
+                        
+                    });
+                });
+  
+  
+            });      
+            
+            
+            </script>

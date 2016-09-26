@@ -1,0 +1,1045 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Free Auto Listing  {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/movil-search-result-style.css') }}" rel="stylesheet"/>
+{% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+{% block body %}
+
+    <div class="header" style="background-color:#A5A5A5">
+        <table>
+            <tbody>
+            <tr class="active"><p class="navbar-text" style="font-size: 14px;font-weight: bold;margin-top: 15px;">Sort
+                    By</p></tr>
+
+            <tr class="active">
+                <div class="btn-group col-xs-4 no_padding"
+                     style="width: 48%;border: 2px solid #777475;margin-top: 10px;" id="sort_list">
+
+                    <a id="sort_link" sort_id="1" href="javascript:void(0)"
+                       class="sort_link btn btn-default selected"
+                       style="width: 85%;font-weight: bold">Price:Highest
+                    </a>
+
+                    <a href="javascript:void(0)"
+                       class="btn btn-default dropdown-toggle"
+                       data-toggle="dropdown" style="width: 15%;border: 0px; background-color:#d1d1d1 !important;">
+
+                                         <span class="badge pull-center"><span
+                                                     class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="1"
+                               style="font-size: 10px;font-weight: bold">Price: Highest</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="2"
+                               style="font-size: 10px;font-weight: bold">Price: Lowest</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="3"
+                               style="font-size: 10px;font-weight: bold">Mileage: Highest</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="4"
+                               style="font-size: 10px;font-weight: bold">Mileage: Lowest</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="5"
+                               style="font-size: 10px;font-weight: bold">Year: Newest</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="6"
+                               style="font-size: 10px;font-weight: bold">Year: Oldest</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="7"
+                               style="font-size: 10px;font-weight: bold">Make: Ato Z</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="8"
+                               style="font-size: 10px;font-weight: bold">Make: Zto A</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="9"
+                               style="font-size: 10px;font-weight: bold">Model: A to Z</a></li>
+                        <li><a class="sort_link" href="javascript:void(0)" sort_id="1"
+                               style="font-size: 10px;font-weight: bold">Moldel: Z to A</a></li>
+
+                    </ul>
+                </div>
+            </tr>
+
+            <tr class="success">
+                <button id="btn_filter" class="btn btn_edit text-uppercase navbar-btn active"
+                        style="margin-top: 10px;margin-left: 25px;border: 2px solid #777475;">Filter
+                </button>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-body" style="padding:0px">
+    <div class="col-xs-12 no_padding ">
+    <div class="panel-group" value="1" style="padding-bottom: 35px" id="accordion" role="tablist" hidden=""
+         aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingCero">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseCero" aria-expanded="false" aria-controls="collapseCero">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Location<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseCero" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseCero">
+
+            <div class="container list-group" id="location_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All Location</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                New/Used/Certified <span id="condition_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="headingOne">
+
+            <div class="container list-group" id="condition_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% for condition in conditions %}
+                    <div class="list-item">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <a href="#item" id="{{ condition.id }}" class="">{{ condition.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Year<span id="year_val"
+                          class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="headingTwo">
+
+            <div class="panel-body">
+                <span style="padding-left: 10px">Year Range</span>
+
+                <div class="col-xs-12">
+                    <div class="btn-group col-xs-5 no_padding" style="width: 48%">
+                        <a parent_name="year" id="min_year" href="javascript:void(0)"
+                           class="btn btn-default"
+                           style="width: 85%;">{{ years[0].year }}</a>
+                        <a parent_name="year" href="javascript:void(0)"
+                           class="btn btn-default dropdown-toggle"
+                           data-toggle="dropdown" style="width: 15%;"><span
+                                    class="caret"></span></a>
+                        <ul class="dropdown-menu pre-scrollable">
+                            {% for year in years %}
+                                <li><a parent_name="year" href="javascript:void(0)"
+                                       class="min">{{ year.year }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-xs-2 no_padding text-center" style="width: 4%">
+                        <span>-</span>
+                    </div>
+                    <div class="btn-group col-xs-5 pull-right no_padding" style="width: 48%">
+                        <a parent_name="year" id="max_year" href="javascript:void(0)"
+                           class="btn btn-default"
+                           style="width: 85%;">{{ years[years|length -2].year }}</a>
+                        <a parent_name="year" href="javascript:void(0)"
+                           class="btn btn-default dropdown-toggle"
+                           data-toggle="dropdown" style="width: 15%;"><span
+                                    class="caret"></span></a>
+                        <ul class="dropdown-menu pre-scrollable">
+                            {% for year in years %}
+                                <li><a parent_name="year" href="javascript:void(0)"
+                                       class="max">{{ year.year }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+        <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+            href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <span class="badge pull-right">
+                                    <span class="glyphicon glyphicon-chevron-down pull-right small"></span>
+                                </span> Make/Model/Trim <span id="modelmaketrim_val"
+                                                              class="pull-right">Any &nbsp;</span>
+        </li>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+         aria-labelledby="headingThree">
+
+        <div class="panel-body">
+            <div class="col-xs-12" style="width: 80%;">
+
+                <div id="make_filter" class="list-group-item">
+                    <p class="list-group-item-heading" style="font-size: 80%">
+                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                        Make
+                    </p>
+                    <li class="dropdown list-group-item-text hide" id="make_list"
+                        style="list-style: outside none none;border: 1px solid rgb(197, 187, 187);margin-top: 8px;min-height: 26px;text-align: right;">
+                        <a href="#" class="dropdown-toggle text-uppercase text-right"
+                           data-toggle="dropdown"><span id="" name=""
+                                                        class="pull-left selected"
+                                                        style="font-size: 14px">SELECTED</span>
+                            <b class="caret" style="color: #000000"></b>
+                        </a>
+                        <ul class="dropdown-menu make_dropdown">
+
+                            {% for make in obj_make %}
+                                <li style="text-align: left" id="make_list">
+                                    <a parent_name="make_list" href="javascript:void(0)"
+                                       style="padding: 3px 10px;font-size: 14px">{{ make.makeId }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </div>
+                <div id="model_filter" class="list-group-item disabled">
+                    <p class="list-group-item-heading" style="font-size: 80%">
+                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                        Model
+                    </p>
+                    <li class="dropdown list-group-item-text hide" id="model_list"
+                        style=" list-style: outside none none;border: 1px solid rgb(197, 187,187);margin-top: 8px;min-height: 26px;text-align: right;">
+
+                    </li>
+                </div>
+                <div id="trim_filter" class="list-group-item disabled">
+                    <p class="list-group-item-heading" style="font-size: 80%">
+                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                        Trim
+                    </p>
+                    <li class="dropdown list-group-item-text hide" id="trim_list"
+                        style="list-style: outside none none;border: 1px solid rgb(197, 187, 187);margin-top: 8px;min-height: 26px;text-align: right;">
+
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingEleven">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Style<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseEleven">
+
+            <div class="container list-group" id="styles_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% for bodystyle in bodystyles %}
+                    <div class="list-item">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <a href="#item" id="{{ bodystyle.id }}"
+                           class="">{{ bodystyle.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwelf">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseTwelf" aria-expanded="false" aria-controls="collapseTwelf"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Price<span id="price_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseTwelf" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseTwelf">
+
+
+            <div class="panel-body">
+                <span style="padding-left: 10px">Price Range</span>
+
+                <div class="col-xs-12">
+                    <div class="btn-group col-xs-5 no_padding" style="width: 48%">
+                        <a parent_name="price" id="min_price" href="javascript:void(0)"
+                           class="btn btn-default"
+                           style="width: 85%;">{{ prices[0] }}</a>
+                        <a parent_name="price" href="javascript:void(0)"
+                           class="btn btn-default dropdown-toggle"
+                           data-toggle="dropdown" style="width: 15%;"><span
+                                    class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% for price in prices %}
+                                <li><a parent_name="price" href="javascript:void(0)"
+                                       class="min">{{ price }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-xs-2 no_padding text-center" style="width: 4%">
+                        <span>-</span>
+                    </div>
+                    <div class="btn-group col-xs-5 pull-right no_padding" style="width: 48%">
+                        <a parent_name="price" id="max_price" href="javascript:void(0)"
+                           class="btn btn-default"
+                           style="width: 85%;">{{ prices[prices|length-1] }}</a>
+                        <a parent_name="price" href="javascript:void(0)"
+                           class="btn btn-default dropdown-toggle"
+                           data-toggle="dropdown" style="width: 15%;"><span
+                                    class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% for price in prices %}
+                                <li><a parent_name="price" href="javascript:void(0)"
+                                       class="min">{{ price }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingCatorce">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseCatorce" aria-expanded="false" aria-controls="collapseCatorce"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Dealers or Private Sellers<span id="location_val"
+                                                class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseCatorce" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseCatorce">
+
+            <div class="container list-group" id="private_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="1"
+                       class="">Dealers</a>
+                </div>
+                <div class="list-item">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="2"
+                       class="">Private Sellers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFifty">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseFifty" aria-expanded="false" aria-controls="collapseFifty"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Mileage<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseFifty" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseFifty">
+
+            <div class="container list-group" id="mileage_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% set i = 0 %}
+                {% for mileage in mileages %}
+                    {% if i != 6 %}
+                        <div class="list-item">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <a href="#item" id="{{ i }}"
+                               class="">Under {{ mileage }}</a>
+                        </div>
+                    {% else %}
+                        <div class="list-item">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <a href="#item" id="{{ i }}"
+                               class="">Over {{ mileage }}</a>
+                        </div>
+                    {% endif %}
+
+                    {% set i = i + 1 %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFour">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <span class="badge pull-right"><span
+                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Interior Color<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseFour">
+
+            <div class="container list-group" id="colors_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% for color in colors %}
+                    <div class="list-item">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <a href="#item" id="{{ color.id }}"
+                           class="">{{ color.colorname }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFive">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Transmission<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseFive">
+
+            <div class="container list-group" id="transmission_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% for transmission in transmissions %}
+                    <div class="list-item">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <a href="#item" id="{{ transmission.id }}"
+                           class="">{{ transmission.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingSix">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseSix" aria-expanded="false" aria-controls="collapseSix"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Engine Type<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseSix" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseFive">
+
+            <div class="container list-group" id="engines_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% for engine in engines %}
+                    <div class="list-item">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <a href="#item" id="{{ engine.id }}"
+                           class="">{{ engine.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingEigth">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseEigth" aria-expanded="false" aria-controls="collapseEigth">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Fuel Type<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseEigth" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseEigth">
+
+            <div class="container list-group" id="fuels_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% for fuel in fuels %}
+                    <div class="list-item">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <a href="#item" id="{{ fuel.id }}"
+                           class="">{{ fuel.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingNine">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseNine" aria-expanded="false" aria-controls="collapseNine"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Drive Type<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseNine" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseNine">
+
+            <div class="container list-group" id="drives_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% for drive in drives %}
+                    <div class="list-item">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <a href="#item" id="{{ drive.id }}"
+                           class="">{{ drive.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTen">
+            <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseTen" aria-expanded="false" aria-controls="collapseTen"
+                    >
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-down pull-right small"></span></span>
+                Doors<span id="location_val" class="pull-right">Any &nbsp;</span>
+            </li>
+        </div>
+        <div id="collapseTen" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="collapseTen">
+
+            <div class="container list-group" id="doors_filter_box">
+                <div class="list-item active All">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <a href="#item" id="0" class="">All</a>
+                </div>
+                {% for door in doors %}
+                    <div class="list-item">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <a href="#item" id="{{ door.id }}"
+                           class="">{{ door.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="row" style="background-color: #fff;border: 1px solid rgba(221, 221, 221, 0.83);">
+        <div class="col-xs-6 no_padding">
+            <a id="btn_cancel" href="javascript:void(0)" style="background-color: #CAC8C8;color: #ffffff"
+               class="btn btn-default btn-block btn-group-justified text-uppercase">CANCEL</a>
+        </div>
+        <div class="col-xs-6 no_padding">
+            <a id="btn_apply" href="javascript:void(0)"
+               class="btn btn-danger btn-group-justified text-uppercase">APPLY</a>
+        </div>
+        <div class="row hide" id="loading" style="margin-left: 25px">
+            <img id="loading" src="{{ asset('bundles/common/images/loading.gif') }}"
+                 style="margin-left: 15px;font-size:12px;  border: 0 none;" class="">Loading...
+        </div>
+    </div>
+    </div>
+    <div id="all_vehicles_content">
+        <ul class="list-group">
+            {% if vehicles|length > 5 %}
+                {% set total = 6 %}
+            {% else %}
+                {% set total = vehicles|length %}
+            {% endif %}
+            {% for vehicle in vehicles|slice( 0, 6 ) %}
+                {% if(vehicle.profile) %}
+                    {% set pf = vehicle.gallery.profileimages[0] %}
+                    {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                    {% set photoid = vehicle.profile %}
+                    {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                {% elseif vehicle.user %}
+                    {% set photoid = vehicle.user.id %}
+                    {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                        {% set pf = vehicle.gallery.vehicleimages[0] %}
+                        {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                        {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                    {% else %}
+                        {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                        {% set profileimageslength = 0 %}
+                    {% endif %}
+                {% endif %}
+                <li class="list-group-item">
+                    <div class="row">
+
+                        <a href="{{ path('movil_car_details', {'serie': vehicle.serie}) }}">
+                            <div class="thumbnail">
+                                {% if vehicle_image %}
+                                    {% set vehicle_image = vehicle_image %}
+                                {% else %}
+                                    {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                                    {% set profileimageslength = 0 %}
+                                {% endif %}
+                                <img src="{{ asset(vehicle_image) }}"
+                                     alt=""
+                                     style="width: 100%;{% if vehicle_image == 'bundles/common/images/image-bg.jpg' %} height: 279px {% endif %} "/>
+
+                                <div class="views">
+                                    <span> ${{ vehicle.vehiclesinformation.price }} </span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="caption" style="padding: 3px 9px">
+                            <p class="text-left"
+                               style="font-weight: bold;font-size: 14px;margin-bottom: 5px">
+                                {{ vehicle.vehiclesinformation.year.year }}
+                                {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                            </p>
+
+                            <p class="text-left" style="margin-bottom: 0px;font-size: 13px">
+                                {{ vehicle.vehiclesinformation.condition.name }} |
+                                {{ vehicle.vehiclesinformation.mileage }} Mi |
+                                {{ vehicle.vehiclesdetails.exteriorcolor }}
+                            </p>
+
+                            <p class="text-left" style="margin-bottom: 0px;">
+                                <span style="font-size: 13px">Miami, FL 2323</span>
+                                        <span class="glyphicon glyphicon-heart pull-right"
+                                              style="padding-top: 2px;"></span>
+                            </p>
+                        </div>
+
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <!-- DIV DE PUBLICIDAD  -->
+        <div class="container-fluid">
+            <div class="col-md-12 col-xs-12 col-sm-12" style="margin-top: 10px;margin-bottom: 20px">
+                <img src="{{ asset('bundles/common/images/search/ads.jpg') }}" alt=""
+                     style="width: 100%"/>
+            </div>
+        </div>
+        {% if vehicles|length > 6 %}
+            <div class="col-xs-12 no_padding ">
+                <ul class="list-group">
+                    {% for vehicle in vehicles|slice( 6, vehicles|length ) %}
+                        {% if(vehicle.profile) %}
+                            {% set pf = vehicle.gallery.profileimages[0] %}
+                            {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                            {% set photoid = vehicle.profile %}
+                            {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                        {% elseif vehicle.user %}
+                            {% set photoid = vehicle.user.id %}
+                            {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                                {% set pf = vehicle.gallery.vehicleimages[0] %}
+                                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                                {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                            {% else %}
+                                {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                                {% set profileimageslength = 0 %}
+                            {% endif %}
+                        {% endif %}
+                        <li class="list-group-item">
+                            <div class="row">
+
+                                <a href="{{ path('car_details', {'serie': vehicle.serie}) }}">
+                                    <div class="thumbnail">
+                                        {% if vehicle_image %}
+                                            {% set vehicle_image = vehicle_image %}
+                                        {% else %}
+                                            {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                                            {% set profileimageslength = 0 %}
+                                        {% endif %}
+                                        <img src="{{ asset(vehicle_image) }}"
+                                             alt="" {% if vehicle.gallery is null %} style="width: 100%;height: 177px" {% endif %}/>
+
+                                        <div class="views">
+                                            <span> ${{ vehicle.vehiclesinformation.price }} </span>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <div class="caption" style="padding: 3px 9px">
+                                    <p class="text-left"
+                                       style="font-weight: bold;font-size: 14px;margin-bottom: 5px">
+                                        {{ vehicle.vehiclesinformation.year.year }}
+                                        {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                        {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                                    </p>
+
+                                    <p class="text-left" style="margin-bottom: 0px;font-size: 13px">
+                                        {{ vehicle.vehiclesinformation.condition.name }} |
+                                        {{ vehicle.vehiclesinformation.mileage }} Mi |
+                                        {{ vehicle.vehiclesdetails.exteriorcolor }}
+                                    </p>
+
+                                    <p class="text-left" style="margin-bottom: 0px;">
+                                        <span style="font-size: 13px">Miami, FL 2323</span>
+                                            <span class="glyphicon glyphicon-heart pull-right"
+                                                  style="padding-top: 2px;"></span>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    </div>
+
+
+    </div>
+    <div class="panel-footer">
+        Load More
+    </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions_frontend_utils.js') }}"></script>
+
+    <script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+        jQuery("#btn_filter").click(function () {
+            jQuery("#accordion").removeClass("hide").slideToggle(600);
+        })
+        jQuery('#btn_cancel').click(function () {
+            jQuery("#accordion").slideUp(600);
+        });
+
+        jQuery(".list-item").click(function () {
+            jQuery(this).toggleClass("active");
+            if (jQuery(this).siblings(".All").hasClass("active"))
+                jQuery(this).siblings(".All").removeClass("active");
+        });
+
+        jQuery(".list-group-item").click(function () {
+            jQuery(this).find(".list-group-item-text").removeClass("hide").fadeIn();
+            jQuery(this).find(".glyphicon").removeClass("glyphicon-chevron-right");
+            jQuery(this).find(".glyphicon").addClass("glyphicon-chevron-down");
+        });
+
+        jQuery(".make_dropdown li a").click(function () {
+
+            var make = jQuery(this).text();
+            var a = null;
+
+            jQuery('#trim_list').html('');
+            jQuery('#trim_list').attr('disabled', 'disabled');
+            jQuery('#model_list').html('');
+            jQuery('#model_list').attr('disabled', 'disabled');
+
+            jQuery("#model_filter").removeClass("disabled");
+            jQuery.post('{{ path('find_models_by_make_front')}}',
+                    {
+                        make_id: make
+                    },
+                    function (data) {
+                        var model_li = null;
+                        if (data.error != undefined && data.error != "") {
+                            alert(data.error);
+                            a = "<li><a>Model</a></li>";
+                        } else {
+                            jQuery.each(data, function (i) {
+
+                                if (a != null) {
+                                    a = a + '<a parent_name="model_list" onClick="javascript:ChangeDropDownValueModel(this);" id="' + this.text + '" style="padding: 3px 10px;font-size: 14px">' + this.text + '</a>';
+                                } else {
+                                    a = '<a parent_name="model_list" onClick="javascript:ChangeDropDownValueModel(this);" id="' + this.text + '" style="padding: 3px 10px;font-size: 14px">' + this.text + '</a>';
+                                }
+
+                            });
+                            var content = '<a href="#" class="dropdown-toggle text-right" data-toggle="dropdown"><span id="" name="" class="pull-left selected" style="font-size: 14px">SELECTED</span><b class="caret" style="color: #000000"></b></a>';
+                            content = content + ' <ul class="dropdown-menu model_dropdown"><li style="text-align: left" id="model_list">' + a + '</li></ul>';
+                            if (a != null) {
+                                jQuery('#model_list').removeAttr('disabled')
+                                jQuery('#model_list').html(content);
+                            } else {
+                                jQuery('#model_list').html('');
+                                jQuery('#model_list').attr('disabled', 'disabled')
+
+                            }
+                        }
+                    }, "json");
+
+        });
+
+        jQuery('.sort_link').click(function () {
+            var text = jQuery(this).text();
+            var sort_id = jQuery(this).attr("sort_id");
+            jQuery("#sort_list").find(".selected").attr("sort_id", sort_id);
+            jQuery("#sort_list").find(".selected").text(text);
+        });
+
+        jQuery(".dropdown-menu li a").click(function () {
+            var type = this.className;
+            ChangeDropDownValue(this, type);
+        });
+        jQuery("#btn_apply").click(GetSearchValues);
+
+    });
+
+    function ChangeDropDownValueModel(element) {
+
+        jQuery(element).parents(".dropdown").find(".dropdown-toggle").find("span").text(jQuery(element).text());
+        jQuery("#trim_filter").removeClass("disabled");
+
+        jQuery('#trim_list').html('');
+        jQuery('#trim_list').attr('disabled', 'disabled');
+
+        var model = jQuery(element).text();
+        jQuery.post('{{ path('find_trims_by_model_front')}}',
+                {
+                    model_id: model
+                },
+                function (data) {
+                    var a = null;
+                    if (data.error != undefined && data.error != "") {
+                        alert(data.error);
+                        a = "<li><a>Model</a></li>";
+                    } else {
+                        jQuery.each(data, function (i) {
+                            if (a != null) {
+                                a = a + '<a parent_name="trim_list" onClick="javascript:ChangeDropDownValueTrim(this);" style="padding: 3px 10px;font-size: 14px">' + this.text + '</a>';
+                            } else {
+                                a = '<a parent_name="trim_list" onClick="javascript:ChangeDropDownValueTrim(this);"  style="padding: 3px 10px;font-size: 14px">' + this.text + '</a>';
+                            }
+
+                        });
+                    }
+
+                    var content = '<a href="#" class="dropdown-toggle text-right" data-toggle="dropdown"><span id="" name="" class="pull-left selected" style="font-size: 14px">Select</span><b class="caret" style="color: #000000"></b></a>';
+                    content = content + ' <ul class="dropdown-menu trim_dropdown"><li style="text-align: left" id="trim_list">' + a + '</li></ul>';
+
+                    if (a != null) {
+                        jQuery('#trim_list').removeAttr('disabled')
+                        jQuery('#trim_list').html(content);
+                    } else {
+                        jQuery('#trim_list').html('');
+                        jQuery('#trim_list').attr('disabled', 'disabled')
+
+                    }
+                }, "json");
+
+
+    }
+
+    function ChangeDropDownValueTrim(element) {
+        jQuery(element).parents(".dropdown").find(".dropdown-toggle").find("span").text(jQuery(element).text());
+
+        var id = jQuery(element).attr("id");
+        var name = jQuery(element).attr("name");
+        var parent_name = "#" + jQuery(element).attr("parent_name");
+        jQuery(parent_name).find(".selected").attr("name", name);
+        jQuery(parent_name).find(".selected").attr("id", id);
+    }
+
+    function ChangeDropDownValue(element, classType) {
+        //validar q uno sea menor q el otro
+
+        var parent_name = "#" + jQuery(element).attr("parent_name");
+
+        if (jQuery(element).attr("parent_name") == 'year') {
+            var max = parseInt(jQuery("#max_year").text());
+            var min = parseInt(jQuery("#min_year").text());
+        } else if (jQuery(element).attr("parent_name") == 'price') {
+            var max = parseInt(jQuery("#max_price").text());
+            var min = parseInt(jQuery("#min_price").text());
+        }
+
+        if (classType == "min") {
+            min = parseInt(jQuery(element).text());
+            if (min > max)
+                return;
+        }
+        else {
+            max = parseInt(jQuery(element).text());
+            if (max < min)
+                return;
+        }
+        if (classType == "min" || classType == "max") {
+            jQuery(element).parents(".btn-group").find("a")[0].textContent = jQuery(element).text();
+        } else {
+            jQuery(element).parents(".dropdown").find(".dropdown-toggle").find("span").text(jQuery(element).text());
+
+            var id = jQuery(element).attr("id");
+            var name = jQuery(element).attr("name");
+
+            //alert(id);
+
+            jQuery(parent_name).find(".selected").attr("name", name);
+            jQuery(parent_name).find(".selected").attr("id", id);
+        }
+
+    }
+    function GetSearchValues() {
+
+        var makes = null;
+        var models = null;
+        var trims = null;
+
+        var condition = GetValuesinArray("condition_filter_box");
+        var private = GetValuesinArray("private_filter_box");
+        var year = GetYearsFilterValues();
+        var price = GetPricesFilterValues();
+
+
+        if (jQuery("#make_list").find(".selected").text() != 'SELECTED' && jQuery("#make_list").find(".selected").text() != '') {
+            makes = Array();
+            makes[0] = jQuery("#make_list").find(".selected").text();
+        }
+
+        if (jQuery("#model_list").find(".selected").text() != 'SELECTED' && jQuery("#model_list").find(".selected").text() != '') {
+            models = Array();
+            models[0] = jQuery("#model_list").find(".selected").text();
+        }
+        if (jQuery("#trim_list").find(".selected").text() != 'SELECTED' && jQuery("#trim_list").find(".selected").text() != '') {
+            trims = Array();
+            trims[0] = jQuery("#trim_list").find(".selected").text();
+        }
+
+
+        var transmissions = GetValuesinArray("transmission_filter_box");
+        var engines = GetValuesinArray("engines_filter_box");
+        var fuels = GetValuesinArray("fuels_filter_box");
+        var drives = GetValuesinArray("drives_filter_box");
+        var doors = GetValuesinArray("doors_filter_box");
+        var bodystyles = GetValuesinArray("styles_filter_box");
+        var mileage = GetValuesinArray("mileage_filter_box");
+        var interiorcolor = GetValuesinArray("colors_filter_box");
+
+        //var prices = GetPricesSearchValues();
+        var sort_id = jQuery("#sort_list").find(".selected").attr("sort_id");
+        var limit = jQuery("#view_list").find(".selected").attr("view_id");
+        jQuery("#loading").removeClass("hide");
+        jQuery.ajax({
+            url: '{{path('movil_all_results_cars_content')}}',
+            type: "POST",
+            data: {
+                condition: condition,
+                year: year,
+                prices: price,
+                make: makes,
+                model: models,
+                trims: trims,
+                transmissions: transmissions,
+                engines: engines,
+                fuels: fuels,
+                drives: drives,
+                doors: doors,
+                bodystyle: bodystyles,
+                private: private,
+                sort: sort_id,
+                start: 1,
+                limit: limit,
+                mileage: mileage,
+                interiorcolor: interiorcolor
+            },
+            success: function (response) {
+                jQuery('#all_vehicles_content').empty();
+                jQuery("#loading").addClass("hide");
+                jQuery('#all_vehicles_content').html(response);
+                jQuery("#accordion").slideUp(600);
+            },
+            error: function (response) {
+                jQuery("#loading").addClass("hide");
+                jQuery("#accordion").slideUp(600);
+                alert(response);
+            }
+        });
+    }
+    function GetValuesinArray(elementid) {
+        var valuesArray = Array();
+        if (jQuery("#" + elementid).size() > 0) {
+            var values = jQuery("#" + elementid).find(".active");
+            values.each(function () {
+                valuesArray.push(jQuery(this).find('a').text())
+            });
+        }
+        return valuesArray;
+    }
+    function GetYearsFilterValues() {
+        var result = Array();
+        var max = parseInt(jQuery("#max_year").text());
+        var min = parseInt(jQuery("#min_year").text());
+        result.push(min);
+        result.push(max);
+        return result;
+    }
+    function GetPricesFilterValues() {
+        var result = Array();
+        var max = parseFloat(jQuery("#max_price").text());
+        var min = parseFloat(jQuery("#min_price").text());
+        result.push(min);
+        result.push(max);
+        return result;
+    }
+
+
+    </script>
+{% endblock %}
+
+
+

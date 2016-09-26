@@ -1,0 +1,133 @@
+<div class="modal fade" id="myModalDeactivation{{serie}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Deactivation of Property #{{serie}}</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formDeactivation" action="{{ path('create_user_request') }}" method="POST" class="form-horizontal">
+                    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+                           {{ form_label(form.text) }}
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            {{ form_widget(form.text, { 'attr': {'placeholder': 'Comments'} }) }}
+                        </div>
+
+                    </div>
+
+
+              
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    
+                    <div class="col-md-8 col-sm-8 col-xs-12"><div id="error"></div></div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <span id="loading"  hidden="true"><img src="{{ asset('bundles/common/images/loading.gif') }}" /></span>
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary confirm-send">Submit</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+
+
+        function disableFormContactReservation() {
+            jQuery('#myModalDeactivation{{serie}} #formDeactivation').find('textarea').attr('disabled', 'disabled')
+            jQuery("#myModalDeactivation{{serie}} #formDeactivation").css("opacity", 0.37);
+        }
+
+
+
+        function enableFormContactReservation() {
+            jQuery('#myModalDeactivation{{serie}} #formDeactivation').find('textarea').val('');
+            jQuery('#myModalDeactivation{{serie}} #formDeactivation').find('textarea').removeAttr('disabled');
+            jQuery("#myModalDeactivation{{serie}} #formDeactivation").css("opacity", 1);
+        }
+
+        function submitFormContactReservation() {
+
+            jQuery.ajax({
+                statusCode: {
+                    500: function () {
+                        //enableFormConfirmReservation();
+                        jQuery('#myModalDeactivation{{serie}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                    }
+                },
+                url: jQuery('#myModalDeactivation{{serie}} #formDeactivation').attr('action'),
+                type: "POST",
+                data: { text: jQuery('#deactivationRequest_text').val(), serie: '{{serie}}' },
+                async: false,
+                success: function (response) {
+                    enableFormContactReservation();
+                    jQuery('#myModalDeactivation{{serie}}').modal('hide');
+                }
+            });
+        }
+
+
+        jQuery('#myModalDeactivation{{serie}} .confirm-send').click(function (e) {
+            //alert(jQuery('#myModalCancel{{serie}} #formReservationCancel').serialize());    
+            validateFormContact();
+
+        });
+
+  jQuery('#myModalDeactivation{{serie}}').find('textarea').each(function(){
+    jQuery(this).focusout(function(){
+    jQuery(this).popover('destroy');
+    });
+    });
+
+
+        function validateFormContact() {
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#myModalDeactivation{{serie}} #deactivationRequest_text'), 2, 500);
+            if (bValid) {
+                disableFormContactReservation();
+                submitFormContactReservation();
+            }
+
+        }
+        
+          function checkLength(o, min, max) {
+            if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+                    return false;
+            } else {
+            return true;
+            }
+            }
+            
+                function createPopover(elem, text){
+                elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+            }
+
+    });
+
+
+
+
+
+
+</script>

@@ -1,0 +1,415 @@
+
+body {
+    font-family: 'Quattrocento Sans', sans-serif;
+}
+
+@media (max-width: 992px) {
+
+    #link_menu {
+        float: right;
+    }
+
+    body {
+        font-family: 'Quattrocento Sans', sans-serif;
+        /* Location of the image */
+        background-image: url(../images/home/mobile-home-banner.jpg);
+
+        /* Image is centered vertically and horizontally at all times */
+        background-position: center center;
+
+        /* Image doesn't repeat */
+        background-repeat: no-repeat;
+
+        /* Makes the image fixed in the viewport so that it doesn't move when
+           the content height is greater than the image height */
+        background-attachment: fixed;
+
+        /* This is what makes the background image rescale based on its container's size */
+        background-size: cover;
+
+        /* Pick a solid background color that will be displayed while the background image is loading */
+        background-color: #464646;
+        height: 100%;
+
+    }
+
+}
+
+html {
+    height: 100%;
+}
+
+/*.buttons_mobile_device {
+    color: white;
+    background-color: black;
+    border: 3px solid #ffffff;
+    border-radius: 0px;
+    text-align: center;
+    opacity: 0.4;
+}
+
+.buttons_mobile_device span{
+    opacity: 1;
+}
+
+.buttons_mobile_device:hover {
+    background-color: #191919;
+    opacity: 0.8;
+}
+
+.buttons_mobile_device span {
+    opacity: 1;
+    color: #ffffff;
+}*/
+
+.buttons_mobile_device {
+    outline: white solid 2px;
+    padding: 6px 8px;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 300;
+    border: none;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.2);
+    font-family: helvetica, arial, sans-serif;
+    font-size: 19pt;
+}
+
+.buttons_mobile_device:hover {
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(0, 0, 0, 0.8);
+    outline: white solid 2px;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.content {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    top: 32%;
+}
+
+/*h1 {
+    font-weight: 800;
+}*/
+
+.bold_text {
+    font-weight: 800;
+    color: white;
+}
+
+.smaller {
+    font-size: 75% !important;
+    font-weight: bold;
+}
+
+.panel {
+    /*background-attachment: fixed;*/
+    background-color: #464646;
+    /* background-position: center center;*/
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    padding: 0px 0;
+    position: relative;
+    font-weight: 300;
+    /*min-height: 982px;*/
+    border-radius: 0px;
+    /* width: 100%;*/
+    border: none !important;
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
+/*#panel_buy {
+    background-image: url("../images/home/banner-buy-bw.jpg");
+}*/
+
+#panel_sell {
+    background-image: url("../images/home/banner-sell-bw.jpg");
+}
+
+.logo {
+    position: relative;
+}
+
+.no_padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.no_margin {
+    margin: 0 !important;
+}
+
+.thumbnail {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 0;
+    display: block;
+    line-height: 1.42857;
+    margin-bottom: 20px;
+    padding: 0px 0px 10px 0px;
+    transition: border 0.2s ease-in-out 0s;
+}
+
+.panel_button {
+    width: 100%;
+    opacity: 0.8;
+    text-align: right;
+    background-color: #FFF;
+    margin: 3px 0px;
+    border-radius: 0;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+}
+
+.panel_left_different {
+    color: white;
+    background-color: #cb2020;
+    border-color: #cb2020;
+    text-align: center;
+    border-radius: 0px !important;
+    float: left;
+}
+
+.panel_left_different:hover {
+    background-color: #cb2020;
+    color: #ffffff;
+    border-color: #cb2020;
+}
+
+.panel_left_different:hover {
+    background-color: #e62020;
+    color: #ffffff;
+    border-color: #cb2020;
+}
+
+.panel_left_different:active:focus, .panel_left_different:focus {
+    background-color: #cb2020;
+    color: #ffffff;
+    border-color: #cb2020;
+}
+
+.panel_right_different {
+    color: white;
+    background-color: black;
+    border: none !important;
+    text-align: center;
+}
+
+.panel_right_different:hover {
+    background-color: #191919;
+    color: #ffffff;
+    border-color: #191919;
+}
+
+.divider-vertical {
+    height: 50px;
+    border-right: 1px solid #7E7E7E;
+    /*border-left: 1px solid #7E7E7E;*/
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin: 0px 5px 0px 5px;
+    border-right-color: #eef8f1;
+}
+
+#footer {
+    height: 60px;
+    background-color: #3f3f3f;
+}
+
+.menu_icon {
+    background: transparent url("../images/home/menu-icon.png") no-repeat;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+}
+
+.menu_icon:hover {
+    cursor: pointer;
+}
+
+.menu_icon-mobile {
+    background: transparent url("../images/home/menu-icon-mobile.png") no-repeat;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+}
+
+.menu_icon_slide {
+    background: transparent url("../images/home/menu-icon-mobile.png") no-repeat;
+    width: 36px;
+    height: 36px;
+    position: relative;
+}
+
+.menu_icon_slide:hover {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 93%;
+    left: 0px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 1px;
+    margin: 2px 0px 0px;
+    font-size: 14px;
+    text-align: left;
+    list-style: outside none none;
+    background-color: #FFF;
+    background-clip: padding-box;
+    border: 0px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.176);
+    width: 100%;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #f4f4f4;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #DDD #DDD transparent;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+}
+
+.tab_borders {
+    border-left: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    background-color: #f4f4f4
+}
+
+.loading_icon {
+    background: transparent url("../images/loading.gif") no-repeat;
+    display: inline-block;
+    /*top: 35%;
+    right: 14px;*/
+    width: 16px;
+    height: 16px;
+}
+
+input::-webkit-input-placeholder {
+    color: #333;
+    font-size: 100%;
+    font-weight: 400;
+}
+
+input::-moz-placeholder {
+    color: #333;
+    font-size: 100%;
+    font-weight: 400;
+}
+
+input:-ms-input-placeholder {
+    color: #333;
+    font-size: 100%;
+    font-weight: 400;
+}
+
+.dropdown_input:hover {
+    cursor: text;
+}
+
+.div_logo {
+    position: absolute;
+    top: 2%;
+    display: inline-block;
+}
+
+.div_form_in_header {
+    position: absolute;
+    top: 24%;
+}
+
+.div_form_in_header.left {
+    left: 59%;
+}
+
+.div_form_in_header.right {
+    right: 59%;
+}
+
+.grises img {
+    filter: url('#grayscale'); /* Versi�n SVG para IE10, Chrome 17, FF3.5, Safari 5.2 and Opera 11.6 */
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%); /* Para cuando es est�ndar funcione en todos */
+    filter: Gray(); /* IE4-8 and 9 */
+
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+/*.grises img:hover,*/
+.grises img.hover {
+    -webkit-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+    -o-filter: grayscale(0%);
+    filter: none;
+
+    -WEBKIT-TRANSITION: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.slidepanel {
+    width: 200px;
+    height: 100%;
+    position: absolute;
+    left: -200px;
+    color: white;
+    background-color: black;
+    opacity: 0.8;
+    top: 0%;
+    display: none;
+}
+
+.first_list {
+    margin-bottom: 3px;
+}
+
+.slidepanel .list-group a {
+    border-radius: 0px;
+    background-color: transparent;
+    color: white;
+}
+
+.slidepanel .list-group a.active, .slidepanel .list-group a:hover {
+    border-radius: 0px;
+    background-color: rgba(24, 24, 24, 0.91);
+    color: white;
+}
+
+.slidepanel .list-group.first_list a {
+    text-transform: uppercase;
+    border-right: none;
+    border-left: none;
+    border-color: rgb(134, 134, 134);
+}
+
+.slidepanel .list-group.second_list a {
+    text-transform: none;
+    border: none;
+    color: white;
+    font-size: 13px;
+}

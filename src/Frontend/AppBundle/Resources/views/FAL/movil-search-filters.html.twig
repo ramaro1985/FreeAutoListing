@@ -1,0 +1,391 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Free Auto Listing  {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/movil-search-result-style.css') }}" rel="stylesheet"/>
+{% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+{% block body %}
+
+    <form id="form-search"
+          action="{{ path('movil_search_all_vehicles_content') }}" method="POST">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+        <div class="row">
+            <div class="panel panel-default" style="border-color: #b8b8b8">
+                <div class="panel-heading" style="background-color: #b8b8b8;border-color: #b8b8b8;color:#ffffff">
+                    <div class="container-fluid">
+                        <h2 class="panel-title" style="font-size: 23px;">Find Cars For Sale</h2>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding: 0px">
+
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                                    Condition
+                                </li>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingOne">
+
+                                <div class="container list-group" id="condition_filter_box">
+                                    <div class="list-item active All">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                        <a href="#item" id="all" class="">All</a>
+                                    </div>
+                                    {% for condition in conditions %}
+                                        <div class="list-item">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <a href="#item" id="{{ condition.id }}" class="">{{ condition.name }}</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                                    Year Range
+                                </li>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-5 btn-group no_padding" style="width: 48%">
+                                            <button id="min_year" type="button" class="text-left btn btn-default" style="width: 85%;text-align: left">{{ years[years|length -1].year }}</button>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="text-align: left">
+                                                <span class="caret" style="margin: 0px 3px;"></span>
+                                            </button>
+                                            <ul class="dropdown-menu pre-scrollable" role="menu">
+                                                {% for year in years %}
+                                                    <li><a href="javascript:void(0)" class="min">{{ year.year }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-xs-2 no_padding text-center" style="width: 4%">
+                                            <span>-</span>
+                                        </div>
+                                        <div class="col-xs-5 btn-group no_padding" style="width: 48%">
+                                            <button id="max_year" type="button" class="text-left btn btn-default" style="width: 85%;text-align: left">{{ years[0].year }}</button>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >
+                                                <span class="caret" style="margin: 0px 3px;"></span>
+                                            </button>
+                                            <ul class="dropdown-menu pre-scrollable" role="menu">
+                                                {% for year in years %}
+                                                    <li><a href="javascript:void(0)" class="max">{{ year.year }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                                    Make / Model / Trim
+                                </li>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingThree">
+                                <div class="panel-body">
+                                    <div class="dropdown col-xs-12">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span>Make</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu make_dropdown pre-scrollable" aria-labelledby="dropdownMenu1"
+                                            style="padding-left: 15px;padding-right: 15px;">
+                                            {% for m in makes %}
+                                                <li><a id="make" href="javascript:void(0)">{{ m.makeId }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown col-xs-12" style="margin-top: 10px">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span>Model</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul id="moldellist" class="dropdown-menu model_dropdown pre-scrollable"
+                                            aria-labelledby="dropdownMenu2"
+                                            style="padding-left: 15px;padding-right: 15px;">
+
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown col-xs-12" style="margin-top: 10px">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span>Trim</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul id="trimlist" class="dropdown-menu trim_dropdown pre-scrollable"
+                                            aria-labelledby="dropdownMenu3"
+                                            style="padding-left: 15px;padding-right: 15px;">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"
+                                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                                    Style
+                                </li>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingFour">
+                                <div class="container list-group" id="styles_filter_box">
+                                    <div class="list-item active All">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                        <a href="#item" id="all" class="">All</a>
+                                    </div>
+                                    {% for style in styles %}
+                                        <div class="list-item">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <a href="#item" id="{{ style.id }}" class="">{{ style.name }}</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFive">
+                                <li class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"
+                                    style="list-style: none;margin-right: 12px;margin-left: 15px">
+
+                                <span class="badge pull-right"><span
+                                            class="glyphicon glyphicon-chevron-right pull-right small"></span></span>
+                                    Location and Radius
+                                </li>
+                            </div>
+                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingFive">
+                                <div class="panel-body">
+                                    Anim pariatur cliche reprehenderit,
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" style="padding-top: 20px;">
+            <button type="submit" id="button_search" href="javascript:void(0)"
+                    class="btn btn-danger btn-group-justified"
+                    style="position: relative;font-size: 20px;">Search For Cars
+            </button>
+        </div>
+
+        <input type="hidden" name="limit" value="12"/>
+        <input type="hidden" name="start" value="1"/>
+        <input type="hidden" name="sort" value="0"/>
+        <input id="conditions_value" type="hidden" name="condition" value="0"/>
+        <input id="styles_value" type="hidden" name="bodystyle" value="0"/>
+        <input id="years_value" type="hidden" name="year" value="0"/>
+
+        <input id="makeV" type="hidden" name="makeV" value=""/>
+        <input id="modelV" type="hidden" name="modelV" value=""/>
+        <input id="trimV" type="hidden" name="trimV" value=""/>
+    </form>
+    <div class="row" style="background-color: #ffffff">
+        <div class="col-xs-10 col-xs-offset-1" style="padding:18px 0px 33px">
+            <img class="img-responsive" src="{{ asset('bundles/common/images/search/ads.jpg') }}" alt=""/>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions_frontend_utils.js') }}"></script>
+    <script type="text/javascript">
+        //var start = 1;
+        jQuery(document).ready(function () {
+
+            jQuery(".dropdown-menu li a").click(function () {
+                var type = this.className;
+                ChangeDropDownValue(this, type);
+            });
+
+            jQuery(".list-item").click(function () {
+                jQuery(this).toggleClass("active");
+                if (jQuery(this).siblings(".All").hasClass("active"))
+                    jQuery(this).siblings(".All").removeClass("active");
+            });
+
+
+            jQuery("#button_search").click(GetSearchValues);
+
+        });
+
+        function ChangeDropDownValue(element, classType) {
+            //validar q uno sea menor q el otro
+            var max = parseInt(jQuery("#max_year").text());
+            var min = parseInt(jQuery("#min_year").text());
+
+            if (element.id == 'make') {
+                var make = jQuery(element).text();
+                // document.het
+                var m = Array();
+                m.push(make);
+                jQuery("#makeV").val(m);
+                jQuery.post('{{ path('find_models_by_make_front')}}',
+                        {
+                            make_id: make
+                        },
+                        function (data) {
+                            var model_li = null;
+                            if (data.error != undefined && data.error != "") {
+                                alert(data.error);
+                                model_li = "<li><a>Model</a></li>";
+                            } else {
+                                jQuery.each(data, function (i) {
+                                    if (model_li == null) {
+                                        model_li = "<li><a id='model' onclick='ChangeDropDownValue(this)'>" + this.text + "</a></li>";
+                                    } else {
+                                        model_li += "<li><a id='model' onclick='ChangeDropDownValue(this) '>" + this.text + "</a></li>";
+                                    }
+
+                                });
+                                jQuery('#moldellist').html(model_li);
+                            }
+                        }, "json");
+            }
+            if (element.id == 'model') {
+                var model = jQuery(element).text();
+                var m = Array();
+                m.push(model);
+                jQuery("#modelV").val(m);
+                jQuery.post('{{ path('find_trims_by_model_front')}}',
+                        {
+                            model_id: model
+                        },
+                        function (data) {
+                            var trim_li = null;
+                            if (data.error != undefined && data.error != "") {
+                                alert(data.error);
+                                trim_li = "<li><a>Trim</a></li>";
+                            } else {
+                                jQuery.each(data, function (i) {
+                                    if (trim_li == null) {
+                                        trim_li = "<li><a id='trim' onclick='ChangeDropDownValue(this)'>" + this.text + "</a></li>";
+                                    } else {
+                                        trim_li += "<li><a id='trim' onclick='ChangeDropDownValue(this) '>" + this.text + "</a></li>";
+                                    }
+
+                                });
+                                jQuery('#trimlist').html(trim_li);
+                            }
+                        }, "json");
+            }
+            if (element.id == 'trim') {
+                var trim = jQuery(element).text();
+                var tr = Array();
+                tr.push(trim);
+                jQuery("#trimV").val(tr);
+            }
+            if (classType == "min") {
+                min = parseInt(jQuery(element).text());
+                if (min > max) {
+                    return false;
+                } else {
+                    jQuery("#min_year").text(min);
+                    return false;
+                }
+
+
+            }
+            else if (classType == "max") {
+                max = parseInt(jQuery(element).text());
+                if (max < min) {
+                    return false;
+                } else {
+                    jQuery("#max_year").text(max);
+                    return false;
+                }
+
+            }
+
+            //jQuery(element).parents(".btn-group").find("a")[0].textContent = jQuery(element).text();
+            jQuery(jQuery(element).parents(".dropdown-menu").siblings()[0]).find("span")[0].textContent = jQuery(element).text();
+        }
+
+        function GetSearchValues() {
+
+            var year = GetYearsFilterValues("year_filter_box");
+            var condition = GetValuesinArray("condition_filter_box");
+            var styles = GetValuesinArray("styles_filter_box");
+
+            jQuery("#conditions_value").val(condition);
+            jQuery("#styles_value").val(styles);
+            jQuery("#years_value").val(year);
+
+        }
+
+        /**
+         *  Find values literal en the list
+         * */
+        function GetValuesinArray(elementid) {
+            var valuesArray = Array();
+            if (jQuery("#" + elementid).size() > 0) {
+                var values = jQuery("#" + elementid).find(".active");
+                values.each(function () {
+                    valuesArray.push(jQuery(this).find('a').text())
+                });
+            }
+            return valuesArray;
+        }
+
+        /**
+         *  Get years values
+         * **/
+        function GetYearsFilterValues() {
+            var result = Array();
+            var max = parseInt(jQuery("#max_year").text());
+            var min = parseInt(jQuery("#min_year").text());
+            result.push(min);
+            result.push(max);
+            return result;
+        }
+
+    </script>
+{% endblock %}

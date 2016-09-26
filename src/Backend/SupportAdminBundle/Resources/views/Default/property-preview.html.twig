@@ -1,0 +1,736 @@
+{% extends "SupportAdminBundle:Layout:user-admin.html.twig" %}
+{% block title %}Administration{% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+{% block header %}
+    {{ include('CommonBundle:Default:header-admin.html.twig') }}
+
+{% endblock %}
+{% block menu %} {{ parent() }} {% endblock %}
+{% block filters %} {% endblock %}
+{% block body %}
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&language=en"></script>
+   
+<div id="container" class="container-fluid properties-container-profile">
+    {%if property is not empty %}
+
+        <div  class="container  hidden-xs">
+           
+            <div  class="row" style="margin-top: 15px; padding-bottom: 20px;">
+
+            </div>
+
+            <div  class="row">
+                <div class="col-md-12 col-sm-12  col-xs-12"><h1 class="property-title">{{property.description.tagline}}</h1></div>
+            </div>
+            <div  class="row">
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                    <ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+                        <div id="photos" class="anchor-profile-photo"></div> 
+                        <li class="">
+                            <div class="btn-group">
+
+                                <a id="b1" href="#photos" class="btn btn-primary b1b">
+                                    Photos  <span class="glyphicon glyphicon-picture glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+
+                                <a id="b2" href="#description" class="btn btn-default b2b">
+                                    Description <span class="glyphicon glyphicon-info-sign glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="b3" href="#amenities" class="btn btn-default b3b">
+                                    Amenities <span class="glyphicon glyphicon-list glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="b4" href="#map-location" class="btn btn-default b4b">
+                                    Map <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="b5" href="#booking-calendar"  class="btn btn-default b5b">
+                                    Calendar <span class="glyphicon glyphicon-calendar glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="b6" href="#rates"  class="btn btn-default b6b" >
+                                    Rates <span class="glyphicon glyphicon-usd glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="b7" href="#payments"  class="btn btn-default b7b" >
+                                    Policies & Payments <span class="glyphicon glyphicon-credit-card glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12 hidden-sm">
+                    {%if property.status.name == "inactive"%}
+                    <div id="globalnav-nav-profile" class="pull-left" style="margin-bottom: 10px">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 col-xs-12 ">
+                                <a id="activate" href="{{path('support_activate_property',{'id': property.id, 'page': page })}}" class="btn  btn-block btn-gradient-blue" style="margin-top: 10px; background-color: #5BA61A">ACTIVATE</a>
+                            </div>
+                        </div>
+                    </div>
+                    {%else%}
+                    <div id="globalnav-nav-profile" class="pull-left" style="margin-bottom: 10px">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-6 col-xs-12 ">
+                                <a id="deactivate" href="{{path('support_deactivate_property',{'id': property.id, 'page': page })}}" class="btn  btn-block btn-gradient-blue" style="margin-top: 10px;background-color: #DA6161">DEACTIVATE</a>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+         
+                </div>
+            </div>
+                            
+            <div  class="row">
+                <div class="col-md-9 col-sm-12 col-xs-12" >
+                    <div  class="row" style="margin: 0 0 20px 0; " >
+                        <div class="col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
+                            {% if property.gallery is not null %}
+                                {% if property.gallery.getPropertyImages |length > 0 %}
+
+                                    <ul class="bxslider">
+                                        {% for image in property.gallery.getPropertyImages %}    
+                                            {% if image.getWebPath is not null%} 
+                                                <li><img src="{{ (image.getWebPath)| imagine_filter('my_thumb_large') }}" class="thumbnail-profile" alt="{{image.title}}" title="{{image.title}}"/></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                    </ul>
+                                {% else %} 
+                                    <img src="{{ asset('bundles/common/images/000.jpg') }}" class="thumbnail">
+                                {% endif %}
+                            {% else %} 
+                                <img src="{{ asset('bundles/common/images/000.jpg') }}" class="thumbnail">  
+                            {% endif %}
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12" >
+
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                    <ul class="list-unstyled profile-ul">
+                                        {% set values = [] %}
+                                        {% set values1 = [] %}
+                                        {% set values2 = [] %}
+
+                                        {% set nightly = 'Contact for Price' %}
+                                        {% set weekly = 'Contact for Price' %}
+                                        {% set minstay = 'Contact for Information' %}  
+
+                                        {% if periodos | length > 0 %}
+                                            {% if periodos[0] != null %}
+                                                {% set nightly = periodos[0].nightly|number_format(2, '.', ',') %}
+                                                {% set weekly = periodos[0].weekly|number_format(2, '.', ',') %}
+                                                {% set minstay = periodos[0].minStay %}             
+                                            {% endif %}    
+                                            {% if periodos|length > 1 %}
+                                                {% for key, period in periodos %}
+
+                                                    {% set values = values|merge([period.nightly]) %}
+                                                    {% set values1 = values1|merge([period.weekly]) %}
+                                                    {% set values2 = values2|merge([period.minStay]) %}
+
+                                                {%endfor%}
+                                                {% set nightly = min(values)|number_format(2, '.', ',') %}
+                                                {% set weekly =  min(values1)|number_format(2, '.', ',') %}
+                                                {% set minstay =  min(values2) %}          
+                                            {% endif %}    
+
+
+
+                                        {% endif %}    
+                                        <li> <div class="row"><div class="col-md-6 col-sm-6">Per night</div><div class="col-md-6 col-sm-6 text-right">From <b>${{nightly}}</b></div></div></li>
+                                        <li><div class="row"><div class="col-md-6 col-sm-6">Per week</div><div class="col-md-6 col-sm-6 text-right">From <b>${{ weekly }}</b></div></div></li>
+                                        <li><div class="row"><div class="col-md-6 col-sm-6">Bedrooms</div><div class="col-md-6 col-sm-6 text-right">{{ property.propertydetails.bedrooms }}</div></div></li>
+                                        <li><div class="row"><div class="col-md-6 col-sm-6">Sleeps</div><div class="col-md-6 col-sm-6 text-right">{{ property.propertydetails.sleeps }}</div></div></li>
+                                        <li><div class="row"><div class="col-md-6 col-sm-6">Bathrooms</div><div class="col-md-6 col-sm-6 text-right">{{ property.propertydetails.bathrooms }}</div></div></li>
+                                        <li><div class="row"><div class="col-md-6 col-sm-6">Min stay (nights)</div><div class="col-md-6 col-sm-6 text-right">{{minstay}}</div></div></li>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            {{ include('SupportAdminBundle:Default:photoTour.html.twig') }}
+                            <hr>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            {{ include('SupportAdminBundle:Default:description.html.twig') }}
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            {{ include('SupportAdminBundle:Default:amenities.html.twig') }}
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                    {%if property.location != null%}    
+                        <div class="col-md-12 col-xs-12">
+                            {{ include('SupportAdminBundle:Default:map.html.twig') }}
+                            <div> {{property.location.address}}</div>
+                            <hr>
+                        </div>
+                            {%else%}
+                                <div class="col-md-12 col-xs-12 text-danger" style="padding-left: 15px">
+                             Location Pending  
+                            <hr>
+                        </div>     
+                       {%endif%}     
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            {{ include('SupportAdminBundle:Default:calendar.html.twig') }}
+                            <hr>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            {{ include('SupportAdminBundle:Default:rates.html.twig') }}
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            {{ include('SupportAdminBundle:Default:payments.html.twig') }}
+                            <hr>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+                
+            </div>
+
+
+
+
+
+        </div>
+
+
+        <!-- Modal -->
+      
+        <div  class="container  fixed-margin visible-xs">
+            
+
+            <div  class="row" style="margin: 0;">
+                <div class="col-md-12 col-sm-12 col-xs-12 tagline-mobile"><span class="property-title"> {{property.description.tagline}}</span></div>
+            </div>
+            
+            <div  class="row" style="margin: 0;">
+                <div class="col-md-9 col-xs-12" >
+                    <div  class="row" style="margin: 0 0 20px 0; " >
+                        <div class="col-md-6 col-sm-6 col-xs-12" style="padding: 0;">
+                            {% if property.gallery is not null %}
+                                {% if property.gallery.getPropertyImages |length > 0 %}
+
+                                    <ul class="bxslider">
+                                        {% for image in property.gallery.getPropertyImages %}    
+                                            <li><img src="{{ (image.getWebPath)| imagine_filter('my_thumb_large') }}" class="thumbnail" /></li>
+                                            {% endfor %}
+                                    </ul>
+                                {% else %} 
+                                    <img src="{{ asset('bundles/common/images/000.jpg') }}" class="thumbnail"> 
+                                {% endif %}
+                            {% else %} 
+                                <img src="{{ asset('bundles/common/images/000.jpg') }}" class="thumbnail">  
+                            {% endif %}
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-xs-12" >
+
+                            <div class="row">
+                                <div class="col-xs-12" style="padding: 0">
+                                    <ul class="list-group">
+
+
+                                        {% set values = [] %}
+                                        {% set values1 = [] %}
+                                        {% set values2 = [] %}
+
+                                        {% set nightly = 'Contact for Price' %}
+                                        {% set weekly = 'Contact for Price' %}
+                                        {% set minstay = 'Contact for Information' %}  
+
+                                        {% if periodos | length > 0 %}
+                                            {% if periodos[0] != null %}
+                                                {% set nightly = periodos[0].nightly|number_format(2, '.', ',') %}
+                                                {% set weekly = periodos[0].weekly|number_format(2, '.', ',') %}
+                                                {% set minstay = periodos[0].minStay %}             
+                                            {% endif %}    
+                                            {% if periodos|length > 1 %}
+                                                {% for key, period in periodos %}
+
+                                                    {% set values = values|merge([period.nightly]) %}
+                                                    {% set values1 = values1|merge([period.weekly]) %}
+                                                    {% set values2 = values2|merge([period.minStay]) %}
+
+                                                {%endfor%}
+                                                {% set nightly = min(values)|number_format(2, '.', ',') %}
+                                                {% set weekly =  min(values1)|number_format(2, '.', ',') %}
+                                                {% set minstay =  min(values2) %}          
+                                            {% endif %}    
+
+
+
+                                        {% endif %}    
+
+                                        <li class="list-group-item"><div class="row"><div class="col-xs-6">Per night</div><div class="col-xs-6 text-right">From <b>${{nightly}}</b></div></div></li>
+                                        <li class="list-group-item"><div class="row"><div class="col-xs-6">Per week</div><div class="col-xs-6 text-right">From <b>${{ weekly }}</b></div></div></li>
+                                        <li class="list-group-item"><div class="row"><div class="col-xs-6">Bedrooms</div><div class="col-xs-6 text-right">{{ property.propertydetails.bedrooms }}</div></div></li>
+                                        <li class="list-group-item"><div class="row"><div class="col-xs-6">Sleeps</div><div class="col-xs-6 text-right">{{ property.propertydetails.sleeps }}</div></div></li>
+                                        <li class="list-group-item"><div class="row"><div class="col-xs-6">Bathrooms</div><div class="col-xs-6 text-right">{{ property.propertydetails.bathrooms }}</div></div></li>
+                                        <li class="list-group-item"><div class="row"><div class="col-xs-6">Min stay(nights)</div><div class="col-xs-6 text-right">{{minstay}}</div></div></li>
+
+
+                                    </ul>
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                    Photos<span class="glyphicon glyphicon-chevron-down pull-right" style="color: #428bca"></span>
+                                                </a>
+
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                {{ include('SupportAdminBundle:Default:photoTour.html.twig') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingTwo">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Description<span class="glyphicon glyphicon-chevron-down pull-right" style="color: #428bca"></span>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                            <div class="panel-body">
+                                                {{ include('SupportAdminBundle:Default:description.html.twig') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingThree">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    Amenities<span class="glyphicon glyphicon-chevron-down pull-right" style="color: #428bca"></span>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                            <div class="panel-body">
+                                                {{ include('SupportAdminBundle:Default:amenities.html.twig') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingFour">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                    Map<span class="glyphicon glyphicon-chevron-down pull-right" style="color: #428bca"></span>
+                                                </a>
+                                            </h4>
+
+                                        </div>
+                                         {%if property.location != null%}    
+                                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                            <div class="panel-body">
+                                                {{ include('SupportAdminBundle:Default:map-mobile.html.twig') }}
+                                            </div>
+                                        </div>
+                                            {%endif%}
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingFive">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                                    Calendar<span class="glyphicon glyphicon-chevron-down pull-right" style="color: #428bca"></span>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                            <div class="panel-body">
+                                                {{ include('SupportAdminBundle:Default:calendar-mobile.html.twig') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingSix">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                                    Rates<span class="glyphicon glyphicon-chevron-down pull-right" style="color: #428bca"></span>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                            <div class="panel-body">
+                                                {{ include('SupportAdminBundle:Default:rates-mobile.html.twig') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingSeven">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                    Policies & Payments<span class="glyphicon glyphicon-chevron-down pull-right" style="color: #428bca"></span>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                            <div class="panel-body">
+                                                {{ include('SupportAdminBundle:Default:payments.html.twig') }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                   
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+    {% else %} 
+        <div  class="row"  style="margin: 10px 0 20px 0">
+            <div  class="row"  style="margin: 10px 0 20px 0">
+                <div class="row" style="margin: 20px 10px 0 ">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign" style="margin-right: 15px;  top: 3px;"></span> This property does not exist</div>
+                    </div>
+                </div>
+
+
+            {% endif %}
+        </div>
+
+
+    </div>
+</div>
+        
+<script src="https://www.google.com/recaptcha/api.js?onload=myCallBack&render=explicit" async defer></script>
+<script type="text/javascript">
+
+            jQuery(document).ajaxStart(function() {
+    jQuery(".loading").removeClass('hide');
+    });
+            jQuery(document).ajaxStop(function() {
+    jQuery(".loading").addClass('hide');
+    });
+    
+  
+      jQuery.ajax({
+            url: '{{path('photo_tour')}}',
+                    type: "POST",
+                    data: { id : {{property.id}}},
+                    async: false,
+                    success: function(response){
+                    jQuery('.content-info').html(response);
+                    }
+            });
+ 
+    
+            jQuery(document).ready(function() {
+                
+    
+
+            jQuery('.bxslider').bxSlider({
+    pagerCustom: '#bx-pager'
+    });
+            jQuery('.nav-profile a').each(function(){
+    jQuery(this).click(function(){
+    jQuery('.nav-profile a').removeClass('btn-primary');
+            jQuery('.nav-profile1 a').removeClass('btn-primary');
+            jQuery('.nav-profile a').addClass('btn-default');
+            jQuery('.nav-profile1 a').addClass('btn-default')
+
+            jQuery(this).addClass('btn-primary');
+            jQuery('.nav-profile1 a#' + jQuery(this).attr("id") + 'b').addClass('btn-primary');
+            jQuery(this).removeClass('btn-default');
+            jQuery('.nav-profile1 a#' + jQuery(this).attr("id") + 'b').removeClass('btn-default');
+    });
+    });
+            jQuery('.nav-profile1 a').each(function(){
+    jQuery(this).click(function(){
+    jQuery('.nav-profile1 a').removeClass('btn-primary');
+            jQuery('.nav-profile a').removeClass('btn-primary');
+            jQuery('.nav-profile1 a').addClass('btn-default');
+            jQuery('.nav-profile a').addClass('btn-default')
+
+            jQuery(this).addClass('btn-primary');
+            jQuery('.nav-profile a.' + jQuery(this).attr("id")).addClass('btn-primary');
+            jQuery(this).removeClass('btn-default');
+            jQuery('.nav-profile a.' + jQuery(this).attr("id")).removeClass('btn-default');
+    });
+    });
+            jQuery('.basic').jRating({
+    isDisabled:true,
+            nbRates : 0,
+            sendRequest: false,
+            rateMax : 5
+
+    });
+            jQuery('.basictemp').attr("data-average",{{rating}} ).attr("data-id", 1);
+            jQuery('.basic').remove();
+            jQuery('.basictemp').jRating({
+            isDisabled:true,
+            nbRates : 0,
+            sendRequest: false,
+            rateMax : 5,
+            showRateInfo: true,
+            bigStarsPath : '../../bundles/common/css/icons/stars.png', // path of the icon stars.png
+            smallStarsPath : '../../bundles/common/css/icons/small.png', // path of the icon small.png
+
+    });
+     
+            jQuery(document).ajaxStart(function() {
+    jQuery("#loading-page").show();
+    });
+            jQuery(document).ajaxComplete(function() {
+    jQuery("#loading-page").hide();
+    });
+          
+     
+
+
+    });
+    
+    
+    
+    function submitFormReview(){
+
+    jQuery.ajax({
+    statusCode: {
+            500: function() {
+            enableFormReview();
+            jQuery('#review-error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error, Try again</span>");
+            }
+    },
+            url: '{{ path('create_review') }}',
+            type: "POST",
+            data: { id : {{property.id}} ,
+                    name: jQuery('#review_guest').val(),
+                    title: jQuery('#review_title').val(),
+                    email: jQuery('#review_email').val(),
+                    date: jQuery('#review_stayDate').val(),
+                    text: jQuery('#review_description').val(),
+                    valoration: jQuery('#review_valoration').val()
+
+            },
+            async: false,
+            success: function(response){
+                    jQuery('#myModalReview').modal('hide');
+                    resetFormReview();
+                    enableFormReview();
+            }
+    });
+    }
+    
+
+    
+    
+    var bookedDates = [];
+            var inquiriesDates = [];
+            var bookedDatesAux = [];
+            var inquiriesDatesAux = [];
+            jQuery(function() {
+            jQuery.ajax({
+            url: '{{path('AcmeHomeBundle_ajax_update_mydata')}}',
+                    type: "POST",
+                    dataType: 'json',
+                    data: { id : {{property.id}} },
+                    async: false,
+                    success: function(response){
+
+                    bookedDatesAux = response[0];
+                            inquiriesDatesAux = response[1];
+                            for (var i = 0; i < bookedDatesAux.length; i++){
+                    bookedDates.push(bookedDatesAux[i]);
+                    }
+
+                    for (var i = 0; i < inquiriesDatesAux.length; i++){
+                    inquiriesDates.push(inquiriesDatesAux[i]);
+                    }
+
+                    //jQuery('.calendar1').show();
+                    //jQuery('#loading-page').hide()
+                    }
+            });
+            });
+     
+       jQuery(function() {
+    jQuery('#datepick-mobile').datepicker({minDate: new Date(), beforeShowDay: showBooked,
+            onSelect: function(dateStr, obj) {
+            var date = jQuery(this).datepicker('getDate');
+                    var settings = showBooked(date);
+                    if (settings[1] == 'free') {
+            
+                    
+            }
+            else {
+            //bookedDates = jQuery.
+            //(bookedDates, function(d, i) {
+            //return d.getTime() == date.getTime() ? null : this; // Remove booking
+            //});
+            // alert('booked day');
+            }
+            }
+    });
+    });
+    
+      jQuery(function() {
+            jQuery('#datepick-year').datepicker({numberOfMonths: 12, minDate: new Date(), beforeShowDay: showBooked,
+                    onSelect: function(dateStr, obj) {
+                    var date = jQuery(this).datepicker('getDate');
+                            var settings = showBooked(date);
+                            if (settings[1] == 'free' || settings[1] == 'tentative') {
+
+                    jQuery('#reservationFront_checkIn').val(dateStr);
+                            jQuery('#reservationFront_checkOut').val(dateStr);
+                            showForm(dateStr);
+                    }
+                    else {
+                    //bookedDates = jQuery.map(bookedDates, function(d, i) {
+                    //return d.getTime() == date.getTime() ? null : this; // Remove booking
+                    //});
+                    alert('booked day');
+                    }
+                    }
+            });
+            });
+      
+         function showBooked(date) {//new Date(bookedDates[0]*1000).toDateString()
+
+            var year = date.getFullYear();
+                    var month = date.getMonth();
+                    var day = date.getDate();
+                    //var strtime = date.toLocaleDateString();
+                    //alert( bookedDates[0]);
+
+                    for (var i = 0; i < bookedDates.length; i++) {
+            //alert(bookedDates[i]);
+            for (var j = 0; j < bookedDates[i].length; j++) {
+            if (month + 1 + '/' + day + '/' + year == bookedDates[i][j]) {
+
+            return [false, 'booked'];
+            }
+            }
+            }
+
+            for (var i = 0; i < inquiriesDates.length; i++) {
+            //alert(bookedDates[i]);
+            for (var j = 0; j < inquiriesDates[i].length; j++) {
+            if (month + 1 + '/' + day + '/' + year == inquiriesDates[i][j]) {
+
+            return [true, 'tentative'];
+            }
+            }
+            }
+
+            return [true, 'free'];
+            }
+    
+
+
+
+
+
+    
+
+    if (jQuery( window ).width() > '768'){
+            jQuery(window).scroll(function(){
+    if (jQuery(this).scrollTop() > 600) {
+    jQuery('#header').slideUp(200);
+            jQuery('#header-top1').removeClass('hide');
+            jQuery('#header-top1').slideDown();
+    } else {
+    jQuery('#header').slideDown(200);
+            jQuery('#header-top1').addClass('hide');
+            jQuery('#header-top1').slideUp();
+    }
+    });
+    }
+
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}
+{% block footer %}
+    {{ include('CommonBundle:Default:footer.html.twig') }}   
+{% endblock %}

@@ -1,0 +1,33 @@
+<select id="location_stateProvince" class="form-control" name="location[stateProvince]">
+    <option value="" selected="selected" disabled="disabled">Select</option>
+    {% for region in regions %}
+     <option value="{{ region.id }}" >
+    {{ region.regionName }}
+    </option>
+    {% endfor %}
+</select>
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function() {
+    
+     jQuery('.popover #location_stateProvince').change(function(e){
+             jQuery.ajax({ 
+                url: '{{path('search_cities')}}',
+                type: "POST",
+                data: { region : jQuery(this).val()}, 
+                async: false, 
+                success: function(response){ 
+                  jQuery('.city').html(response);
+                } 
+                }); 
+            e.preventDefault();    
+            });
+            
+   }); 
+    
+    
+    
+    
+    </script>

@@ -1,0 +1,17 @@
+{% extends "SupportAdminBundle:Layout:user-admin.html.twig" %}
+ {% block title %}Administration{% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+ {{ include('CommonBundle:Default:header-support.html.twig') }}
+  
+ {% endblock %}
+ {% block menu %}
+ {{ include('SupportAdminBundle:Default:admin-tools.html.twig') }}
+{% endblock %}
+ {% block body %}
+    <div class="container text-center">{{ include('SupportAdminBundle:Default:home.html.twig') }}</div>
+ {% endblock %}
+ {% block footer %}
+ {{ include('CommonBundle:Default:footer.html.twig') }}   
+ {% endblock %}

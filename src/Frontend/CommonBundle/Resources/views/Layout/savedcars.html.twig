@@ -1,0 +1,79 @@
+<h3>My Cars</h3>
+You have {{ vehiclessaved|length }} saved cars
+<br/>
+<br/>
+<table border="0" width="100%" align="left" cellpadding="4">
+    {% for vehiclesave in vehiclessaved %}
+        {% set vehicle =  vehiclesave.vehicle %}
+        {% if(vehicle.profile) %}
+            {% set pf = vehicle.gallery.profileimages[0] %}
+            {% set profileimageslength = vehicle.gallery.profileimages|length %}
+            {% set photoid = vehicle.profile %}
+            {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+        {% elseif vehicle.user %}
+            {% set photoid = vehicle.user.id %}
+            {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                {% set pf = vehicle.gallery.vehicleimages[0] %}
+                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+            {% else %}
+                {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                {% set profileimageslength = 0 %}
+            {% endif %}
+        {% endif %}
+
+        <tr>
+            <td width="20%"><img src="{{ asset(vehicle_image) }}" width="120" height="100" alt=""/></td>
+            <td width="40%">{{ vehicle.vehiclesinformation.condition.name }}
+                {{ vehicle.vehiclesinformation.year.year }}
+                {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                {{ vehicle.vehiclesinformation.model.modelDisplay }}<br/>
+                ${{ vehicle.vehiclesinformation.price|number_format() }}
+            </td>
+            <td width="40%"><b>Notes:</b><br/>
+                {{ vehiclesave.notes }}</td>
+        </tr>
+
+    {% endfor %}
+</table>
+<p></p>
+<hr/>
+<p></p>
+
+<h3>Others cars you might be interested in</h3>
+<table border="0" cellpadding="1">
+    <tr>
+        {% for vehicle in vehiclesall %}
+            {% if(vehicle.profile) %}
+                {% set pf = vehicle.gallery.profileimages[0] %}
+                {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                {% set photoid = vehicle.profile %}
+                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+            {% elseif vehicle.user %}
+                {% set photoid = vehicle.user.id %}
+                {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                    {% set pf = vehicle.gallery.vehicleimages[0] %}
+                    {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                    {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                {% else %}
+                    {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                    {% set profileimageslength = 0 %}
+                {% endif %}
+            {% endif %}
+
+
+            <td align="left">
+                <img src="{{ asset(vehicle_image) }}" width="120"
+                     alt=""/> <br/>
+                {{ vehicle.vehiclesinformation.condition.name }}
+                {{ vehicle.vehiclesinformation.year.year }}
+                {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                {{ vehicle.vehiclesinformation.model.modelDisplay }}<br/>
+                ${{ vehicle.vehiclesinformation.price|number_format() }}
+            </td>
+
+        {% endfor %}
+    </tr>
+</table>
+
+

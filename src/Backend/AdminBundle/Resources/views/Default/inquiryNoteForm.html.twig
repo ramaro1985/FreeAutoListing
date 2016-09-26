@@ -1,0 +1,130 @@
+
+
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-note{{id}}" action="" {{ form_enctype(form) }} method="POST" class="form-horizontal" readonly="true">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+     <div class="col-md-12 col-xs-12" style="margin-bottom: 10px">
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+           Inquiry Note
+        </div>
+       </div>
+         
+    </div>
+            
+    <div class="col-md-6  text-center">   
+       
+            <div class="form-group" style="margin-bottom: 10px">
+ 
+         <div class="col-sm-12 col-xs-12" >
+     {{ form_widget(form.text) }}
+    </div>
+                
+                
+     
+  </div>
+        
+         
+          </div>   
+         
+    
+    <div class="col-md-12  text-left">   
+         <div class="form-group" style="margin-top: 10px">
+              <div class="col-sm-6 col-xs-12">
+                  <button id="saveNote{{id}}" type="button" class="btn btn-primary">Save</button>
+        <button id="cancelNote{{id}}" type="button" class="btn btn-primary" style="margin-left: 10px">Cancel</button>
+    </div>
+           </div> 
+    </div>
+    
+    
+    <div style="display: none">{{ form_rest(form) }}</div>
+</form>
+                </div>
+            </div>
+    
+  
+
+
+<script type="text/javascript">
+    
+    
+    
+jQuery(document).ready(function() {
+    
+    
+    
+    
+    function checkLength( o, min, max ) {
+			if ( o.val().length < min ) {
+                            o.attr('data-toggle','popover');
+                            o.attr('data-placement','right');
+                            o.attr('data-content','Please fill out this field');
+                            o.attr('data-container','body');
+                            o.popover();
+                            o.trigger('click');
+                            o.focus();
+                            
+                           
+                            
+				return false;
+			} else {
+				return true;
+			}
+		}
+    jQuery('#cancelNote'+{{id}}).click(function(){
+    jQuery('#form-note'+{{id}}+' textarea').val('');
+    jQuery('#formNote').addClass('hide');
+    jQuery('#form-note'+{{id}}+' textarea').popover('destroy');
+     });
+    
+    
+    jQuery('#form-note'+{{id}}+' textarea').focusout(function(){
+    jQuery(this).popover('destroy');
+    });
+    
+    function disableForm(){
+    jQuery('#form-note'+{{id}}+' textarea').attr('disabled','true');
+    jQuery('#saveNote'+{{id}}).attr('disabled','true');
+    jQuery('#cancelNote'+{{id}}).attr('disabled','true');
+    }
+   
+            
+       
+           
+    
+    jQuery('#saveNote'+{{id}}).click(function(){
+    
+    if(checkLength(jQuery('#form-note'+{{id}}+' textarea'), 3, 200)){
+    disableForm();
+    jQuery.ajax({ 
+    url: '{{path('save_inquiry_note')}}',
+    type: "POST",
+    data: { id: {{id}}, text: jQuery('#form-note'+{{id}}+' textarea').val()/*.serialize() */ }, 
+    async: false,
+    success: function(response){
+      jQuery('#formNote').addClass('hide');
+      jQuery('#form-note'+{{id}}+' textarea').val('');
+      
+      jQuery('#form-note'+{{id}}+' textarea').removeAttr('disabled');
+    jQuery('#saveNote'+{{id}}).removeAttr('disabled');
+    jQuery('#cancelNote'+{{id}}).removeAttr('disabled');
+   
+     jQuery(".notes").load("{{path('inquiry_notes', {'id':id} )}}", function(){
+     
+    });
+   
+        } 
+    }); 
+    }
+ 
+    });
+    
+      
+        
+   
+             
+
+    }); 
+    </script>

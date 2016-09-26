@@ -1,0 +1,375 @@
+admin_admin_homepage:
+ pattern:  /protected/admin/
+ defaults: { _controller: SuperAdminBundle:Default:admin }
+
+     
+admin_view_properties:
+ pattern:  /protected/admin/properties/
+ defaults: { _controller: SuperAdminBundle:Default:adminProperties }
+ 
+admin_edit_user:
+    pattern: /protected/admin/users/{id}
+    defaults: { _controller: SuperAdminBundle:Default:user_edit }
+    
+admin_edit_property:
+    pattern: /protected/admin/property/{id}
+    defaults: { _controller: SuperAdminBundle:Default:property_edit }
+    
+admin_add_user:
+    pattern: /protected/admin/users/add/
+    defaults: { _controller: SuperAdminBundle:Default:add_user }
+
+admin_create_user:
+    pattern: /protected/admin/users/create/
+    defaults: { _controller: SuperAdminBundle:Default:create_user }
+       
+modify_user:
+    pattern: /protected/admin/users/modify/
+    defaults: { _controller: SuperAdminBundle:Default:usermodify }
+    
+admin_admin_users:
+    pattern:  /protected/admin/users/
+    defaults: { _controller: SuperAdminBundle:Default:users }    
+    
+admin_activate_property:
+    pattern:  /protected/admin/property/activate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:activateProperty }    
+    
+admin_deactivate_property:
+    pattern:  /protected/admin/property/deactivate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deactivateProperty }  
+    
+admin_activate_property_featured:
+    pattern:  /protected/admin/property/activatefeatured/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:activateFeaturedProperty }
+
+admin_deactivate_property_featured:
+    pattern:  /protected/admin/property/deactivatefeatured/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deactivateFeaturedProperty }
+
+admin_delete_property:
+    pattern:  /protected/admin/properties/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteProperty }   
+    
+admin_preview_property:
+    pattern:  /protected/admin/properties/preview/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:previewProperty }     
+
+super_admin_router:
+    pattern:  /protected/router/
+    defaults: { _controller: SuperAdminBundle:Default:router }   
+    
+super_admin_search:
+    pattern:  /protected/admin/properties/search/
+    defaults: { _controller: SuperAdminBundle:Default:search }       
+    
+clear_all_filters:
+    pattern:  /protected/admin/properties/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFilters } 
+    
+clear_filter:
+    pattern:  /protected/admin/properties/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilter }      
+    
+list_news:
+    pattern:  /protected/admin/news/list/
+    defaults: { _controller: SuperAdminBundle:Default:listNews }  
+    
+create_news:
+    pattern:  /protected/admin/news/create/
+    defaults: { _controller: SuperAdminBundle:Default:createNews }  
+    
+edit_news:
+    pattern:  /protected/admin/news/edit/{id}/
+    defaults: { _controller: SuperAdminBundle:Default:editNews }    
+
+admin_activate_news:
+    pattern:  /protected/admin/news/activate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:activateNews }     
+    
+admin_deactivate_news:
+    pattern:  /protected/admin/news/deactivate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deactivateNews }    
+    
+admin_delete_news:
+    pattern:  /protected/admin/news/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteNews }      
+    
+super_admin_news_search:
+    pattern:  /protected/admin/news/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchNews }     
+    
+clear_all_filters_news:
+    pattern:  /protected/admin/news/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersNews }     
+    
+clear_filter_news:
+    pattern:  /protected/admin/news/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilterNews }    
+    
+admin_view_inquiries:
+    pattern:  /protected/admin/inquiries/
+    defaults: { _controller: SuperAdminBundle:Default:adminInquiries }   
+    
+super_admin_inquiries_search:
+    pattern:  /protected/admin/inquiries/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchInquiries }  
+    
+clear_all_filters_inquiries:
+    pattern:  /protected/admin/inquiries/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersInquiries } 
+    
+clear_filter_inquiries:
+    pattern:  /protected/admin/inquiries/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilterInquiries } 
+    
+admin_delete_inquiry:
+    pattern:  /protected/admin/inquiries/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteInquiry }     
+    
+    
+admin_view_contacts:
+    pattern:  /protected/admin/contacts/
+    defaults: { _controller: SuperAdminBundle:Default:adminContacts }   
+    
+super_admin_contacts_search:
+    pattern:  /protected/admin/contacts/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchContacts }  
+    
+clear_all_filters_contacts:
+    pattern:  /protected/admin/contacts/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersContacts } 
+    
+clear_filter_contacts:
+    pattern:  /protected/admin/contacts/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilterContacts }    
+    
+admin_delete_contacts:
+    pattern:  /protected/admin/contacts/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteContacts }
+    
+admin_open_contact_ticket:
+    pattern:  /protected/admin/contacts/open/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:openTicketContacts } 
+    
+admin_close_contact_ticket:
+    pattern:  /protected/admin/contacts/close/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:closeTicketContacts }    
+    
+admin_reply_contact_ticket:
+    pattern:  /protected/admin/contacts/reply/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:replyTicketContacts }    
+
+admin_reply_close_contact_ticket:
+    pattern:  /protected/admin/contacts/replyclose/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:replyCloseTicketContacts }      
+    
+admin_view_contacts_investor:
+    pattern:  /protected/admin/contacts-investor/
+    defaults: { _controller: SuperAdminBundle:Default:adminContactsInvestor }   
+    
+super_admin_contacts_search_investor:
+    pattern:  /protected/admin/contacts-investor/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchContactsInvestor }  
+    
+clear_all_filters_contacts_investor:
+    pattern:  /protected/admin/contacts-investor/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersContactsInvestor } 
+    
+clear_filter_contacts_investor:
+    pattern:  /protected/admin/contacts-investor/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilterContactsInvestor }   
+    
+admin_delete_contacts_investor:
+    pattern:  /protected/admin/contacts-investor/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteContactsInvestor }     
+    
+    
+admin_view_contacts_owner:
+    pattern:  /protected/admin/contacts-owner/
+    defaults: { _controller: SuperAdminBundle:Default:adminContactsOwner }   
+    
+super_admin_contacts_search_owner:
+    pattern:  /protected/admin/contacts-owner/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchContactsOwner }  
+    
+clear_all_filters_contacts_owner:
+    pattern:  /protected/admin/contacts-owner/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersContactsOwner } 
+    
+clear_filter_contacts_owner:
+    pattern:  /protected/admin/contacts-owner/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilterContactsOwner }    
+    
+admin_delete_contacts_owner:
+    pattern:  /protected/admin/contacts-owner/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteContactsOwner }    
+    
+admin_open_contactowner_ticket:
+    pattern:  /protected/admin/contactowner/open/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:openOwnerTicketContacts } 
+    
+admin_close_contactowner_ticket:
+    pattern:  /protected/admin/contactowner/close/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:closeOwnerTicketContacts }    
+    
+admin_reply_contactowner_ticket:
+    pattern:  /protected/admin/contactowner/reply/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:replyOwnerTicketContacts }    
+
+admin_reply_close_contactowner_ticket:
+    pattern:  /protected/admin/contactowner/replyclose/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:replyCloseOwnerTicketContacts }          
+    
+    
+admin_view_user_owner:
+    pattern:  /protected/admin/user-owner/
+    defaults: { _controller: SuperAdminBundle:Default:adminUserOwner }   
+    
+super_admin_user_search_owner:
+    pattern:  /protected/admin/user-owner/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchUserOwner }  
+    
+clear_all_filters_user_owner:
+    pattern:  /protected/admin/user-owner/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersUserOwner } 
+    
+clear_filter_user_owner:
+    pattern:  /protected/admin/user-owner/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilterUserOwner }    
+    
+admin_delete_user_owner:
+    pattern:  /protected/admin/user-owner/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteUserOwner }       
+    
+admin_activate_user:
+    pattern:  /protected/admin/user/activate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:activateUser }     
+    
+admin_deactivate_user:
+    pattern:  /protected/admin/user/deactivate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deactivateUser }    
+    
+    
+    
+admin_view_reviews:
+    pattern:  /protected/admin/reviews/
+    defaults: { _controller: SuperAdminBundle:Default:adminReviews }   
+    
+super_admin_search_reviews:
+    pattern:  /protected/admin/reviews/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchReviews }  
+    
+clear_all_filters_reviews:
+    pattern:  /protected/admin/reviews/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersReviews } 
+    
+clear_filter_reviews:
+    pattern:  /protected/admin/reviews/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilterReviews }    
+    
+admin_delete_reviews:
+    pattern:  /protected/admin/reviews/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteReview }       
+    
+admin_activate_review:
+    pattern:  /protected/admin/review/activate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:activateReview }     
+    
+admin_deactivate_review:
+    pattern:  /protected/admin/review/deactivate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deactivateReview }          
+    
+    
+list_blog:
+    pattern:  /protected/admin/blog/list/
+    defaults: { _controller: SuperAdminBundle:Default:listBlog }  
+    
+create_blog:
+    pattern:  /protected/admin/blog/create/
+    defaults: { _controller: SuperAdminBundle:Default:createBlog }  
+    
+edit_blog:
+    pattern:  /protected/admin/blog/edit/{id}/
+    defaults: { _controller: SuperAdminBundle:Default:editBlog }    
+
+admin_activate_blog:
+    pattern:  /protected/admin/blog/activate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:activateBlog }     
+    
+admin_deactivate_blog:
+    pattern:  /protected/admin/blog/deactivate/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deactivateBlog }    
+    
+admin_delete_blog:
+    pattern:  /protected/admin/blog/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteBlog }      
+    
+super_admin_blog_search:
+    pattern:  /protected/admin/blog/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchBlog }     
+    
+clear_all_filters_blog:
+    pattern:  /protected/admin/blog/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersBlog }     
+    
+clear_filter_blog:
+    pattern:  /protected/admin/blog/clear/filter/
+    defaults: { _controller: SuperAdminBundle:Default:clearFilterBlog }  
+    
+admin_delete_image_blog:
+    pattern:  /protected/admin/blog/image/delete/
+    defaults: { _controller: SuperAdminBundle:Default:deleteImageBlog }   
+    
+    
+    
+admin_view_tags:
+    pattern:  /protected/admin/tags/
+    defaults: { _controller: SuperAdminBundle:Default:adminTags }   
+    
+super_admin_search_tags:
+    pattern:  /protected/admin/tags/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchTags }  
+    
+clear_all_filters_tags:
+    pattern:  /protected/admin/tags/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersTags } 
+    
+admin_delete_tags:
+    pattern:  /protected/admin/tags/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteTags }    
+    
+create_tag:
+    pattern:  /protected/admin/tags/create/
+    defaults: { _controller: SuperAdminBundle:Default:createTags }  
+    
+edit_tag:
+    pattern:  /protected/admin/tags/edit/{id}/
+    defaults: { _controller: SuperAdminBundle:Default:editTags }   
+    
+    
+    
+admin_view_categories:
+    pattern:  /protected/admin/categories/
+    defaults: { _controller: SuperAdminBundle:Default:adminCategories }   
+    
+super_admin_search_categories:
+    pattern:  /protected/admin/categories/search/
+    defaults: { _controller: SuperAdminBundle:Default:searchCategories }  
+    
+clear_all_filters_categories:
+    pattern:  /protected/admin/categories/clear/filters/
+    defaults: { _controller: SuperAdminBundle:Default:clearAllFiltersCategories } 
+    
+admin_delete_categories:
+    pattern:  /protected/admin/categories/delete/{id}/{page}/
+    defaults: { _controller: SuperAdminBundle:Default:deleteCategories }    
+    
+create_categories:
+    pattern:  /protected/admin/categories/create/
+    defaults: { _controller: SuperAdminBundle:Default:createCategories }  
+    
+edit_categories:
+    pattern:  /protected/admin/categories/edit/{id}/
+    defaults: { _controller: SuperAdminBundle:Default:editCategories }    
+        

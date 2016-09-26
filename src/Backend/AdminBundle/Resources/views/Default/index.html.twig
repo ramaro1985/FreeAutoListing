@@ -1,0 +1,17 @@
+{% extends "CommonBundle:Layout:base.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }} {% endblock %}
+
+ {% block header %}
+ {{ include('CommonBundle:Default:header.html.twig') }}
+ {{ include('AppBundle:Default:home-form.html.twig') }}
+
+ {% endblock %}
+
+ {% block body %}
+<div class="container"><h1>Welcome to the User Administration Module </h1></div>
+ {% endblock %}
+ {% block footer %}
+ {{ include('CommonBundle:Default:footer.html.twig') }}   
+ {% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}

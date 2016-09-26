@@ -1,0 +1,429 @@
+<div class="row">
+    <div class="container">
+        <div class="col-xs-12 col-md-12 col-sm-12">
+            <div id="sidebar-left" class="col-md-2 col-sm-3" style="background-color: white">
+                <div class="row">
+                    <div class="container-fluid no_padding">
+                        <div class="col-md-12 ">
+                            <h6 class="text-uppercase  bold_text">Your Search</h6>
+
+                            <div id="filters_panel">
+                                {% for filterbox in filterlist %}
+                                    <div class="panel panel-default sidebar_panel">
+                                        <div class="panel-body" id="{{ filterbox['name']|lower }}_filter_box">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no_padding">
+                                                <span class="pull-left">{{ filterbox['name'] }}</span>
+                                            <span class="badge pull-right close_filter_box"
+                                                  onclick="javascript:DestroyFilterBox(this)">x</span>
+                                            </div>
+                                            <ul class="col-md-12 list-unstyled">
+                                                {% for value in filterbox['values'] %}
+                                                    <li>
+                                                        <a href="#">{{ value }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 no_padding">
+                                <div class="col-md-7 col-sm-7 col-xs-7 no_padding">
+                                    <a id="btn-search" href="javascript:void(0)" class="btn btn-danger btn-group-justified text-uppercase">Search</a>
+                                </div>
+                                <div class="col-md-4 col-sd-4 col-xd-4 col-md-offset-1 col-sm-offset-1 no_padding">
+                                    <a href="" class="btn btn-sm">Clear all</a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="list-group" style="margin-top: 30px">
+                                    <div id="condition_filter" class="list-group-item">
+                                        <p class="list-group-item-heading">
+                                            <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                            Condition
+                                        </p>
+                                        <li class="dropdown list-group-item-text hide">
+                                            <a href="#" class="dropdown-toggle text-right"
+                                               data-toggle="dropdown"><span class="pull-left"
+                                                                            style="font-size: 13px">Select</span>
+                                                <b class="caret" style="color: #000000"></b>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li style="text-align: left">
+                                                    {% for condition in conditions %}
+                                                        <a href="javascript:void(0)"
+                                                           style="padding: 3px 10px;font-size: 11px">{{ condition.name }}</a>
+                                                    {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </div>
+                                    <div id="price_filter" class="list-group-item">
+                                        <p class="list-group-item-heading">
+                                            <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                            Price
+                                        </p>
+                                        <li class="dropdown list-group-item-text hide">
+                                            <a href="#" class="dropdown-toggle text-right"
+                                               data-toggle="dropdown"><span class="pull-left minimum_text"
+                                                                            style="font-size: 13px">Minimum Price</span>
+                                                <b class="caret" style="color: #000000"></b>
+                                            </a>
+                                            <ul class="dropdown-menu minimum_list">
+                                                <li style="text-align: left">
+                                                    {% for price in prices %}
+                                                        <a href="javascript:void(0)"
+                                                           style="padding: 3px 10px;font-size: 11px">${{ price|number_format(0, '.') }}</a>
+                                                    {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown list-group-item-text hide">
+                                            <a href="#" class="dropdown-toggle text-right"
+                                               data-toggle="dropdown"><span class="pull-left maximum_text"
+                                                                            style="font-size: 13px">Maximum Price</span>
+                                                <b class="caret" style="color: #000000"></b>
+                                            </a>
+                                            <ul class="dropdown-menu maximum_list">
+                                                <li style="text-align: left">
+                                                    {% for price in prices %}
+                                                        <a href="javascript:void(0)"
+                                                           style="padding: 3px 10px;font-size: 11px">${{ price|number_format(0, '.') }}</a>
+                                                    {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </div>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Make
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Model
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Body Style
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Interior Color
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Cylinders
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Transmission
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Drivetrain
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Fuel
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Doors
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Dealer Ratings
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Listing Date
+                                    </a>
+                                    <a class="list-group-item">
+                                        <span class="glyphicon glyphicon-chevron-right pull-right small"></span>
+                                        Photos
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 col-sm-7">
+                <div class="col-md-12 " style="background-color: #ffffff;margin-bottom: 15px">
+
+                    <nav class="navbar" role="navigation"
+                         style="background-color: white;border-radius: 0px;padding:0px;margin-bottom: 0px;min-height: 40px;">
+                        <div class="collapse navbar-collapse navbar-ex1-collapse"
+                             style="padding-left: 0px;padding-right: 0px;padding-top: 3px;">
+                            <div class="col-md-10 no_padding pull-left">
+                                {{ include('CommonBundle:Default:filtersCarsResult.html.twig') }}
+                            </div>
+                        </div>
+                    </nav>
+
+                </div>
+
+                <div id="all_vehicles_content">
+
+                    {{ include('AppBundle:FAL:all-results-cars.html.twig') }}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function () {
+
+    jQuery(".dropdown").find(".dropdown-menu li a").click(function () {
+        ChangeDropDownValue(this);
+    });
+
+    /**
+     *  request the controller with all the filters values when one year has been selected
+     * */
+    jQuery('.year_link').click(function () {
+        var text = jQuery(this).text();
+        var year_id = jQuery(this).attr("year_id");
+        jQuery("#year_list").find(".selected").text(text);
+        jQuery("#year_list").find(".selected").attr("year_id", year_id);
+        loadVehicles(1);
+    });
+
+    /**
+     *  request the controller with all the filters values when one make has been selected
+     * */
+    jQuery('.make_link').click(function () {
+        var text = jQuery(this).text();
+        var make_id = jQuery(this).attr("make_id");
+        jQuery("#make_list").find(".selected").attr("make_id", make_id);
+        jQuery("#make_list").find(".selected").text(text);
+        loadVehicles(1);
+    });
+
+    /**
+     *  request the controller with all the filters values when one sort option has been selected
+     * */
+    jQuery('.sort_link').click(function () {
+        var text = jQuery(this).text();
+        var sort_id = jQuery(this).attr("sort_id");
+        jQuery("#sort_list").find(".selected").attr("sort_id", sort_id);
+        jQuery("#sort_list").find(".selected").text(text);
+        loadVehicles(1);
+    });
+
+    /**
+     *  request the controller with all the filters values when one sort option has been selected
+     * */
+    jQuery('.view_link').click(function () {
+        var text = jQuery(this).text();
+        var view_id = jQuery(this).attr("view_id");
+        jQuery("#view_list").find(".selected").attr("view_id", view_id);
+        jQuery("#view_list").find(".selected").text(text);
+        loadVehicles(1);
+    });
+
+    /**
+     *  the elements of the filter inquieries click action for select the value
+     * */
+    jQuery(".list-group-item").click(function () {
+        jQuery(this).find(".list-group-item-text").removeClass("hide").fadeIn();
+        jQuery(this).find(".glyphicon").removeClass("glyphicon-chevron-right");
+        jQuery(this).find(".glyphicon").addClass("glyphicon-chevron-down");
+    });
+
+    /**
+     *  Click on caret span to hide the filter inquieries
+     * **/
+    /*jQuery(".glyphicon").click(function () {
+     if (jQuery(this).hasClass("glyphicon-chevron-down")) {
+     var listgroupitem = jQuery(this).parent().parent();
+     listgroupitem.find(".list-group-item-text").addClass("hide");
+     }
+     });*/
+
+    /** Condition
+     *  click event of the element of the filter inquieries for create the filterbox info
+     *  this functions are in functions_frontend_utils.js file this function create de filterBox or add a value if already exits
+     */
+    jQuery("#condition_filter").find(".dropdown-menu li a").click(function () {
+        var text = jQuery(this).text();
+        if (jQuery("#condition_filter_box").size() == 0) {
+            var content = '<ul class="col-md-12 list-unstyled">' +
+                    '<li>' +
+                    '<a href="javascript:void(0)" class="values">' + text + '</a>' +
+                    '</li>' +
+                    '</ul>';
+            var conditionfilterBox = CreateFilterBox("condition", content, "Condition");
+            jQuery("#filters_panel").prepend(conditionfilterBox);
+
+        } else {
+            var values = jQuery("#condition_filter_box").find(".values");
+            var added = false;
+            if (values.length > 0) {
+                values.each(function () {
+                    if (this.textContent == text) {
+                        added = true;
+                        return;
+                    }
+                });
+            }
+            if (!added) {
+                AddValueTofilterBox(jQuery("#condition_filter_box"), text);
+            }
+        }
+    });
+
+    /** Price
+     *  click event of the element of the filter inquieries for create the filterbox info
+     *  this functions are in functions_frontend_utils.js file this function create de filterBox or add a value if already exits
+     */
+    jQuery("#price_filter").find(".dropdown-menu li a").click(function () {
+        if (jQuery("#price_filter").find(".minimum_text").text() != "Minimum Price" && jQuery("#price_filter").find(".maximum_text").text() != "Maximum Price") {
+
+            var minprice = jQuery("#price_filter").find(".minimum_text").text();
+            var maxprice = jQuery("#price_filter").find(".maximum_text").text();
+            var text = minprice + " - " + maxprice;
+
+            minprice = parseFloat(minprice.split("$")[1]);
+            maxprice = parseFloat(maxprice.split("$")[1]);
+            if (minprice < maxprice) {
+                if (jQuery("#price_filter_box").size() == 0) {
+                    var content = '<ul class="col-md-12 list-unstyled">' +
+                            '<li>' +
+                            '<a href="javascript:void(0)" class="values">' + text + '</a>' +
+                            '</li>' +
+                            '</ul>';
+                    var pricefilterBox = CreateFilterBox("price", content, "Price");
+                    jQuery("#filters_panel").prepend(pricefilterBox);
+
+                } else {
+                    jQuery("#price_filter_box").find(".list-unstyled li a").text(text);
+                }
+            } else {
+                jQuery("#price_filter").find(".minimum_text").text("Minimum Price");
+                jQuery("#price_filter").find(".maximum_text").text("Maximum Price");
+                alert("el precio minimo debe ser menor que el maximo")
+            }
+        }
+    });
+
+    jQuery("#btn-search").click(GetSearchValues);
+
+});
+
+function loadVehicles(start) {
+    jQuery("#loading").removeClass("hide");
+    var year_id = jQuery("#year_list").find(".selected").attr("year_id");
+    var make_id = jQuery("#make_list").find(".selected").attr("make_id");
+    var sort_id = jQuery("#sort_list").find(".selected").attr("sort_id");
+    var limit = jQuery("#view_list").find(".selected").attr("view_id");
+    jQuery('#all_vehicles_content').load('{{ path('all_vehicles_content') }}', {
+        start: start,
+        limit: limit,
+        year: year_id,
+        sort: sort_id,
+        make: make_id
+    }, function (data) {
+        jQuery("#loading").addClass("hide");
+        jQuery('#dealer_vehicles_content').html(data);
+    });
+}
+
+jQuery("#all_vehicles_content").on("click", ".pagination span a", function () {
+    /*$.get($(this).attr("href"), function(data) {
+     $('#dealer_vehicles_content').html(data);
+     });*/
+    var url = jQuery(this).attr("href");
+    var currentvalue = url.split("page=")[1];
+    loadVehicles(currentvalue);
+    return false;
+});
+
+function DestroyFilterBox(element) {
+    jQuery(element).parents(".sidebar_panel").fadeOut(300, function () {
+        jQuery(this).remove();
+    });
+}
+
+function ChangeDropDownValue(element) {
+    jQuery(element).parents(".dropdown").find(".dropdown-toggle").find("span").text(jQuery(element).text());
+    //jQuery(element).parents(".dropdown").find(".dropdown-toggle").find("input").val(jQuery(element).attr("id"));
+}
+
+function GetSearchValues() {
+
+    var zipcode = GetValuesinArray("zipcode_filter_box");
+    var model = GetValuesinArray("model_filter_box");
+    var make = GetValuesinArray("make_filter_box");
+    var year = GetValuesinArray("year_filter_box");
+    var condition = GetValuesinArray("condition_filter_box");
+    var prices = GetPricesSearchValues();
+    var sort_id = jQuery("#sort_list").find(".selected").attr("sort_id");
+    var limit = jQuery("#view_list").find(".selected").attr("view_id");
+    jQuery("#loading").removeClass("hide");
+    jQuery.ajax({
+        url: '{{path('search_all_vehicles_content')}}',
+        type: "POST",
+        data: {
+            zipcode : zipcode,
+            model : model,
+            make : make,
+            year : year,
+            condition : condition,
+            prices : prices,
+            sort : sort_id,
+            start: 1,
+            limit: limit
+        },
+        success: function(response){
+            jQuery('#all_vehicles_content').empty();
+            jQuery("#loading").addClass("hide");
+            jQuery('#all_vehicles_content').html(response);
+        },
+        error: function(response){
+            jQuery("#loading").addClass("hide");
+            alert(response);
+        }
+    });
+}
+
+/**
+ *  Find values literal en the list
+ * */
+function GetValuesinArray(elementid) {
+    var valuesArray = Array();
+    if (jQuery("#" + elementid).size() > 0) {
+        var values = jQuery("#" + elementid + " ul").find("li");
+        values.each(function () {
+            valuesArray.push(jQuery(this).find('a').text())
+        });
+    }
+    return valuesArray;
+}
+
+/**
+ *  Get price values
+ * **/
+function GetPricesSearchValues() {
+    var result = Array();
+    if (jQuery("#price_filter_box").size() > 0) {
+        var prices = jQuery("#price_filter_box").find("ul li a").text();
+        var minprice = prices.split(" - ")[0];
+        var maxprice = prices.split(" - ")[1];
+        minprice = parseFloat(minprice.split("$")[1]) * 1000;
+        maxprice = parseFloat(maxprice.split("$")[1]) * 1000;
+        result.push(minprice);
+        result.push(maxprice);
+        return result;
+    }
+}
+
+</script>

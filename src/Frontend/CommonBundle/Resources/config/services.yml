@@ -1,0 +1,7 @@
+parameters:
+#    common.example.class: Frontend\CommonBundle\Example
+
+services:
+#    common.example:
+#        class: %common.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    function p(){
+        alert('p');
+    }
+</script>
+<ul class="nav navbar-nav navbar-right" id="input_search" style="margin: 0;">
+
+    <label class="navbar-text text-uppercase bold_text_black" for="sort_list" style="margin-left: 0px; font-size: 11px">Sort
+        by</label>
+    <li class="dropdown" id="sort_list" style="min-width: 109px;border:1px solid black;">
+        <a href="#" class="dropdown-toggle text-uppercase text-right"
+           data-toggle="dropdown"><span sort_id="0" class="pull-left selected" style="font-size: 11px">newest</span>
+            <b class="caret" style="color: #000000"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="0" style="font-size: 11px">newest</a></li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="1" style="font-size: 11px">Oldest</a></li>
+        </ul>
+    </li>
+
+
+    <label class="navbar-text text-uppercase bold_text_black" for="make_list" style="font-size: 11px">make</label>
+    <li class="dropdown" id="make_list" style="min-width: 138px;border:1px solid black;">
+        <a href="javascript:void(0)" class="dropdown-toggle text-uppercase text-right"
+           data-toggle="dropdown"><span make_id="all" class="pull-left selected" style="font-size: 11px">all</span>
+            <b class="caret" style="color: #000000"></b>
+        </a>
+        <ul class="dropdown-menu pre-scrollable">
+            <li><a class="make_link" href="javascript:void(0)" make_id="0" style="font-size: 11px">All</a></li>
+            {% set array_make = [] %}
+            {% for make in obj_make %}
+                <li id="{#{ make.getMakeId() }#}"><a class="make_link" href="javascript:void(0)" style="font-size: 11px"
+                       make_id="{{ make.makeId }}">{{ make.makeId }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+
+
+    <label class="navbar-text text-uppercase bold_text_black" for="year_list" style="font-size: 11px">year</label>
+    <li class="dropdown" id="year_list" style="min-width: 70px;border:1px solid black;">
+        <a href="#" class="dropdown-toggle text-uppercase text-right"
+           data-toggle="dropdown"><span year_id="0" class="pull-left selected" style="font-size: 11px">all</span>
+            <b class="caret" style="color: #000000"></b>
+        </a>
+        <ul class="dropdown-menu pre-scrollable">
+            <li><a class="year_link" href="javascript:void(0)" year_id="0" style="font-size: 11px">All</a></li>
+            {% for years in obj_year %}
+                <li><a class="year_link" href="javascript:void(0)" style="font-size: 11px"
+                       year_id="{{ years.id }}">{{ years.getYear() }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+
+
+    <label class="navbar-text text-uppercase bold_text_black" for="view_list" style="font-size: 11px">view</label>
+    <li class="dropdown" id="view_list" style="min-width: 50px;border:1px solid black;">
+        <a href="#" class="dropdown-toggle text-uppercase text-right"
+           data-toggle="dropdown"><span view_id="12" class="pull-left selected" style="font-size: 11px">12</span>
+            <b class="caret" style="color: #000000"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="view_link" href="javascript:void(0)" view_id="12"
+                   style="padding: 3px 10px;font-size: 11px">12</a></li>
+            <li><a class="view_link" href="javascript:void(0)" view_id="24"
+                   style="padding: 3px 10px;font-size: 11px">24</a></li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="nav navbar-nav navbar-right" style="margin: 0; padding-right: 10px">
+    <img id="loading" class="hide"
+         src="{{ asset('bundles/common/images/loading.gif') }}" alt=""/>
+</ul>

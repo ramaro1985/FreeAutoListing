@@ -1,0 +1,164 @@
+<div id="payments" class="anchor-profile"></div>
+<div class="row">
+
+    <div class="col-md-12 col-xs-12 " style="margin-bottom: 10px">
+        <span  class="property-title">Policies & Payments</span>
+    </div>   
+
+</div>                          
+
+{% if property.policiespayments is not null %} 
+                           <div class="row">
+                                   
+                           {% if property.policiespayments.miscellaneousFees is not null %} 
+                               <div class="col-md-12 col-xs-12" style="margin: 5px 0px; ">
+                                   <div class="row" style="  margin: 0; background-color: #EEEEEE">
+                                   <div class="col-md-12 col-xs-12 " style=" padding: 5px">
+                                       <span style="color: #428BCA;font-family: Calibri;font-size: 16px;font-weight: lighter;">Fees & Taxes</span> 
+                                   </div>
+                                   {% if (property.policiespayments.miscellaneousFees.cleaningFee is not null) or (property.policiespayments.miscellaneousFees.lodgingTax is not null) or (property.policiespayments.miscellaneousFees.otherFees is not null) %}            
+                                           
+                                   {% if property.policiespayments.miscellaneousFees.cleaningFee %}     
+                                           <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Cleaning Fee</div>
+                                           <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">{{property.policiespayments.miscellaneousFees.cleaningFee}}</div>
+                                    {% endif  %} 
+                                    {% if property.policiespayments.miscellaneousFees.lodgingTax %}     
+                                   <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Lodging Tax</div>
+                                   <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">{{property.policiespayments.miscellaneousFees.lodgingTax}}</div>
+                                    {% endif  %} 
+                                    {% if property.policiespayments.miscellaneousFees.otherFees%}     
+                                   <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Other Fees</div>
+                                   <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">{{property.policiespayments.miscellaneousFees.otherFees}}</div>
+                                    {% endif  %}
+                                   {% else  %} 
+                                   <div class="col-md-12 col-xs-12 " style="padding: 2px 5px">Information Unavailable</div>
+                                   {% endif  %} 
+                                    
+                               </div>
+                                                   
+                            </div>
+                             {% endif  %} 
+                                   
+                                   
+                                   
+                         {% if property.policiespayments.paymentsOptions is not null %} 
+                               <div class="col-md-12 col-xs-12" style="margin: 5px 0px">
+                                   <div class="row" style="margin: 0;">
+                                   <div class="col-md-12 col-xs-12 " style="padding: 5px">
+                                       <span style="color: #428BCA;font-family: Calibri;font-size: 16px;font-weight: lighter; ">Other Policies</span> 
+                                   </div>
+                                   {% if property.policiespayments.paymentsOptions.americanExpress or property.policiespayments.paymentsOptions.wireTransfer or property.policiespayments.paymentsOptions.mastercard or property.policiespayments.paymentsOptions.cashiersCheck or property.policiespayments.paymentsOptions.visa or property.policiespayments.paymentsOptions.moneyOrder or property.policiespayments.paymentsOptions.discover or property.policiespayments.paymentsOptions.paypal %}     
+                                  <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Payment Options</div>
+                                  <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">
+                                    {% if property.policiespayments.paymentsOptions.americanExpress %}     
+                                   American Express
+                                    {% endif  %} 
+                                    {% if property.policiespayments.paymentsOptions.wireTransfer %}     
+                                   Wire Transfer
+                                    {% endif  %} 
+                                    {% if property.policiespayments.paymentsOptions.mastercard %}     
+                                   Mastercard
+                                    {% endif  %} 
+                                   {% if property.policiespayments.paymentsOptions.cashiersCheck %}     
+                                   Cashiers Check
+                                    {% endif  %} 
+                                    {% if property.policiespayments.paymentsOptions.visa %}     
+                                   visa
+                                    {% endif  %} 
+                                  {% if property.policiespayments.paymentsOptions.moneyOrder %}     
+                                   Money Order
+                                    {% endif  %} 
+                                    {% if property.policiespayments.paymentsOptions.discover %}     
+                                   Discover
+                                    {% endif  %} 
+                                   {% if property.policiespayments.paymentsOptions.paypal %}     
+                                   Paypal
+                                    {% endif  %} 
+                                   </div>
+                                  <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Online Payment</div>
+                                  {% if property.policiespayments.paymentsOptions.onlinePayment %}     
+                                   <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">Yes</div>
+                                   {% else  %}
+                                    <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">No</div>
+                                    {% endif  %} 
+                                    
+                                    {% else  %} 
+                                    <div class="col-md-12 col-xs-12 " style="padding: 2px 5px">Information Unavailable</div>
+                                   {% endif  %} 
+                                   
+                               </div>
+                                                   
+                            </div>
+                               
+                               
+                             {% endif  %} 
+                                   
+                                    {% if property.policiespayments.otherPaymentsOptions is not null %} 
+                               <div class="col-md-12 col-xs-12" style="margin: 5px 0px; ">
+                                   <div class="row" style="  margin: 0; background-color: #EEEEEE">
+                                   <div class="col-md-12 col-xs-12 " style=" padding: 5px">
+                                       <span style="color: #428BCA;font-family: Calibri;font-size: 16px;font-weight: lighter;">Other</span> 
+                                   </div>
+                                           
+                                           
+                                   {% if (property.policiespayments.otherPaymentsOptions.maximumStay is not null) or (property.policiespayments.otherPaymentsOptions.depositRequirements is not null) or (property.policiespayments.otherPaymentsOptions.cancellationRefundPolicie is not null) %}             
+                                   {% if property.policiespayments.otherPaymentsOptions.maximumStay is not null%}          
+                                           <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Maximum Stay</div>
+                                           <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">{{ property.policiespayments.otherPaymentsOptions.maximumStay }}</div>
+                                    {% endif  %} 
+                                    {% if property.policiespayments.otherPaymentsOptions.depositRequirements is not null%}     
+                                            <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Deposit Requirements</div>
+                                           <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">{{ property.policiespayments.otherPaymentsOptions.depositRequirements }}</div>
+                                    {% endif  %} 
+                                    {% if property.policiespayments.otherPaymentsOptions.cancellationRefundPolicie is not null%}     
+                                            <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Cancellation & Refund Policy</div>
+                                           <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">{{ property.policiespayments.otherPaymentsOptions.cancellationRefundPolicie }}</div>
+                                    {% endif  %} 
+                                    
+                                    {% else  %} 
+                                     <div class="col-md-12 col-xs-12 " style="padding: 2px 5px">Information Unavailable</div>      
+                                    {% endif  %}        
+                                           
+                                    
+                               </div>
+                                                   
+                            </div>
+                               
+                                <div class="col-md-12 col-xs-12" style="margin: 5px 0px">
+                                   <div class="row" style="margin: 0;">
+                                   <div class="col-md-12 col-xs-12 " style="padding: 5px">
+                                       <span style="color: #428BCA;font-family: Calibri;font-size: 16px;font-weight: lighter; ">Time</span> 
+                                   </div>
+                                   {% if (property.policiespayments.otherPaymentsOptions.checkin is not null) or (property.policiespayments.otherPaymentsOptions.checkout is not null) %}                     
+                                   {% if property.policiespayments.otherPaymentsOptions.checkin is not null%}     
+                                   <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Check-In</div>
+                                    <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">{{ property.policiespayments.otherPaymentsOptions.checkin }}:00</div>
+                                    {% endif  %} 
+                                    {% if property.policiespayments.otherPaymentsOptions.checkout is not null%}     
+                                   <div class="col-md-3 col-xs-12 " style="padding: 2px 5px">Check-Out</div>
+                                    <div class="col-md-9 col-xs-12 " style="padding: 2px 5px">{{ property.policiespayments.otherPaymentsOptions.checkout }}:00</div>
+                                   
+                                    {% endif  %} 
+                                    
+                                    {% else  %}
+                                    <div class="col-md-12 col-xs-12 " style="padding: 2px 5px">Information Unavailable</div>      
+                                    {% endif  %} 
+                               </div>
+                                                   
+                            </div>
+                             {% endif  %} 
+                                   
+                                   
+                               </div>
+                                                   
+                    
+                       
+                        {% else  %} 
+                             <div class="row">
+                            <div class="col-md-12 col-xs-12 " style="margin: 10px 0px">
+                          <span style="color: #428BCA;font-family: Calibri;font-size: 18px;font-weight: lighter;">
+                              Information Unavailable. Contact the Property Owner
+                          </span>
+                            </div>
+                           </div>          
+                        {% endif  %} 

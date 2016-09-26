@@ -1,0 +1,19 @@
+                        
+                        {% if property.gallery is not null %}    
+                                <div class="row" id="bx-pager">
+                            
+                            {% for key , image in property.gallery.getPropertyImages %}    
+                                {% if image.getWebPath is not null%}
+                                    <div class="col-md-2 col-sm-2 col-xs-6" style="margin-bottom: 10px">
+                                    <a data-slide-index="{{key}}" href="#">
+                                        <img src="{{ (image.getWebPath)| imagine_filter('my_thumb') }}" class="tumb" alt="{{image.title}}" title="{{image.title}}" style="height: 80px"/>
+                                        </a>
+                                </div>
+                          
+                               {% endif %} 
+                            {% endfor %}
+                            </div>
+                             {% else %}
+                             No Images
+                              {% endif %}  
+                          

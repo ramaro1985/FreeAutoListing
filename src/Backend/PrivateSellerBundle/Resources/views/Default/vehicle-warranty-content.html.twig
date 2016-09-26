@@ -1,0 +1,159 @@
+<div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+
+    <div class="row" style="margin-top: 15px">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-12">
+                <ul class="nav nav-pills nav-profile text-center" style="margin-top: 10px; margin-bottom: 20px">
+                    <!--div id="photos" class="anchor-profile-photo"></div>-->
+                    <li class="">
+                        <div class="btn-group">
+
+                            <a id="link-tab-index-1"
+                               href="javascript:VerifyTab(1)"
+                               class="btn btn-default b2b">
+                                Vehicle Information <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                          aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-3" href="javascript:VerifyTab(2)" class="btn btn-default b3b">
+                                Vehicle Options<span class="fal_icon icon-inventary"
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-3" href="javascript:VerifyTab(3)" class="btn btn-default b3b">
+                                Photos<span class="fal_icon icon-photo"
+                                            aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-5"
+                               href="{{ path('private_vehicle_warranty',{'type':'save','vehicle_id': vehicle_id }) }}"
+                               class="btn btn-default b2b active">
+                                Warranty<span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                              aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="">
+                        <div class="btn-group">
+                            <a id="link-tab-index-1"
+                               href="javascript:VerifyTab(4)"
+                               class="btn btn-default b2b">
+                                Seller Comments<span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                            </a>
+                        </div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-vehicle-warranty"
+                  action="{{ path('private_vehicle_warranty' , {'type': 'open','vehicle_id' : vehicle_id }) }}" {{ form_enctype(form) }}
+                  method="POST" class="form-horizontal formulario" style="margin-top: 20px">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group">
+
+                        <div class="col-md-11 col-xs-12 text-left">
+                            <p>Warranty Description</p>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-11 col-xs-12">
+                            {{ form_widget(form.warranty) }}
+                            <div class="pull-right form-inline">
+                                <label for="count_back" style="font-size: 12px">Characters remaining</label>
+                                <input class="counter_input" type="text" id="count_back" name="count_back"
+                                       value="800" size="4px">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12 text-left" style="margin-top: 20px">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+                            <!-- <button id="btnsave" type="submit" class="btn btn-primary">Save</button>-->
+                            <button id="btnsavecontinue" type="" class="btn btn-primary"
+                                    style="margin-left: 10px">
+                                Save &
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                {{ form_rest(form) }}
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    jQuery('#btnsavecontinue').click(function (e) {
+        if (!tabclick)
+            jQuery('#form-vehicle-warranty').attr('action', "{{path('private_vehicle_warranty', {'type':'continue' , 'vehicle_id': vehicle_id })}}");
+
+    });
+
+
+    var tabclick = false;
+    function VerifyTab(tab) {
+        tabclick = true;
+        if (tab == 2) {
+            if ({{app.session.get('vehicle_saved')}} == 1
+        )
+            jQuery('#form-vehicle-warranty').attr('action', "{{path('private_vehicle_options', {'type':'open' ,'vehicle_id': vehicle_id})}}");
+        } else if (tab == 3) {
+            if ({{app.session.get('vehicle_saved')}} == 1
+        )
+            jQuery('#form-vehicle-warranty').attr('action', "{{path('private_vehicle_gallery', {'type':'open' , 'vehicle_id': vehicle_id})}}");
+        } else if (tab == 4) {
+            if ({{app.session.get('vehicle_saved')}} == 1
+        )
+            jQuery('#form-vehicle-warranty').attr('action', "{{path('private_vehicle_seller_comments', {'type':'open' ,'vehicle_id': vehicle_id})}}");
+        }
+        else if (tab == 1) {
+            if ({{app.session.get('vehicle_saved')}} == 1
+        )
+            jQuery('#form-vehicle-warranty').attr('action', "{{path('private_create_vehicle_basic_info', {'type':'open' ,'vehicle_id': vehicle_id})}}");
+        }
+
+
+        jQuery('#btnsavecontinue').trigger('click');
+
+    }
+
+    var area = document.getElementById("vehiclewarranty_warranty");
+    var message = document.getElementById("count_back");
+    var maxLength = 800;
+    var checkLength = function () {
+        if (area.value.length < maxLength) {
+            message.value = (maxLength - area.value.length);
+        }
+    }
+    setInterval(checkLength, 300);
+</script>

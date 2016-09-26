@@ -1,0 +1,232 @@
+<div id="container" class="container-fluid properties-container">
+
+        <div class="row" style="margin-left: 5px; margin-top: 30px">
+         <div class="col-md-12">
+<ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+                        <div id="photos" class="anchor-profile-photo"></div> 
+                         <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-1" href="#description" class="btn btn-default b2b ">
+                                    Listing Details <span class="glyphicon glyphicon-info-sign glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-2" href="#location" class="btn btn-default ">
+                                    Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                       
+                        <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-4" href="#photos" class="btn btn-default b1b ">
+                                    Photos  <span class="glyphicon glyphicon-picture glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-6" href="#rates"  class="btn btn-primary b6b active" >
+                                    Rates <span class="glyphicon glyphicon-usd glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-5" href="#booking-calendar"  class="btn btn-default b5b">
+                                    Calendar <span class="glyphicon glyphicon-calendar glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                         
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-3" href="#amenities" class="btn btn-default b3b ">
+                                    Amenities <span class="glyphicon glyphicon-list glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-7" href="#payments"  class="btn btn-default b7b" >
+                                    Policies & Payments <span class="glyphicon glyphicon-credit-card glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        
+                       
+                        
+                    </ul>
+</div>
+        </div>
+    
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-location" action="{{ path('create_rates_property' , {'type':'rates' , 'prop_pk':prop_pk}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal" style="margin-top: 20px">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+   
+    <div class="col-md-12 col-xs-12">
+       <div class="form-group" >
+           <div class="col-md-12 col-xs-12 text-left form-title">
+       Rental Rates
+        </div>
+               
+      <div class="col-md-11 col-xs-12 text-left">
+          <p>Some times of the years are more popular than others. Here you can define different rental rates for peak and slow seasons, event weekends, etc...</p>
+        </div>        
+       </div>
+         
+    </div>
+    
+    
+     <div class="col-md-12 col-xs-12">
+         <hr>
+       <div class="form-group" style="margin-bottom: 10px">
+       <div class="col-md-12 col-xs-12 text-left form-title">
+           <a id="btnadd" type="button" class="btn btn-primary"><span style="margin-right: 10px" class="pathw glyphicon glyphicon-plus"></span> Add Period</a> 
+         
+           
+       </div>
+       </div>
+           
+    </div>
+    
+    
+    <div class="col-md-12 text-center period">   
+           
+    
+           
+     </div>
+    
+    
+    <div id="form-buttons" class="col-md-10 col-md-offset-2 text-center hide">
+   <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-12 col-xs-12 text-left">
+        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+        <button id="btnsavecontinue" type="submit" class="btn btn-primary" style="margin-left: 10px">Save & Continue</button>
+    </div>
+           
+    </div>        
+    
+  </div>
+            
+      
+         
+
+    <div style="display: none">{{ form_rest(form) }}</div>
+</form>
+                </div>
+            </div>
+    
+    </div>
+
+<script type="text/javascript">
+            
+            jQuery(document).ready(function() {
+                
+           
+                
+                
+            var tab = 5;    
+                
+            jQuery('#btnsavecontinue').click(function(e){
+             if(tab == 1){ 
+            jQuery('#form-location').attr('action', "{{path('create_rates_property', {'type':'description' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 2){ 
+            jQuery('#form-location').attr('action', "{{path('create_rates_property', {'type':'location' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 3){ 
+            jQuery('#form-location').attr('action', "{{path('create_rates_property', {'type':'amenities' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 4){ 
+            jQuery('#form-location').attr('action', "{{path('create_rates_property', {'type':'gallery' , 'prop_pk':prop_pk})}}");
+            }else if(tab == 5){ 
+            jQuery('#form-location').attr('action', "{{path('create_rates_property', {'type':'calendar' , 'prop_pk':prop_pk})}}");
+            }
+            else if(tab == 7){ 
+            jQuery('#form-location').attr('action', "{{path('create_rates_property', {'type':'policiesPayments' , 'prop_pk':prop_pk})}}");
+            }
+            }); 
+          
+          
+          
+            jQuery('#link-tab-index-1').click(function(e){
+            tab = 1;
+            jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+           
+            jQuery('#link-tab-index-2').click(function(e){
+            tab = 2;
+            jQuery('#btnsavecontinue').trigger('click');    
+            e.preventDefault();
+           }); 
+           
+           jQuery('#link-tab-index-3').click(function(e){
+            tab = 3;
+            jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+            jQuery('#link-tab-index-4').click(function(e){
+            tab = 4;
+            jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+            jQuery('#link-tab-index-5').click(function(e){
+            tab = 5;
+            jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+            jQuery('#link-tab-index-7').click(function(e){
+            tab = 7;
+            jQuery('#btnsavecontinue').trigger('click');   
+            e.preventDefault();
+           }); 
+           
+
+             jQuery('#btnsave').click(function(e){
+            jQuery('#form-location').attr('action', "{{path('create_rates_property', {'type':'rates' , 'prop_pk':prop_pk})}}");
+            }); 
+
+  
+  
+     
+          
+
+            jQuery('#btnadd').click(function(){
+                   
+                             jQuery.ajax({ 
+                url: '{{path('period_form')}}',
+                type: "POST",
+                data: {id: '{{prop_pk}}'}, 
+                async: false, 
+                success: function(response){ 
+                  jQuery('.period').html(response);
+                  jQuery('#form-buttons').removeClass('hide');
+                } 
+                });
+                       
+                     
+                    });
+          
+           jQuery( ".period-calendar" ).datepicker({
+            dateFormat: 'yy-mm-dd'
+            });
+            
+         
+            
+  
+            });      
+            
+            
+            
+            
+        
+           
+            
+            
+            
+            </script>
+    

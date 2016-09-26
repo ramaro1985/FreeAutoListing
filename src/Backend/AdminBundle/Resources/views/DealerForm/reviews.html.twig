@@ -1,0 +1,24 @@
+{# % extends "AdminBundle:Layout:user-admin.html.twig" % este template tiene el menu de usuario   #}
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/common/css/jRating.jquery.css') }}" type="text/css"/>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/jRating.jquery.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+     {{ include('AdminBundle:Default:content-header.html.twig') }}
+     <div id="loading_dealer" class="hide">
+         <img src="{{ asset('bundles/common/images/loading.gif') }}"/><span class="text-info">Loading...</span>
+     </div>
+     {{ include('AdminBundle:DealerForm:reviews-content.html.twig') }}
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 

@@ -1,0 +1,44 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% if invalid_username is defined %}
+<div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center text-danger alert alert-danger" role="alert"><span class="glyphicon glyphicon-remove" style="margin-right: 7px"></span>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</div>
+        </div>    
+    </div>
+          {% endif %}
+<div class="container">
+    <div class="row" style="margin-top: 40px">
+        <div class="col-md-6 col-md-offset-3 text-center">
+        <h1>Reset your password</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center" style="padding: 0">
+            
+    <form id="form-login" action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request" style="margin-top: 20px; padding-top: 10px">
+    
+     <div class="row">
+         <div class="col-md-12 col-sm-12 col-xs-12 text-left" style="font-size: 13px;padding-bottom: 20px">Enter the e-mail address associated with the account. We'll e-mail the confirmation link.</div>
+        
+               
+         <div class="col-md-8 col-sm-8 col-xs-12" style="margin-bottom: 5px">
+        
+        <input type="text" id="username" name="username" required="required" placeholder="Email Address" class="form-control" />
+        
+    </div>
+              <div class="col-md-4 col-sm-4 col-xs-12 text-left">
+        <input type="submit" value="{{ 'resetting.request.submit'|trans }}" class="btn btn-primary"/>
+        
+    </div>
+    
+
+  
+    
+</div>
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-6 col-sm-6 col-xs-12 text-left"><a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-chevron-left" style="margin-right: 7px"></span>Back to Login</a></div>
+        </div>  
+    </form>
+    </div>
+    </div>
+    </div>

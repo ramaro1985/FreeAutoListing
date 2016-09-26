@@ -1,0 +1,35 @@
+<div id="globalnav-nav" class="pull-left">
+    <nav class="nav nav-dash">
+        <header class="hidden-phone">Tool Box</header>
+        <ul id="navigation" class="nav nav-list">
+            <li id="sideLinkProperties" class="">
+                <a class="" href="{{ path('admin_view_properties') }}">
+                    <span>View Properties</span>
+                    <span class="badge badge-important"></span>
+                </a>
+                <hr>
+            </li>
+            <li id="resrvationManager" class="">
+                <a class="" href="{{ path('admin_admin_users') }}" target="" data-attr="sideLinkProperties">
+                <span>View Users</span>
+                <span class="badge badge-important"></span>
+                </a>
+                <hr>
+            </li>
+           <li id="resrvationManager" class="">
+                <a class="" href="{{ path('admin_add_user') }}" target="" data-attr="sideLinkProperties">
+                <span>Add User</span>
+                <span class="badge badge-important"></span>
+                </a>
+                <hr>
+            </li>  
+            <li id="sideLinkInquiries" class="">
+                <a class="selected" href="{{ path('property_inquiries_list') }}" target="" data-attr="sideLinkInquiries">
+                    <span>My Account</span>
+                    <span class="badge badge-important"></span>
+                </a>
+                <hr>
+            </li>
+        </ul>
+        </nav>
+</div>

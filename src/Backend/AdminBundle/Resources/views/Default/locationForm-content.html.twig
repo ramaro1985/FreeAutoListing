@@ -1,0 +1,456 @@
+<div id="container" class="container-fluid properties-container">
+
+
+<div class="row" style="margin-left: 5px; margin-top: 30px">
+    <div class="col-md-12 col-sm-12">
+
+        <ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+            <div id="photos" class="anchor-profile-photo"></div>
+            <li class="">
+                <div class="btn-group">
+
+                    <a id="link-tab-index-1" href="{{ path('set_description', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                       class="btn btn-default b2b">
+                        Profile Details <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                              aria-hidden="true" style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+           <!-- <li class="">
+                <div class="btn-group">
+
+                    <a id="link-tab-index-2" href="{{ path('set_location', {'type':'save' , 'prop_pk':prop_pk}) }}"
+                       class="btn btn-default active">
+                        Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true"
+                                       style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+-->
+
+            <li class="">
+                <div class="btn-group">
+                    <a id="link-tab-index-3" href="{{ path('set_amenities', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                       class="btn btn-default b3b">
+                        Services & Amenities<span class="fal_icon servicetoolsicon"
+                                                  aria-hidden="true" style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+
+            <li class="">
+                <div class="btn-group">
+                    <a id="link-tab-index-3" href="{{ path('set_gallery', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                       class="btn btn-default b3b">
+                        Gallery<span class="glyphicon glyphicon-list glyphicon-align-right"
+                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+
+            <li class="">
+                <div class="btn-group">
+                    <a id="link-tab-index-4" href="{{ path('set_feeds', {'type':'open' , 'prop_pk':prop_pk}) }}"
+                       class="btn btn-default b7b">
+                        Social Media & Web <span class="glyphicon glyphicon-credit-card glyphicon-align-right"
+                                                 aria-hidden="true" style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+
+
+        </ul>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12  text-center">
+        <form id="form-description"
+              action="{{ path('create_location_property' , {'type': 'location', 'prop_pk': prop_pk }) }}" {{ form_enctype(form) }}
+              method="POST" class="form-horizontal formulario" style="margin-top: 20px">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+
+            <div class="col-md-12 col-xs-12">
+
+                <div class="form-group">
+                    <div class="col-md-12 col-xs-12 text-left form-title">
+                        Profile Address
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12 col-xs-12 text-left" style="margin-left: 5px; margin-bottom: 15px">
+
+                <p>We use Google Maps to validate addresses. Some addresses may have errors, either in spelling or
+                    formatting (e.g. Lakeview vs. Lake View). In this case, choose the most accurate address for your
+                    listing, but please, review all the choices closely - you will not be able to edit or change the
+                    address after you click "Save".</p>
+
+            </div>
+
+
+            <div class="col-md-6 col-sm-6  col-xs-12 text-center">
+
+
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-right" style="padding-right: 0">
+                        {{ form_label(form.address) }}<span style="color: red">*</span>
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{ form_widget(form.address) }}
+
+                    </div>
+
+                </div>
+
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-right" style="padding-right: 0">
+                        {{ form_label(form.route) }}
+                    </div>
+
+                    <div class="col-sm-5 col-xs-12">
+                        {#  {{ form_widget(form.route, {'attr': {'readOnly': 'true'} }) }} #}
+                        {{ form_widget(form.route) }}
+
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        {{ form_widget(form.property_number) }}
+
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-right" style="padding-right: 0">
+                        {{ form_label(form.locality) }}
+                    </div>
+                    <div class="col-sm-9 col-xs-12 city">
+
+                        <div>{# {{ form_widget(form.locality , {'attr': {'readOnly': 'true'} }) }} #}
+                            {{ form_widget(form.locality) }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-right" style="padding-right: 0">
+                        {{ form_label(form.stateProvince) }}
+                    </div>
+
+                    <div class="col-sm-5 col-xs-12 state-region">
+
+
+                        <div class="">
+                            {#  {{ form_widget(form.stateProvince, {'id':'stateName', 'attr': {'readOnly': 'true'} } ) }}  #}
+                            {{ form_widget(form.stateProvince, {'id':'stateName'} ) }}
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-12 state-region">
+
+
+                        <div class="">
+                            {#    {{ form_widget(form.administrative_area_level_1, {'attr': {'readOnly': 'true'} }) }} #}
+                            {{ form_widget(form.administrative_area_level_1) }}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-right" style="padding-right: 0">
+                        {{ form_label(form.country) }}
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {#  {{ form_widget(form.country, {'attr': {'readOnly': 'true'} }) }}  #}
+                        {{ form_widget(form.country) }}
+                    </div>
+
+                </div>
+
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-3 col-xs-12 text-right" style="padding-right: 0">
+                        {{ form_label(form.postal_code) }}
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {#  {{ form_widget(form.postal_code, {'attr': {'readOnly': 'true'} }) }}  #}
+                        {{ form_widget(form.postal_code) }}
+                    </div>
+
+
+                </div>
+
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-1 col-xs-12 col-md-offset-3" style="padding-left: 15px">
+                        {{ form_widget(form.public) }}
+                    </div>
+                    <div class="col-sm-7 col-xs-12 text-left" style="padding-left: 0;margin-top: 9px">
+                        {{ form_label(form.public) }}
+                    </div>
+
+
+                </div>
+
+                <div class="form-group" style="margin-bottom: 10px">
+
+                    <div class="col-sm-9 col-xs-12">
+                        {{ form_widget(form.postal_town) }}
+                        {{ form_widget(form.administrative_area_level_2) }}
+                        {{ form_widget(form.administrative_area_level_3) }}
+                        {{ form_widget(form.administrative_area_level_4) }}
+                        {{ form_widget(form.administrative_area_level_5) }}
+                        {{ form_widget(form.sublocality) }}
+                        {{ form_widget(form.neighborhood) }}
+                        {{ form_widget(form.postal_code_prefix) }}
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6 col-sm-6  col-xs-12 text-center">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-md-9 text-center">
+                            <div class="form-group" style="margin-bottom: 10px">
+                                <div class="col-sm-12 col-xs-12 text-left">
+                                <!--<button id="btnsave" type="submit" class="btn btn-primary">Save</button>-->
+                                    <button id="btnsavecontinue" type="submit" class="btn btn-primary"
+                                            style="margin-left: 10px">Save & Continue
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-5 col-xs-12 text-center" id="map-canvas"
+                 style="height: 296px;margin-left: 23px">
+
+            </div>
+
+
+
+            {{ form_rest(form) }}
+        </form>
+    </div>
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+/*var componentForm = {
+ locality: 'long_name',
+ sublocality: 'long_name',
+ postal_town: 'long_name',
+ administrative_area_level_2: 'short_name',
+ administrative_area_level_1: 'short_name',
+ administrative_area_level_3: 'short_name',
+ administrative_area_level_4: 'short_name',
+ administrative_area_level_5: 'short_name',
+ country: 'long_name',
+ neighborhood: 'long_name',
+ postal_code: 'short_name',
+ postal_code_prefix: 'short_name'
+
+ };*/
+
+/*function initialize() {
+ var mapOptions = {
+ center: new google.maps.LatLng(37.09024, -95.712891),
+ zoom: 3
+ };
+ var map = new google.maps.Map(document.getElementById('map-canvas'),
+ mapOptions);
+
+ var input = /** @type {HTMLInputElement} */
+(
+        document.getElementById('location_address'));
+
+/*var options = {
+ types: ['address']
+
+ };
+
+ var autocomplete = new google.maps.places.Autocomplete(input, options);
+ autocomplete.bindTo('bounds', map);
+
+ var infowindow = new google.maps.InfoWindow();
+ var marker = new google.maps.Marker({
+ map: map,
+ anchorPoint: new google.maps.Point(0, -29)
+ });
+
+
+ google.maps.event.addListener(autocomplete, 'place_changed', function () {
+ fillInAddress(autocomplete);
+ infowindow.close();
+ marker.setVisible(false);
+ var place = autocomplete.getPlace();
+ if (!place.geometry) {
+ return;
+ }
+
+ // If the place has a geometry, then present it on a map.
+ if (place.geometry.viewport) {
+ map.fitBounds(place.geometry.viewport);
+ } else {
+ map.setCenter(place.geometry.location);
+ map.setZoom(13);  // Why 17? Because it looks good.
+ }
+ marker.setIcon(/** @type {google.maps.Icon} *//*({
+ url: "{# {{asset('bundles/common/images/locationIcon.png')}} #}",
+
+ }));
+ marker.setPosition(place.geometry.location);
+ marker.setVisible(true);
+
+ var address = '';
+ if (place.address_components) {
+ address = [
+ (place.address_components[0] && place.address_components[0].short_name || ''),
+ (place.address_components[1] && place.address_components[1].short_name || ''),
+ (place.address_components[2] && place.address_components[2].short_name || '')
+ ].join(' ');
+ }
+
+ infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + "{##}{prop.description.name}}");
+ infowindow.open(map, marker);
+ });
+
+
+ }*/
+
+/*function createPopover(elem, text) {
+ elem.attr('data-toggle', 'popover');
+ elem.attr('data-placement', 'bottom');
+ elem.attr('data-content', text);
+ elem.attr('data-container', 'body');
+ elem.popover();
+ elem.trigger('click');
+
+ }*/
+
+
+jQuery('#location_route').focusout(function () {
+    jQuery(this).popover('destroy');
+});
+
+jQuery('#location_route').keydown(function () {
+    jQuery(this).popover('destroy');
+});
+
+jQuery('#btnsave').click(function (e) {
+
+    if (jQuery('#location_route').val() === '') {
+        createPopover(jQuery('#location_address'), 'This address is not valid.');
+        jQuery('#location_address').focus();
+        e.preventDefault();
+    }
+
+});
+
+
+function fillInAddress(autocomplete) {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    //jQuery('#response').html(place.address_components);
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+
+    jQuery('#form-description').find('.add').each(function () {
+        jQuery(this).val('');
+    });
+
+
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (place.address_components[i].types[0] === 'administrative_area_level_1') {
+            //var addressType1 = place.address_components[i].types[0];
+            var val1 = place.address_components[i]['long_name'];
+            document.getElementById('stateName').value = val1;
+        }
+
+        if (place.address_components[i].types[0] === 'street_number') {
+            //var addressType1 = place.address_components[i].types[0];
+            var street_number = place.address_components[i]['long_name'];
+            document.getElementById('location_route').value = street_number;
+        }
+
+        if (place.address_components[i].types[0] === 'route') {
+            //var addressType1 = place.address_components[i].types[0];
+            var route = place.address_components[i]['long_name'];
+            document.getElementById('location_route').value = document.getElementById('location_route').value + ' ' + route;
+        }
+        //if(place.address_components[i].types[0] === 'postal_town'){
+        //var addressType1 = place.address_components[i].types[0];
+        //var town = place.address_components[i]['long_name'];
+        //document.getElementById('stateName').value = town;
+        //}
+
+        if (componentForm[addressType]) {
+
+            var val = place.address_components[i][componentForm[addressType]];
+            var addressType1 = "location_" + addressType;
+            document.getElementById(addressType1).value = val;
+
+        }
+
+    }
+
+
+}
+
+
+//google.maps.event.addDomListener(window, 'load', initialize);
+
+
+jQuery(document).ready(function () {
+
+    jQuery(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
+
+
+    var tab = 4;
+
+    /* jQuery('#link-tab-index-3, #link-tab-index-4, #link-tab-index-5').click(function(){
+     jQuery('#btnsavecontinue').trigger('click');
+     });*/
+
+    jQuery('#btnsavecontinue').click(function (e) {
+
+        jQuery('#form-description').attr('action', "{{path('set_location', {'type':'continue' , 'prop_pk':prop_pk})}}");
+    });
+
+    jQuery('#btnsave').click(function (e) {
+        jQuery('#form-description').attr('action', "{{path('set_location', {'type':'save' , 'prop_pk':prop_pk})}}");
+    });
+
+
+    jQuery('#location_country').change(function (e) {
+        jQuery.ajax({
+            url: '{{path('find_regions')}}',
+            type: "POST",
+            data: {country: jQuery(this).val()},
+            async: false,
+            success: function (response) {
+                jQuery('.state-region').html(response);
+            }
+        });
+        e.preventDefault();
+    });
+
+
+});
+
+
+</script>

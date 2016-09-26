@@ -1,0 +1,13 @@
+                           <div id="description"  class="anchor-profile"></div>
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12 text-muted" style="margin: 10px 0px">
+                                        <h2 class="property-title text-muted">{{property.propertyDetails.type.name}} Rental Description</h2><h3 class="propertyDesc">{{ property.propertydetails.bedrooms }}  {% transchoice  property.propertydetails.bedrooms %} {0} No Bedrooms|{1} Bedroom |]1,Inf] Bedrooms {% endtranschoice %}, {{ property.propertydetails.bathrooms }} {% transchoice  property.propertydetails.bathrooms %} {0} No Bathrooms|{1} Bathroom |]1,Inf] Bathrooms {% endtranschoice %}</h3> 
+                            </div>
+                                    
+                         <div class="col-md-12 col-xs-12">
+                         {{property.description.description| raw}}
+                            </div>
+                            </div>
+                       
+                       
+                    

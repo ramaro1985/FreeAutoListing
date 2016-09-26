@@ -1,0 +1,170 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<style>
+    hr {
+        width: 100%;
+        margin-bottom: 0px;
+        border-color: #D5D5D5;
+        border-bottom: 1px solid #D5D5D5;
+    }
+
+    textarea.form-control {
+        height: 100px;
+    }
+
+    .form-control {
+        border-radius: 0;
+    }
+
+    label {
+        padding-right: 0px;
+    }
+
+    #contactfront_userType label {
+        padding-right: 18px;
+        padding-left: 10px !important;
+    }
+
+    .asterik {
+        margin-left: -3px;
+        color: red;
+    }
+
+    .no_padding {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .rest_form div {
+        margin-top: 10px;
+    }
+
+</style>
+
+<div class="container" style="margin-top: 25px">
+    <div class="col-md-3 visible-lg visible-md">
+        <div class="col-xs-12 col-sm-6 col-md-12 no_padding">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+            <!-- FreeAutoListing Car Profile -->
+
+            <ins class="adsbygoogle"
+
+                 style="display:block"
+
+                 data-ad-client="ca-pub-7661672510407172"
+
+                 data-ad-slot="3129379241"
+
+                 data-ad-format="auto"></ins>
+
+            <script>
+
+                (adsbygoogle = window.adsbygoogle || []).push({});
+
+            </script>
+        </div>
+    </div>
+    <div class="col-md-9 no_padding">
+        <div class="col-md-12 text-left">
+            <p style="font-size: 16px;font-weight: 700">Contact Us</p>
+        </div>
+        <div class="col-md-12 text-left">
+            <form id="form-description"
+                  action="{{ path('contact_us') }}" {{ form_enctype(form) }}
+                  method="POST" class="form-horizontal">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <hr style="width: 100%;margin-bottom: 10px;margin-top: 5px;"/>
+                    </div>
+
+                    <div class="col-sm-2 col-xs-12">
+                        {{ form_label(form.userType) }}
+                    </div>
+
+                    <div class="col-sm-8 col-xs-12">
+                        {{ form_widget(form.userType) }}
+                    </div>
+
+                    <div class="col-sm-12 col-xs-12">
+                        <hr style="width: 100%;margin-bottom: 40px;margin-top: 5px;"/>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 text-left">
+                        <div class="" style="margin-bottom: 10px">
+
+                            {{ form_label(form.email) }} <span class="asterik">*</span>
+                            {{ form_widget(form.email) }}
+
+                        </div>
+
+                        <div class="" style="margin-bottom: 10px">
+
+                            {{ form_label(form.name) }} <span class="asterik">*</span>
+                            {{ form_widget(form.name) }}
+
+                        </div>
+
+                        <div class="" style="margin-bottom: 10px">
+
+                            {{ form_label(form.lastName) }} <span class="asterik">*</span>
+                            {{ form_widget(form.lastName) }}
+
+                        </div>
+
+                        <div class="" style="margin-bottom: 10px">
+
+                            {{ form_label(form.phone) }}
+                            {{ form_widget(form.phone) }}
+
+                        </div>
+
+                        <div class="" style="margin-bottom: 10px">
+
+                            {{ form_label(form.contacttime) }}
+                            {{ form_widget(form.contacttime) }}
+
+                        </div>
+                        <div class="" style="margin-bottom: 10px">
+
+                            {{ form_label(form.text) }} <span class="asterik">*</span>
+                            {{ form_widget(form.text) }}
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-xs-12 visible-lg visible-md"
+                         style="margin-top: 10px;">
+
+                        {{ form_widget(form.replied) }}
+                        {{ form_label(form.replied) }}
+
+                    </div>
+
+                    <div class="col-md-12 text-left visible-lg visible-md"
+                         style="margin-top: 10px;">
+                        <button id="btnsavecontinue" type="submit" class="btn btn-primary"
+                                style="background-color: #cb2020;border-color:transparent;color: white;border-radius: 0px;padding: 6px 25px;  margin-bottom: 10px;">
+                            SEND
+                        </button>
+                    </div>
+
+                    <div class="col-md-6 text-left visible-xs visible-sm"
+                         style="margin-top: 10px;">
+                        <button id="btnsavecontinue" type="submit" class="btn btn-primary"
+                                style="background-color: #cb2020;border-color:transparent;color: white;border-radius: 0px;padding: 6px;width: 100%;  margin-bottom: 15px;">
+                            SEND
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 text-left rest_form">
+                        {{ form_rest(form) }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 10px;margin-bottom: 20px">
+        <img class="img-responsive" src="{{ asset('bundles/common/images/banner-contact.jpg') }}"
+                />
+    </div>
+</div>
+</div>

@@ -1,0 +1,159 @@
+<div class="modal fade" id="myModalSupport{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Reply Ticket # {{serie}}</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formSupportContact" action="{{ path('admin_reply_contactowner_ticket', {'id': id, 'page': page}) }}" method="POST" class="form-horizontal">
+                    
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-12 col-xs-12 text-left">
+                            <label>Message</label>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <textarea class="form-control" id="mensaje" name="mensaje"></textarea>
+                        </div>
+
+                    </div>
+                    
+                    <input id="closeTicket" type="hidden" value=""> 
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12"><div id="error"></div></div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                       
+                        <button type="button" class="btn btn-primary confirm-send">Reply</button> 
+                        {%if status != 'inactive'%}<button type="button" class="btn btn-gradient-blue confirm-close" style="background-color: #5BA61A">Reply & Close Ticket</button>{%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+
+        jQuery('#myModalSupport{{id}} .confirm-close').click(function (){
+         jQuery('#myModalSupport{{id}} #formSupportContact #closeTicket').val('1');   
+         jQuery('#myModalSupport{{id}} #formSupportContact').attr('action', "{{path('admin_reply_close_contactowner_ticket', {'id': id, 'page': page})}}");   
+        });
+        
+        jQuery('#myModalSupport{{id}} .confirm-send').click(function (){
+          jQuery('#myModalSupport{{id}} #formSupportContact #closeTicket').val('0');   
+         jQuery('#myModalSupport{{id}} #formSupportContact').attr('action', "{{path('admin_reply_contactowner_ticket', {'id': id, 'page': page})}}");   
+        });
+
+
+        function disableFormContactReservation() {
+            jQuery('#myModalSupport{{id}} #formSupportContact').find('textarea').attr('disabled', 'disabled')
+            jQuery("#myModalSupport{{id}} #formSupportContact").css("opacity", 0.37);
+        }
+
+
+
+        function enableFormContactReservation() {
+            jQuery('#myModalSupport{{id}} #formSupportContact').find('textarea').val('');
+            jQuery('#myModalSupport{{id}} #formSupportContact').find('textarea').removeAttr('disabled');
+            jQuery("#myModalSupport{{id}} #formSupportContact").css("opacity", 1);
+        }
+
+        function submitFormContactReservation() {
+
+            jQuery.ajax({
+                statusCode: {
+                    500: function () {
+                        //enableFormConfirmReservation();
+                        jQuery('#myModalSupport{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:10px;color:#d9534f'></span><span class='text-danger'>There was an error, try again</span>");
+                    }
+                },
+                url: jQuery('#myModalSupport{{id}} #formSupportContact').attr('action'),
+                type: "POST",
+                data: {mensaje: jQuery('#myModalSupport{{id}} #formSupportContact #mensaje').val()},
+                async: false,
+                success: function (response) {
+                    jQuery('.replied{{id}}').removeClass('glyphicon-remove');
+                    jQuery('.replied{{id}}').removeClass('status-inactive');
+                    jQuery('.replied{{id}}').addClass('glyphicon-ok');
+                    jQuery('.replied{{id}}').addClass('status-active');
+                    
+                    if(jQuery('#myModalSupport{{id}} #formSupportContact #closeTicket').val() === '1'){
+                  
+                        jQuery('.status{{property.id}}').attr('class','status{{property.id}}');
+                        jQuery('.status{{property.id}}').addClass('text-active');
+                        jQuery('.status{{property.id}}').html('Closed');
+                    }
+                    enableFormContactReservation();
+                    jQuery('#myModalSupport{{id}}').modal('hide');
+                    
+                }
+            });
+        }
+
+
+        jQuery('#myModalSupport{{id}} .confirm-send').click(function (e) {
+           
+            validateFormContact();
+
+        });
+        
+          jQuery('#myModalSupport{{id}} .confirm-close').click(function (e) {
+           
+            validateFormContact();
+
+        });
+
+  jQuery('#myModalSupport{{id}}').find('textarea').each(function(){
+    jQuery(this).focusout(function(){
+    jQuery(this).popover('destroy');
+    });
+    });
+
+
+        function validateFormContact() {
+            var bValid = true;
+            bValid = bValid && checkLength(jQuery('#myModalSupport{{id}} #mensaje'), 5, 500);
+            if (bValid) {
+                disableFormContactReservation();
+                submitFormContactReservation();
+            }
+
+        }
+        
+          function checkLength(o, min, max) {
+            if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+                    return false;
+            } else {
+            return true;
+            }
+            }
+            
+                function createPopover(elem, text){
+                elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+            }
+
+    });
+
+
+
+
+
+
+</script>

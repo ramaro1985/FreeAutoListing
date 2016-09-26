@@ -1,0 +1,82 @@
+            
+
+
+<div class="col-md-4 col-xs-12" style="display: none">
+          {{ form_widget(form.photo) }}
+
+    </div>
+    <div class="col-md-3 col-xs-12 text-left">
+
+        <img class="upload thumbnail" id="{{form.vars.id}}" src="{{ asset('bundles/common/images/UploadNewFile.jpg') }}">           
+    </div>    
+    <div class="col-md-7 col-xs-12 text-left head" style="margin-bottom: 7px">
+        Description / Tittle
+    </div>
+
+    <div class="col-md-8 col-xs-12">
+     {{ form_widget(form.title) }}
+        </div>
+
+        <div class="col-md-2 col-xs-12" style="display: none">
+     {{ form_widget(form.orden) }}
+            </div>
+
+<style type="text/css">
+                        /* show the move cursor as the user moves the mouse over the picture.*/
+                        .thumbnail {
+                            cursor: move;
+                        }
+
+
+                    </style>
+
+            <script type="text/javascript">
+            var posy;  var dragging = false;                
+                       jQuery(document).ready(function() {    
+                           
+              jQuery(".upload").click(function(){                  
+                  //if(jQuery(this).offset().top == posy){
+                  if(!dragging){
+                  var $element_id = jQuery(this).attr("id");                  
+                   jQuery("#"+$element_id +"_photo").trigger("click");   
+                     }
+                       }); 
+           //protoypegallery
+           jQuery(".upload").mousedown(function(){
+                   //posy = jQuery(this).offset().top;                                      
+                   dragging = false; 
+               });           
+               
+                          jQuery(function($) {
+                    var panelList = jQuery('.periods');
+
+                    panelList.sortable({
+                        // Only make the .panel-heading child elements support dragging.
+                        // Omit this to make then entire <li>...</li> draggable.
+                        handle: '.thumbnail', 
+                        update: function() {
+                            jQuery('.list', panelList).each(function(index, elem) {
+                                 var $listItem = jQuery(elem),
+                                     newIndex = $listItem.index();
+
+                                 // Persist the new indices.
+                                 //alert(index);
+                                // jQuery('#gallery_propertyImages_'+index+'_order').val(newIndex); 
+                              jQuery($listItem.find('input')[2]).val(newIndex);
+                            });
+                        },
+                        over: function( event, ui ) {
+                        dragging = true;                          
+                      }
+                    });
+                });
+                      
+                  
+       
+                     });   
+         
+         
+         
+               
+         
+                </script>

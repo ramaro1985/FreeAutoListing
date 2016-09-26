@@ -1,0 +1,197 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <br>
+
+            <div class="col-md-2 no_padding">
+                <img class="" src="{{ asset('bundles/common/images/private-profile.jpg') }}" alt="Home"/>
+            </div>
+            <div class="col-md-3 pull-left" style="padding-left: 0px">
+                <span style="color: #000000;font-family: Calibri; font-weight: bold;font-variant: inherit; font-size: 20px;font-weight: lighter;">{{ user.name }}
+                    &nbsp;{{ user.lastName }}</span>
+                <br>
+                <ul class="list-unstyled">
+                    <br>
+                    <li>
+                        <span style="color: #000000;font-family: Calibri; font-weight: bold;font-variant: inherit; font-size: 14px;font-weight: lighter;">Phone: {{ user.phone }}</span>
+                    </li>
+                    <li>
+                        <span style="color: #000000;font-family: Calibri; font-weight: bold;font-variant: inherit; font-size: 14px;font-weight: lighter;">Email: {{ user.email }}</span>
+                    </li>
+                    <li>
+                        <span style="color: #000000;font-family: Calibri; font-weight: bold;font-variant: inherit; font-size: 14px;font-weight: lighter;">Password: <span
+                                    style="font-weight: bold;font-style: normal;color: black">...........</span></span>
+                    </li>
+                </ul>
+            </div>
+
+            <input type="hidden" id="open_modal" value="{{ open_modal }}">
+            <input type="hidden" id="pass_change" value="{{ pass_change }}">
+            <input type="hidden" id="edit_profile_succes" value="{{ edit_profile_succes }}">
+
+            <div class="col-md-7">
+                <div class="col-md-6 col-md-offset-2">
+                    <br>
+                    <a href="javascript:void(0)" id="change_pass"
+                       data-toggle="modal"
+                       data-target="#myPassword"
+                       class="btn btn_edit btn-block">
+                        CHANGE PASSWORD
+                    </a>
+
+                    <div class="form-group" style="margin-top: 10px">
+                        <div class="alert hide" id="succes_password"
+                             style="background-color: #A6CFC9">
+                            <button type="button" class="close"
+                                    data-dismiss="alert">&times;</button>
+                            <strong>Succes!</strong> Your Password has been changed.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <br>
+                    <a href="javascript:void(0)" id="edit_profile_a"
+                       data-toggle="modal"
+                       data-target="#myProfile"
+                       class="btn btn_edit btn-block">
+                        EDIT PROFILE
+                    </a>
+                    <div class="form-group" style="margin-top: 10px">
+                        <div class="alert hide" id="profile_succes"
+                             style="background-color: #A6CFC9">
+                            <button type="button" class="close"
+                                    data-dismiss="alert">&times;</button>
+                            <strong>Succes!</strong> Your Profile has been changed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myPassword" tabindex="-1" role="dialog"
+     aria-labelledby="myPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myPasswordLabel">Change password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <fieldset>
+                        <div class="row">
+                            <form id="form-change-password"
+                                  action="{{ path('my_account') }}" {{ form_enctype(form) }}
+                                  method="POST" class="form-horizontal" style="margin-top: 20px">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('change_password') }}">
+
+                                <div class="form-group">
+
+                                    <div class="col-sm-12">
+                                        {{ form_errors(form.current_password) }}
+                                        {{ form_errors(form.plainPassword) }}
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.current_password) }}
+
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 20px">
+
+                                    <div class="col-sm-12">
+                                        {{ form_widget(form.plainPassword) }}
+                                    </div>
+                                </div>
+                                <input type="hidden" id="edit_profile" name="edit_profile" value="no">
+
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                    </div>
+                                </div>
+                                {{ form_rest(form) }}
+                            </form>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myProfile" tabindex="-1" role="dialog"
+     aria-labelledby="myProfileLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: lightgrey">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myPasswordLabel">Edit Profile</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <fieldset>
+                        <div class="row">
+                            <form id="form-edit-profile"
+                                  action="{{ path('my_account') }}"
+                                  method="POST" class="form-horizontal" style="margin-top: 20px">
+
+                                <div class="form-group" style="margin-bottom: 20px">
+                                    <div class="col-sm-12">
+                                        <input id="name" class="form-control" type="text" value="{{ user.name }}"
+                                               required="required" name="name">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 20px">
+                                    <div class="col-sm-12">
+                                        <input id="lastname" class="form-control" type="text"
+                                               value="{{ user.lastname }}" required="required" name="lastname">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 20px">
+                                    <div class="col-sm-12">
+                                        <input id="phone" class="form-control" type="text"
+                                               value="{{ user.phone }}" required="required" name="phone">
+                                    </div>
+                                </div>
+                                <input type="hidden" id="edit_profile" name="edit_profile" value="yes">
+
+                                <div class="form-group" style="margin-bottom: 20px">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Edit Profile</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        if (jQuery('#open_modal').val() == 1) {
+            jQuery('#change_pass').trigger('click');
+        }
+        if (jQuery('#pass_change').val() == 1) {
+            jQuery('#succes_password').removeClass('hide');
+        } else {
+            jQuery('#succes_password').addClass('hide');
+        }
+        if (jQuery('#edit_profile_succes').val() == 1) {
+            jQuery('#profile_succes').removeClass('hide');
+        } else {
+            jQuery('#profile_succes').addClass('hide');
+        }
+
+    })
+</script>

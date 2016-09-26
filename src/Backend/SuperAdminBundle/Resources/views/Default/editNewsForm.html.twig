@@ -1,0 +1,17 @@
+{% extends "SuperAdminBundle:Layout:user-admin.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }}
+
+ {% endblock %}
+ {% block header %}{{ include('CommonBundle:Default:header-admin.html.twig') }} {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+  {% block filters %} {{ include('SuperAdminBundle:Default:breadcrums-news.html.twig') }}{% endblock %}
+ {% block body %}
+
+{{ include('SuperAdminBundle:Default:editNewsForm-content.html.twig') }}  
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 

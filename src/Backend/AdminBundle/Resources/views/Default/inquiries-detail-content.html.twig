@@ -1,0 +1,175 @@
+<header>
+    <div class="row">                            
+    <div class="col-md-12 col-xs-12">
+                                    <ul class="breadcrumb breadcrumb-cap">
+                                     
+                                       
+                                            <li class="">
+                                         
+                                                <a href="{{ path('admin_user_inquiries',{'id': prop_pk,'filtro':filtro}) }}">Inquiries</a>
+                                                <img src="{{ asset('bundles/common/images/line1.jpg') }}">
+                                                
+                                            
+                                        </li>
+                                        <li class="active">{{ inquiry.guest }}</li>
+                                    
+                                    </ul>
+           
+                                    </div>
+            </div>
+        <div  id="tools-container" class="container-fluid"> 
+        <div class="col-md-12 col-xs-12" >
+        
+                                                 <div class="toolbar-list clearfix">    
+                                     
+                                                <ul class="btn-toolbar">
+                                                
+                                                   
+                                          
+                                                    
+                                     
+                                           
+                                            
+                                          
+                                                    
+                                              
+                                                </ul>
+                                            </div>
+                </div>
+                </div>
+              
+                                        </header>
+
+<div id="container" class="container-fluid container-list">
+   <div class="row reply" style="margin: 0px 17px 0 17px">
+         
+    </div>
+        <div class="list-row">
+        
+         
+                
+        <div  class="row" style="margin: 20px 17px 0 17px; padding: 0; border-top: solid 1px #CCC;">
+            <div class="col-md-12 col-xs-12"> <h2>{{inquiry.guest}} {{inquiry.lastName}}<span style="margin-left: 20px"><small><em> {{inquiry.dateCreated | date("F jS \\,\\ Y")}}</em></small></span></h2></div>
+        <div class="col-md-12 col-xs-12"> <p>{{inquiry.text}}</p></div>
+         </div>
+         
+                
+                
+       <div  class="row" style="margin: 0 17px; padding: 15px 0;">
+           <div class="col-md-7 col-xs-12" style="border-top-style: dotted; border-top-width: 2px;border-top-color:#999999 ;  padding: 15px 15px;"> 
+                <div  class="row">
+                    <div class="col-md-6 col-xs-12"> Property </div>
+                    <div class="col-md-6 col-xs-12"> <a href="{{ path('editPropertyHome' , {'id': inquiry.property.serie}) }}">{{inquiry.property.description.name}}</a></div>
+                </div>
+                    <div  class="row">
+                    <div class="col-md-6 col-xs-12"> Stay Dates</div>
+                    <div class="col-md-6 col-xs-12 text-muted"> {{inquiry.startDate | date("F jS \\,\\ Y")}} - {{inquiry.endDate| date("F jS \\,\\ Y")}}</div>
+                </div>
+                    <div  class="row">
+                    <div class="col-md-6 col-xs-12"> # in Party</div>
+                    <div class="col-md-6 col-xs-12 text-muted"> {{ inquiry.adults }} including {{ inquiry.children }} children</div>
+                </div>
+                    <div  class="row">
+                    <div class="col-md-6 col-xs-12"> Email</div>
+                    <div class="col-md-6 col-xs-12 text-muted"> {{ inquiry.email }}</div>
+                </div>
+                    <div  class="row">
+                    <div class="col-md-6 col-xs-12"> Phone</div>
+                    <div class="col-md-6 col-xs-12 text-muted"> {{ inquiry.phone }}</div>
+                </div>
+            </div>
+        
+         </div>
+            
+            <div  class="row" style="margin: 0 17px; padding: 15px 0;">
+            <div class="col-md-9 col-xs-12" >
+                 
+                <div class="btn-group">
+                    <a id="resp{{inquiry.id}}" type="button" class="btn btn-default">Reply</a>
+                </div>
+                     
+                      {% if inquiry.booked != true %}
+                    <div class="btn-group">
+                <a id="btnBookit" type="button" class="btn btn-default">Book it!</a>
+                </div>
+                    {% endif  %}
+                    <div class="btn-group hide">
+                <a id="btnCalendar" type="button" class="btn btn-default">Add to calendar</a>
+                </div>
+                    
+                    <div class="btn-group">
+                <a id="btnAddnote" type="button" class="btn btn-default">Add note</a>
+                </div>
+            </div>
+           </div>
+            
+            <div id="form{{inquiry.id}}" class="row form hide" style="margin: 15px 17px; padding: 15px 0;">
+         
+                    
+             {{ render(controller('AdminBundle:Default:replyForm' , {'id':inquiry.id})) }}
+    
+ 
+           </div>
+            {% if inquiry.booked != true %}
+             <div id="form-inquiry" class="row hide" style="margin: 15px 17px; padding: 15px 0;">
+               
+                {{ render(controller('AdminBundle:Default:bookitForm' , {'id':inquiry.id})) }}      
+           
+           </div>
+                   {% endif  %}
+            
+            
+            <div id="formNote" class="row hide" style="margin: 15px 17px; padding: 15px 0;">
+            {{ render(controller('AdminBundle:Default:inquiryNoteForm', {'id':inquiry.id})) }}
+          </div>
+            
+            
+            <div class="form-group reservation-success hide text-left" style="margin-bottom: 10px">
+ 
+         <div class="col-sm-offset-3  col-xs-7 text-success">
+      Reservation created 
+    </div>
+     
+  </div>
+    </div>
+       
+   <div class="row notes" style="margin: 0px 17px 0 17px">
+         
+    </div>
+</div>
+<script type="text/javascript">
+
+ jQuery(document).ready(function(){ 
+ 
+ 
+           jQuery('#resp'+{{inquiry.id}}).click(function(){
+           jQuery('#form-inquiry').addClass('hide');
+           jQuery('#formNote').addClass('hide');
+           jQuery('.form').removeClass('hide');
+           
+            });
+            
+            
+             jQuery('#btnBookit').click(function(){
+           jQuery('.form').addClass('hide');  
+           jQuery('#formNote').addClass('hide');
+           jQuery('#form-inquiry').removeClass('hide');
+            });
+            
+               jQuery('#btnAddnote').click(function(){
+           jQuery('.form').addClass('hide'); 
+           jQuery('#form-inquiry').addClass('hide');
+           jQuery('#formNote').removeClass('hide');
+            });
+           
+           
+           jQuery(".reply").load("{{path('inquiry_replys', {'id':inquiry.id} )}}");
+           
+           jQuery(".notes").load("{{path('inquiry_notes', {'id':inquiry.id} )}}");
+            
+            
+                
+            });      
+            
+            
+            </script>

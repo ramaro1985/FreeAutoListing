@@ -1,0 +1,467 @@
+admin_admin_homepage:
+ pattern:  /secured/admin
+ defaults: { _controller: SuperAdminBundle:Default:admin }
+
+admin_user_homepage:
+    pattern:  /secured/
+    defaults: { _controller: AdminBundle:Default:index }
+
+admin_user_dashboard:
+    pattern:  /secured/dashboard/
+    defaults: { _controller: AdminBundle:FALManageDashBoard:dashboard }
+
+admin_wrong_area:
+    pattern:  /secured/wrongarea/
+    defaults: { _controller: AdminBundle:Default:wrongArea }
+
+fos_create_user:
+    pattern:  /register/
+    defaults: { _controller: FOSUserBundle:Registration:register }
+    
+admin_router:
+    pattern:  /secured/router/
+    defaults: { _controller: AdminBundle:Default:router }    
+    
+    
+admin_user_inquiries:
+    pattern:  /secured/inquiries/{id}/{filtro}
+    defaults: { _controller: AdminBundle:Default:inquiries }  
+
+    
+admin_user_inquiries_detail:
+    pattern:  /secured/inquiries/{prop_pk}/detail/{id}/{filtro}
+    defaults: { _controller: AdminBundle:Default:inquiriesDetail }  
+    
+admin_user_personal:
+    pattern:  /secured/news/{filtro}
+    defaults: { _controller: AdminBundle:Default:personalInfo }   
+    
+admin_news_detail:
+    pattern:  /secured/news/detail/{id}
+    defaults: { _controller: AdminBundle:Default:newsDetail }     
+    
+admin_user_reservations:
+    pattern:  /secured/reservations/{id}/{filtro}
+    defaults: { _controller: AdminBundle:Default:reservations }   
+    
+create_reservation_owner:
+    pattern:  /secured/reservation/create/{id}/{filtro}
+    defaults: { _controller: AdminBundle:Default:createReservation }   
+    
+create_reservation_calendar:
+    pattern:  /secured/calendar/reservation/create
+    defaults: { _controller: AdminBundle:Default:createReservationCalendar }
+    
+create_reservation_inquiry:
+    pattern:  /secured/inquiry/reservation/create
+    defaults: { _controller: AdminBundle:Default:createReservationInquiry }      
+
+edit_reservation:
+    pattern:  /secured/reservation/edit/{id}
+    defaults: { _controller: AdminBundle:Default:editReservation }      
+    
+reply_inquiry_form:
+    pattern:  /secured/inquiry/form/{id}
+    defaults: { _controller: AdminBundle:Default:replyInquiryForm }
+    
+reply_inquiry_list_form:
+    pattern:  /secured/inquiry/list/form/{id}
+    defaults: { _controller: AdminBundle:Default:replyInquiryListForm }    
+    
+book_inquiry_form:
+    pattern:  /secured/inquiry/book/{id}
+    defaults: { _controller: AdminBundle:Default:bookInquiryForm } 
+    
+admin_user_calendar:
+    pattern:  /secured/calendar/{id}
+    defaults: { _controller: AdminBundle:Default:calendar }
+    
+admin_user_calendar_month:
+    pattern:  /secured/calendarmonth/{id}
+    defaults: { _controller: AdminBundle:Default:calendarMonth }    
+    
+admin_user_reviews:
+    pattern:  /secured/reviews/{id}/{filtro}/
+    defaults: { _controller: AdminBundle:Default:reviews }
+    
+create_review:
+    pattern:  /secured/review/create/
+    defaults: { _controller: AdminBundle:Default:createReview }
+
+edit_review:
+    pattern:  /secured/review/edit/{id}
+    defaults: { _controller: AdminBundle:Default:editReview }
+    
+edit_user_profile:
+    pattern:  /secured/account/edit/{uid}
+    defaults: { _controller: AdminBundle:Default:editUserProfile }     
+    
+admin_user_settings:
+    pattern:  /secured/settings/
+    defaults: { _controller: AdminBundle:Default:settings }
+    
+admin_user_account:
+    pattern:  /secured/account/
+    defaults: { _controller: AdminBundle:Default:account }
+    
+admin_user_tools:
+    pattern:  /secured/tools/
+    defaults: { _controller: AdminBundle:Default:tools }
+    
+    
+editPropertyHome:
+    pattern:  /secured/property/{id}
+    defaults: { _controller: AdminBundle:Default:dashboard }      
+    
+listProperties:
+    pattern:  /secured/listing/{id}/{path}/{root}/{param}/{type}
+    defaults: { _controller: AdminBundle:Default:listProperties, param: null, type: null}
+    
+addProperty:
+    pattern:  /secured/property/add/
+    defaults: { _controller: AdminBundle:Default:addProperty }
+    
+property_edit_list:
+    pattern:  /secured/property/list/
+    defaults: { _controller: AdminBundle:Default:listing }
+    
+property_inquiries_list:
+    pattern:  /secured/property/inquiries/list/
+    defaults: { _controller: AdminBundle:Default:listingInquiries }    
+    
+property_reservations_list:
+    pattern:  /secured/property/reservations/list/
+    defaults: { _controller: AdminBundle:Default:listingReservations }   
+    
+property_calendar_list:
+    pattern:  /secured/property/calendar/list/
+    defaults: { _controller: AdminBundle:Default:listingCalendar }   
+    
+property_deactivate_list:
+    pattern:  /secured/property/deactivate/list/
+    defaults: { _controller: AdminBundle:Default:listingDeactivate }      
+    
+property_reviews_list:
+    pattern:  /secured/property/reviews/list/
+    defaults: { _controller: AdminBundle:Default:listingReviews }     
+    
+create_property:
+    pattern:  /secured/profile/details/create/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:Default:createProperty }
+    
+createDealerMobile:
+    pattern:  /secured/profile/create/{type}-{step}/{prop_pk}
+    defaults: { _controller: AdminBundle:FAL:createDealerMobile, type: save }
+
+set_description:
+    pattern:  /secured/profile/details/edit/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:FAL:description }
+
+set_location:
+    pattern:  /secured/profile/location/edit/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:FAL:location }
+
+set_amenities:
+    pattern:  /secured/profile/amenities/edit/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:FAL:services_amenities }
+
+set_feeds:
+    pattern:  /secured/profile/feeds/edit/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:FAL:feeds }
+
+set_gallery:
+    pattern:  /secured/profile/gallery/edit/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:FAL:gallery }
+
+upload_multiple:
+    pattern:  /secured/property/upload-multiple/{prop_pk}
+    defaults: { _controller: AdminBundle:FAL:uploadMultiple }
+
+
+upload_multiple_vehicle:
+    pattern:  /secured/property/upload-multiple-vehicles-images/{prop_pk}/{vehicle_id}
+    defaults: { _controller: AdminBundle:Vehicle:uploadMultipleVehicleImages }
+
+create_location_property:
+    pattern:  /secured/property/location/create/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:Default:createLocationProperty }
+    
+edit_location_property:
+    pattern:  /secured/property/location/edit/{type}/{id}
+    defaults: { _controller: AdminBundle:Default:editLocationProperty }     
+
+create_amenities_property:
+    pattern:  /secured/property/amenities/create/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:Default:createAmenitiesProperty }
+    
+edit_amenities_property:
+    pattern:  /secured/property/amenities/edit/{type}/{id}
+    defaults: { _controller: AdminBundle:Default:editAmenitiesProperty } 
+    
+create_policies_property:
+    pattern:  /secured/property/policies/create/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:Default:createPoliciesProperty }
+    
+edit_policies_property:
+    pattern:  /secured/property/policies/edit/{type}/{id}
+    defaults: { _controller: AdminBundle:Default:editPoliciesProperty }    
+    
+create_rates_property:
+    pattern:  /secured/property/rates/create/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:Default:createRatesProperty }
+    
+edit_rates_property:
+    pattern:  /secured/property/rates/edit/{type}/{id}
+    defaults: { _controller: AdminBundle:Default:editRatesProperty }      
+
+create_calendar_property:
+    pattern:  /secured/property/calendar/create/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:Default:createCalendarProperty }
+    
+edit_calendar_property:
+    pattern:  /secured/property/calendar/edit/{type}/{id}
+    defaults: { _controller: AdminBundle:Default:editCalendarProperty } 
+    
+create_gallery_property:
+    pattern:  /secured/property/gallery/create/{type}/{prop_pk}
+    defaults: { _controller: AdminBundle:Default:createGalleryProperty }
+    
+edit_gallery_property:
+    pattern:  /secured/property/gallery/edit/{type}/{id}
+    defaults: { _controller: AdminBundle:Default:editGalleryProperty }    
+    
+create_vehicle_basic_info:
+    pattern:  /secured/profile/vehicle/edit/information/{type}/{prop_pk}/{vehicle_id}
+    defaults: { _controller: AdminBundle:Vehicle:vehicleInformatcion }
+
+vehicle_options:
+    pattern:  /secured/profile/vehicle/edit/options/{type}/{prop_pk}/{vehicle_id}
+    defaults: { _controller: AdminBundle:Vehicle:vehicleOptions }
+
+vehicle_seller_comments:
+    pattern:  /secured/profile/vehicle/edit/sellers/{type}/{prop_pk}/{vehicle_id}
+    defaults: { _controller: AdminBundle:Vehicle:vehicleSellerComments }
+
+vehicle_warranty:
+    pattern:  /secured/profile/vehicle/edit/warranty/{type}/{prop_pk}/{vehicle_id}
+    defaults: { _controller: AdminBundle:Vehicle:vehicleWarranty}
+
+vehicle_gallery:
+    pattern:  /secured/profile/vehicle/edit/gallery/{type}/{prop_pk}/{vehicle_id}
+    defaults: { _controller: AdminBundle:Vehicle:vehicleGallery }
+
+reply_form:
+    pattern:  /secured/inquiry/reply/form/{id}
+    defaults: { _controller: AdminBundle:Default:replyForm }
+    
+save_inquiry_reply:
+    pattern:  /secured/inquiry/reply/save
+    defaults: { _controller: AdminBundle:Default:saveInquiryReply } 
+    
+update_new_inquiry:
+    pattern:  /secured/inquiry/update/
+    defaults: { _controller: AdminBundle:Default:updateNewInquiry }   
+    
+update_new_review:
+    pattern:  /secured/review/update/
+    defaults: { _controller: AdminBundle:Default:updateNewReview }      
+    
+save_inquiry_note:
+    pattern:  /secured/inquiry/note/save
+    defaults: { _controller: AdminBundle:Default:saveInquiryNote } 
+    
+save_review_reply:
+    pattern:  /secured/review/reply/save
+    defaults: { _controller: AdminBundle:Default:saveReviewReply }       
+
+calendar_reservations:
+  pattern:  /secured/property/reserved/
+  defaults: { _controller: AdminBundle:Default:getreservedDays } 
+  
+generate_form:
+    pattern:  /secured/property/edit/{type}/{id}
+    defaults: { _controller: AdminBundle:Default:generateForm }  
+
+inquiry_notes:
+  pattern:  /secured/inquiry/notes/{id}
+  defaults: { _controller: AdminBundle:Default:notes } 
+  
+inquiry_replys:
+  pattern:  /secured/inquiry/replys/{id}
+  defaults: { _controller: AdminBundle:Default:replys } 
+  
+create_user_request:
+    pattern:  /secured/profile/deactivate/request/
+    defaults: { _controller: AdminBundle:FALManageDashBoard:createUserRequest }
+
+find_makes_by_year:
+    pattern: /secured/profile/find/makes/
+    defaults: { _controller: AdminBundle:Vehicle:findMakes }
+
+find_models_by_make:
+    pattern: /secured/profile/find/models/
+    defaults: { _controller: AdminBundle:Vehicle:findModels }
+
+find_trims_by_model:
+    pattern: /secured/profile/find/trims/
+    defaults: { _controller: AdminBundle:Vehicle:findTrims }
+set_trims_session:
+    pattern: /secured/profile/find/set_trims/
+    defaults: { _controller: AdminBundle:Vehicle:SetTrimSession }
+
+find_regions:
+    pattern:  /secured/property/edit/country/regions/
+    defaults: { _controller: AdminBundle:Default:findRegions }      
+    
+find_cities:
+    pattern:  /secured/property/edit/country/regions/cities/
+    defaults: { _controller: AdminBundle:Default:findCities }    
+    
+confirm_reservation:
+    pattern:  /secured/reservation/confirm/
+    defaults: { _controller: AdminBundle:Default:confirmReservation }
+    
+cancel_reservation:
+    pattern:  /secured/reservation/cancel/
+    defaults: { _controller: AdminBundle:Default:cancelReservation }    
+    
+contact_reservation_guest:
+    pattern:  /secured/reservation/contact/
+    defaults: { _controller: AdminBundle:Default:contactReservationGuest }  
+    
+contact_owner_support:
+    pattern:  /secured/owner/contact/
+    defaults: { _controller: AdminBundle:Default:contactOwnerSupport }     
+    
+contact_form:
+    pattern:  /secured/property/user/contact
+    defaults: { _controller: AdminBundle:Default:contactForm }     
+    
+edit_contact_form:
+    pattern:  /secured/property/user/contact/edit/{id}
+    defaults: { _controller: AdminBundle:Default:contactEditForm }    
+    
+period_form:
+    pattern:  /secured/property/period/add
+    defaults: { _controller: AdminBundle:Default:periodForm }
+    
+edit_period_form:
+    pattern:  /secured/property/period/edit/
+    defaults: { _controller: AdminBundle:Default:editPeriodForm } 
+    
+edit_period_standard_form:
+    pattern:  /secured/property/standardperiod/edit/
+    defaults: { _controller: AdminBundle:Default:editPeriodStandardForm }     
+    
+delete_period:
+    pattern:  /secured/property/period/edit/delete/
+    defaults: { _controller: AdminBundle:Default:deletePeriod }     
+    
+save_image:
+    pattern:  /secured/property/gallery/image/save/
+    defaults: { _controller: AdminBundle:Default:saveImage }     
+
+new_image_form:
+    pattern:  /secured/property/gallery/image/form/new
+    defaults: { _controller: AdminBundle:Default:newImageForm }     
+    
+image_multiple_form:
+    pattern:  /secured/property/gallery/image/form/multiple
+    defaults: { _controller: AdminBundle:Default:newImageMultipleForm }
+
+verify_profile_tab:
+    pattern: /verify-tab
+    defaults: { _controller: AdminBundle:FAL:verifyTab }
+
+profile_view:
+    pattern:  /secured/profile/view/{prop_pk}
+    defaults: { _controller: AdminBundle:FALManageDashBoard:renderDealerInformation }
+
+dealer_vehicles_content:
+    pattern:  /secured/profile/view/vehicles/content/{prop_pk}
+    defaults: { _controller: AdminBundle:Vehicle:dealerVehiclescontent }
+
+dealer_imbox:
+    pattern:  /secured/profile/dealer_imbox/{type}
+    defaults: { _controller: AdminBundle:FALManageDashBoard:dealerImbox }
+
+dealer_imbox_load:
+    pattern:  /secured/profile/dealer_imbox_load
+    defaults: { _controller: AdminBundle:FALManageDashBoard:dealerImboxLoad }
+
+email_content:
+    pattern:  /secured/profile/email_content/{mail_id}
+    defaults: { _controller: AdminBundle:FALManageDashBoard:emailContent }
+
+private_add_car:
+        pattern:  /secured/private/add-car/{type}/{vehicle_id}
+        defaults: { _controller: PrivateSellerBundle:Default:addCar }
+
+user_vehicles_content:
+    pattern:  /secured/private/view/vehicles/content/{user_id}
+    defaults: { _controller: PrivateSellerBundle:Default:userVehiclescontent }
+
+private_create_vehicle_basic_info:
+    pattern:  /secured/private/vehicle/edit/{type}/{vehicle_id}
+    defaults: { _controller: PrivateSellerBundle:Vehicle:vehicleInformatcion }
+
+private_vehicle_options:
+    pattern:  /secured/private/vehicle/edit/options/{type}/{vehicle_id}
+    defaults: { _controller: PrivateSellerBundle:Vehicle:vehicleOptions }
+
+private_vehicle_gallery:
+    pattern:  /secured/private/vehicle/edit/gallery/{type}/{vehicle_id}
+    defaults: { _controller: PrivateSellerBundle:Vehicle:vehicleGallery }
+
+private_vehicle_seller_comments:
+    pattern:  /secured/private/vehicle/edit/sellers/{type}/{vehicle_id}
+    defaults: { _controller: PrivateSellerBundle:Vehicle:vehicleSellerComments }
+
+private_vehicle_warranty:
+    pattern:  /secured/private/vehicle/edit/warranty/{type}/{vehicle_id}
+    defaults: { _controller: PrivateSellerBundle:Vehicle:vehicleWarranty}
+
+private_new_image_form:
+    pattern:  /secured/private/gallery/image/form/new
+    defaults: { _controller: PrivateSellerBundle:Vehicle:newImageForm }
+
+private_save_image:
+    pattern:  /secured/private/gallery/image/save/
+    defaults: { _controller: PrivateSellerBundle:Vehicle:saveImage }
+
+private_upload_multiple_vehicle:
+    pattern:  /secured/private/upload-multiple-vehicles-images/{vehicle_id}
+    defaults: { _controller: PrivateSellerBundle:Vehicle:uploadMultipleVehicleImages }
+
+my_account:
+    pattern:  /secured/profile/my-account/
+    defaults: { _controller: AdminBundle:Default:myAccount }
+
+user_imbox:
+    pattern:  /secured/private/user_inbox/{type}
+    defaults: { _controller: PrivateSellerBundle:Default:userImbox }
+
+user_email_content:
+    pattern:  /secured/private/email_content/{mail_id}
+    defaults: { _controller: PrivateSellerBundle:Default:emailContent }
+
+car_details_dashboard:
+    pattern:  /secured/dashboard/car/detail/{serie}
+    defaults: { _controller: AdminBundle:FALManageDashBoard:renderCarDetails }
+
+private_car_details_dashboard:
+    pattern:  /secured/private/dashboard/car/detail/{serie}
+    defaults: { _controller: PrivateSellerBundle:Default:renderCarDetails }
+
+delete_vehicle_profile:
+    pattern:  /secured/dashboard/car/delete/{vehicle_id}
+    defaults: { _controller: AdminBundle:Vehicle:deleteVehicleProfile }
+
+private_saved_cars:
+    pattern:  /secured/private/saved/cars/
+    defaults: { _controller: PrivateSellerBundle:Default:savedCars }
+
+dealer_reviews:
+    pattern:  /secured/profile/reviews/{prop_pk}
+    defaults: { _controller: AdminBundle:Default:profileReviews }
+

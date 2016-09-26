@@ -1,0 +1,37 @@
+{% extends "AdminBundle:Layout:new-profile-layout.html.twig" %}
+{% block title %}Free Auto Listing | Add new Car{% endblock %}
+{% block stylesheets %} {{ parent() }}
+    <link href="{{ asset('bundles/common/css/movil-search-result-style.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/upload/vendor/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/upload/load-image.all.min.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/upload/canvas-to-blob.min.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/upload/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/upload/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-process.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-image.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/upload/jquery.fileupload-validate.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/jquery.bxslider.min.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+ {% block body %}
+     <div class="visible-lg visible-md">
+         {% if not ismobile %}
+                 {{ include('AdminBundle:Default:content-header.html.twig') }}
+                 {{ include('AdminBundle:VehicleForm:vehicle-information-content.html.twig') }}
+         {% endif %}
+     </div>
+     <div class="visible-xs visible-sm">
+
+             {% if ismobile %}
+                 {{ include('AdminBundle:Default:user-menu-movil.html.twig') }}
+                 {{ include('AdminBundle:VehicleForm:Mobile/vehicle-information-content-movile.html.twig') }}
+             {% endif %}
+
+     </div>
+ {% endblock %}
+ {% block footer %}{{ parent() }}  {% endblock %}

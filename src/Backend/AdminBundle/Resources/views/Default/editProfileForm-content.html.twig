@@ -1,0 +1,433 @@
+<div id="container" class="container-fluid properties-container">
+
+
+<div class="row" style="margin-left: 5px; margin-top: 30px">
+    <div class="col-md-12 col-sm-12">
+
+        <ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+            <div id="photos" class="anchor-profile-photo"></div>
+            <li class="">
+                <div class="btn-group">
+
+                    <a id="link-tab-index-1" href="#description" class="btn btn-primary b2b active">
+                        Profile Details <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                              aria-hidden="true" style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+            <li class="">
+                <div class="btn-group">
+
+                    <a id="link-tab-index-2" href="#location" class="btn btn-default">
+                        Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true"
+                                       style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+
+
+            <li class="">
+                <div class="btn-group">
+                    <a id="link-tab-index-3" href="#amenities" class="btn btn-default b3b">
+                        Services & Amenities<span class="glyphicon glyphicon-list glyphicon-align-right"
+                                                  aria-hidden="true" style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+            <li class="">
+                <div class="btn-group">
+                    <a id="link-tab-index-4" href="#payments" class="btn btn-default b7b">
+                        Social Media & Web <span class="glyphicon glyphicon-credit-card glyphicon-align-right"
+                                                 aria-hidden="true" style="margin-left: 10px;"></span>
+                    </a>
+                </div>
+            </li>
+
+
+        </ul>
+
+    </div>
+</div>
+
+<div class="row">
+<div class="col-md-12  text-center">
+<form id="form-description"
+      action="{{ path('edit_property' , {'type': 'description', 'id': id }) }}" {{ form_enctype(form) }} method="POST"
+      class="form-horizontal formulario" style="margin-top: 20px">
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+<div class="col-md-12 col-xs-12">
+    <div class="form-group">
+
+        <div class="col-md-11 col-xs-12 text-left">
+            <p>Let's get started! Name your property and tells us some of the basics, including size, number of
+                bedrooms, and how you would like to be contacted. You can edit or update page as often as required. Make
+                sure to click "Save" when you're finished!</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12 col-xs-12">
+    <div class="form-group">
+        <div class="col-md-12 col-xs-12 text-left form-title">
+            Dealership Information
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12  text-center">
+
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.name) }}<span style="color: red">*</span>
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.name) }}
+
+        </div>
+
+
+    </div>
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.tagline) }}<span style="color: red">*</span>
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.tagline) }}
+
+        </div>
+
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.description) }}<span style="color: red">*</span>
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.description) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.description) }}
+
+        </div>
+    </div>
+
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.hours) }}<span style="color: red">*</span>
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.hours) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.hours) }}
+
+        </div>
+    </div>
+
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.photo) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.photo) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.photo) }}
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="col-md-12 col-xs-12">
+    <hr>
+    <div class="form-group">
+        <div class="col-md-12 col-xs-12 text-left form-title">
+            Contact Information
+        </div>
+    </div>
+
+</div>
+<div class="col-md-12 col-xs-12" style="margin-bottom: 20px">
+
+    <div class="form-group">
+        <div class="col-md-5 col-xs-12 text-left">
+            <div class="col-md-2 col-xs-2 text-left" style="margin-left: 30px"><input class="radio" type="radio"
+                                                                                      id="contact-info"
+                                                                                      name="contact-info" value="1"
+                                                                                      checked="true"></div>
+            <div class="col-md-8 col-xs-8 text-left" style="padding-left: 0"><label style="margin-top:2px">Use primary
+                    contact information</label></div>
+        </div>
+        <div class="col-md-6 col-xs-12 text-left">
+            <div class="col-md-1 col-xs-1 text-left" style="padding-right: 0"><input class="radio" type="radio"
+                                                                                     id="contact-info"
+                                                                                     name="contact-info" value="2">
+            </div>
+            <div class="col-md-8 col-xs-8 text-left" style="padding-left: 0"><label style="margin-top:2px">Use other
+                    contact information</label></div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-md-12 col-xs-12 contact">
+
+
+</div>
+{% if property.user.phone == '' %}
+    <div class="col-md-12 col-xs-12">
+        <div class="form-group phone-mandatory" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="col-sm-2 col-xs-12 text-right">
+                <label for="contact_phoneM" class="required">Phone</label><span style="color: red">*</span>
+
+            </div>
+            <div class="col-sm-5 col-xs-12">
+                <input type="text" id="contact_phoneM" name="contact[phoneM]" required="required" maxlength="10"
+                       pattern="[0-9]{10}.*" class="form-control" value="">
+
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+
+<div class="col-md-12 col-xs-12">
+    <hr>
+    <div class="form-group">
+        <div class="col-md-12 col-xs-12 text-left form-title">
+            More Details
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12  text-center">
+
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.whyBuyNew) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.whyBuyNew) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.whyBuyNew) }}
+
+        </div>
+    </div>
+
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.whyBuyUsed) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.whyBuyUsed) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.whyBuyUsed) }}
+
+        </div>
+    </div>
+
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.Disclaimer) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.Disclaimer) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.Disclaimer) }}
+
+        </div>
+    </div>
+
+    <hr>
+</div>
+
+
+<div class="col-md-10 col-md-offset-2 text-center">
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-12 col-xs-12 text-left">
+            <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+            <button id="btnsavecontinue" type="submit" class="btn btn-primary" style="margin-left: 10px">Save &
+                Continue
+            </button>
+        </div>
+    </div>
+
+</div>
+{{ form_rest(form) }}
+</form>
+</div>
+</div>
+
+
+</div>
+
+
+<script type="text/javascript">
+
+
+    function verifyAction() {
+
+        jQuery('#btnsavecontinue').trigger('click');
+    }
+
+
+    jQuery(document).ready(function () {
+
+
+        var tab = 2;
+
+        jQuery('#btnsavecontinue').click(function (e) {
+            if (tab == 2) {
+                if ({{app.session.get('saved')}} == 0
+            )
+                jQuery('#form-description').attr('action', "{{path('edit_property', {'type':'location' , 'id':id})}}");
+            else
+                jQuery('#form-description').attr('action', "{{path('generate_form', {'type':'location' , 'id':id})}}");
+            } else if (tab == 3) {
+                if ({{app.session.get('saved')}} == 0
+            )
+                jQuery('#form-description').attr('action', "{{path('edit_property', {'type':'amenities' , 'id':id})}}");
+            else
+                jQuery('#form-description').attr('action', "{{path('generate_form', {'type':'amenities' , 'id':id})}}");
+            }
+            else if (tab == 4) {
+                if ({{app.session.get('saved')}} == 0
+            )
+                jQuery('#form-description').attr('action', "{{path('edit_property', {'type':'gallery' , 'id':id})}}");
+            else
+                jQuery('#form-description').attr('action', "{{path('generate_form', {'type':'gallery' , 'id':id})}}");
+            } else if (tab == 5) {
+                if ({{app.session.get('saved')}} == 0
+            )
+                jQuery('#form-description').attr('action', "{{path('edit_property', {'type':'calendar' , 'id':id})}}");
+            else
+                jQuery('#form-description').attr('action', "{{path('generate_form', {'type':'calendar' , 'id':id})}}");
+            } else if (tab == 6) {
+                if ({{app.session.get('saved')}} == 0
+            )
+                jQuery('#form-description').attr('action', "{{path('edit_property', {'type':'rates' , 'id':id})}}");
+            else
+                jQuery('#form-description').attr('action', "{{path('generate_form', {'type':'rates' , 'id':id})}}");
+            } else if (tab == 7) {
+                if ({{app.session.get('saved')}} == 0
+            )
+                jQuery('#form-description').attr('action', "{{path('edit_property', {'type':'policiesPayments' , 'id':id})}}");
+            else
+                jQuery('#form-description').attr('action', "{{path('generate_form', {'type':'policiesPayments' , 'id':id})}}");
+            }
+        });
+
+        jQuery('#link-tab-index-2').click(function (e) {
+            tab = 2;
+            verifyAction();
+            e.preventDefault();
+
+        });
+
+        jQuery('#link-tab-index-3').click(function (e) {
+            tab = 3;
+            verifyAction();
+            e.preventDefault();
+        });
+
+        jQuery('#link-tab-index-4').click(function (e) {
+            tab = 4;
+            verifyAction();
+            e.preventDefault();
+        });
+
+        jQuery('#link-tab-index-5').click(function (e) {
+            tab = 5;
+            verifyAction();
+            e.preventDefault();
+        });
+        jQuery('#link-tab-index-6').click(function (e) {
+            tab = 6;
+            verifyAction();
+            e.preventDefault();
+        });
+
+        jQuery('#link-tab-index-7').click(function (e) {
+            tab = 7;
+            verifyAction();
+            e.preventDefault();
+        });
+
+        jQuery('#btnsave').click(function (e) {
+            jQuery('#form-description').attr('action', "{{path('edit_property', {'type':'description' , 'id':id})}}");
+        });
+
+
+        jQuery(function () {
+            jQuery(".glyphicon-info-sign").tooltip();
+        });
+
+        jQuery('.radio').change(function () {
+            if (jQuery(this).val() == '2') {
+
+                if (jQuery(".phone-mandatory").length) {
+                    jQuery('.phone-mandatory').hide();
+                    jQuery('#contact_phoneM').removeAttr('required');
+                }
+
+                jQuery.ajax({
+                    url: '{{path('edit_contact_form' , {'id':property.contact.id})}}',
+                    type: "POST",
+                    data: {},
+                    async: false,
+                    success: function (response) {
+                        jQuery('.contact').html(response);
+                    }
+                });
+
+            } else {
+                if (jQuery(".phone-mandatory").length) {
+                    jQuery('.phone-mandatory').show();
+                    jQuery('#contact_phoneM').attr('required', 'required');
+                }
+                jQuery('.contact').html('');
+            }
+        });
+
+    });
+
+
+</script>

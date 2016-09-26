@@ -1,0 +1,301 @@
+<div class="modal fade" id="myModal{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Reservation</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formReservationConfirm" action="{{ path('confirm_reservation') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+                    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+
+
+
+
+                    <div class="form-group" style="margin-bottom: 10px">
+
+                        <div class="col-sm-6 col-xs-12 text-danger">
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+
+                                {{ flashMessage }}
+
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.firstName)}}
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            {{ form_widget(form.firstName ,{ 'attr': {'disabled': 'disabled'} }) }}
+                        </div>
+
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.lastName) }}
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            {{ form_widget(form.lastName,{ 'attr': {'disabled': 'disabled'} }) }}
+                        </div>
+
+                    </div>
+
+                    <div class="pcalendar form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.checkIn) }}
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-xs-12 pull-left">
+                            {{ form_widget(form.checkIn,{'id': 'reservation_checkIn'~id}) }}
+                          
+                        </div>
+                        <div class="col-sm-4 col-xs-12" style="padding-left: 0">
+                            {{ form_widget(form.checkinhour) }}
+                        </div>
+                    </div>
+
+
+                    <div class="pcalendar form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.checkOut) }}
+                        </div>
+                        <div class="col-sm-4 col-xs-12 pull-left">
+                            {{ form_widget(form.checkOut,{'id': 'reservation_checkOut'~id}) }}
+                           
+                        </div>
+                        <div class="col-sm-4 col-xs-12" style="padding-left: 0">
+                            {{ form_widget(form.checkouthour) }}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.property) }}
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            {{ form_widget(form.property,{ 'attr': {'disabled': 'disabled'} }) }}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.adults) }}
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            {{ form_widget(form.adults ,{ 'attr': {'disabled': 'disabled'} }) }}
+                        </div>
+
+                        <div class="col-sm-4 col-xs-12" style="padding-left: 0">
+                            {{ form_widget(form.children ,{ 'attr': {'disabled': 'disabled'} }) }}
+                        </div>
+                    </div> 
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.email) }}
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            {{ form_widget(form.email ,{ 'attr': {'disabled': 'disabled'} }) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div class="col-sm-3 col-xs-12 text-right">
+                            {{ form_label(form.phone) }}
+                        </div>
+                        <div class="col-sm-8 col-xs-12">
+                            {{ form_widget(form.phone,{ 'attr': {'disabled': 'disabled'} }) }}
+                        </div>
+                    </div>
+
+                        <input type="hidden" id="resId" name="resId" value="{{id}}" >
+                    <div style="display: none">{{ form_rest(form) }}</div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12"><div id="error"></div></div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary confirm">Confirm</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+        jQuery("#myModal{{id}} #reservation_checkIn{{id}}").datepicker({
+           
+        });
+        
+        jQuery("#myModal{{id}} #reservation_checkOut{{id}}").datepicker({
+           
+        });
+        
+    function checkSelected(o) {
+    if (o.val() === "") {
+    createPopover(o, 'Please fill out this field');
+            return false;
+    } else {
+    return true;
+    }
+    }
+
+      function createPopover(elem, text){
+                    elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'bottom');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+            }
+
+
+    function validateFormConfirmReservation() {
+        var bValid = true;
+        bValid = bValid && checkSelected(jQuery('#myModal{{id}} #reservation_checkinhour'));
+        bValid = bValid && checkSelected(jQuery('#myModal{{id}} #reservation_checkouthour'));
+        bValid = bValid && checkValidRange(jQuery('#myModal{{id}} #reservation_checkIn{{id}}'), jQuery('#myModal{{id}} #reservation_checkOut{{id}}'));
+        if (bValid) {
+            disableFormConfirmReservation();
+            submitFormConfirmReservation();
+        }
+
+    }
+
+    function checkValidRange(checkin, checkout) {
+                var inday = new Date(checkin.val()).getDate() + 1;
+                var inmonth = new Date(checkin.val()).getMonth() + 1;
+                var inyear = new Date(checkin.val()).getFullYear();
+                
+                var outday = new Date(checkout.val()).getDate() + 1;
+                var outmonth = new Date(checkout.val()).getMonth() + 1;
+                var outyear = new Date(checkout.val()).getFullYear();
+                //var strtime = date.toLocaleDateString();
+               //alert( bookedDates[0]);
+          
+                      if (new Date(inmonth+'/'+inday+'/'+inyear)  >= new Date(outmonth+'/'+outday+'/'+outyear)) {
+                            createPopover(checkout, 'Invalid date');
+                            return false;
+                    
+                }
+      
+        return true;
+    }
+
+
+    jQuery('#myModal{{id}} #formReservationConfirm').find('input , select, textarea').each(function () {
+        jQuery(this).focusout(function () {
+            jQuery(this).popover('destroy');
+        });
+    });
+    
+    jQuery('#myModal{{id}}').on('hide.bs.modal', function (e) {
+        jQuery('#myModal{{id}} #formReservationConfirm').find('input , select, textarea').each(function () {
+            jQuery(this).focusout(function () {
+                jQuery(this).popover('destroy');
+            });
+        });
+    });
+
+  
+
+    function disableFormConfirmReservation() {
+        jQuery('#myModal{{id}} #formReservationConfirm').find('input , select, button, textarea .book .close-btn').attr('disabled', 'disabled')
+        jQuery("#myModal{{id}} #formReservationConfirm").css("opacity", 0.37);
+    }
+
+  
+
+
+    function enableFormConfirmReservation(){
+    jQuery('#myModal{{id}} #formReservationConfirm').find('#reservation_checkIn{{id}}, #reservation_checkOut{{id}}, #reservation_checkinhour, #reservation_checkouthour, #close-btn, #confirm').removeAttr('disabled');
+            jQuery("#myModal{{id}} #formReservationConfirm").css("opacity", 1);
+    }
+
+
+
+
+
+    function submitFormConfirmReservation() {
+
+        jQuery.ajax({
+            statusCode: {
+                500: function () {
+                    enableFormConfirmReservation();
+                    jQuery('#myModal{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>The property is reserved on this date range</span>");
+                },
+                401: function () {
+                    enableFormConfirmReservation();
+                    jQuery('#myModal{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>Invalid Date Range</span>");
+                },
+                400: function () {
+               enableFormConfirmReservation();
+                    jQuery('#myModal{{id}} #error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error submitting the form. please try again.</span>");
+               }
+            },
+            url: jQuery('#myModal{{id}} #formReservationConfirm').attr('action'),
+            type: "POST",
+            data: {id: {{id}},
+                checkIn: jQuery('#myModal{{id}} #reservation_checkIn{{id}}').val(),
+                checkOut: jQuery('#myModal{{id}} #reservation_checkOut{{id}}').val(),
+                checkinhour: jQuery('#myModal{{id}} #reservation_checkinhour').val(),
+                checkouthour: jQuery('#myModal{{id}} #reservation_checkouthour').val(),
+                },
+            async: false,
+            success: function (response) {
+                  jQuery('#status{{id}}').html('confirmed');
+                  jQuery('#status{{id}}').removeClass('text-pending');
+                  jQuery('#status{{id}}').addClass('text-confirmed');
+                  jQuery('.li-confirm{{id}}').remove();
+                  jQuery('.menu{{id}}').prepend('<li class="li-cancel{{id}}"><a class="link-cancel" data-target="#myModalCancel{{id}}" data-toggle="modal" href="#">Cancel Reservation</a></li>');
+                                 
+                jQuery('#myModal{{id}}').modal('hide');
+                enableFormConfirmReservation();
+            }
+        });
+    }
+    
+      
+
+    jQuery('#myModal{{id}} #reservation_checkIn{{id}}').click(function () {
+        jQuery("#ui-datepicker-div").css("z-index", 2000);
+    });
+    jQuery('#myModal{{id}} #reservation_checkOut{{id}}').click(function () {
+        jQuery("#ui-datepicker-div").css("z-index", 2000);
+    });
+    
+    
+          jQuery('#myModal{{id}} .confirm').click(function(e){
+            
+    validateFormConfirmReservation();
+    });
+
+        
+
+    });
+
+
+    
+
+
+
+</script>

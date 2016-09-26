@@ -1,0 +1,332 @@
+
+
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-reservation{{id}}" action="" {{ form_enctype(form) }} method="POST" class="form-horizontal" readonly="true">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+     
+            
+    <div class="col-md-12 text-center">   
+          
+        
+        <div class="form-group booked hide text-left" style="margin-bottom: 10px">
+ 
+         <div class="col-sm-offset-3  col-xs-7 text-danger">
+      The property is reserved on this date !
+    </div>
+     
+  </div>
+
+          
+        
+       
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.firstName) }}
+    </div>
+         <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.firstName,{ 'attr': {'disabled': 'disabled'} }) }}
+    </div>
+     
+  </div>
+        
+        <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.lastName) }}
+    </div>
+         <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.lastName,{ 'attr': {'disabled': 'disabled'} }) }}
+    </div>
+     
+  </div>
+            
+        <div class="pcalendar form-group" style="margin-bottom: 10px">
+            <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.checkIn) }}
+    </div>
+            <div class="input-group col-sm-4 col-xs-12 pull-left">
+        {{ form_widget(form.checkIn,{ 'attr': {'readOnly': 'true'} }) }}
+           <span class="input-group-addon"><img id="start-date" src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+           </div>
+                 <div class="col-sm-2 col-xs-12">
+                {{ form_widget(form.checkinhour) }}
+               </div>
+           </div>
+            
+            <div class="pcalendar form-group" style="margin-bottom: 10px">
+             <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.checkOut) }}
+    </div>
+                <div class="input-group col-sm-4 col-xs-12 pull-left">
+        {{ form_widget(form.checkOut,{ 'attr': {'readOnly': 'true'} }) }}
+           <span class="input-group-addon"><img id="start-date" src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+           </div>
+                    <div class="col-sm-2 col-xs-12">
+                    {{ form_widget(form.checkouthour) }}
+                  </div>
+           </div>
+         
+          
+        <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.property) }}
+    </div>
+            <div class="col-sm-6 col-xs-12">
+    {{ form_widget(form.property,{ 'attr': {'disabled': 'disabled'} }) }}
+    </div>
+         </div>
+       
+         
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.adults) }}
+    </div>
+                <div class="col-sm-3 col-xs-12">
+    {{ form_widget(form.adults,{ 'attr': {'disabled': 'disabled'} }) }}
+    </div>
+       
+         <div class="col-sm-3 col-xs-12">
+     {{ form_widget(form.children,{ 'attr': {'disabled': 'disabled'} }) }}
+    </div>
+         </div> 
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.email) }}
+    </div>
+                <div class="col-sm-6 col-xs-12">
+     {{ form_widget(form.email,{ 'attr': {'disabled': 'disabled'} }) }}
+    </div>
+         </div>
+            
+            <div class="form-group" style="margin-bottom: 10px">
+          <div class="col-sm-3 col-xs-12 text-right">
+     {{ form_label(form.phone) }}
+    </div>
+                <div class="col-sm-6 col-xs-12">
+    {{ form_widget(form.phone,{ 'attr': {'disabled': 'disabled'} }) }}
+    </div>
+         </div>
+        
+        
+            
+             <div class="form-group" style="margin-bottom: 10px">
+                </div>
+                
+                
+                           
+    
+         
+          </div>  
+         
+    
+    <div class="col-md-7 col-md-offset-3  text-left">   
+         <div class="form-group" style="margin-top: 10px">
+              <div class="col-sm-6 col-xs-12">
+                  <button id="save{{id}}" type="button" class="btn btn-primary">Save</button>
+        <button id="cancel{{id}}" type="button" class="btn btn-primary" style="margin-left: 10px">Cancel</button>
+    </div>
+           </div> 
+    </div>
+    
+    
+    <div style="display: none">{{ form_rest(form) }}</div>
+</form>
+                </div>
+            
+            
+            
+            </div>
+    
+  
+
+
+<script type="text/javascript">
+    
+    
+    
+jQuery(document).ready(function() {
+    
+    
+    
+    
+     jQuery('#save'+{{id}}).click(function(){
+    
+    validateForm();
+ 
+    });
+    
+    
+        
+        jQuery(document).ajaxError(function(event, request, settings) {
+  
+        jQuery('.booked').removeClass('hide');
+        enableForm();
+ 
+    });
+    
+   
+    
+    
+    
+       jQuery('#form-reservation'+{{id}}).find('input , select').each(function(){
+        jQuery(this).focusout(function(){
+        jQuery(this).popover('destroy');
+        });
+        });
+    
+      function validateForm(){
+                    var bValid = true;
+                 
+                    bValid = bValid && checkDate(jQuery('#reservation_checkIn'),jQuery('#reservation_checkOut') );
+                    bValid = bValid && checkSelected(jQuery('#reservation_checkinhour'));
+                    bValid = bValid && checkSelected(jQuery('#reservation_checkouthour'));
+                    if (bValid){
+                    disableForm();    
+                    submitForm();
+        }
+         
+        }
+        
+           function createPopover(elem , text){
+                    elem.attr('data-toggle','popover');
+                    elem.attr('data-placement','right');
+                    elem.attr('data-content',text);
+                    elem.attr('data-container','body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+        }
+      
+         
+        
+         
+         
+         function checkSelected( o ) {
+			if ( o.val() == "" ) {
+				createPopover(o, 'Please fill out this field');
+				return false;
+			} else {
+				return true;
+			}
+		}
+                
+           function checkDate( o, u ) {
+			if ( u.val() <= o.val() ) {
+				createPopover(u, 'Invalid Date');
+				return false;
+                         
+			} else {
+				return true;
+			}
+		}
+                
+                
+                
+                   function disableForm(){
+            jQuery('#form-reservation'+{{id}}).find('#reservation_checkIn ,#reservation_checkOut, #reservation_checkinhour, #reservation_checkouthour').attr('disabled','disabled');        
+          
+        }
+        
+         function resetForm(){
+        jQuery('#form-reservation'+{{id}}).find('input').val('');
+        jQuery('#form-reservation'+{{id}}).find('#reservation_adults').val('');
+        jQuery('#form-reservation'+{{id}}).find('#reservation_children').val('');
+        jQuery('#form-reservation'+{{id}}).find('#reservation_checkinhour').val('');
+        jQuery('#form-reservation'+{{id}}).find('#reservation_checkouthour').val('');
+        }
+        
+         function enableForm(){
+        jQuery('#form-reservation'+{{id}}).find('#reservation_checkIn ,#reservation_checkOut, #reservation_checkinhour, #reservation_checkouthour').removeAttr('disabled')
+        }
+        
+        
+         
+         function submitForm(){
+            jQuery.ajax({ 
+       url: '{{ path('create_reservation_inquiry') }}',
+       type: "POST",
+       data: {  id : {{property.id}} ,
+                firstName: jQuery('#reservation_firstName').val(), 
+                lastName: jQuery('#reservation_lastName').val(), 
+                checkIn: jQuery('#reservation_checkIn').val(),
+                checkOut: jQuery('#reservation_checkOut').val(),
+                checkinhour: jQuery('#reservation_checkinhour').val(),
+                checkouthour: jQuery('#reservation_checkouthour').val(),
+                adults: jQuery('#reservation_adults').val(),
+                children: jQuery('#reservation_children').val(),
+                email: jQuery('#reservation_email').val(),
+                phone: jQuery('#reservation_phone').val(),
+                mobile: jQuery('#reservation_mobile').val(),
+                inquiry: {{id}}
+        }, 
+       async: false, 
+       success: function(response){
+       jQuery('#form-inquiry').addClass('hide');
+        jQuery('#btnBookit').addClass('hide'); 
+        jQuery('.reservation-success').removeClass('hide');
+       resetForm();
+       enableForm(); 
+       } 
+   });  
+
+}
+
+   jQuery('#cancel'+{{id}}).click(function(){
+     enableForm(); 
+    jQuery('#form-inquiry').addClass('hide');
+    
+     });
+   
+   
+   
+             var bookedDates = []; 
+             //var dateArray = [new Date(2014, 8-1, 25),new Date(2014, 8-1, 26), new Date(2014, 8-1, 27)]; 
+       jQuery(function() {
+    
+    jQuery.ajax({ 
+    url: '{{path('AcmeHomeBundle_ajax_update_mydata')}}',
+    type: "POST",
+    dataType: 'json', 
+    data: { id : {{property.id}} }, 
+    async: false, 
+    success: function(response){ 
+        for (var i = 0; i < response.length ; i++){
+                         bookedDates.push(response[i]); 
+                         }
+  
+    } 
+    });     
+     });  
+   
+     jQuery("#reservation_checkIn").datepicker({ dateFormat: 'yy-mm-dd',minDate: new Date(), beforeShowDay: showBooked
+           
+      });
+      jQuery("#reservation_checkOut").datepicker({ dateFormat: 'yy-mm-dd',minDate: new Date(), beforeShowDay: showBooked
+           
+      });  
+      
+      
+      function showBooked(date) {//new Date(bookedDates[0]*1000).toDateString()
+      
+      var year = date.getFullYear();
+      var month = date.getMonth();
+      var day = date.getDate();
+      //var strtime = date.toLocaleDateString();
+     //alert( bookedDates[0]);
+      for (var i = 0; i < bookedDates.length; i++) {
+          //alert(bookedDates[i]);
+           for (var j = 0; j < bookedDates[i].length; j++) {
+            if (month+1+'/'+day+'/'+year == bookedDates[i][j]) {
+      
+                  return [false, 'booked'];
+            }
+            }
+      }
+      
+      return [true, 'free'];
+    
+}
+
+    }); 
+    </script>

@@ -1,0 +1,63 @@
+<div id="rates" class="anchor-profile"></div>
+<div class="row">
+
+    <div class="col-md-12 col-xs-12 " style="margin-bottom: 10px">
+        <span  class="property-title">Rates</span>
+    </div>   
+
+</div>
+{% if property.rates | length > 0 %}
+{% if property.rates.periods | length > 0 %}
+    <div class="row">
+        <div class="col-md-12 col-xs-12 ">
+            <div class="list-group">
+                <div  class="list-group-item active" style="background-color: #EEEEEE; color:#555555; font-weight: bold">
+                    <div class="row">
+                    <div class="col-md-2 col-xs-2">Period</div>
+                    <div class="col-md-2 col-xs-2">Begins</div>
+                    <div class="col-md-2 col-xs-2">Ends</div>
+                    <div class="col-md-2 col-xs-2">Per Night</div>
+                    <div class="col-md-1 col-xs-1">Weekly</div>
+                    <div class="col-md-1 col-xs-1">Monthly</div>
+                    <div class="col-md-2 col-xs-2">Minimun Stay</div>
+                </div>
+                    </div>
+                
+                 {% for period in property.rates.periods %}
+                    <div class="list-group-item">
+                          <div class="row">
+                    <div class="col-md-2 col-xs-2">{{period.seasonName}}</div>
+                    <div class="col-md-2 col-xs-2">{% if period.startDate != null%} {{period.startDate | date("m/d/Y")}}{%else%} - {%endif%}</div>
+                    <div class="col-md-2 col-xs-2">{% if period.endDate != null%} {{period.endDate | date("m/d/Y")}}{%else%} - {%endif%}</div>
+                    <div class="col-md-2 col-xs-2">{{period.nightly}}</div>
+                    <div class="col-md-1 col-xs-1">{{period.weekly}}</div>
+                    <div class="col-md-1 col-xs-1">{{period.monthly}}</div>
+                    <div class="col-md-2 col-xs-2">{{period.minStay}}</div> 
+                       </div> 
+                    </div>
+                {%endfor%}
+               </div>
+            </div>
+            
+        </div>
+
+
+{% else  %} 
+    <div class="row">
+        <div class="col-md-12 col-xs-12 " style="margin: 10px 0px">
+            <span style="color: #428BCA;font-family: Calibri;font-size: 18px;font-weight: lighter;">
+                Information Unavailable. Contact the Property Owner
+            </span>
+        </div>
+    </div>        
+{% endif %}
+
+{% else  %} 
+    <div class="row">
+        <div class="col-md-12 col-xs-12 " style="margin: 10px 0px">
+            <span style="color: #428BCA;font-family: Calibri;font-size: 18px;font-weight: lighter;">
+                Information Unavailable. Contact the Property Owner
+            </span>
+        </div>
+    </div>        
+{% endif %}

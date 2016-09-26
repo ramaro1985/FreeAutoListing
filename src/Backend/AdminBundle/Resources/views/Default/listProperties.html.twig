@@ -1,0 +1,25 @@
+<select id="select-property" class="form-control">
+    {%  if root != 'none' %} 
+    <option value="{{ path( root ) }}">All Properties</option>
+      {%  endif %}     
+     {%  if id == '' %} 
+    <option value="" selected="selected" disabled="disabled">All Properties</option>
+      {%  endif %}     
+    {% for property in properties %}
+   {% if param is defined and param is not null%}
+        <option value="{{ path( path , {'id': property.serie, 'filtro': param}) }}"   
+        {% elseif type is defined and type is not null%}
+             <option value="{{ path( path , {'id': property.serie, 'type': type}) }}"     
+            {% else %}
+             <option value="{{ path( path , {'id': property.serie}) }}"         
+       {%  endif %}      
+            
+   {%  if property.serie == id %}      
+            selected="selected" disabled="disabled" 
+   {%  endif %}           
+    >{{ property.description.name }}
+    
+            
+    </option>
+    {% endfor %}
+</select>

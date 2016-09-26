@@ -1,0 +1,96 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Location</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ entity.address }}</td>
+            </tr>
+            <tr>
+                <th>Route</th>
+                <td>{{ entity.route }}</td>
+            </tr>
+            <tr>
+                <th>Property_number</th>
+                <td>{{ entity.propertynumber }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ entity.country }}</td>
+            </tr>
+            <tr>
+                <th>Stateprovince</th>
+                <td>{{ entity.stateProvince }}</td>
+            </tr>
+            <tr>
+                <th>Administrative_area_level_1</th>
+                <td>{{ entity.administrativearealevel1 }}</td>
+            </tr>
+            <tr>
+                <th>Administrative_area_level_2</th>
+                <td>{{ entity.administrativearealevel2 }}</td>
+            </tr>
+            <tr>
+                <th>Administrative_area_level_3</th>
+                <td>{{ entity.administrativearealevel3 }}</td>
+            </tr>
+            <tr>
+                <th>Administrative_area_level_4</th>
+                <td>{{ entity.administrativearealevel4 }}</td>
+            </tr>
+            <tr>
+                <th>Administrative_area_level_5</th>
+                <td>{{ entity.administrativearealevel5 }}</td>
+            </tr>
+            <tr>
+                <th>Locality</th>
+                <td>{{ entity.locality }}</td>
+            </tr>
+            <tr>
+                <th>Sublocality</th>
+                <td>{{ entity.sublocality }}</td>
+            </tr>
+            <tr>
+                <th>Postal_town</th>
+                <td>{{ entity.postaltown }}</td>
+            </tr>
+            <tr>
+                <th>Neighborhood</th>
+                <td>{{ entity.neighborhood }}</td>
+            </tr>
+            <tr>
+                <th>Postal_code</th>
+                <td>{{ entity.postalcode }}</td>
+            </tr>
+            <tr>
+                <th>Postal_code_prefix</th>
+                <td>{{ entity.postalcodeprefix }}</td>
+            </tr>
+            <tr>
+                <th>Public</th>
+                <td>{{ entity.public }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('location') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('location_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

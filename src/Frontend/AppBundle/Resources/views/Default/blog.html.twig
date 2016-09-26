@@ -1,0 +1,18 @@
+{% extends "CommonBundle:Layout:base.html.twig" %}
+  {% block title %} Blog | {{ parent() }} {% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+ {{ include('CommonBundle:Default:header-blog.html.twig') }}
+ 
+{{ include('AppBundle:Default:blog-top.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+ {{ include('AppBundle:Default:blog-content.html.twig') }}   
+ {% endblock %}
+ {% block footer %}
+ {{ include('CommonBundle:Default:footer.html.twig') }}   
+ {% endblock %}
+
+  

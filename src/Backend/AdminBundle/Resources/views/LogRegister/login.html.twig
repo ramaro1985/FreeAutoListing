@@ -1,0 +1,127 @@
+{% extends "CommonBundle:Layout:base.html.twig" %}
+ {% block title %}{{ parent() }} | Owner Login{% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }} 
+  
+
+ {% endblock %}
+ {% block header %}
+
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+  
+ {% endblock %}
+
+{% block body %}
+ 
+
+    {% if error %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center text-danger alert alert-danger" role="alert"><span class="glyphicon glyphicon-remove" style="margin-right: 7px"></span>{{ error|trans }}</div>
+        </div>
+         {%if error|trans == 'User account is disabled.'%}
+             
+            
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 text-center" role="alert">
+            Trouble recieving confirmation link? <a href="{{ path('user_registration_resend_confirm') }}"> Resend Email</a>
+            </div>
+        </div>
+        {%endif%}
+        
+    </div>
+{% endif %}
+   
+    <div class="container">
+        <div class="row" style="margin-top: 20px">
+        <div class="col-md-6 col-md-offset-3 text-center">
+        <h1>Owner Login</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center login-form-container">
+            <form id="form-login" action="{{ path('fos_user_security_check') }}"  method="POST" class="form-horizontal" style="margin-top: 20px">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('authenticate') }}">
+   
+            
+    <div class="form-group" style="margin-bottom: 20px">
+ 
+         <div class="col-sm-12">
+             <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Email"/>
+     
+    </div>
+  </div> 
+    
+        <div class="form-group" style="margin-bottom: 8px">
+ 
+         <div class="col-sm-12">
+             <input type="password" class="form-control" id="password" name="_password" required="required" placeholder="Password"/>
+    </div>
+  </div>  
+    
+    <div class="form-group" style="margin-bottom: 5px">
+ 
+         <div class="col-sm-12 text-left">
+             <a href="{{ path('fos_user_resetting_request') }}"> Forgot password? </a>
+    </div>
+  </div>  
+    
+     
+    
+    
+    <div class="form-group" style="margin-bottom: 5px">
+ 
+         <div class="col-sm-6 col-xs-8 text-left">
+             <label style="margin-top: 10px">
+                 <input type="checkbox" id="remember_me" name="_remember_me" ><span style="display: inline; font-weight: 400"> Keep me signed in </span>
+    </label>
+    </div>
+        
+        <div class="col-sm-6 col-xs-4 text-right">
+      <button type="submit" class="btn btn-primary">Sign In</button>
+    </div>
+    
+
+  </div> 
+             
+             <div class="form-group" style="margin-bottom: 5px">
+ 
+         
+        
+        <div class="col-sm-12 text-left">
+     <div id="fb-root"></div>  
+   
+
+        <a href="#" class="facebook_button" onclick="fb_login(event);">Log in with Facebook</a>
+    
+    </div>
+        
+  </div>
+    
+    <div style="border-bottom: 1px dashed #B6C9D7;margin-top: 13px;"> </div>
+    
+    <div class="form-group" style="margin-top: 1em;">
+        <div class="col-sm-12 col-xs-12 text-center">
+      
+            Dont have an account yet ? <a href="{{ path('fos_user_registration_register') }}">Register Here</a>
+   </div>
+  </div>
+    
+ 
+</form>
+                </div>
+            </div>
+</div>
+    
+    
+    
+    
+    
+    
+    
+    
+
+{% endblock %}
+
+{% block footer %}{{ include('CommonBundle:Default:footer-login.html.twig') }}  {% endblock %}

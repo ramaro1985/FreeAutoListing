@@ -1,0 +1,112 @@
+
+<div id="container" class="container-fluid properties-container">
+
+        
+    
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <form id="form-location" action="{{ path('create_tag') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+   
+    
+     <div class="col-md-12 col-xs-12">
+      
+       <div class="form-group" style="margin-bottom: 10px">
+       <div class="col-md-12 col-xs-12 text-left form-title">
+           
+           <div id="title">Create New Tag</div>
+           
+       </div>
+       </div>
+           
+    </div>
+    
+    
+    
+    
+            
+    <div class="col-md-12 text-center">   
+          
+        
+        <div class="form-group" style="margin-bottom: 10px">
+ 
+         <div class="col-md-12 col-sm-12 col-xs-12 text-danger">
+       {% for flashMessage in app.session.flashbag.get('notice') %}
+           
+           {{ flashMessage }}
+        
+           {% endfor %}
+    </div>
+     
+  </div>
+
+        
+        
+       
+            <div class="form-group" style="margin-bottom: 10px">
+ <div class="col-sm-3 col-md-3 col-xs-12 text-right">
+     {{ form_label(form.name) }}
+    </div>
+         <div class="col-sm-4 col-md-4 col-xs-12">
+     {{ form_widget(form.name) }}
+    </div>
+     
+  </div>
+        
+        
+       
+    
+        
+            
+             <div class="form-group" style="margin-bottom: 10px">
+                </div>
+                
+                
+                           
+    
+         
+          </div>   
+         
+    
+    <div id="form-buttons" class="col-md-9 col-md-offset-3  col-sm-offset-3 text-center">
+   <div class="form-group" style="margin-bottom: 10px">
+       <div class="col-sm-12 col-xs-12 text-left" style="padding-left: 35px">
+        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+        
+    </div>
+           
+    </div>        
+    
+  </div>
+    <div style="display: none">{{ form_rest(form) }}</div>
+</form>
+                </div>
+            </div>
+    
+    </div>
+
+<script type="text/javascript">
+            
+                   jQuery(document).ready(function() {
+      CKEDITOR.replace( 'blog_text', {
+	allowedContent: 'p ul li'
+        });
+        
+       CKEDITOR.config.toolbar = [
+       ['Undo','Redo','Cut','Copy','Paste','Indent','Font','FontSize','NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+       '/',
+      
+       ] ;
+       
+       });      
+            
+            
+            
+            
+        
+           
+            
+            
+            
+            </script>
+    

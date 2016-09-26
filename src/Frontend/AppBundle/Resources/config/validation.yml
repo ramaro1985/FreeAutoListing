@@ -1,0 +1,75 @@
+Frontend\AppBundle\Entity\User:
+    properties:
+        plainPassword:
+          - NotBlank:
+              message: "not blank message"
+              groups: [Registration,Profile,Resetting]
+          - Length:
+              min: 6
+              max: 255
+              minMessage: ""
+              maxMessage: "Password must have  {{ limit }} characters or less"
+              groups: [Registration,Profile,Resetting]
+          - Regex:
+              pattern: "/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/"
+              match:   true
+              message: 'Must have at least 6 characters, 1 number, 1 upper case (example: Passw5)'
+              groups: [Registration,Profile,Resetting]    
+        
+        email:
+          - Email:
+              message: The email "{{ value }}" is not a valid email.
+              checkMX: false
+              groups: [Registration,Profile,Resetting]
+        
+              
+Frontend\AppBundle\Entity\ContactFront:
+    properties:
+        phone:
+          - Regex:
+              pattern: "/^[0-9]{9,11}$/"
+              match:   true
+              message: Invalid Phone Number
+              groups: [contactFront]               
+        
+        email:
+          - Email:
+              message: The email "{{ value }}" is not a valid email.
+              checkMX: true      
+         
+        property:
+          - Regex:
+              pattern: "/^[a-zA-Z]{1}[0-9]{5}$/"
+              match:   true
+              message: Invalid Property ID
+              groups: [contactFront]      
+              
+        text:
+          - Length:
+              min: 1
+              max: 800
+              minMessage: "Message must have  {{ limit }} characters or more"
+              maxMessage: "Message must have  {{ limit }} characters or less"
+              groups: [contactFront]     
+              
+Frontend\AppBundle\Entity\ContactInvestor:
+    properties:
+        phone:
+          - Regex:
+              pattern: "/^[0-9]{9,11}$/"
+              match:   true
+              message: Invalid Phone Number
+              groups: [contactInvestor]               
+        
+        email:
+          - Email:
+              message: The email "{{ value }}" is not a valid email.
+              checkMX: true      
+              
+        text:
+          - Length:
+              min: 1
+              max: 2000
+              minMessage: "Message must have  {{ limit }} characters or more"
+              maxMessage: "Message must have  {{ limit }} characters or less"
+              groups: [contactInvestor]              

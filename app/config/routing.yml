@@ -1,0 +1,103 @@
+shopper_shopper:
+    resource: "@ShopperBundle/Resources/config/routing.yml"
+    prefix:   /
+
+admin:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+superAdmin:
+    resource: "@SuperAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+supportAdmin:
+    resource: "@SupportAdminBundle/Resources/config/routing.yml"
+    prefix:   /        
+
+common:
+    resource: "@CommonBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+private:
+    resource: "@PrivateSellerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+admin_login:
+    pattern:  /protected/login/
+    defaults: { _controller: SuperAdminBundle:Security:login }
+    
+
+admin_login_check:
+    pattern:  /protected/login_check/
+    defaults: { _controller: SuperAdminBundle:Security:check }
+
+admin_logout:
+    pattern:  /protected/logout/
+    defaults: { _controller: SuperAdminBundle:Security:logout }
+
+owner_login:
+    pattern:  /login/
+    defaults: { _controller: AdminBundle:Security:login }
+    
+    
+support_login:
+    pattern:  /support/login/
+    defaults: { _controller: SupportAdminBundle:Security:login }    
+    
+support_login_check:
+    pattern:  /support/login_check/
+    defaults: { _controller: SupportAdminBundle:Security:check }
+
+support_logout:
+    pattern:  /support/logout/
+    defaults: { _controller: SupportAdminBundle:Security:logout }    
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register/{tab}
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+    
+#HWIOAuthBundle routes
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
+ 
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /login
+ 
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /login
+ 
+facebook_login:
+    pattern: /login/check-facebook
+ 
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml" 
+    
+ 
+PrestaSitemapBundle:
+    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
+    prefix:   /
+
+    
+   

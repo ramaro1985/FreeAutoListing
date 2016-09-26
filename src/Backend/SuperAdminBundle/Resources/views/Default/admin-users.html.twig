@@ -1,0 +1,196 @@
+{% extends "SuperAdminBundle:Layout:user-admin.html.twig" %}
+{% block title %}Administration{% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+{% block header %}
+    {{ include('CommonBundle:Default:header-admin.html.twig') }}
+
+{% endblock %}
+{% block menu %} {{ parent() }} {% endblock %}
+{% block filters %} {{ include('SuperAdminBundle:Default:breadcrums-users.html.twig') }}{% endblock %}
+{% block body %}
+      
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="container-fluid" style="padding: 0; border: 1px solid #D9534F; margin-bottom: 10px">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center" style="padding: 0">
+            
+                                                        <li class="btn-group text-danger" style="font-size: 17px;  padding-top: 10px;  padding-bottom: 10px; font-weight: bold">
+                                                    {{ flashMessage }}
+                                                        </li>
+                                                       
+            </div>
+            </div>
+         </div>
+   
+       {% endfor %}  
+                                                              
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row" style="border-bottom: solid 1px #ccc">
+                    <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600 ">
+                       Date Created
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="padding:0; font-weight: 600 ">
+                       Name
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Email
+                    </div>
+                   <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Phone
+                    </div>
+                     <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Active 
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600;  ">
+                      Last Login
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 " style="padding:0; font-weight: 600;  ">
+                      Registered with
+                    </div>
+                </div>
+                   {% for property in users %}
+                       <div class="row" style="padding: 5px 0px; border-bottom: solid 1px #ccc">
+                    <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       {{ property.dateCreated | date("m/d/Y")}}  
+                    </div>
+                           <div class="col-md-2 col-sm-2 col-xs-12" style="padding:0 ">
+                        {{ property.name }} {{ property.lastName }}
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2 col-xs-12" style="padding:0 ">
+                        {{ property.email }} 
+                    </div>
+                    
+                    <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                        {%if property.phone is not null%}
+                        {{ property.phone }}
+                        
+                         {%endif%}   
+                        </div>
+                     <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       {% if property.enabled == '1' %} <span class="glyphicon glyphicon-ok status-active" aria-hidden="true"></span> {% else %} <span class="glyphicon glyphicon-remove status-inactive" aria-hidden="true"></span> {%endif %}
+                        </div>   
+                        <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                         {{ property.lastLogin | date("m/d/Y") }}
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-3 col-xs-12" style="padding:0 ">
+                       {% if property.facebookId != '' and property.facebookId != null %}
+                                Facebook
+                            {% else %}
+                                HomeEscape
+                            {% endif %}
+                    </div>
+                 
+                    
+                    
+                     <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span style="margin-right: 10px">Actions </span><span class="path glyphicon glyphicon-chevron-down"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+     
+           {% if (property.enabled == '1')%}
+              <li><a href="{{path('admin_deactivate_user',{'id': property.id, 'page': page })}}">Deactivate User</a></li>  
+             {%elseif (property.enabled == '0')%}   
+              <li><a href="{{path('admin_activate_user',{'id': property.id, 'page': page })}}">Activate User</a></li>   
+             {%endif %} 
+         {% if (property.enabled == '0')%}<li><a class="delete-user" href="{{path('admin_delete_user_owner',{'id': property.id, 'page': page })}}">Delete</a></li>{%endif %}   
+        
+        </ul>
+        </div> 
+                    </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-view hide" style="padding:0 ">
+                            <span style="font-weight: 600"></span> <br>
+                    </div>
+                </div>
+        
+         
+                 {% endfor %}
+            </div>
+        </div>   
+    </div>    
+
+
+
+
+    
+{% if users is not empty %}
+    <div class="row" style="margin-bottom: 10px; margin-top: 5px">
+        <div class="col-md-12 col-xs-12" style="padding:0 ">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="pull-right">
+                        {% set count =  users.getTotalItemCount %}
+                        <div class="text-right pull-right" style="margin: 8px 15px 0px 0px"><span style="padding: 7px;font-size: 14px;" class="label label-primary">{{ count }} 
+                                {% transchoice  count %}
+                                {0} There are no Users|{1} User Found|]1,Inf] Users Found
+                                {% endtranschoice %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="pagination pull-right">
+                        {{ knp_pagination_render(users) }}
+                       
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% else %}
+    <div class="row" style="margin: 20px 10px 0 ">
+        <div class="col-xs-12 col-md-12">
+            <div class="alert alert-info">No Users Found</div>
+        </div>
+    </div>
+
+{% endif %}
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+
+        
+        jQuery('.view-link').click(function (e) {
+            jQuery(this).addClass('hide');
+            jQuery(this).parent().parent().find('.text-view').removeClass('hide');
+            jQuery(this).parent().find('.hide-link').removeClass('hide');
+            
+            e.preventDefault();
+        });
+        
+         jQuery('.hide-link').click(function (e) {
+            jQuery(this).addClass('hide');
+            jQuery(this).parent().parent().find('.text-view').addClass('hide');
+            jQuery(this).parent().find('.view-link').removeClass('hide');
+            e.preventDefault();
+        });
+
+
+          jQuery('.delete-user').click(function (e) {
+          if(!confirm('You are about to delete this. Are you sure?')){
+           e.preventDefault();
+          }
+            });
+        });
+
+
+</script>
+
+{% endblock %}
+{% block footer %}
+    {{ include('CommonBundle:Default:footer.html.twig') }}   
+{% endblock %}

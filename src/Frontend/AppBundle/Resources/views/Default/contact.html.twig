@@ -1,0 +1,18 @@
+{% extends "CommonBundle:Layout:base.html.twig" %}
+  {% block title %} Help Center | {{ parent() }} {% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+ {{ include('CommonBundle:Default:header.html.twig') }}
+ 
+{{ include('AppBundle:Default:contact-top.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+ {{ include('AppBundle:Default:contact-content.html.twig') }}   
+ {% endblock %}
+ {% block footer %}
+ {{ include('CommonBundle:Default:footer.html.twig') }}   
+ {% endblock %}
+
+  

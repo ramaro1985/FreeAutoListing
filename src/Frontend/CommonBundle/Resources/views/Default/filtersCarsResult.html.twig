@@ -1,0 +1,47 @@
+<ul class="nav navbar-nav" id="input_search" style="margin: 0;">
+
+    <label class="navbar-text text-uppercase bold_text_black" for="sort_list" style="margin-left: 0px !important; font-size: 11px">Sort
+        by</label>
+    <li class="dropdown" id="sort_list" style="min-width: 109px;border:1px solid black;">
+        <a href="#" class="dropdown-toggle text-uppercase text-right"
+           data-toggle="dropdown"><span sort_id="0" class="pull-left selected" style="font-size: 11px">All</span>
+            <b class="caret" style="color: #000000"></b>
+        </a>
+        <ul class="dropdown-menu car_filters">
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="0" style="font-size: 11px">All</a></li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="1" style="font-size: 11px">Price-Highest</a>
+            </li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="2" style="font-size: 11px">Price-Lowest</a></li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="3" style="font-size: 11px">Mileage-Highest</a>
+            </li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="4" style="font-size: 11px">Mileage-Lowest</a>
+            </li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="5" style="font-size: 11px">Year-Newest</a></li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="6" style="font-size: 11px">Year-Oldest</a></li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="7" style="font-size: 11px">Make-A to Z</a></li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="8" style="font-size: 11px">Make-Z to A</a></li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="9" style="font-size: 11px">Model-A to Z</a></li>
+            <li><a class="sort_link" href="javascript:void(0)" sort_id="1" style="font-size: 11px">Moldel-Z to A</a>
+            </li>
+
+        </ul>
+    </li>
+    <label class="navbar-text text-uppercase bold_text_black" for="view_list" style="font-size: 11px">view</label>
+    <li class="dropdown" id="view_list" style="min-width: 50px;border:1px solid black;">
+        <a href="#" class="dropdown-toggle text-uppercase text-right"
+           data-toggle="dropdown"><span view_id="12" class="pull-left selected" style="font-size: 11px">12</span>
+            <b class="caret" style="color: #000000"></b>
+        </a>
+        <ul class="dropdown-menu count_filter">
+            <li><a class="view_link" href="javascript:void(0)" view_id="12"
+                   style="padding: 3px 10px;font-size: 11px">12</a></li>
+            <li><a class="view_link" href="javascript:void(0)" view_id="24"
+                   style="padding: 3px 10px;font-size: 11px">24</a></li>
+        </ul>
+    </li>
+</ul>
+
+<ul class="nav navbar-nav " style="margin: 0; padding-left: 10px">
+    <img id="loading" class="hide"
+         src="{{ asset('bundles/common/images/loading.gif') }}" alt=""/>
+</ul>

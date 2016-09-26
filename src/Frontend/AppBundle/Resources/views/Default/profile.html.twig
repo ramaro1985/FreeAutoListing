@@ -1,0 +1,38 @@
+{% extends "CommonBundle:Layout:base.html.twig" %}
+    {% if property.gallery is not null %}
+                    {% if property.gallery.getPropertyImages |length > 0 %}
+                    {% set image = property.gallery.getPropertyImages[0].getWebPath | imagine_filter('my_thumb_large') %}  
+                    {% else %} 
+                    {% set image = asset('bundles/common/images/000.jpg') %}
+                    {% endif %}
+              {% else %} 
+                {% set image = asset('bundles/common/images/000.jpg') %}
+              {% endif %}
+
+
+ {% block metadescriptions %}
+         <meta name="twitter:card" content="summary" />
+         <meta name="twitter:site" content="@Home_Escape" />
+         <meta name="description" content="{{property.description.description}}">  
+         <meta name="keywords" content="vacation rentals {{property.location.getLocality}}, {{property.location.getLocality}} vacation {{property.propertyDetails.type.name}}, {{property.description.tagline}}">
+         <meta property="og:title" content="{{property.description.tagline}}" />
+         <meta property="og:site_name" content="Free Vacation Rental Listing | HomeEscape"/>
+         <meta property="og:url" content="{{  path("property_profile", {'id': property.serie }) }}" />
+         <meta property="og:description" content="{{property.description.description}}" />
+         <meta property="og:image" content="{{image}}" />
+         <link rel="canonical" href="https://www.homeescape.com/vacation-rental/{{property.serie}}/" />
+ {% endblock %}
+ {% block title %} {{ property.description.tagline |slice(0, 40)}} {{ parent() }} {{ property.location.getLocality }} {{ property.serie }}{% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+ {{ include('CommonBundle:Default:header-profile.html.twig') }}
+ 
+
+ {% endblock %}
+
+ {% block body %} 
+{{ include('AppBundle:Default:profile-content.html.twig') }}  
+ {% endblock %}
+
+ {% block footer %}{{ include('CommonBundle:Default:footer.html.twig') }}  {% endblock %}

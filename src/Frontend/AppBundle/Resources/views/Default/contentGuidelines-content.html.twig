@@ -1,0 +1,109 @@
+<div class="container-fluid">
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 20px">
+                <h1>Content Guidelines</h1>
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 10px">
+                <h2 class="blue-title">Introduction</h2>
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left">
+                <p>We reserve the right to remove any content contributed to this website by members, travelers or any other user of the website (each a “user”) which does not meet the following guidelines. Traveler reviews, owner responses and any other content submitted by a user are the subjective opinions of the user who posted the content. They are not our opinions and are not endorsed by us. HomeEscape has no independent knowledge of and therefore expresses no opinion regarding the accuracy of the content provided by our users.</p>
+                
+            </div>
+
+        </div>
+           <div class="row">
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 10px">
+                <h2 class="blue-title">Content Guidelines</h2>
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left">
+                <p>No user of this website may contribute any content (including, but not limited to property listings, reviews and responses) which violate the following guidelines:</p>
+                <ul style="  list-style-type: disc;">
+                    <li>A review must be submitted within one year of the date of stay.</li>
+                    <li>Users who post content must have all legal rights to post the content.</li>
+                    <li>The content must be directly related to its purpose.</li>
+                    <li>Listings and reviews should be accurate.
+                        <ul style="list-style-type: circle;">
+                            <li>Property listing descriptions must relate to the property and information that would be useful to a traveler.</li>
+                        <li>Reviews of a property must focus on the traveler’s experience renting the property, which will typically focus on the stay but may address other factors relating to the rental process such as inquiries or bookings.</li>
+                        <li>Content posted in a forum must be relevant to the purpose of the forum and discussion.</li>
+                        </ul>
+                        
+                    </li>
+                    <li>The content must comply with the current site <a href="{{ path('terms') }}">Terms and Conditions</a>.</li>
+                    <li>Reviews and responses should not disclose the physical location of the property or the rates charged by the owner or manager.</li>
+                    <li>Users cannot post a review or response for the purpose of blackmailing or extorting owners or travelers for money or other consideration. The reviews are for the benefit of future travelers, not to allow one party to threaten the other.</li>
+                    
+                    
+                </ul>
+            </div>
+
+        </div>
+           <div class="row">
+            
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 10px">
+                <h2 class="blue-title">Eligibility Guidelines</h2>
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left">
+                <p>To review a property, the traveler must meet the following requirements:</p>
+            </div>
+           <div class="col-xs-12 col-md-12 col-sm-12 text-left">
+               <ul style="  list-style-type: disc;">
+                    <li>The traveler must be able to provide satisfactory evidence of the stay; possess receipt of property access information from HomeEscape; or demonstrate payment in accordance with a rental agreement. Owners and property managers of advertised properties may not review the property that he or she owns or manages.</li>
+                    <li>All travelers must also be able to validate his or her identity or email when submitting a review.</li>
+                    
+                </ul>
+            </div>    
+
+        </div>
+        
+        <div class="row" style="margin-bottom: 40px">
+            
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 10px">
+                <h2 class="blue-title">Additional Information</h2>
+            </div>
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left">
+                <ul style="  list-style-type: disc;">
+                    <li>Customer support is unable to edit existing reviews (such as editing works or changing the star rating) on a traveler's behalf. A traveler may contact Customer Support to remove their review if he/she wishes. The traveler can then resubmit a review with their edited verbiage.</li>
+                    <li>Please note that the content of your review could subject you to liabilities if it is found to be defamatory to a person or a business.</li>
+                    <li>In the event of legal action pertaining to user contributed content, we will remove the content provided that appropriate documentation and proof is provided to us.  Such content may be restored if the matter is resolved against the complaining party.  Contact <a href="{{ path('contact_us') }}">Customer Support</a> if you have commenced such a legal action and want to request that we remove the user contributed content.</li>
+                    
+                    
+                </ul>
+            </div>
+
+        </div>
+        
+
+    </div>
+
+</div>   
+
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        jQuery('#contactfront_userType input').change(function () {
+
+            if (jQuery(this).val() === '0') {
+                jQuery('.side-image img').attr('src', "{{ asset('bundles/common/images/contact-traveler-img.jpg')}}");
+            } else if (jQuery(this).val() === '1') {
+                jQuery('.side-image img').attr('src', "{{ asset('bundles/common/images/contact-owner-img.jpg')}}");
+            }
+
+        });
+
+    });
+
+
+
+
+</script>
+
+

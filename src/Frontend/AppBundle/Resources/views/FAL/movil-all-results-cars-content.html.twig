@@ -1,0 +1,148 @@
+<div id="all_vehicles_content">
+    <ul class="list-group">
+        {% if vehicles|length > 5 %}
+            {% set total = 6 %}
+        {% else %}
+            {% set total = vehicles|length %}
+        {% endif %}
+        {% for vehicle in vehicles|slice( 0, 6 ) %}
+            {% if(vehicle.profile) %}
+                {% set pf = vehicle.gallery.profileimages[0] %}
+                {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                {% set photoid = vehicle.profile %}
+                {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+            {% elseif vehicle.user %}
+                {% set photoid = vehicle.user.id %}
+                {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                    {% set pf = vehicle.gallery.vehicleimages[0] %}
+                    {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                    {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                {% else %}
+                    {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                    {% set profileimageslength = 0 %}
+                {% endif %}
+            {% endif %}
+            <li class="list-group-item">
+                <div class="row">
+
+                    <a href="{{ path('movil_car_details', {'serie': vehicle.serie}) }}">
+                        <div class="thumbnail">
+                            {% if vehicle_image %}
+                                {% set vehicle_image = vehicle_image %}
+                            {% else %}
+                                {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                                {% set profileimageslength = 0 %}
+                            {% endif %}
+                            <img src="{{ asset(vehicle_image) }}"
+                                 alt="" style="width: 100%;{% if vehicle_image == 'bundles/common/images/image-bg.jpg' %} height: 279px {% endif %}"/>
+
+                            <div class="views">
+                                <span> ${{ vehicle.vehiclesinformation.price }} </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="caption" style="padding: 3px 9px">
+                        <p class="text-left"
+                           style="font-weight: bold;font-size: 14px;margin-bottom: 5px">
+                            {{ vehicle.vehiclesinformation.year.year }}
+                            {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                            {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                        </p>
+
+                        <p class="text-left" style="margin-bottom: 0px;font-size: 13px">
+                            {{ vehicle.vehiclesinformation.condition.name }} |
+                            {{ vehicle.vehiclesinformation.mileage }} Mi |
+                            {{ vehicle.vehiclesdetails.exteriorcolor }}
+                        </p>
+
+                        <p class="text-left" style="margin-bottom: 0px;">
+                            <span style="font-size: 13px">Miami, FL 2323</span>
+                                        <span class="glyphicon glyphicon-heart pull-right"
+                                              style="padding-top: 2px;"></span>
+                        </p>
+                    </div>
+
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <!-- DIV DE PUBLICIDAD  -->
+    <div class="container-fluid">
+        <div class="col-md-12 col-xs-12 col-sm-12" style="margin-top: 10px;margin-bottom: 20px">
+            <img src="{{ asset('bundles/common/images/search/ads.jpg') }}" alt=""
+                 style="width: 100%"/>
+        </div>
+    </div>
+    {% if vehicles|length > 6 %}
+        <div class="col-xs-12 no_padding ">
+            <ul class="list-group">
+                {% for vehicle in vehicles|slice( 6, vehicles|length ) %}
+                    {% if(vehicle.profile) %}
+                        {% set pf = vehicle.gallery.profileimages[0] %}
+                        {% set profileimageslength = vehicle.gallery.profileimages|length %}
+                        {% set photoid = vehicle.profile %}
+                        {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                    {% elseif vehicle.user %}
+                        {% set photoid = vehicle.user.id %}
+                        {% if vehicle.gallery is not null and vehicle.gallery.vehicleimages is not null %}
+                            {% set pf = vehicle.gallery.vehicleimages[0] %}
+                            {% set vehicle_image = pf.getwebpaththumbnailVehicle( photoid,vehicle.serie) %}
+                            {% set profileimageslength = vehicle.gallery.vehicleimages|length %}
+                        {% else %}
+                            {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                            {% set profileimageslength = 0 %}
+                        {% endif %}
+                    {% endif %}
+                    <li class="list-group-item">
+                        <div class="row">
+
+                            <a href="{{ path('car_details', {'serie': vehicle.serie}) }}">
+                                <div class="thumbnail">
+                                    {% if vehicle_image %}
+                                        {% set vehicle_image = vehicle_image %}
+                                    {% else %}
+                                        {% set vehicle_image = 'bundles/common/images/image-bg.jpg' %}
+                                        {% set profileimageslength = 0 %}
+                                    {% endif %}
+                                    <img src="{{ asset(vehicle_image) }}"
+                                         alt="" {% if vehicle.gallery is null %} style="width: 100%;height: 279px" {% endif %}/>
+
+                                    <div class="views">
+                                        <span> ${{ vehicle.vehiclesinformation.price }} </span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="caption" style="padding: 3px 9px">
+                                <p class="text-left"
+                                   style="font-weight: bold;font-size: 14px;margin-bottom: 5px">
+                                    {{ vehicle.vehiclesinformation.year.year }}
+                                    {{ vehicle.vehiclesinformation.make.makeDisplay }}
+                                    {{ vehicle.vehiclesinformation.model.modelDisplay }}
+                                </p>
+
+                                <p class="text-left" style="margin-bottom: 0px;font-size: 13px">
+                                    {{ vehicle.vehiclesinformation.condition.name }} |
+                                    {{ vehicle.vehiclesinformation.mileage }} Mi |
+                                    {{ vehicle.vehiclesdetails.exteriorcolor }}
+                                </p>
+
+                                <p class="text-left" style="margin-bottom: 0px;">
+                                    <span style="font-size: 13px">Miami, FL 2323</span>
+                                            <span class="glyphicon glyphicon-heart pull-right"
+                                                  style="padding-top: 2px;"></span>
+                                </p>
+                            </div>
+
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+
+
+
+

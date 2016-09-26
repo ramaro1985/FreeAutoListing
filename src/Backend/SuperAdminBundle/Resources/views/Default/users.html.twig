@@ -1,0 +1,89 @@
+{% extends "SuperAdminBundle:Layout:user-admin.html.twig" %}
+ {% block title %}Users{% endblock %}
+
+{% block stylesheets %} {{ parent() }} {% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+ {{ include('CommonBundle:Default:header-admin.html.twig') }}
+ {% endblock %}
+ {% block menu %}
+ {{ include('SuperAdminBundle:Default:admin-tools.html.twig') }}
+{% endblock %}
+ {% block body %}
+
+<div class="row">
+    <div><h3>View Users</h3></div>
+   {# <table class="table-striped">#}
+    <table class="table">  
+            <th>
+        <p style="color: #0066cc;">Name</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">Last Name</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">User Name</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">Roles</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">ID</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">Phone</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">Phone Code</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">Email</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">Edit</p>    
+        </th>
+        <th>
+        <p style="color: #0066cc;">Del</p>    
+        </th>
+    {% for user in users %}    
+        <tr>  
+    {% if user.getUserName is not empty %}   
+            <th>
+        <p>{{user.getName()}}</p>  
+        </th>
+        <th>
+        <p>{{user.getLastName()}}</p>  
+        </th>
+        <th>
+        <p>{{user.getUserName()}}</p>  
+        </th>
+        <th>
+        <p>{{user.getRolesS()}}</p>  
+        </th>
+        <th>
+        <p>{{user.getId()}}</p>  
+        </th>
+        <th>
+        <p>{{user.getPhone()}}</p>  
+        </th>
+        <th>
+        <p>{{user.getCountryPhoneCode()}}</p>  
+        </th>
+        <th>
+        <p>{{user.getEmail()}}</p>  
+        </th>
+        <th>
+            <a class="" style="cursor: pointer;" target="" style="margin-right:24px;" href="{{  path("admin_edit_user", {'id': user.getId()})  }}">Edit</a>
+        </th>
+        <th>
+            <button class="close" style="color: #cc0000" onclick="return false;">&times;</button>
+        </th>
+    {% endif %} 
+        </tr>
+     {% endfor %}
+    </table>
+    </div>
+ {% endblock %}
+ {% block footer %}
+ {{ include('CommonBundle:Default:footer.html.twig') }}   
+ {% endblock %}

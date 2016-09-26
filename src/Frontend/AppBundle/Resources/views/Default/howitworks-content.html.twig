@@ -1,0 +1,172 @@
+<div class="container-fluid">
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 20px">
+                <h1>How It Works (Owner)</h1>
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <img src="{{ asset('bundles/common/images/createaccount.png') }}" alt="Create a free account HomeEscape"/>   
+                    </div>
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <h2>1. Create a free account</h2>   
+                    </div>
+                </div> 
+
+            </div>
+
+
+            <div class="col-xs-12 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <img src="{{ asset('bundles/common/images/listyourproperty.png') }}" alt="List your property HomeEscape"/>   
+                    </div>
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <h2>2. List your property</h2>   
+                        <p>Tell us all about your home. Don't forget to add some great pictures to create some buzz.</p>
+                    </div>
+                </div> 
+
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <img src="{{ asset('bundles/common/images/tellyourfriends.png') }}" alt="Tell your friends HomeEscape"/>   
+                    </div>
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <h2>3. Tell your friends</h2>   
+                        <p>Home Escape will put your listing in front of thousands 
+                            of travelers, but it's always nice to tell your friend 
+                            they can stay too. Share your listing on social media to get your 
+                            property in front of even more excited travelers.</p>
+                    </div>
+                </div> 
+
+            </div>
+
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-sm-12 text-left" style="padding-bottom: 20px">
+                <h1>How It Works (Traveler)</h1>
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <img src="{{ asset('bundles/common/images/search.png') }}" alt="Search HomeEscape"/>   
+                    </div>
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <h2>1. Search</h2>   
+                        <p>Browse homes in  your preferred destination and find the escape that is perfect for you.</p>
+                    </div>
+                </div> 
+
+            </div>
+
+
+            <div class="col-xs-12 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <img src="{{ asset('bundles/common/images/reserve.png') }}" alt="Reserve your property HomeEscape"/>   
+                    </div>
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <h2>2. Reserve</h2> 
+                        <p>Book your stay directly with the homeowner through our secure interface. </p>
+                    </div>
+                </div> 
+
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <img src="{{ asset('bundles/common/images/escape.png') }}" alt="Escape HomeEscape"/>   
+                    </div>
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <h2>3. Escape!</h2>   
+                        <p>Sit back, relax and enjoy your vacation.</p>
+                    </div>
+                </div> 
+
+            </div>
+
+        </div>
+
+
+                    <hr>
+                    <div class="row" style="margin-bottom: 20px">
+            
+            <div class="col-xs-12 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                        <img src="{{ asset('bundles/common/images/review.png') }}" alt="Search HomeEscape"/>   
+                    </div>
+                    
+                </div> 
+
+            </div>
+
+
+            <div class="col-xs-12 col-md-8 col-sm-8">
+                <div class="row">
+                    
+                    <div class="col-xs-12 col-md-12 col-sm-12 text-left">
+                        <h2 class="hidden-xs" style="margin-top: 105px">Don't Forget to Leave a Review! <br> Share your favorite listing on social media!</h2>
+                        <h2 class="visible-xs">Don't Forget to Leave a Review! <br> Share your favorite listing on social media!</h2>
+                        <img src="{{ asset('bundles/common/images/social-media-icons.png') }}" alt="Social Media HomeEscape"/> 
+                        
+                    </div>
+                    
+                    
+                      
+                </div> 
+
+            </div>
+
+            
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+</div>   
+
+
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        jQuery('#contactfront_userType input').change(function () {
+
+            if (jQuery(this).val() === '0') {
+                jQuery('.side-image img').attr('src', "{{ asset('bundles/common/images/contact-traveler-img.jpg')}}");
+            } else if (jQuery(this).val() === '1') {
+                jQuery('.side-image img').attr('src', "{{ asset('bundles/common/images/contact-owner-img.jpg')}}");
+            }
+
+        });
+
+    });
+
+
+
+
+</script>
+
+

@@ -1,0 +1,450 @@
+<header>
+    <div class="row">                            
+        <div class="col-md-12 col-xs-12">
+            <ul class="breadcrumb breadcrumb-cap">
+                <li class="">
+
+                    <a href="{{ path('admin_user_homepage') }}">Properties</a>
+                    <img src="{{ asset('bundles/common/images/line1.jpg') }}">
+                </li>
+                 {%if property is not null%}
+                <li class="">
+
+                    <a href="{{ path("editPropertyHome", {'id': property.serie }) }}">{{property.description.name}}</a>
+                    <img src="{{ asset('bundles/common/images/line1.jpg') }}">
+                </li>
+                {%endif%}
+                
+                <li class="active">
+                    Calendar
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div  id="tools-container" class="container-fluid"> 
+        <div class="col-md-12 col-xs-12" >
+
+            <div class="toolbar clearfix">    
+
+                <ul class="btn-toolbar">
+
+                    <li class="btn-group pull-right">
+                        {% set id = app.request.attributes.has('id')
+                                                    ? app.request.attributes.get('id')
+                                                    : 0
+                        %}
+                        {{ render(controller('AdminBundle:Default:listProperties',{'id': id, 'path':path, 'root': root})) }}
+
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</header>
+<div id="container" class="container-fluid container-list">
+ {%if property is not null%}
+<div class="row">
+    <div class="col-md-12  text-center">
+        <form id="form-description" action=""  method="POST" class="form-horizontal formulario" style="margin-top: 20px">
+
+
+
+
+            <div class="col-md-12 col-xs-12" style="margin-bottom: 30px">
+                <div class="form-group" >
+                    <div class="col-md-12 col-xs-12 text-left form-title">
+                        Calendar
+                    </div>
+
+                    <div class="col-md-11 col-xs-12 text-left">
+                        <p>Manage your calendar. Here you can set aside dates when your property is not available for rent and manually add reservations. Select any date in the calendar to add a new reservation.</p>
+                    </div>        
+                </div>
+
+            </div>
+            <div  class="row calendar1" style="margin:12px 0px;">
+                <div class="col-md-2 col-xs-12">
+                    <div  class="pull-left text-muted"><div class="color-swatch" style="background-color: #FFFFFF; border: solid 1px #ccc"></div>Available</div>
+                </div>
+                <div class="col-md-2 col-xs-12">
+                    <div class="pull-left text-muted"><div class="color-swatch" style="background-color: #A2A2A2"></div>Reserved</div>
+                </div>
+                <div class="col-md-2 col-xs-12">
+                    <div class="pull-left text-muted"><div class="color-swatch" style="background-color: #F69B46"></div>Pending</div>
+                </div>
+
+
+            </div>
+            <span id="loading-page" style=" left: 421px;position: absolute;top: 152px;z-index: 1000;">
+                <img src="{{ asset('bundles/common/images/loading.gif') }}" />
+            </span>
+            <div class="list-row calendar-year">
+
+
+                <div class="row" style="margin: 5px 0 20px 0 ;  ">
+                    <div class="col-md-12 col-xs-12" style="padding-left: 0">
+                        <div id="datepick-year" style="width: 100%"  class="pull-left"></div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="col-md-10 col-md-offset-2 text-center hide">
+                <div class="form-group" style="margin-bottom: 10px">
+                    <div class="col-sm-12 col-xs-12 text-left">
+                        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+                        <button id="btnsavecontinue" type="submit" class="btn btn-primary" style="margin-left: 10px">Save & Continue</button>
+                    </div>
+                </div>        
+
+            </div>                         
+            <input type="hidden" id="pid" value="{{property.id}}">
+
+        </form>
+    </div>
+
+
+</div>
+
+
+{{ include('AdminBundle:Default:reservationDashboard-form.html.twig') }}
+
+
+ {% else %} 
+
+           
+        <div class="row" style="margin: 20px 10px 0 ">
+                    <div class="col-xs-12 col-md-12">
+                       <div class="alert alert-info">There is no Calendar Available</div>
+                    </div>
+                </div>
+     {%endif%}
+</div>
+
+<script type="text/javascript">
+
+
+    jQuery(document).ready(function() {
+
+
+
+
+    /*function addRow(name, elem){
+     
+     if(jQuery(name).length <= 35 ){
+     jQuery(elem + " .ui-datepicker-calendar")
+     .append('<tr><td class="ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled" style="padding: 2px;"> &nbsp;</td><td class="ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> &nbsp;</td><td class="ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> &nbsp;</td><td class="ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> &nbsp;</td><td class="ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> &nbsp;</td><td class="ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> &nbsp;</td></tr>')
+     }
+     }*/
+    jQuery('.book').click(function (){
+    validateForm();
+    });
+            function showForm(date){
+
+            jQuery('#myModal').modal('show');
+            }
+
+         
+            function createPopover(elem, text){
+            elem.attr('data-toggle', 'popover');
+                    elem.attr('data-placement', 'right');
+                    elem.attr('data-content', text);
+                    elem.attr('data-container', 'body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+            }
+
+    jQuery('.reservation-form').find('input , select').each(function(){
+    jQuery(this).focusout(function(){
+    jQuery(this).popover('destroy');
+    });
+    });
+            function checkLength(o, min, max) {
+            if (o.val().length < min) {
+            createPopover(o, 'Please fill out this field');
+                    return false;
+            } else {
+            return true;
+            }
+            }
+
+
+    function checkRegexp(o, regexp) {
+    if (!(regexp.test(o.val()))) {
+    createPopover(o, 'Invalid field');
+            return false;
+    } else {
+    return true;
+    }
+    }
+
+
+    function checkSelected(o) {
+    if (o.val() == "") {
+    createPopover(o, 'Please fill out this field');
+            return false;
+    } else {
+    return true;
+    }
+    }
+
+    function checkDate(o, u) {
+    if (u.val() <= o.val()) {
+    createPopover(u, 'Invalid Date');
+            return false;
+    } else {
+    return true;
+    }
+    }
+
+    function validateForm(){
+    var bValid = true;
+            bValid = bValid && checkLength(jQuery('#reservation_firstName'), 2, 100);
+            bValid = bValid && checkLength(jQuery('#reservation_lastName'), 2, 100);
+            bValid = bValid && checkLength(jQuery('#reservation_email'), 4, 100);
+            bValid = bValid && checkRegexp(jQuery('#reservation_email'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+            bValid = bValid && checkDate(jQuery('#reservation_checkIn'), jQuery('#reservation_checkOut'));
+            bValid = bValid && checkValidRange(jQuery('#reservation_checkIn'), jQuery('#reservation_checkOut'));
+            bValid = bValid && checkSelected(jQuery('#reservation_checkinhour'));
+            bValid = bValid && checkSelected(jQuery('#reservation_checkouthour'));
+            bValid = bValid && checkSelected(jQuery('#reservation_adults'));
+            bValid = bValid && checkSelected(jQuery('#reservation_children'));
+            if (bValid){
+    disableForm();
+            submitForm();
+    }
+
+    }
+
+    function checkValidRange(checkin, checkout){
+    var inday = new Date(checkin.val()).getDate() + 1;
+            var inmonth = new Date(checkin.val()).getMonth() + 1;
+            var inyear = new Date(checkin.val()).getFullYear();
+            var outday = new Date(checkout.val()).getDate() + 1;
+            var outmonth = new Date(checkout.val()).getMonth() + 1;
+            var outyear = new Date(checkout.val()).getFullYear();
+            //var strtime = date.toLocaleDateString();
+            //alert( bookedDates[0]);
+            for (var i = 0; i < bookedDates.length; i++) {
+    //alert(bookedDates[i]);
+    for (var j = 0; j < bookedDates[i].length; j++) {
+    if (new Date(bookedDates[i][j]) >= new Date(inmonth + '/' + inday + '/' + inyear) && new Date(bookedDates[i][j]) <= new Date(outmonth + '/' + outday + '/' + outyear)) {
+    createPopover(checkin, 'Invalid date');
+            createPopover(checkout, 'Invalid date');
+            return false;
+    }
+    }
+    }
+
+    return true;
+    }
+
+
+    function disableForm(){
+    jQuery('.reservation-form').find('input , select, button').attr('disabled', 'disabled')
+            jQuery("#loading").show();
+            jQuery(".reservation-form").css("opacity", 0.37);
+            jQuery(".reservation-form").find("button").css("opacity", 0.37);
+    }
+
+    function resetForm(){
+    jQuery('.reservation-form').find('input').val('');
+            jQuery('.reservation-form').find('#reservation_adults').val('');
+            jQuery('.reservation-form').find('#reservation_children').val('');
+            jQuery('.reservation-form').find('#reservation_checkinhour').val('');
+            jQuery('.reservation-form').find('#reservation_checkouthour').val('');
+    }
+
+    function enableForm(){
+    jQuery('.reservation-form').find('input , select, button').removeAttr('disabled')
+    }
+
+
+
+    function submitForm(){
+    jQuery.ajax({
+    statusCode: {
+    500: function() {
+    enableForm();
+            jQuery('#error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>The property is reserved on this date range</span>");
+    },
+            401: function() {
+            enableForm();
+                    jQuery('#error').html("<span class='glyphicon glyphicon-warning-sign' style='margin-right:15px;color:#d9534f'></span><span class='text-danger'>There was an error on the form. Try again</span>");
+            }
+    },
+            url: '{{ path('create_reservation_calendar') }}',
+            type: "POST",
+            data: {  id : jQuery('#pid').val() ,
+                    firstName: jQuery('#reservation_firstName').val(),
+                    lastName: jQuery('#reservation_lastName').val(),
+                    checkIn: jQuery('#reservation_checkIn').val(),
+                    checkOut: jQuery('#reservation_checkOut').val(),
+                    checkinhour: jQuery('#reservation_checkinhour').val(),
+                    checkouthour: jQuery('#reservation_checkouthour').val(),
+                    adults: jQuery('#reservation_adults').val(),
+                    children: jQuery('#reservation_children').val(),
+                    email: jQuery('#reservation_email').val(),
+                    phone: jQuery('#reservation_phone').val(),
+                    mobile: jQuery('#reservation_mobile').val()
+            },
+            async: false,
+            success: function(response){
+            jQuery.ajax({
+            url: '{{path('calendar_reservations')}}',
+                    type: "POST",
+                    dataType: 'json',
+                    data: { id : jQuery('#pid').val() },
+                    async: false,
+                    success: function(response){
+
+                    bookedDatesAux = response[0];
+                            inquiriesDatesAux = response[1];
+                            for (var i = 0; i < bookedDatesAux.length; i++){
+                    bookedDates.push(bookedDatesAux[i]);
+                    }
+
+                    for (var i = 0; i < inquiriesDatesAux.length; i++){
+                    inquiriesDates.push(inquiriesDatesAux[i]);
+                    }
+
+                    jQuery("#loading").hide();
+                            jQuery(".reservation-form").css("opacity", 1);
+                            jQuery(".reservation-form").find("button").css("opacity", 1);
+                    }
+            });
+                    jQuery('#datepick-year').datepicker("refresh");
+                    jQuery('#myModal').modal('hide');
+                    resetForm();
+                    enableForm();
+            }
+    });
+            }
+    jQuery('#myModal').on('hide.bs.modal', function (e) {
+    jQuery('.reservation-form').find('input , select, textarea').each(function(){
+
+    jQuery(this).popover('destroy');
+    });
+    });
+            /* for (var i = 0; i < dateArray.length ; i++) {
+             bookedDates.push(new Date(dateArray[i]));
+             
+             }*/
+                    //alert(bookedDates);
+
+
+
+
+
+
+                            //**********************************
+
+// Iteration over the 'booked' dates to find out if the current date,
+// datepicker is about to create, is free or booked
+                                    
+
+
+                            jQuery(function() {
+                            jQuery('#datepick-year').datepicker({numberOfMonths: 12, minDate: new Date(), beforeShowDay: showBooked,
+                                    onSelect: function(dateStr, obj) {
+                                    var date = jQuery(this).datepicker('getDate');
+                                            var settings = showBooked(date);
+                                            if (settings[1] == 'free' || settings[1] == 'tentative') {
+
+                                    jQuery('#reservation_checkIn').val(dateStr);
+                                            jQuery('#reservation_checkOut').val(dateStr);
+                                            jQuery('#reservation_checkIn').attr('disabled', 'disabled');
+                                            showForm(dateStr);
+                                    }
+                                    
+                                    }
+                            });
+                                    });
+                                    jQuery('#reservation_checkIn').click(function(){
+                            jQuery("#ui-datepicker-div").css("z-index", 2000);
+                            });
+                                    jQuery('#reservation_checkOut').click(function(){
+                            jQuery("#ui-datepicker-div").css("z-index", 2000);
+                      });
+                                    jQuery('#login').click(function(e){
+                            e.preventDefault();
+              });
+                                    jQuery("#reservation_checkOut").datepicker({  minDate: new Date(), beforeShowDay: showBooked,
+                                    onSelect: function(dateStr, obj) {
+                                    jQuery("#reservation_checkIn").popover('destroy');
+                                    }
+
+                    });
+                            });
+                            
+                            
+            var bookedDates = [];
+            var inquiriesDates = [];
+            var bookedDatesAux = [];
+            var inquiriesDatesAux = [];
+            //var dateArray = [new Date(2014, 8-1, 25),new Date(2014, 8-1, 26), new Date(2014, 8-1, 27)]; 
+            jQuery(function() {
+            jQuery('#loading-page').show();
+                    jQuery('.calendar').hide();
+                    jQuery.ajax({
+                    url: '{{path('calendar_reservations')}}',
+                            type: "POST",
+                            dataType: 'json',
+                            data: { id : jQuery('#pid').val()  },
+                            async: false,
+                            success: function(response){
+                            bookedDatesAux = response[0];
+                                    inquiriesDatesAux = response[1];
+                                    for (var i = 0; i < bookedDatesAux.length; i++){
+                            bookedDates.push(bookedDatesAux[i]);
+                            }
+
+                            for (var i = 0; i < inquiriesDatesAux.length; i++){
+                            inquiriesDates.push(inquiriesDatesAux[i]);
+                            }
+
+                            jQuery('.calendar').show();
+                                    jQuery('#loading-page').hide()
+                            }
+                    });
+         });
+                            
+                            function showBooked(date) {//new Date(bookedDates[0]*1000).toDateString()
+
+                                    var year = date.getFullYear();
+                                            var month = date.getMonth();
+                                            var day = date.getDate();
+                                            //var strtime = date.toLocaleDateString();
+                                            //alert( bookedDates[0]);
+                                            for (var i = 0; i < bookedDates.length; i++) {
+                                    //alert(bookedDates[i]);
+                                    for (var j = 0; j < bookedDates[i].length; j++) {
+                                    if (month + 1 + '/' + day + '/' + year == bookedDates[i][j]) {
+
+                                    return [false, 'booked'];
+                                    }
+                                    }
+                                    }
+
+                                    for (var i = 0; i < inquiriesDates.length; i++) {
+                                    //alert(bookedDates[i]);
+                                    for (var j = 0; j < inquiriesDates[i].length; j++) {
+                                    if (month + 1 + '/' + day + '/' + year == inquiriesDates[i][j]) {
+
+                                    return [true, 'tentative'];
+                                    }
+                                    }
+                                    }
+
+
+                                    return [true, 'free'];
+                                            }
+
+</script>

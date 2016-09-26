@@ -1,0 +1,15 @@
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Register  {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/fal-style.css') }}" rel="stylesheet" />
+{% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+     {{ include('AdminBundle:LogRegister:register-content.html.twig') }}
+ {% endblock %}

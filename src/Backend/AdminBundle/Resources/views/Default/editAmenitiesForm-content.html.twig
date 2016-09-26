@@ -1,0 +1,751 @@
+
+<div id="container" class="container-fluid properties-container">
+
+        <div class="row" style="margin-left: 5px; margin-top: 30px">
+         <div class="col-md-12">
+<ul class="nav nav-pills nav-profile" style="margin-top: 10px; margin-bottom: 20px">
+                        <div id="photos" class="anchor-profile-photo"></div> 
+                         <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-1" href="#description" class="btn btn-default b2b ">
+                                    Listing Details <span class="glyphicon glyphicon-info-sign glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+
+                                <a id="link-tab-index-2" href="#location" class="btn btn-default" > 
+                                    Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-4" href="#photos" class="btn btn-default b1b">
+                                    Photos  <span class="glyphicon glyphicon-picture glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-6" href="#rates"  class="btn btn-default b6b">
+                                    Rates <span class="glyphicon glyphicon-usd glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-5" href="#booking-calendar"  class="btn btn-default b5b">
+                                    Calendar <span class="glyphicon glyphicon-calendar glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                         
+                        <li class="">
+                            <div  class="btn-group">
+                                <a id="link-tab-index-3" href="#amenities" class="btn btn-primary b3b active">
+                                    Amenities <span class="glyphicon glyphicon-list glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="btn-group">
+                                <a id="link-tab-index-7" href="#payments"  class="btn btn-default b7b" >
+                                    Policies & Payments <span class="glyphicon glyphicon-credit-card glyphicon-align-right" aria-hidden="true" style="margin-left: 10px;"></span>
+                                </a>
+                            </div>
+                        </li>
+                        
+                       
+                        
+                    </ul>
+</div>
+        </div>
+    
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <form id="form-location" action="{{ path('edit_amenities_property', {'id': id ,'type':'amenities'}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal" style="margin-top: 20px">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+   
+    
+    <div class="col-md-12 col-xs-12">
+       <div class="form-group" >
+           <div class="col-md-12 col-xs-12 text-left form-title">
+       Amenities
+        </div>
+               
+      <div class="col-md-11 col-xs-12 text-left">
+          <p>Tell people all about your property. Make sure  to click SAVE when you're done!</p>
+        </div>        
+       </div>
+         
+    </div>
+    
+    
+     <div class="col-md-12 col-xs-12">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Home
+        </div>
+       </div>
+           
+    </div>
+            
+        <div class="col-md-10 col-md-offset-2 text-center">    
+        
+        <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.airConditioned) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.airConditioned) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.balcony) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.balcony) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.ceilingFans) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.ceilingFans) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>
+                <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.petsAllowed) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.petsAllowed) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.communityExerciseRoom) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.communityExerciseRoom) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.fullkitchen) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.fullkitchen) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>
+                <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.garage) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.garage) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.longTermRenters) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.longTermRenters) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.heater) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.heater) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>
+                <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.nonSmokingOnly) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.nonSmokingOnly) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.pool) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.pool) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.childrenWelcome) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.childrenWelcome) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>
+                
+                
+                
+                <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.telephone) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.telephone) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.fireplace) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.fireplace) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.hotTub) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.hotTub) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>
+                
+                <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.washingMachine) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.washingMachine) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.parking) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.parking) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.wheelchairAccessible) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.wheelchairAccessible) }}</div>
+       </div>
+       
+              
+       
+        </div>
+       
+       
+            
+  </div>
+               <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.linens) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.linens) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.towels) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.towels) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.yard) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.yard) }}</div>
+       </div>
+       
+            <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.homeAmenities.deck) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.homeAmenities.deck) }}</div>
+       </div>   
+       
+        </div>
+            
+  </div> 
+             </div>
+            
+            <div class="col-md-12 col-xs-12" style="margin-top: 10px">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Electronics and Entertaiment
+        </div>
+       </div>
+           
+    </div>
+            
+            <div class="col-md-10 col-md-offset-2 text-center">
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.cableTv) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.cableTv) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.dialUpInternetAccess) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.dialUpInternetAccess) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.dvdLibrary) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.dvdLibrary) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>
+            
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.homeStereo) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.homeStereo) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.premiunChannels) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.premiunChannels) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.tv) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.tv) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>
+            
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.tvGames) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.tvGames) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.vcrPlayer) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.vcrPlayer) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.wirelessInternetAccess) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.wirelessInternetAccess) }}</div>
+       </div>
+       
+              
+       
+        </div>
+             </div>
+       
+       <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.boardGames) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.boardGames) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.books) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.books) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.electronicsEntertaimentAmenities.musicLibrary) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.electronicsEntertaimentAmenities.musicLibrary) }}</div>
+       </div>
+       
+              
+       
+        </div>
+             </div>
+  </div>
+                
+            <div class="col-md-12 col-xs-12" style="margin-top: 10px">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Kitchen
+        </div>
+       </div>
+           
+    </div>
+            
+            <div class="col-md-10 col-md-offset-2 text-center">
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.blender) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.blender) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.coffeMaker) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.coffeMaker) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.freezer) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.freezer) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>    
+            
+            
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.garbageDisposal) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.garbageDisposal) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.kitchenUtensils) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.kitchenUtensils) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.potsPans) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.potsPans) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>  
+            
+            
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.toaster) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.toaster) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.oven) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.oven) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.dishwasher) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.dishwasher) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            
+  </div>  
+            
+            
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.stove) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.stove) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.microwave) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.microwave) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.kitchenAmenities.grill) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.kitchenAmenities.grill) }}</div>
+       </div>
+       
+              
+       
+        </div>
+            </div> 
+  </div>  
+            
+            
+            <div class="col-md-12 col-xs-12" style="margin-top: 10px">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Nearby Attractions / Facilities
+        </div>
+       </div>
+           
+    </div>
+            
+            <div class="col-md-10 col-md-offset-2 text-center">   
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.barNightClub) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.barNightClub) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.beach) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.beach) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.casino) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.casino) }}</div>
+       </div>
+         </div>
+        
+        </div>
+                
+            
+             
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.charterBoats) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.charterBoats) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.deepSeaFishing) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.deepSeaFishing) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.airports) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.airports) }}</div>
+       </div>
+         </div>
+        
+        </div>
+            
+            
+            <div class="form-group" style="margin-top: 10px">
+ 
+            <div class="row">
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.horsebackRiding) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.horsebackRiding) }}</div>
+       </div>
+       
+            
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.shopping) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.shopping) }}</div>
+       </div>
+        
+           
+       <div class="col-md-4"> 
+           <div class="pull-left" style="margin-left: 25px;padding: 5px">{{ form_widget(form.attractionsAmenities.snorkeling) }}</div>
+           <div class="pull-left" style="margin: 5px 0 0 0">{{ form_label(form.attractionsAmenities.snorkeling) }}</div>
+       </div>
+         </div>
+          </div>
+        </div>
+            
+            
+      <div class="col-md-12 col-xs-12" style="margin-top: 10px">
+         <hr>
+       <div class="form-group" >
+       <div class="col-md-12 col-xs-12 text-left form-title">
+        Additional Information
+        </div>
+       </div>
+           
+    </div>
+            
+            <div class="col-md-12  text-center">   
+            <div class="form-group" style="margin-bottom: 10px; margin-top: 10px">
+  <div class="col-sm-2 col-xs-12 text-right">
+     {{ form_label(form.additionalInfo) }}
+     
+    </div>
+         <div class="col-sm-5 col-xs-12">
+     {{ form_widget(form.additionalInfo) }}
+     
+    </div>
+  </div> 
+            
+            
+              </div>
+        
+            
+            
+      <div class="col-md-10 col-md-offset-2 text-center">
+   <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-12 col-xs-12 text-left">
+        <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+        <button id="btnsavecontinue" type="submit" class="btn btn-primary" style="margin-left: 10px">Save & Continue</button>
+    </div>
+    </div>        
+    
+  </div>
+    {{ form_rest(form) }}
+</form>
+                </div>
+            </div>
+    
+    </div>
+<script type="text/javascript">
+            
+            function verifyAction(){
+               
+                jQuery('#btnsavecontinue').trigger('click');     
+            }
+    
+    
+            jQuery(document).ready(function() {
+            
+            
+             var tab = 7;    
+                
+            jQuery('#btnsavecontinue').click(function(e){
+             if(tab == 1){
+             if ({{app.session.get('saved')}} == 0)         
+            jQuery('#form-location').attr('action', "{{path('edit_amenities_property', {'type':'description' , 'id':id})}}");
+            else 
+             jQuery('#form-location').attr('action', "{{path('generate_form', {'type':'description' , 'id':id})}}");      
+            }else if(tab == 2){ 
+              if ({{app.session.get('saved')}} == 0)         
+            jQuery('#form-location').attr('action', "{{path('edit_amenities_property', {'type':'location' , 'id':id})}}");
+            else 
+             jQuery('#form-location').attr('action', "{{path('generate_form', {'type':'location' , 'id':id})}}");    
+            }else if(tab == 4){ 
+              if ({{app.session.get('saved')}} == 0)         
+            jQuery('#form-location').attr('action', "{{path('edit_amenities_property', {'type':'gallery' , 'id':id})}}");
+            else 
+             jQuery('#form-location').attr('action', "{{path('generate_form', {'type':'gallery' , 'id':id})}}");    
+            }
+            else if(tab == 5){ 
+              if ({{app.session.get('saved')}} == 0)         
+            jQuery('#form-location').attr('action', "{{path('edit_amenities_property', {'type':'calendar' , 'id':id})}}");
+            else 
+             jQuery('#form-location').attr('action', "{{path('generate_form', {'type':'calendar' , 'id':id})}}");    
+            }else if(tab == 6){ 
+             if ({{app.session.get('saved')}} == 0)         
+            jQuery('#form-location').attr('action', "{{path('edit_amenities_property', {'type':'rates' , 'id':id})}}");
+            else 
+             jQuery('#form-location').attr('action', "{{path('generate_form', {'type':'rates' , 'id':id})}}");  
+            }else if(tab == 7){ 
+             if ({{app.session.get('saved')}} == 0)         
+            jQuery('#form-location').attr('action', "{{path('edit_amenities_property', {'type':'policiesPayments' , 'id':id})}}");
+            else 
+             jQuery('#form-location').attr('action', "{{path('generate_form', {'type':'policiesPayments' , 'id':id})}}");  
+            }
+            }); 
+          
+            jQuery('#link-tab-index-1').click(function(e){
+            tab = 1;
+            verifyAction();
+            e.preventDefault();
+           }); 
+            jQuery('#link-tab-index-2').click(function(e){
+            tab = 2;
+            verifyAction();
+            e.preventDefault();
+           });
+           jQuery('#link-tab-index-5').click(function(e){
+            tab = 5;
+            verifyAction();  
+            e.preventDefault();
+           });
+           
+           jQuery('#link-tab-index-4').click(function(e){
+            tab = 4;
+            verifyAction();
+            e.preventDefault();
+           });
+           jQuery('#link-tab-index-6').click(function(e){
+            tab = 6;
+            verifyAction();
+            e.preventDefault();
+           });
+            jQuery('#link-tab-index-7').click(function(e){
+            tab = 7;
+            verifyAction();
+            e.preventDefault();
+           });
+           
+            
+            jQuery('#btnsave').click(function(e){
+            jQuery('#form-location').attr('action', "{{path('edit_amenities_property', {'type':'amenities' , 'id':id})}}");
+            }); 
+         
+  
+            });
+            
+            
+            </script>

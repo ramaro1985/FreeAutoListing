@@ -1,0 +1,25 @@
+{% block footer %}{{ include('CommonBundle:Default:footer-login.html.twig') }}  {% endblock %}
+
+
+{% extends "CommonBundle:Default:base.html.twig" %}
+  {% block title %} Register  {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/fal-style.css') }}" rel="stylesheet" />
+    <style>
+        #type_container {
+            visibility: hidden;
+            position: absolute;
+        }
+
+    </style>
+{% endblock %}
+ {% block javascripts %} {{ parent() }} {% endblock %}
+ {% block header %}
+     {{ include('CommonBundle:Default:header-cars.html.twig') }}
+ {% endblock %}
+
+ {% block body %}
+     {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+ {% endblock %}

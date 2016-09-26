@@ -1,0 +1,475 @@
+<div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="col-md-12">
+            <ul class="nav nav-pills nav-profile text-center" style="margin-top: 10px; margin-bottom: 20px">
+                <!--div id="photos" class="anchor-profile-photo"></div>-->
+                <li class="">
+                    <div class="btn-group">
+
+                        <a id="link-tab-index-1"
+                           href="{{ path('set_description', {'type':'save' , 'prop_pk':prop_pk}) }}"
+                           class="btn btn-default b2b active">
+                            Dealer Information <span class="glyphicon glyphicon-info-sign glyphicon-align-right"
+                                                     aria-hidden="true" style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+                <!--<li class="">
+                    <div class="btn-group">
+
+                        <a id="link-tab-index-2" href="javascript:VerifyTab(2)" class="btn btn-default">
+                            Location <span class="glyphicon glyphicon-map-marker glyphicon-align-right" aria-hidden="true"
+                                           style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>-->
+
+
+                <li class="">
+                    <div class="btn-group">
+                        <a id="link-tab-index-3" href="javascript:VerifyTab(3)" class="btn btn-default b3b">
+                            Services & Amenities<span class="fal_icon servicetoolsicon"
+                                                      aria-hidden="true" style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="">
+                    <div class="btn-group">
+                        <a id="link-tab-index-3" href="javascript:VerifyTab(4)" class="btn btn-default b3b">
+                            Photos<span class="fal_icon photosicon"
+                                        aria-hidden="true" style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="">
+                    <div class="btn-group">
+                        <a id="link-tab-index-4" href="javascript:VerifyTab(5)" class="btn btn-default b7b">
+                            Social Media & Feed <span class="fal_icon socialfeedicon"
+                                                      aria-hidden="true" style="margin-left: 10px;"></span>
+                        </a>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+<div class="col-md-12  text-center">
+<form id="form-description"
+      action="{{ path('set_description' , {'type': 'save', 'prop_pk' : prop_pk }) }}" {{ form_enctype(form) }}
+      method="POST" class="form-horizontal formulario" style="margin-top: 20px">
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('registration') }}">
+
+
+<div class="col-md-12 col-xs-12">
+    <div class="form-group">
+        <div class="col-md-12 col-xs-12 text-left form-title">
+            Dealership Information
+        </div>
+    </div>
+
+</div>
+<div class="col-md-12 col-xs-12">
+    <div class="form-group">
+
+        <div class="col-md-11 col-xs-12 text-left">
+            <p>Let's get started! Name your property and tells us some of the basics, including size, number
+                of
+                bedrooms, and how you would like to be contacted. You can edit or update page as often as
+                required. Make
+                sure to click "Save" when you're finished!</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12  text-center" style="margin-top: 10px">
+
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            <span style="color: red">*</span>{{ form_label(form.description.name) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.name) }}
+
+        </div>
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.name) }}
+
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            <span style="color: red">*</span>{{ form_label(form.description.phone) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.phone) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.phone) }}
+
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            <span style="color: red">*</span>{{ form_label(form.description.address) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.address) }}
+
+        </div>
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.address) }}
+
+        </div>
+
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            <span style="color: red">*</span>{{ form_label(form.description.email) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.email) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.email) }}
+
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.hoursopen) }}
+        </div>
+        <div class="col-sm-5 col-xs-12 text-right">
+            <div class="col-sm-6 col-xs-12" style="padding-left:0px; padding-right: 5px">
+                {{ form_widget(form.description.hoursopen) }}
+
+            </div>
+            <div class="col-sm-6 col-xs-12" style="padding-right: 0px;padding-left: 5px">
+                {{ form_widget(form.description.hoursclose) }}
+            </div>
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.hoursopen) }}
+            {{ form_errors(form.description.hoursclose) }}
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.description.webPage) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12">
+            {{ form_widget(form.description.webPage) }}
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.description.webPage) }}
+
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-2 col-xs-12 text-right">
+            {{ form_label(form.photo) }}
+
+        </div>
+        <div class="col-sm-5 col-xs-12 hide">
+            {{ form_widget(form.photo) }}
+
+        </div>
+
+        <div class="col-sm-2 col-xs-6" style="padding: 0px 20px;margin-left: -5px">
+            <div id="logobrowse" class="well" style="width: 100%;height: 100px;">
+                {% if logo is not defined or logo == ""%}
+                    <p id="logotext" class="text-uppercase bold_text_white">
+                        Click Here<br>
+                        To Browse<br>
+                        For Logo
+                    </p>
+                {% endif %}
+                    <div id="logoimage" class="col-md-5 logo img-responsive {% if logo is null %} hide {% endif %}" style="width:  100%;
+                    {% if logo is defined %} background-image: url({{ asset(logo) }}) {% endif %}">
+
+                    </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-3 col-xs-12 text-danger">
+            {{ form_errors(form.photo) }}
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="col-md-12 col-xs-12">
+    <hr>
+    <div class="form-group">
+        <div class="col-md-12 col-xs-12 text-left form-title">
+
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12 text-left">
+    <div class="form-group" style="margin-bottom: 10px">
+        <div class="col-sm-12 col-xs-12 text-left">
+            <button id="btnsave" type="submit" class="btn btn-primary">Save</button>
+            <button id="btnsavecontinue" type="submit" class="btn btn-primary" style="margin-left: 10px">
+                Save &
+                Continue
+            </button>
+        </div>
+    </div>
+
+</div>
+{{ form_rest(form) }}
+    <input type="hidden" name="ismobile" value="false"/>
+</form>
+</div>
+</div>
+
+
+</div>
+
+<script>
+    // This example displays an address form, using the autocomplete feature
+    // of the Google Places API to help users fill in the information.
+
+    var placeSearch, autocomplete;
+    var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
+
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+                /** @type {!HTMLInputElement} */(document.getElementById('profile_description_address')),
+                {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    // [START region_fillform]
+    function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
+            }
+        }
+    }
+    // [END region_fillform]
+
+    // [START region_geolocation]
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
+    // [END region_geolocation]
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+        var tab = 2;
+
+
+        function createPopover(elem, text) {
+            elem.attr('data-toggle', 'popover');
+            elem.attr('data-placement', 'right');
+            // elem.attr('data-placement', 'bottom');
+            elem.attr('data-content', text);
+            elem.attr('data-container', 'body');
+            elem.popover();
+            elem.trigger('click');
+            elem.focus();
+        }
+
+      /*  function check(o) {
+           if(o.val()==null){
+               return true;
+           } else if(o.val().length < )
+        }*/
+
+        jQuery("#logobrowse").click(function (e) {
+            jQuery("#profile_photo").trigger("click");
+        });
+
+        $("#profile_photo").change(cargar);
+
+        jQuery('#btnsavecontinue').click(function (e) {
+            if (!tabclick)
+                jQuery('#form-description').attr('action', "{{path('set_description', {'type':'continue' , 'prop_pk':prop_pk})}}");
+
+        });
+
+        /*jQuery('#link-tab-index-2, #link-tab-index-3, #link-tab-index-4, #link-tab-index-5').click(function(){
+         jQuery('#btnsavecontinue').trigger('click');
+         });*/
+
+
+        jQuery('#btnsave').click(function (e) {
+            jQuery('#form-description').attr('action', "{{path('set_description', {'type':'save' , 'prop_pk':prop_pk})}}");
+        });
+
+
+        jQuery('#property_location_country').change(function (e) {
+            jQuery.ajax({
+                url: '{{path('find_regions')}}',
+                type: "POST",
+                data: {country: jQuery(this).val()},
+                async: false,
+                success: function (response) {
+                    jQuery('.state-region').html(response);
+                }
+            });
+            e.preventDefault();
+        });
+
+
+        jQuery(function () {
+            jQuery(".glyphicon-info-sign").tooltip();
+        });
+
+
+        jQuery('.radio').change(function () {
+            if (jQuery(this).val() == '2') {
+
+                if (jQuery(".phone-mandatory").length) {
+                    jQuery('.phone-mandatory').hide();
+                    jQuery('#contact_phoneM').removeAttr('required');
+                }
+                jQuery.ajax({
+                    url: '{{path('contact_form')}}',
+                    type: "POST",
+                    data: {},
+                    async: false,
+                    success: function (response) {
+
+                        jQuery('.contact').html(response);
+                    }
+                });
+                //  jQuery('.contact').load('{{path('contact_form')}}');
+            } else {
+                if (jQuery(".phone-mandatory").length) {
+                    jQuery('.phone-mandatory').show();
+                    jQuery('#contact_phoneM').attr('required', 'required');
+                }
+                jQuery('.contact').html('');
+            }
+        });
+
+
+    });
+
+    var arch = null;
+    function cargar(ev) {
+        arch = new FileReader();
+        arch.addEventListener('load', leer, false);
+        arch.readAsDataURL(ev.target.files[0]);
+    }
+
+    function leer(ev) {
+        try {
+            $("#logoimage").css("background-image", "url("+arch.result+")");
+            $("#logotext").hide();
+            $("#logoimage").removeClass("hide");
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    var tabclick = false;
+    function VerifyTab(tab) {
+        tabclick = true;
+        if (tab == 2) {
+            if ({{app.session.get('saved')}} == 1
+        )
+            jQuery('#form-description').attr('action', "{{path('set_location', {'type':'open' , 'prop_pk':prop_pk})}}");
+        } else if (tab == 3) {
+            if ({{app.session.get('saved')}} == 1
+        )
+            jQuery('#form-description').attr('action', "{{path('set_amenities', {'type':'open' , 'prop_pk':prop_pk})}}");
+        } else if (tab == 4) {
+            if ({{app.session.get('saved')}} == 1
+        )
+            jQuery('#form-description').attr('action', "{{path('set_gallery', {'type':'open' , 'prop_pk':prop_pk})}}");
+        } else if (tab == 5) {
+            if ({{app.session.get('saved')}} == 1
+        )
+            jQuery('#form-description').attr('action', "{{path('set_feeds', {'type':'open' , 'prop_pk':prop_pk})}}");
+        }
+
+        jQuery('#btnsavecontinue').trigger('click');
+
+    }
+
+</script>

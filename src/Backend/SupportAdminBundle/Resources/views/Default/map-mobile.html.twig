@@ -1,0 +1,175 @@
+<div id="map-location" class="anchor-profile"></div>
+
+
+                     <div id="mapa1" class="col-sm-12 col-xs-12 text-left" style="height: 300px">
+                         
+                    </div>
+            <input  id="latitude" class="hide form-control" type="textbox">
+            <input id="longitude" class="hide form-control" type="textbox">
+            <input id="address" type="hidden" value="{{ property.location.address }}">
+                      
+                            
+                           
+                         
+                            
+                            <script>
+                                
+  var geocoder;
+  var map;
+  //var infowindow = new google.maps.InfoWindow();
+  var marker = null;
+  var elevator;
+  
+ 
+
+  function codeAddress1() {
+  
+    
+    geocoder = new google.maps.Geocoder();
+    
+    var address = document.getElementById("address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+        var myOptions = {
+        zoom: 7,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+        }  
+        map = new google.maps.Map(document.getElementById("mapa1"), myOptions);  
+          
+        map.setCenter(results[0].geometry.location);
+	if (marker != null) marker.setMap(null);
+        
+	  if("{{ property.location.public }}"){
+             
+          var marker = new google.maps.Marker({
+          map: map,
+          icon: "{{asset('bundles/common/images/locationIcon.png')}}", 
+          position: results[0].geometry.location
+      });  
+       } else {
+      var populationOptions = {
+      strokeColor: '#579e1a',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#579e1a',
+      fillOpacity: 0.35,
+      map: map,
+      center: results[0].geometry.location,
+      radius: 300
+    };
+    var cityCircle;
+    // Add the circle for this city to the map.
+    cityCircle = new google.maps.Circle(populationOptions);
+    
+       }
+        
+        
+	latres = results[0].geometry.location.lat();
+	lngres = results[0].geometry.location.lng();
+        //infowindow.setContent('<div id="info_window">' + document.getElementById("address").value + '<br/><strong>Latitude :</strong> ' + Math.round(latres*1000000)/1000000 + ' | <strong>Longitude :</strong> ' + Math.round(lngres*1000000)/1000000 + '<br/><br/><span id="altitude"><button type="button" class="btn btn-primary" onclick="getElevation()">Get Altitude</button></span>' + bookmark() + '</div>'  );
+        //infowindow.open(map, marker);
+	document.getElementById("latitude").value=latres;
+	document.getElementById("longitude").value=lngres;
+        bookUp(document.getElementById("address").value, latres, lngres);
+        ddversdms();
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+  
+  
+  
+
+
+function getElevation() {
+
+  var locations = [];
+
+  // Retrieve the clicked location and push it on the array
+  var clickedLocation = new google.maps.LatLng(marker.position.lat(),marker.position.lng());
+  locations.push(clickedLocation);
+
+  // Create a LocationElevationRequest object using the array's one value
+  var positionalRequest = {
+    'locations': locations
+  }
+
+  // Initiate the location request
+  elevator.getElevationForLocations(positionalRequest, function(results, status) {
+    if (status == google.maps.ElevationStatus.OK) {
+
+      // Retrieve the first result
+      if (results[0]) {
+
+        // Open an info window indicating the elevation at the clicked position
+        document.getElementById("altitude").innerHTML = "<strong>Altitude :</strong> " + Math.floor(results[0].elevation) + " meters";
+      } else {
+        document.getElementById("altitude").innerHTML = "No results found";
+      }
+    } else {
+      document.getElementById("altitude").innerHTML = "Elevation service failed due to: " + status;
+    }
+  });
+}  
+  function ddversdms() {
+    var lat, lng, latdeg, latmin, latsec, lngdeg, lngmin, lngsec;
+    lat=parseFloat(document.getElementById("latitude").value) || 0;	
+    lng=parseFloat(document.getElementById("longitude").value) || 0;
+    lat=Math.abs(lat);	
+    lng=Math.abs(lng);
+    latdeg=Math.floor(lat);
+    latmin=Math.floor((lat-latdeg)*60);
+    latsec=Math.round((lat-latdeg-latmin/60)*1000*3600)/1000;
+    lngdeg=Math.floor(lng);
+    lngmin=Math.floor((lng-lngdeg)*60);
+    lngsec=Math.floor((lng-lngdeg-lngmin/60)*1000*3600)/1000;
+    
+  }
+  
+  function dmsversdd() {
+    var lat, lng, nordsud, estouest, latitude_degres, latitude_minutes, latitude_secondes, longitude_degres, longitude_minutes, longitude_secondes;
+    if (document.getElementById("sud").checked) nordsud=-1;
+    else nordsud=1;
+    if (document.getElementById("ouest").checked) estouest=-1;
+    else estouest=1;
+    latitude_degres=parseFloat(document.getElementById("latitude_degres").value) || 0;
+    latitude_minutes=parseFloat(document.getElementById("latitude_minutes").value) || 0;
+    latitude_secondes=parseFloat(document.getElementById("latitude_secondes").value) || 0;
+    longitude_degres=parseFloat(document.getElementById("longitude_degres").value) || 0;
+    longitude_minutes=parseFloat(document.getElementById("longitude_minutes").value) || 0;
+    longitude_secondes=parseFloat(document.getElementById("longitude_secondes").value) || 0;
+    lat=nordsud * (latitude_degres + latitude_minutes/60 + latitude_secondes/3600);
+    lng=estouest * (longitude_degres + longitude_minutes/60 + longitude_secondes/3600);
+    document.getElementById("latitude").value=Math.round(lat*10000000)/10000000;
+    document.getElementById("longitude").value=lng;
+    setTimeout(codeLatLng(2),1000);
+  }
+  
+    
+  function bookmark() {
+            return "";
+      }
+  
+  function bookUp(address, latitude, longitude) {
+        return false;
+  }
+  
+  function simulateClick(latitude, longitude) {
+    var mev = {
+        stop: null,
+        latLng: new google.maps.LatLng(latitude, longitude)
+    }
+    google.maps.event.trigger(map, 'click', mev);
+  }
+     
+                       
+                       
+             jQuery(document).ready(function() {
+            codeAddress1();
+              }); 
+                                
+                             </script>   
+                                

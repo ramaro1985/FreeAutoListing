@@ -1,0 +1,91 @@
+{% extends "PrivateSellerBundle:Layout:user-admin.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/common/css/dealer-info-style.css') }}" rel="stylesheet"/>
+    {#<link href="{{ asset('bundles/common/css/preview.css') }}" rel="stylesheet"/>#}
+    <link href="{{ asset('bundles/common/css/dashboard_style.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/common/css/search-result-style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/common/css/jquery.webui-popover.css') }}" rel="stylesheet" />
+    <style>
+        .tabbable nav{
+            background-color: #ffffff;
+        }
+
+        p.nomarginbottom{
+            margin-bottom: 0px;
+        }
+        .delete_button {
+            background-color: #a8adb0;
+            border-color: #969b9e;
+            box-shadow: none;
+            padding: 5px 24px;
+            color: #ffffff;
+        }
+
+        hr{
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .car_info {
+            font-size: 13px;
+            margin-bottom: 0px;
+            margin-top: 10px;
+            line-height: 1.3;
+        }
+
+        .car_div {
+            -o-box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+            -ms-box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+            -moz-box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+            -webkit-box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+            box-shadow: inset 0 -8px 7px -9px rgba(0, 0, 0, .4), -2px -2px 5px -2px rgba(0, 0, 0, .4);
+        }
+
+        .car_info a {
+            color: #337ab7;
+        }
+
+        .tabbable.custom-tabs.shadow > .tab-content {
+            -o-box-shadow: 0 0 1px rgba(0, 0, 0, .4);
+            -ms-box-shadow: 0 0 1px rgba(0, 0, 0, .4);
+            -moz-box-shadow: 0 0 1px rgba(0, 0, 0, .4);
+            -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .4);
+            box-shadow: 0 0 1px rgba(0, 0, 0, .4);
+        }
+
+        .tabbable.custom-tabs.flat > .tab-content {
+            border-radius: 0;
+        }
+
+        .tabbable.custom-tabs > .tab-content {
+            background-color: #ffffff;
+        }
+
+        body .tabbable {
+            color: #454545;
+        }
+
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-forms.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/carousel.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&language=en"></script>
+    <script src="{{ asset('bundles/common/js/jquery.webui-popover.min.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/functions_frontend_utils.js') }}"></script>
+    <script src="{{ asset('bundles/common/js/bootstrap-confirmation.min.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+     {{ include('PrivateSellerBundle:Default:content-header.html.twig') }}
+     {{ include('PrivateSellerBundle:Default:saved-cars-content.html.twig') }}
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 

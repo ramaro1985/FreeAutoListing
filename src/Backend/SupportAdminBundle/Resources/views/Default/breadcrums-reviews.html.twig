@@ -1,0 +1,135 @@
+<div class="row"> 
+    <form id="admin-form" action="{{ path('support_admin_search_reviews') }}"  method="POST" >
+        <div class="col-md-7 col-sm-7 col-xs-12 text-left" style="padding: 0">
+            <ul class="breadcrumb" style="margin: 0; padding-bottom: 0; background-color: #FFFFFF">
+                {% for breadcrumb in breadcrumbs %}
+
+                    <li class="{{ breadcrumb['class']}}">
+                        {% if( breadcrumb['path'] != '') %}
+                            <a style="font-size: 14px" href="{{ path(breadcrumb['path']) }}"><b>{{ breadcrumb['name']}}</b></a>
+                                {% else  %}  
+                                    {{ breadcrumb['name']}}
+                                {% endif %} 
+                                {% if( breadcrumb['class'] == '') %} 
+                            <span class="glyphicon glyphicon-chevron-right" style="margin-left: 5px; top: 1px" aria-hidden="true"></span>
+                        {% endif %} 
+
+
+                    </li>
+
+
+
+                {% endfor %}
+
+
+
+
+            </ul>
+
+        </div>
+    
+
+            <div class="col-md-1 col-sm-1 col-xs-12 text-left">
+                <div class="btn-group btn-block">
+                    <a type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false" >
+                        <span id="filter-text">
+                               {% if app.session.get('sastatusreviews') == '' or app.session.get('sastatusreviews') == null%}
+                                Filter
+                            {% elseif app.session.get('sastatusreviews') == '6'%}
+                                Active
+                            {% elseif app.session.get('sastatusreviews') == '5'%}
+                                Inactive
+                            {% endif%}
+                        </span>  <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu text-left" role="menu">
+                        <li><a href="#" class="filter-enabled">Active</a></li>
+                         <li><a href="#" class="filter-disabled">Inactive</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" class="filter-clear">Clear</a></li>
+                    </ul>
+                </div>
+            </div>
+     
+        
+     
+
+            <div class="col-md-2 col-sm-2 col-xs-12 text-left">
+                <div class="form-group">
+
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="sasearchtextreviews" name="sasearchtextreviews" value="{{app.session.get('sasearchtextreviews')}}"  placeholder="Find by email, name or Property ID">
+
+                    </div>
+                </div> 
+            </div>
+   
+      
+        <div class="col-md-2 col-sm-2 col-xs-12 text-left">
+            <div class="form-group">
+
+                <div class="col-sm-6 col-md-6 col-xs-6">
+                    <button id="btnsave" type="submit" class="btn btn-primary btn-block">Search</button>
+
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-xs-6">
+                    <a id="btnclear" type="button" class="btn btn-default btn-block">Clear Filters</a>
+
+                </div>
+            </div> 
+        </div>
+     
+        <input type="hidden" value="{{app.session.get('sastatusreviews')}}" id="sastatusreviews" name="sastatusreviews">
+    
+    </form>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('a.return-search').click(function () {
+            parent.history.back();
+            return false;
+        });
+
+        jQuery('.filter-disabled').click(function (e) {
+            jQuery('#sastatusreviews').val('5');
+            jQuery('#filter-text').text(jQuery(this).text());
+            e.preventDefault();
+        });
+
+        jQuery('.filter-enabled').click(function (e) {
+            jQuery('#sastatusreviews').val('6');
+            jQuery('#filter-text').text(jQuery(this).text());
+            e.preventDefault();
+        });
+
+        jQuery('.filter-clear').click(function (e) {
+            jQuery('#sastatusreviews').val('');
+            jQuery('#filter-text').text('Filter');
+            e.preventDefault();
+        });
+        
+        
+        jQuery('#btnsave').click(function(){
+         jQuery('#admin-form').attr('action', "{{path('support_admin_search_reviews')}}");   
+        });
+        
+        jQuery('#btnclear').click(function(){
+         jQuery('#admin-form').attr('action', "{{path('support_clear_all_filters_reviews')}}");   
+          jQuery('#admin-form').submit();
+        });
+        
+      
+            jQuery('.filter-clear').click(function(e){
+         jQuery('#admin-form').attr('action', "{{path('support_clear_filter_reviews')}}");  
+          e.preventDefault();
+          jQuery('#admin-form').submit();
+         
+        });
+     
+          
+
+    });
+
+</script>

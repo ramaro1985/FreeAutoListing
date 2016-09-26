@@ -1,0 +1,87 @@
+<div class="row">
+    <div id="container" class="">
+
+        {% for profile in profiles %}
+
+            <div class="col-md-6 dealer_box" {% if loop.index > 2 %} style="margin-top:10px" {% endif %}>
+                <div class="container-fluid borderBoxShadows"
+                     style="background-color: white;padding-bottom: 0px;padding-top: 10px;padding-right: 0px">
+                    <div class="thumbnail">
+                        <div class="col-md-5 logo img-responsive"
+                             style="background-image:url('{{ asset( profile.logo) }}');">
+
+                        </div>
+                        <div class="col-md-7 caption" style="padding-top: 0px">
+                            <h4 style="  margin-bottom: 1px;">{{ profile.name }}</h4>
+                            <span style="font-size: 12;color: #808080">Inventory <span
+                                        id="inventory">{{ profile.inventory }}</span> cars</span>
+
+                            <div class="col-md-12 no_padding" style="margin-top: 10px;">
+                                <span class="rating"
+                                      style="color: #ff571d;font-size: 15px;font-weight: 400"> 4.6 </span>
+                            </div>
+
+                            <div class="col-md-12 no_padding" style="padding-top: 22px">
+                                {% if profile.status == "active" %}
+                                    {% set statuscolor = "#15790f" %}
+                                {% elseif profile.status == "inactive" %}
+                                    {% set statuscolor = "#791212" %}
+                                {% endif %}
+                                <span id="status_{{ profile.prop_pk }}"
+                                      style="padding-right:5px;color: {{ statuscolor }}">{{ profile.status }}</span>
+                                <img id="status_loading_{{ profile.prop_pk }}" class="hide"
+                                     src="{{ asset('bundles/common/images/loading.gif') }}" alt=""/>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12 text-right" style="bottom: 11px;">
+                            <li class="dropdown list-unstyled" data-toggle="tooltip" title=""
+                                data-original-title="Options">
+                                <a href="javascript:void(0)" data-target="#" class="dropdown-toggle" data-toggle="dropdown"
+                                   style="text-decoration: no-underline;color: #3763ff">Options
+                                    <b class="caret"></b></a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="{{ path('profile_view', {'prop_pk': profile.prop_pk}) }}">View</a></li>
+                                    <li>
+                                        <a href="{{ path('set_description', {'type':'open' , 'prop_pk': profile.prop_pk}) }}">Edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:SendStatusRequest('{{ profile.prop_pk }}');">Deactivate</a>
+                                    </li>
+                                </ul>
+                                </ul>
+                            </li>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+
+    });
+
+    function SendStatusRequest(prop_pk) {
+        /*jQuery("#status_loading_" + prop_pk).removeClass("hide");
+        jQuery.ajax({
+            url: "{#}{path('create_user_request')}#}",
+            type: "POST",
+            data: {id: prop_pk, text: jQuery('#status_' + prop_pk).text()},
+            async: true,
+            success: function (response) {
+                jQuery('#status_' + prop_pk).text(response.status);
+                jQuery("#status_loading_" + prop_pk).addClass("hide");
+            },
+            fail: function(response){
+                alert(response.error);
+            }
+        });*/
+    }
+
+</script>

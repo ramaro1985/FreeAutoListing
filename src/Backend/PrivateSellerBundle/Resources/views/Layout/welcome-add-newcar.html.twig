@@ -1,0 +1,32 @@
+{% extends "PrivateSellerBundle:Layout:new-car-layout.html.twig" %}
+
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-forms.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+
+ {% block body %}
+     <div id="container" class="container-fluid properties-container" style="background-color: #ffffff">
+
+         <div class="row">
+             <div class="col-md-12">
+                 <img class="img-responsive" src="{{ asset('bundles/common/images/start-image-private.jpg') }}"
+                      alt="" style="width: 100%"/>
+             </div>
+             <div class="col-md-12 text-center" style="margin-top: 15px">
+                 <a href="{{ path('private_create_vehicle_basic_info', {'type':'open' , 'vehicle_id':'new'}) }}"
+                    class="btn btn-primary text-uppercase">Add a Car</a>
+             </div>
+             <div class="col-md-12 text-center" style="margin-top: 15px;margin-bottom: 20px">
+                 <span>Not familiar with the process? visit the <a href="#" style="text-decoration: none">Help
+                         center</a></span>
+             </div>
+         </div>
+     </div>
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}

@@ -1,0 +1,64 @@
+<div class="row"> 
+    <div class="col-md-9 col-xs-12 breadcrumb-col">
+    <ul class="breadcrumb breadcrumb-capg">
+                                        {% for breadcrumb in breadcrumbs %}
+
+        
+                {% if( breadcrumb['title'] == 'Country') and breadcrumb['name']!='' %}
+                    <li class="{{ breadcrumb['class']}}">
+            <a href=" {{ path("search_by_nation_name",{'country': breadcrumb['country_slug']}  )}} ">{{breadcrumb['name']}}</a>
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    </li>
+                     {% endif %}
+                     {% if( breadcrumb['title'] == 'State')  and breadcrumb['name']!=''%}
+                          <li class="{{ breadcrumb['class']}}">
+            <a href=" {{ path("search_by_state_name", {'country': breadcrumb['country_slug'],'state': breadcrumb['region_slug']}   )}} ">{{breadcrumb['name']}}</a>                    
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>  
+             </li>
+             {% endif %}   
+                     {% if( breadcrumb['title'] == 'City')  and breadcrumb['name']!=''%}
+                         <li class="{{ breadcrumb['class']}}">
+            <a href=" {{ path("search_by_city_name", {'country': breadcrumb['country_slug'],'state': breadcrumb['region_slug'],'city': breadcrumb['city_slug']}   )}} ">{{breadcrumb['name']}}</a>                    
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </li>
+                    {% endif %}  
+                 {% if( breadcrumb['name'] == 'World'  and breadcrumb['name']!='') %}
+                     <li class="{{ breadcrumb['class']}}">
+                <a href="{{path("search_world")}}" style="cursor: pointer;">{{breadcrumb['name']}}</a>         
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>    
+                </li>
+            {% endif %} 
+                
+          {% if( breadcrumb['name'] == 'Search')%}
+              <li class="{{ breadcrumb['class']}}">
+                    <a class="btn btn-default hidden-xs" href="{{path("app_homepage")}}" style="cursor: pointer;">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true" style="margin-right: 10px;"></span>{{breadcrumb['home']}}</a> 
+                    <a class="btn btn-default visible-xs" href="{{path("app_homepage")}}" style="cursor: pointer;">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a> 
+                        </li>
+          {% endif %}   
+                    {% if( breadcrumb['title'] == 'Name') %}
+                        <li class="{{ breadcrumb['class']}}">
+                        <span class="hidden-xs">{{breadcrumb['name']}}</span>
+                          </li>
+          {% endif %} 
+      
+       {% endfor %}
+    </ul>    
+    
+    </div>
+    
+    
+    
+</div>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+    jQuery('a.return-search').click(function(){
+        parent.history.back();
+        return false;
+    });
+});
+        
+    </script>
+    

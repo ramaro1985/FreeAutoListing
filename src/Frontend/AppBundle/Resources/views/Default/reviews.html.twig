@@ -1,0 +1,393 @@
+    <div class="row" style="border-bottom: solid 1px #9E9E9E; margin: 0">
+    <div class="col-md-12 col-xs-12 text-left text-success" style="padding:0px 0px 5px 0px; font-size: 18px">Write your review here</div>
+    </div>
+
+<div class="row" style=" border-bottom: solid 2px #CFE1EF;margin: 0">
+        <div class="col-md-12 col-xs-12 text-left">
+            <form  action="" method="POST" class="form-horizontal review-form">
+    <input type="hidden" name="_csrf_token"   value="{{ csrf_token('registration') }}">
+   
+            
+    <div class="col-md-7 text-left">   
+          
+        
+        <div class="form-group" style="margin-bottom: 10px">
+ 
+         <div class="col-sm-12 col-xs-12 text-danger">
+       {% for flashMessage in app.session.flashbag.get('notice') %}
+           
+           {{ flashMessage }}
+        
+           {% endfor %}
+    </div>
+     
+  </div>
+
+          
+        
+       <div class="form-group" style="margin-bottom: 0px">
+        <div class="col-sm-3 col-xs-12">
+            <label>Rate</label>
+    </div>
+    <div class="col-sm-9 col-xs-12 " style="padding: 3px 15px">
+    <div class="basic1" data-average="12" data-id="1"></div>
+    <div class="basictemp1"></div>
+    </div>
+               
+            
+         </div>
+                    
+        <div class="form-group" style="margin-bottom: 10px">
+         <div class="col-sm-12 col-xs-12">
+    {{ form_widget(form.valoration) }}
+    </div>
+         </div>
+            
+        
+        <div class="form-group" style="margin-bottom: 10px">
+            <div class="col-sm-3 col-xs-12">
+     {{ form_label(form.title) }}
+    </div>
+         <div class="col-sm-9 col-xs-12">
+     {{ form_widget(form.title) }}
+    </div>
+     
+  </div>
+        
+         <div class="form-group" style="margin-bottom: 10px">
+         <div class="col-sm-3 col-xs-12">
+     {{ form_label(form.description) }}
+    </div>
+             <div class="col-sm-9 col-xs-12">
+     {{ form_widget(form.description) }}
+    </div>
+         </div>
+            
+        <div class="pcalendar form-group" style="margin-bottom: 10px">
+           <div class="col-sm-3 col-xs-12">
+     {{ form_label(form.stayDate) }}
+    </div>
+            <div class="input-group col-sm-9 col-xs-12 pull-left">
+        {{ form_widget(form.stayDate, { 'attr': {'readonly': 'true'} }) }}
+           <span class="input-group-addon"><img id="start-date" src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+           </div>
+                 
+           </div>
+        
+        
+        <div class="form-group" style="margin-bottom: 10px">
+    <div class="col-sm-3 col-xs-12">
+     {{ form_label(form.guest) }}
+    </div>
+         <div class="col-sm-9 col-xs-12">
+     {{ form_widget(form.guest) }}
+    </div>
+     
+  </div>
+        
+        <div class="form-group" style="margin-bottom: 10px">
+         <div class="col-sm-3 col-xs-12">
+     {{ form_label(form.email) }}
+    </div>
+             <div class="col-sm-9 col-xs-12">
+     {{ form_widget(form.email) }}
+    </div>
+         </div>
+        
+         <div class="form-group" style="margin-bottom: 20px">
+    <div class="col-sm-9 col-xs-12 col-sm-offset-3 text-left">
+        <button id="btnsavereview" type="button" class="btn btn-primary">Submit</button>
+        
+    </div>
+           
+    </div>    
+       
+          </div>   
+         
+    <div class="col-md-4 text-left mensaje hide">
+        <span class="label label-success" style="left: 90px;position: absolute;top: 152px;font-size: 20px">Review Submited</span>  
+    </div>   
+    
+       
+    
+  
+    <div style="display: none">{{ form_rest(form) }}</div>
+</form>
+                </div>
+            </div>
+
+    {% if reviews |length > 0 %}
+   {% for review in reviews %}
+    
+<div class="list-row" >
+        <div  class="row" style="padding-bottom: 10px; padding-top: 15px; border-bottom: solid 2px #CFE1EF;">
+            
+            
+        <div class="col-md-2 col-xs-12">
+                <div  class="row" >
+                <div class="col-md-12 col-xs-12">
+                <img src="{{ asset('bundles/common/images/Reviews icon.png') }}"  style="padding-bottom: 5px" class="" data-src="{{ asset('bundles/common/images/Property1.jpg') }}">
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <a href="#">{{review.guest}}</a>
+                    
+                </div>        
+                </div>
+            </div>
+        <div class="col-md-10 col-xs-12">
+            <div class="row">
+                <div class="col-md-12 col-xs-12"><span class="property-title">{{review.title}}</span></div>
+            </div>
+                <div class="row" style="margin-bottom: 15px; margin-top: 15px">
+                <div class="col-md-6 col-xs-12 text-muted">Review Submitted: {{review.dateCreated| date("F jS \\,\\ Y")}}</div>
+                <div class="col-md-6 col-xs-12 text-muted">Date of Stay: {{review.stayDate| date("F jS \\,\\ Y")}}</div>
+            </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12"><p>{{review.description}}</p></div>
+            </div>
+                
+                {% if review.replys | length > 0 %}
+                <div class="row">
+                     {% for reply in  review.replys  %}
+                    <div class="col-md-12 col-xs-12">
+                        <p><span style="color: #1F1F1F">Owner's Response:</span> {{reply.text}}</p>
+                    </div>
+                     {% endfor  %}
+            </div>
+                  {% endif  %}
+                
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">Rating</div>
+                        </div>
+                         <div class="row">
+                <div class="col-md-12 col-xs-12">
+               <div class="basic" data-average="12" data-id="1"></div>
+                    <div class="basictemp"></div>
+                  
+                    <input class="valoration" type="hidden" value="{{review.valoration | default(0)}}" >
+                   </div>
+            </div>
+                    </div>
+                
+                        
+                </div>
+                
+        </div>
+            
+            
+         </div>
+    </div>
+    
+    {% endfor %}
+    
+         
+       </div>
+
+
+ {% else %} 
+
+           
+        <div class="row" style="margin: 20px 10px 0 ">
+                    <div class="col-xs-12 col-md-12">
+                       <span style="color: #428BCA;font-family: Calibri;font-size: 18px;font-weight: lighter;">
+                              There are no Reviews
+                          </span>
+                    </div>
+                </div>
+       
+       
+        
+ {% endif %}
+        
+       
+       
+       <script type="text/javascript">
+              jQuery(document).ready(function() {
+                  
+             jQuery('.basic').jRating({
+                                isDisabled:true,
+                                nbRates : 0,
+                                sendRequest: false,
+                                rateMax : 5,
+                                
+                            });
+                        
+                jQuery('.basictemp').each(function(){
+                    jQuery(this).attr("data-average",jQuery(this).parent().find('.valoration').val()).attr("data-id",1);
+           
+             });
+            //jQuery('.basictemp').attr("data-average",1).attr("data-id",1);
+            
+            jQuery('.basic').remove();
+            jQuery('.basictemp').jRating({
+                                isDisabled:true,
+                                nbRates : 0,
+                                sendRequest: false,
+                                rateMax : 5,
+                                showRateInfo: true
+                                
+                            });
+                            
+                            
+                            jQuery('.basic1').jRating({
+                                canRateAgain : true,
+                                nbRates : 2,
+                                sendRequest: false,
+                                rateMax : 5,
+                                decimalLength : 1,
+                                showRateInfo: false
+                            });
+                            
+                            
+                            jQuery('.basic1').remove();
+                            jQuery('.basictemp1').jRating({
+                                isDisabled:false,
+                                canRateAgain : true,
+                                nbRates : 2,
+                                sendRequest: false,
+                                rateMax : 5,
+                                showRateInfo: false,
+                                onClick: function(element,rate) {
+                                jQuery('#review_valoration').val(rate);
+                                },
+                                decimalLength : 1
+                            });
+                            
+  
+        
+              jQuery("#review_stayDate").datepicker({ dateFormat: 'yy-mm-dd'
+           
+      });
+      
+      
+       jQuery('#btnsavereview').click(function(e){
+            validateForm();
+            }); 
+                            
+               
+ function checkLength( o, min, max ) {
+			if ( o.val().length < min ) {
+                            createPopover(o, 'Please fill out this field');
+                            
+                            return false;
+			} else {
+				return true;
+			}
+		}
+         
+         
+         function checkRegexp( o, regexp) {
+			if ( !( regexp.test( o.val() ) ) ) {
+				createPopover(o, 'Invalid field');
+				return false;
+			} else {
+				return true;
+			}
+		}
+         
+         
+         function checkSelected( o ) {
+			if ( o.val() == 0 ) {
+				createPopover(o, 'Please fill out this field');
+				return false;
+			} else {
+				return true;
+			}
+		}
+                
+           function checkDate( o, u ) {
+			if ( u.val() < o.val() ) {
+				createPopover(u, 'Invalid Date');
+				return false;
+                         
+			} else {
+				return true;
+			}
+		}
+         
+         function validateForm(){
+                    var bValid = true;
+                    bValid = bValid && checkLength(jQuery('#review_title'), 2, 100 );
+                    bValid = bValid && checkLength(jQuery('#review_description'), 2, 250 );
+                    bValid = bValid && checkLength(jQuery('#review_stayDate'), 1, 10 );
+                    bValid = bValid && checkLength(jQuery('#review_guest'), 2, 100 );
+                    bValid = bValid && checkLength(jQuery('#review_email'), 4, 100 );
+                    bValid = bValid && checkRegexp(jQuery('#review_email'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+                   
+                    if (bValid){
+                    disableForm();    
+                    submitForm();
+        }
+         
+        }
+        
+        
+        
+        
+    
+        
+        function disableForm(){
+        jQuery('.review-form').find('input , select, button, textarea').attr('disabled','disabled')        
+            jQuery(".review-form").css("opacity",0.37);
+            
+        }
+        
+         function resetForm(){
+        jQuery('.review-form').find('input, textarea').val('');
+        jQuery('.basictemp1 .jRatingAverage').css('width','0');
+        }
+        
+         function enableForm(){
+        jQuery('.review-form').find('input , select, button, textarea').removeAttr('disabled')
+         jQuery(".review-form").css("opacity",1);
+        }
+          
+                
+      function submitForm(){
+            jQuery.ajax({ 
+       url: '{{ path('create_review') }}',
+       type: "POST",
+       data: {  id : {{property.id}} ,
+                firstName: jQuery('#review_guest').val(), 
+                title: jQuery('#review_title').val(), 
+                text: jQuery('#review_description').val(),
+                date: jQuery('#review_stayDate').val(),
+                email: jQuery('#review_email').val(),
+                valoration: jQuery('#review_valoration').val(),
+              
+               
+        }, 
+       async: false, 
+       success: function(response){ 
+    jQuery('.mensaje').removeClass('hide');       
+    jQuery('.mensaje').fadeIn();
+    resetForm();
+    enableForm(); 
+       } 
+   });  
+
+}
+
+      function createPopover(elem , text){
+                    elem.attr('data-toggle','popover');
+                    elem.attr('data-placement','right');
+                    elem.attr('data-content',text);
+                    elem.attr('data-container','body');
+                    elem.popover();
+                    elem.trigger('click');
+                    elem.focus();
+        }
+        
+        jQuery('.review-form').find('input , select, textarea').each(function(){
+        jQuery(this).focusout(function(){
+        jQuery(this).popover('destroy');
+        });
+        });
+             
+                            
+
+             });
+            
+            </script>

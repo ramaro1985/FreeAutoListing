@@ -1,0 +1,298 @@
+
+{% extends "CommonBundle:Layout:base.html.twig" %}
+{% block title %} Page not Found | {{ parent() }} {% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+{% block header %}
+    <div id="header" class="container-fluid" style="position: relative">
+        <div class="container">
+            <div class="row hidden-xs">
+                <div id="logo" class="col-xs-12 col-md-6 col-sm-4 hidden-xs">
+                    <a href="{{ path('app_homepage') }}">
+                        <img src="{{ asset('bundles/common/images/logo.png') }}" alt="Home"/></a>
+                </div>
+
+                <div id="logo1" class="col-xs-12 col-md-6 col-sm-6 visible-xs">
+                    <a href="{{ path('app_homepage') }}">
+                        <img src="{{ asset('bundles/common/images/logo.png') }}" alt="Home"/></a>
+                </div>
+
+
+                <div id="chat" class="col-xs-12 col-md-6  col-sm-8">
+
+                    <div class="pull-right">
+                        <nav>
+
+
+                            <ul id="mainMenu" class="nav nav-pills nav-main">
+                                
+                                <li>
+                                    <a href="{{ path('contact_us') }}">Support</a>
+                                </li>
+                               
+                            </ul>                       
+                        </nav></div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="row visible-xs">
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <nav class="navbar" role="navigation" >
+                        <div class="container-fluid">
+                            <div class="navbar-header" style="margin-right: -33px">
+                                <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-9" data-toggle="collapse" type="button">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>  
+
+                            </div>
+                            <div id="bs-example-navbar-collapse-9" class="navbar-collapse collapse" style="width: 200px;padding-left: 0;margin-left: -25px;">
+                                <ul id="mainMenu" class="nav navbar-nav">
+                                    <li><a href="{{ path('app_homepage') }}">Support</a></li>
+                                 
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div id="logo" class="col-xs-9 col-md-6" style="padding-left: 10px">
+                    <a href="{{ path('app_homepage') }}"><img src="{{ asset('bundles/common/images/logo.png') }}" alt="Home"/></a>
+                </div>
+            </div>
+        </div>
+        <div id="raya" style="height:3px; background:#ffffff">  </div>
+        <div id="raya" style="height:5px; background:#2c9ec8">  </div>
+        <div id="form" class="container-fluid">
+            <div class="container text-center">
+                <form class="" role="form" style="padding: 11px 0" action="{{ path('properties') }}">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-4">
+                            <input name="searchtext" id="searchtext" type="text" value="" class="form-control" placeholder="Enter destination or property ID">
+                        </div>
+
+                        <div class="calendar input-group col-xs-6 col-sm-3 col-md-2 pull-left calendario">
+                            <input id="datepicker1" name="checkin" type="text" class="form-control" placeholder="Check-in" value="">
+                            <span class="input-group-addon"><img src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+                        </div>   
+
+                        <div  class="calendar input-group col-xs-6 col-sm-3 col-md-2 pull-left calendario">
+                            <input id="datepicker2" name="checkout" type="text" class="form-control" placeholder="Check-out" value="">
+                            <span class="input-group-addon"><img src="{{ asset('bundles/common/images/icon Calendar.png') }}" /></span>
+                        </div>  
+
+                        <div  class="sleeps input-group hidden-xs col-md-1 col-sm-3 pull-left">
+
+                            <select name="sleeps" class="form-control" >
+                                <option disabled="disabled" selected="selected" value=""> Sleeps</option>
+                                <option value="1">1+</option>
+                                <option value="2" >2+</option>
+                                <option value="3" >3+</option>
+                                <option value="4">4+</option>
+                                <option value="5" >5+</option>
+                                <option value="6">6+</option>
+                                <option value="7">7+</option>
+                                <option value="8">8+</option>
+                                <option value="9">9+</option>
+                                <option value="10">10+</option>
+                                <option value="11">11+</option>
+                                <option value="12">12+</option>
+                                <option value="13">13 or more</option>
+
+                            </select>
+                            <span class="input-group-addon"><i class="fa fa-users" style="color: #B5B5B5;padding-top: 3px; font-size: 16px;"></i></span>
+
+
+                        </div>
+                        <div class="col-xs-12 col-md-2 col-sm-3 text-left" >
+                            <button id="btnsave" type="submit" class="hide">Save</button>
+                            <a id="btnsearch" href="#" class="btn  btn-block btn-gradient-search">Search<span class="glyphicon glyphicon-search" style="padding-left: 10px"></span></a>
+
+                        </div>
+                    </div>
+                    <input type="hidden" id="location_locality" class="add" name="location_locality">
+                    <input type="hidden" id="location_postal_town" class="add" name="location_postal_town">
+                    <input type="hidden" id="location_administrative_area_level_2" class="add" name="location_administrative_area_level_2">
+                    <input type="hidden" id="location_administrative_area_level_1" class="add" name="location_administrative_area_level_1">
+                    <input type="hidden" id="location_neighborhood" class="add" name="location_neighborhood">
+                    <input type="hidden" id="location_postal_code" class="add" name="location_postal_code">
+                    <input type="hidden" id="location_country" class="add" name="location_country">
+
+
+                </form>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid fluid-404">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-xs-12">
+
+
+
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4  col-md-offset-4 col-sm-offset-4 col-xs-12 box-404">
+                            <h1>404</h1>
+                            <h2>Sorry,<br> We couldn't find that page!</h2>
+                            
+                            <h3>The web guy will check it out when he comes back from the beach.</h3>
+                            <a href="{{ path('app_homepage') }}">Take me Home</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+{% block footer %}
+    {{ include('CommonBundle:Default:footer.html.twig') }}   
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            //------------------------------------------------------------------------------
+         
+
+        
+        jQuery('#searchtext').keydown(function(event){
+             if(event.keyCode !== 13 && event.keyCode !== 9 && event.keyCode !== 16 && event.keyCode !== 17 && event.keyCode !== 18 && event.keyCode !== 27 && event.keyCode !== 35 && event.keyCode !== 36 && event.keyCode !== 37 && event.keyCode !== 38 && event.keyCode !== 39 && event.keyCode !== 40) {
+                jQuery('#search').find('.add').each(function () {
+                jQuery(this).val('');
+            });
+            }
+            
+            
+              if (event.which == 13 && jQuery('.pac-container:visible').length) return false;
+        
+        });
+        
+
+            //------------------------------------------------------------------------------
+            jQuery('#btnsearch').click(function (e) {
+
+                if (checkDate(jQuery('#datepicker1'), jQuery('#datepicker2'))) {
+                    jQuery('#btnsave').trigger('click');
+                }
+                e.preventDefault();
+            });
+
+            var placeSearch, autocomplete;
+            var componentForm = {
+                locality: 'long_name',
+                postal_town: 'long_name',
+                administrative_area_level_2: 'short_name',
+                administrative_area_level_1: 'long_name',
+                country: 'long_name',
+                neighborhood: 'long_name',
+                postal_code: 'short_name'
+
+
+            };
+
+            function initialize() {
+                // Create the autocomplete object, restricting the search
+                // to geographical location types.
+                autocomplete = new google.maps.places.Autocomplete(
+                        /** @type {HTMLInputElement} */(document.getElementById('searchtext')),
+                        {types: ['(regions)']});
+                // When the user selects an address from the dropdown,
+                // populate the address fields in the form.
+                google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                    fillInAddress(autocomplete);
+                });
+            }
+
+            function fillInAddress(autocomplete) {
+                // Get the place details from the autocomplete object.
+                var place = autocomplete.getPlace();
+                //jQuery('#response').html(place.address_components);
+                // Get each component of the address from the place details
+                // and fill the corresponding field on the form.
+
+                jQuery('#search').find('.add').each(function () {
+                    jQuery(this).val('');
+                });
+
+
+
+                // Get each component of the address from the place details
+                // and fill the corresponding field on the form.
+                for (var i = 0; i < place.address_components.length; i++) {
+                    var addressType = place.address_components[i].types[0];
+
+
+
+                    //if(place.address_components[i].types[0] === 'postal_town'){
+                    //var addressType1 = place.address_components[i].types[0];  
+                    //var town = place.address_components[i]['long_name'];   
+                    //document.getElementById('stateName').value = town;
+                    //}   
+
+                    if (componentForm[addressType]) {
+
+                        var val = place.address_components[i][componentForm[addressType]];
+                        var addressType1 = "location_" + addressType;
+                        document.getElementById(addressType1).value = val;
+
+                    }
+
+                }
+
+
+
+            }
+
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+            function createPopover(elem, text) {
+                elem.attr('data-toggle', 'popover');
+                elem.attr('data-placement', 'top');
+                elem.attr('data-content', text);
+                elem.attr('data-container', 'body');
+                elem.popover();
+                elem.trigger('click');
+                elem.focus();
+            }
+
+            function checkDate(o, u) {
+                if (u.val() < o.val()) {
+                    createPopover(u, 'Invalid Date');
+                    return false;
+
+                } else {
+                    return true;
+                }
+            }
+
+        });
+
+
+
+
+    </script>
+{% endblock %}
+
+
+

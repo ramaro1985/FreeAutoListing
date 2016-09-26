@@ -1,0 +1,191 @@
+{% extends "SuperAdminBundle:Layout:user-admin.html.twig" %}
+{% block title %}Administration{% endblock %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+{% block header %}
+    {{ include('CommonBundle:Default:header-admin.html.twig') }}
+
+{% endblock %}
+{% block menu %} {{ parent() }} {% endblock %}
+{% block filters %} {{ include('SuperAdminBundle:Default:breadcrums-contacts-owner.html.twig') }}{% endblock %}
+{% block body %}
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row" style="border-bottom: solid 1px #ccc">
+                    <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600 ">
+                       Case #
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600 ">
+                       Date Created
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="padding:0; font-weight: 600 ">
+                       Name
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="padding:0; font-weight: 600 ">
+                        Owner
+                    </div>
+                   
+                    
+                    <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600;  ">
+                      Replied
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-12 " style="padding:0; font-weight: 600;  ">
+                      Status
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 " style="padding:0; font-weight: 600;  ">
+               
+                    </div>
+                </div>
+                   {% for property in contacts %}
+                       <div class="row" style="padding: 5px 0px; border-bottom: solid 1px #ccc">
+                      <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       {{ property.serie}}  
+                    </div>
+                           <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       {{ property.dateCreated | date("m/d/Y")}}  
+                    </div>
+                  
+                           <div class="col-md-2 col-sm-2 col-xs-12" style="padding:0 ">
+                        {{ property.user.name }}
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2 col-xs-12" style="padding:0 ">
+                        <a href="#" data-toggle="modal" data-target="#myModalOwnerDetails{{ property.id}}">{{ property.user.email }}</a>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                        {% if property.replied %} <span class="glyphicon glyphicon-ok status-active " aria-hidden="true"></span> {% else %} <span class="glyphicon glyphicon-remove status-inactive replied{{property.id}}" aria-hidden="true"></span> {%endif %}
+                        </div>
+                     <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                            {%if property.status == "pending"%} 
+                                <span class="status{{property.id}} text-inactive">New</span> 
+                            {%elseif property.status == "active"%} 
+                                <span class="status{{property.id}} text-pending">In Progress</span> 
+                            {%elseif property.status == "inactive"%} 
+                              <span class="status{{property.id}} text-active">Closed</span> 
+                            {%endif%}
+                        </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12" style="padding:0 ">
+                        <a class="view-link" href="#">View Details</a>
+                        <a class="hide-link hide" href="#">Hide Details</a>
+                    </div>
+                    
+                    
+                     
+                        
+                        
+                 
+                    
+                    
+                     <div class="col-md-1 col-sm-1 col-xs-12" style="padding:0 ">
+                       <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span style="margin-right: 10px">Actions </span><span class="path glyphicon glyphicon-chevron-down"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a class="reply-contact" href="#" data-toggle="modal" data-target="#myModalSupport{{property.id}}">Reply</a></li>
+                {%if property.status == "pending"%} 
+               <li><a   href="{{ path("admin_open_contactowner_ticket", {'id': property.id, 'page': page  }) }}">Open Ticket</a></li>
+               <li><a   href="{{ path("admin_close_contactowner_ticket", {'id': property.id, 'page': page  }) }}">Close Ticket</a></li>
+                {%elseif property.status == "active"%} 
+               <li><a  href="{{ path("admin_close_contactowner_ticket", {'id': property.id, 'page': page  }) }}">Close Ticket</a></li>
+                {%endif%}
+        <li><a id="delete-news" class="delete-news" href="{{ path("admin_delete_contacts_owner", {'id': property.id, 'page': page  }) }}">Delete</a></li>
+        </ul>
+        </div> 
+                    </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-view hide" style="padding:0 ">
+                            {{ property.text}}
+                    </div>
+                </div>
+        
+          {{ include('SuperAdminBundle:Default:ownerDetails-form.html.twig',{ 'id':  property.id , 'user':  property.user, 'contact':  property.user }) }}
+           {{ include('SuperAdminBundle:Default:support-owner-form.html.twig', { 'serie': property.serie ,'id': property.id , 'page': page, 'status': property.status}) }}
+                 {% endfor %}
+            </div>
+        </div>   
+    </div>    
+
+
+
+
+    
+{% if contacts is not empty %}
+    <div class="row" style="margin-bottom: 10px; margin-top: 5px">
+        <div class="col-md-12 col-xs-12" style="padding:0 ">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="pull-right">
+                        {% set count =  contacts.getTotalItemCount %}
+                        <div class="text-right pull-right" style="margin: 8px 15px 0px 0px"><span style="padding: 7px;font-size: 14px;" class="label label-primary">{{ count }} 
+                                {% transchoice  count %}
+                                {0} There are no Contacts|{1} Contact Found|]1,Inf] Contacts Found
+                                {% endtranschoice %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="pagination pull-right">
+                        {{ knp_pagination_render(contacts) }}
+                       
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% else %}
+    <div class="row" style="margin: 20px 10px 0 ">
+        <div class="col-xs-12 col-md-12">
+            <div class="alert alert-info">No Contacts Found</div>
+        </div>
+    </div>
+
+{% endif %}
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+
+
+        
+        jQuery('.view-link').click(function (e) {
+            jQuery(this).addClass('hide');
+            jQuery(this).parent().parent().find('.text-view').removeClass('hide');
+            jQuery(this).parent().find('.hide-link').removeClass('hide');
+            
+            e.preventDefault();
+        });
+        
+         jQuery('.hide-link').click(function (e) {
+            jQuery(this).addClass('hide');
+            jQuery(this).parent().parent().find('.text-view').addClass('hide');
+            jQuery(this).parent().find('.view-link').removeClass('hide');
+            e.preventDefault();
+        });
+
+
+           jQuery('.delete-news').click(function (e) {
+          
+          if(!confirm('You are about to delete this. Are you sure?')){
+           e.preventDefault();
+          }
+          
+        });
+
+    });
+
+
+</script>
+
+{% endblock %}
+{% block footer %}
+    {{ include('CommonBundle:Default:footer.html.twig') }}   
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "AdminBundle:Layout:user-admin.html.twig" %}
+ 
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/common/js/functions-backend.js') }}"></script>
+{% endblock %}
+ {% block header %}{{ parent() }}  {% endblock %}
+
+ {% block menu %}{{ parent() }}  {% endblock %}
+    
+ {% block body %}
+
+     {% if ismobile %}
+         {{ include('AdminBundle:Default:user-menu-movil.html.twig') }}
+     {% endif %}
+
+     {{ include('AdminBundle:Default:content-header.html.twig') }}
+     <div class="row" style="  margin-top: 12px;">
+         <div class="navbar"
+              style="border-radius: 0px;margin-bottom: 10px; min-height: 35px; margin-top: 0px;margin-bottom: 0px">
+             <div class="col-xs-12 col-sm-12 col-md-12 {% if ismobile %} no_padding {% endif %}" style="font-size: 12px">
+
+                 {#<div class="pull-left" style="padding-top: 6px;padding-bottom: 6px">#}
+                 <ul class="nav navbar-nav" id="input_search" style="margin: 1px;">
+                     <label class="navbar-text text-uppercase bold_text no_padding pull-left" for="price_list"
+                            style="color: #000000;margin-left: 0px;margin-right: 10px">Sort
+                         by</label>
+                     <li class="dropdown no_padding col-xs-4" id="price_list"
+                         style="min-width: 120px;border: 1px solid black;">
+                         <a href="#" class="dropdown-toggle text-uppercase text-right"
+                            data-toggle="dropdown"><span class="pull-left">newest</span>
+                             <b class="caret" style="color: #000000"></b>
+                         </a>
+                         <ul class="dropdown-menu">
+                             ...
+                         </ul>
+                     </li>
+                 </ul>
+                 {#</div>#}
+             </div>
+         </div>
+     </div>
+
+     {{ include('AdminBundle:Default:user-dashboard-content.html.twig') }}
+
+ {% endblock %}
+
+ {% block footer %}{{ parent() }}  {% endblock %}
+ 
